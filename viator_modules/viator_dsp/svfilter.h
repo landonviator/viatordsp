@@ -8,14 +8,24 @@
   ==============================================================================
 */
 
-#ifndef LV_SVFilter_h
-#define LV_SVFilter_h
+#ifndef svfilter_h
+#define svfilter_h
 
 #include <JuceHeader.h>
 
-class LV_SVFilter
+namespace viatordsp
+{
+class svfilter
 {
 public:
+    
+    svfilter()
+    : mCurrentSampleRate (44100.0f), mQ (0.1f), mCutoff (1000.0f), mRawGain (0.0f), mGlobalBypass (false), mClipOutput (false)
+    , mType (FilterType::kLowPass), mQType (QType::kParametric), mGCoeff (0.0), mRCoeff (0.0), mRCoeff2 (0.0), mK (1.0), mInversion (0.0)
+    , twoPi (juce::MathConstants<float>::twoPi)
+    {
+        
+    }
     
     void prepare(juce::dsp::ProcessSpec& spec)
     {
@@ -152,9 +162,8 @@ public:
     
     void setGain(float value)
     {
-            constexpr double inversion = 1.0 / 20.0;
-            mGain = pow(10, value * inversion) - 1.f;
-            mRawGain = value;
+        mGain = pow(10, value * 0.05) - 1.f;
+        mRawGain = value;
     }
     
     float getShelfQ(float value) const
@@ -170,30 +179,20 @@ public:
 private:
     
     // Member variables
-    float mCurrentSampleRate {44100.0f};
-    float mQ {0.1f};
-    float mCutoff {1000.0f};
-    float mGain {1.0f};
-    float mRawGain {0.0f};
-    bool mGlobalBypass {false};
-    bool mClipOutput {false};
-    
-    // Filter type switch
-    FilterType mType {FilterType::kLowPass};
-    
-    // Q mode switch
-    QType mQType {QType::kParametric};
+    float mCurrentSampleRate, mQ, mCutoff, mGain, mRawGain, twoPi;
+    bool mGlobalBypass, mClipOutput;
     
     // Variables for the Z filter equations
-    double mGCoeff {0.0}; // gain element
-    double mRCoeff {0.0}; // feedback damping element
-    double mRCoeff2 {0.0};
-    double mK {1.0};
-    double mInversion {0.0};
+    double mGCoeff, mRCoeff, mRCoeff2, mK, mInversion;
     
-    float twoPi = juce::MathConstants<float>::twoPi;
-        
+    // Filter type switch
+    FilterType mType;
+    
+    // Q mode switch
+    QType mQType;
+    
     std::vector<double> mZ1, mZ2; // state variables (z^-1)
 };
+}
 
-#endif /* LV_SVFilter_h */
+#endif /* svfilter_h */
