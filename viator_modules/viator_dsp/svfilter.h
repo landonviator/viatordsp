@@ -192,7 +192,8 @@ private:
     // Q mode switch
     QType mQType;
     
-    std::vector<double> mZ1, mZ2; // state variables (z^-1)
+    // state variables (z^-1)
+    std::vector<double> mZ1, mZ2;
 };
 }
 
