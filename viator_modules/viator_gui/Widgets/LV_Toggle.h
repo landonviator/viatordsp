@@ -33,29 +33,28 @@ namespace juce
             setLookAndFeel(nullptr);
         }
         
-//        enum class ToggleStyle
-//        {
-//            kPower,
-//            kPhase
-//        };
+        enum class ToggleStyle
+        {
+            kPower,
+            kPhase
+        };
         
-//        void setToggleStyle(ToggleStyle newToggleStyle)
-//        {
-//            switch (newToggleStyle) {
-//                case ToggleStyle::kPower:
-//                {
-//                    setLookAndFeel(&powerToggle);
-//                    break;
-//                }
-//
-//                case ToggleStyle::kPhase:
-//                {
-//                    setLookAndFeel(&phaseToggle);
-//                    break;
-//                }
-//            }
-//        }
-        
+        void setToggleStyle(ToggleStyle newToggleStyle)
+        {
+            switch (newToggleStyle) {
+                case ToggleStyle::kPower:
+                {
+                    setLookAndFeel(&powerToggle);
+                    break;
+                }
+
+                case ToggleStyle::kPhase:
+                {
+                    setLookAndFeel(&phaseToggle);
+                    break;
+                }
+            }
+        }
         
         void mouseEnter (const MouseEvent& event) override
         {
@@ -73,6 +72,6 @@ namespace juce
         private:
         
         LV_PowerToggleLAF powerToggle;
-        //LV_PhaseToggleLAF phaseToggle;
+        LV_PhaseToggleLAF phaseToggle;
     };
 }
