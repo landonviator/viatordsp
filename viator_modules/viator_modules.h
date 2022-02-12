@@ -17,3 +17,7 @@
 */
 
 #endif /* viator_modules_h */
+
+#include "viator_dsp/viator_dsp.h"
+#include "viator_gui/viator_gui.h"
+#include "viator_utils/viator_utils.h"

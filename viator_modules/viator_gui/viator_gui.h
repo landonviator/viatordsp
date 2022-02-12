@@ -17,3 +17,5 @@
 */
 
 #endif /* viator_gui_h */
+
+#include "Widgets/WidgetIncludes.h"
