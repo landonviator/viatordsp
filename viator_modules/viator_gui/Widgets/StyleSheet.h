@@ -24,12 +24,12 @@ namespace juce
             setDialIsStereoDial(isStereoDial);
         }
         
-        void drawRotarySlider (Graphics &,
+        void drawRotarySlider (Graphics &g,
                                int x, int y,
-                               int width, int height,
+                               int width, int height, float sliderPos,
                                float sliderPosProportional,
                                float rotaryStartAngle,
-                               float rotaryEndAngle, Slider &)
+                               float rotaryEndAngle, Slider &slider)
         {
             auto outline = slider.findColour (Slider::rotarySliderOutlineColourId);
             auto bounds = Rectangle<int> (x, y, width, height).toFloat().reduced (10);
@@ -109,7 +109,7 @@ namespace juce
                               float sliderPos,
                               float rotaryStartAngle,
                               float rotaryEndAngle,
-                              Slider &slider)
+                              Slider &slider) override
         {
             float diameter = fmin(width, height) * .7;
             float radius = diameter * 0.5;
@@ -131,14 +131,14 @@ namespace juce
             g.fillPath(dialTick, AffineTransform::rotation(angle).translated(centerX, centerY));
         }
         
-        void drawLabel (Graphics& g, Label& label)
+        void drawLabel (Graphics& g, Label& label) override
         {
             g.fillAll (label.findColour (Label::backgroundColourId));
 
             if (! label.isBeingEdited())
             {
                 auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-                const Font font (juce::Font ("Helvetica", 12.0f, juce::Font::FontStyleFlags::plain));
+                const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::plain));
 
                 g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
                 g.setFont (font);
@@ -175,7 +175,7 @@ namespace juce
                               float sliderPos,
                               float rotaryStartAngle,
                               float rotaryEndAngle,
-                              Slider &slider)
+                              Slider &slider) override
         {
             float diameter = fmin(width, height) * .9;
             float radius = diameter * 0.5;
@@ -197,14 +197,14 @@ namespace juce
             g.fillPath(dialTick, juce::AffineTransform::rotation(angle).translated(centerX, centerY));
         }
 
-        void drawLabel (Graphics& g, Label& label)
-        {
+        void drawLabel (Graphics& g, Label& label) override
+        {
             g.fillAll (label.findColour (Label::backgroundColourId));
 
             if (! label.isBeingEdited())
             {
                 auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-                const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
+                const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::plain));
 
                 g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
                 g.setFont (font);
@@ -237,7 +237,7 @@ namespace juce
                                                float sliderPos,
                                                float minSliderPos,
                                                float maxSliderPos,
-                               const Slider::SliderStyle style, Slider& slider)
+                               const Slider::SliderStyle style, Slider& slider) override
         {
             if (slider.isBar())
             {
@@ -247,7 +247,7 @@ namespace juce
             }
         }
 
-        void drawLabel (Graphics& g, Label& label)
+        void drawLabel (Graphics& g, Label& label) override
         {
             g.fillAll (label.findColour (Label::backgroundColourId));
 
@@ -274,6 +274,7 @@ namespace juce
         }
 
         g.drawRect (label.getLocalBounds());
+            
         }
     };
 
@@ -284,7 +285,7 @@ namespace juce
     public:
         
         void drawButtonText (Graphics& g, TextButton& button,
-                             bool /*shouldDrawButtonAsHighlighted*/, bool /*shouldDrawButtonAsDown*/)
+                             bool /*shouldDrawButtonAsHighlighted*/, bool /*shouldDrawButtonAsDown*/) override
         {
             Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
             g.setFont (font);
@@ -321,7 +322,7 @@ namespace juce
                                float minSliderPos,
                                float maxSliderPos,
                                const Slider::SliderStyle style,
-                               Slider& slider)
+                               Slider& slider) override
         {
             if (slider.isBar())
             {
@@ -417,14 +418,14 @@ namespace juce
             }
         }
         
-        void drawLabel(Graphics &g, Label &label)
+        void drawLabel(Graphics &g, Label &label) override
         {
             g.fillAll (label.findColour (Label::backgroundColourId));
 
             if (! label.isBeingEdited())
             {
                 auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-                const Font font (juce::Font (sliderFont, 12.0f, juce::Font::FontStyleFlags::bold));
+                const Font font (juce::Font (sliderFont, 16.0f, juce::Font::FontStyleFlags::bold));
 
                 g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
                 g.setFont (font);
@@ -462,7 +463,7 @@ namespace juce
         void drawToggleButton(juce::Graphics &g,
                               juce::ToggleButton &toggleButton,
                               bool shouldDrawButtonAsHighlighted,
-                              bool shouldDrawButtonAsDown)
+                              bool shouldDrawButtonAsDown) override
         {
             Path button;
                     
@@ -496,7 +497,7 @@ namespace juce
         void drawToggleButton(juce::Graphics &g,
                               juce::ToggleButton &toggleButton,
                               bool shouldDrawButtonAsHighlighted,
-                              bool shouldDrawButtonAsDown)
+                              bool shouldDrawButtonAsDown) override
         {
             Path button;
                     
@@ -539,7 +540,7 @@ namespace juce
         
         void drawGroupComponentOutline (Graphics& g, int width, int height,
                                                    const String& text, const Justification& position,
-                                                   GroupComponent& group)
+                                                   GroupComponent& group) override
         {
             const float textH = 24.0f;
             const float indent = 3.0f;
@@ -603,7 +604,7 @@ namespace juce
     /** Menu Style*/
     class LV_Custom_Menu : public LookAndFeel_V4
     {
-        void positionComboBoxText (ComboBox& box, Label& label)
+        void positionComboBoxText (ComboBox& box, Label& label) override
         {
             label.setBounds (1, 1,
                              box.getWidth() - 30,

@@ -17,3 +17,7 @@
 */
 
 #endif /* viator_dsp_h */
+
+#include <JuceHeader.h>
+#include "LV_SVFilter.h"
+#include "LV_SVFilter.cpp"
