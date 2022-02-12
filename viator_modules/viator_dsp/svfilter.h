@@ -13,16 +13,17 @@
 
 #include <JuceHeader.h>
 
-namespace viatordsp
+namespace viator_dsp
 {
-class svfilter
+class SVFilter
 {
 public:
     
-    svfilter()
-    : mCurrentSampleRate (44100.0f), mQ (0.1f), mCutoff (1000.0f), mRawGain (0.0f), mGlobalBypass (false), mClipOutput (false)
-    , mType (FilterType::kLowPass), mQType (QType::kParametric), mGCoeff (0.0), mRCoeff (0.0), mRCoeff2 (0.0), mK (1.0), mInversion (0.0)
-    , twoPi (juce::MathConstants<float>::twoPi)
+    SVFilter()
+    : mCurrentSampleRate (44100.0f), mQ (0.1f), mCutoff (1000.0f), mRawGain (0.0f), twoPi (juce::MathConstants<float>::twoPi)
+    , mGlobalBypass (false), mClipOutput (false)
+    , mGCoeff (0.0), mRCoeff (0.0), mRCoeff2 (0.0), mK (1.0), mInversion (0.0)
+    , mType (FilterType::kLowPass), mQType (QType::kParametric)
     {
         
     }
