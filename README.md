@@ -26,3 +26,6 @@ To use viatordsp, there are three namespace:
 
 <br><br> Or a gui component inside of viator_gui/Widgets, like a dial, with:
 - viator_gui::LV_Dial dial; // In the PluginEditor.h
+
+## License
+viatordsp is licensed under the GNU General Public License (GPLv3) agreement.
