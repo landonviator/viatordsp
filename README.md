@@ -7,11 +7,12 @@ The viatordsp framework is made up of dsp and gui classes that help make creatin
 This contains dsp classes such as clippers, filters, compressors, and much more to come.
 The gui contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
 
-<br><br>Here is a plugin using those stylized components.
+<br><br>Here is a plugin using those stylized components.<br><br>
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
 
 ## Installation
-Clone the repo viatordsp or download it as a zip. Cloning it would be better, since when there is an update, you simply pull the changes without needing to doanload another version of the zip file.  Just include the viator_modules folder in the Projucer's module window like the inamge below and you're all set! 
+Clone the repo viatordsp or download it as a zip. Cloning it would be better, since when there is an update, you simply pull the changes without needing to doanload another version of the zip file.  
+<br><br>Just include the viator_modules folder in the Projucer's module window like the inamge below and you're all set! <br><br>
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/projucer.png)
 
 ## Use
