@@ -7,7 +7,7 @@ The viatordsp framework is made up of [dsp](https://github.com/landonviator/viat
 This contains dsp classes such as clippers, filters, compressors, and much more to come.
 The gui contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
 
-<br><br>Here is a plugin using those stylized components.<br><br>
+<br>Here is a plugin using those stylized components.<br><br>
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
 
 ## Installation
