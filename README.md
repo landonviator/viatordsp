@@ -3,7 +3,7 @@
 [![Downloads](https://img.shields.io/github/downloads/landonviator/viatordsp/total)](https://somsubhra.github.io/github-release-stats/?username=landonviator&repository=viatordsp&page=1&per_page=30)
 
 ## Description
-The viatordsp framework is made up of dsp and gui classes that help make creating plugins faster, easier, and more fun!
+The viatordsp framework is made up of [dsp](https://github.com/landonviator/viatordsp/tree/main/viator_modules/viator_dsp) and [gui](https://github.com/landonviator/viatordsp/tree/main/viator_modules/viator_gui) classes that help make creating plugins faster, easier, and more fun!
 This contains dsp classes such as clippers, filters, compressors, and much more to come.
 The gui contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
 
@@ -11,7 +11,7 @@ The gui contains stylized versions of JUCE's built-in widgets (like sliders and 
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
 
 ## Installation
-Clone the repo viatordsp or download it as a zip. Cloning it would be better, since when there is an update, you simply pull the changes without needing to doanload another version of the zip file.  
+Clone the [repo](https://github.com/landonviator/viatordsp) viatordsp or download it as a zip. Cloning it would be better, since when there is an update, you simply pull the changes without needing to download another version of the zip file.  
 <br><br>Just include the viator_modules folder in the Projucer's module window like the inamge below and you're all set! <br><br>
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/projucer.png)
 
