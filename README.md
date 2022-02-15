@@ -22,10 +22,10 @@ To use viatordsp, there are three namespace:
 - viator_utils
 
 You can create an instance of a class in the folder viator_dsp, like the HardClipper, with:
-- viator_dsp::HardClipper hardClipper; // In the PluginProcessor.h
+- viator_dsp::HardClipper hardClipper; (In the PluginProcessor.h)
 
 Or a gui component inside of viator_gui/Widgets, like a dial, with:
-- viator_gui::LV_Dial dial; // In the PluginEditor.h
+- viator_gui::LV_Dial dial; (In the PluginEditor.h)
 
 ## Contributing
 Contributions are most welcome! I will be setting up an issues page if you would like to contribute to any part of the library.
