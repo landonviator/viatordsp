@@ -19,4 +19,7 @@
 #endif /* viator_dsp_h */
 
 #include <JuceHeader.h>
+#include "../viator_utils/utils.h"
 #include "svfilter.h"
+#include "HardClipper.h"
+

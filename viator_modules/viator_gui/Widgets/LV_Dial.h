@@ -14,7 +14,8 @@
 
 namespace juce
 {
-
+namespace viator_gui
+{
 class LV_Dial  : public Slider
 {
 public:
@@ -124,4 +125,5 @@ private:
     juce::DropShadowEffect dialShadow;
     
 };
+}
 }

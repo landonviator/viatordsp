@@ -18,4 +18,6 @@
 
 #endif /* viator_gui_h */
 
+#include <JuceHeader.h>
 #include "Widgets/WidgetIncludes.h"
+
