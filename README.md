@@ -6,8 +6,21 @@
 The viatordsp framework is made up of dsp and gui classes that help make creating plugins faster, easier, and more fun!
 This contains dsp classes such as clippers, filters, compressors, and much more to come.
 The gui contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
+
 <br><br>Here is a plugin using those stylized components.
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
 
 ## Setup
 Just include the viator_modules folder in the Projucer's module window and you're all set! 
+
+## Use
+To use viatordsp, there are three namespace: 
+- viator_dsp
+- viator_gui
+- viator_utils
+
+<br><br> You can create an instance of a class in the folder viator_dsp, like the HardClipper, with:
+- viator_dsp::HardClipper hardClipper; // In the PluginProcessor.h
+
+<br><br> Or a gui component inside of viator_gui/Widgets, like a dial, with:
+- viator_gui::LV_Dial dial; // In the PluginEditor.h
