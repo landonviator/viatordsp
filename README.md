@@ -6,7 +6,8 @@
 The viatordsp framework is made up of dsp and gui classes that help make creating plugins faster, easier, and more fun!
 This contains dsp classes such as clippers, filters, compressors, and much more to come.
 The gui contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
-Here is a plugin using those stylized components.
+<br>Here is a plugin using those stylized components.
+![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
 
 ## Setup
 Just include the viator_modules folder in the Projucer's module window and you're all set! 
