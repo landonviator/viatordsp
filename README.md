@@ -11,8 +11,8 @@ The gui contains stylized versions of JUCE's built-in widgets (like sliders and 
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
 
 ## Installation
-Clone the repo viatordsp or download it as a zip. Cloning it would be better, since when there is an update, you simply pull the changes without needing to doanload another version of the zip file. 
-Just include the viator_modules folder in the Projucer's module window like the inamge below and you're all set! 
+Clone the repo viatordsp or download it as a zip. Cloning it would be better, since when there is an update, you simply pull the changes without needing to doanload another version of the zip file.  Just include the viator_modules folder in the Projucer's module window like the inamge below and you're all set! 
+![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/projucer.png)
 
 ## Use
 To use viatordsp, there are three namespace: 
