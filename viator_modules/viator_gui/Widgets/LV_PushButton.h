@@ -9,12 +9,11 @@
 */
 
 #pragma once
-#include <JuceHeader.h>
 
-namespace juce
+namespace viator_gui
 {
 
-    class LV_PushButton : public TextButton
+    class LV_PushButton : public juce::TextButton
     {
         
     public:

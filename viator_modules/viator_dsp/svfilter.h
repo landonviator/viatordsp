@@ -11,7 +11,6 @@
 #ifndef svfilter_h
 #define svfilter_h
 
-#include <JuceHeader.h>
 
 namespace viator_dsp
 {

@@ -20,12 +20,11 @@
 */
 
 #pragma once
-#include <JuceHeader.h>
 #include "../Widgets/StyleSheet.h"
 
-namespace juce
+namespace viator_gui
 {
-    class LV_GroupComponent : public GroupComponent
+    class LV_GroupComponent : public juce::GroupComponent
     {
     public:
         
@@ -44,6 +43,6 @@ namespace juce
         
     private:
         
-        LV_CustomBorder customBorder;
+        juce::LV_CustomBorder customBorder;
     };
 }

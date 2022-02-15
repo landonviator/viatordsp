@@ -1,21 +1,9 @@
-/*
-  ==============================================================================
-
-    LV_Toggle.h
-    Created: 21 Aug 2021 2:06:36am
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #pragma once
-#include <JuceHeader.h>
 #include "StyleSheet.h"
 
-namespace juce
+namespace viator_gui
 {
-
-    class LV_Toggle : public ToggleButton
+    class LV_Toggle : public juce::ToggleButton
     {
         
     public:
@@ -56,14 +44,14 @@ namespace juce
             }
         }
         
-        void mouseEnter (const MouseEvent& event) override
+        void mouseEnter (const juce::MouseEvent& event) override
         {
             setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::whitesmoke);
             setColour(juce::ToggleButton::tickColourId, juce::Colours::whitesmoke);
             
         }
         
-        void mouseExit (const MouseEvent& event) override
+        void mouseExit (const juce::MouseEvent& event) override
         {
             setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::dimgrey.withAlpha(0.5f));
             setColour(juce::ToggleButton::tickColourId, juce::Colours::springgreen.withAlpha(0.5f));
@@ -71,7 +59,7 @@ namespace juce
         
         private:
         
-        LV_PowerToggleLAF powerToggle;
-        LV_PhaseToggleLAF phaseToggle;
+        juce::LV_PowerToggleLAF powerToggle;
+        juce::LV_PhaseToggleLAF phaseToggle;
     };
 }

@@ -9,19 +9,18 @@
 */
 
 #pragma once
-#include <JuceHeader.h>
 #include "../Widgets/StyleSheet.h"
 
-namespace juce
+namespace viator_gui
 {
 
-class LV_NumberBox  : public Slider
+class LV_NumberBox  : public juce::Slider
 {
 public:
     
     LV_NumberBox
     
-    (   String suffix,
+    (   juce::String suffix,
         double rangeStart,
         double rangeEnd,
         double intervalValue,
@@ -50,18 +49,18 @@ public:
     
 private:
     
-    void mouseEnter (const MouseEvent& event) override
+    void mouseEnter (const juce::MouseEvent& event) override
     {
         setColour(juce::Slider::ColourIds::textBoxTextColourId, findColour(juce::Slider::ColourIds::textBoxTextColourId).withAlpha(1.0f));
     }
     
-    void mouseExit (const MouseEvent& event) override
+    void mouseExit (const juce::MouseEvent& event) override
     {
         setColour(juce::Slider::ColourIds::textBoxTextColourId, findColour(juce::Slider::ColourIds::textBoxTextColourId).withAlpha(0.5f));
     }
     
     /** Slider ================================================================*/
-    Slider dial;
+    juce::Slider dial;
     juce::LV_CustomNumberBox customNumberBox;
 };
 }

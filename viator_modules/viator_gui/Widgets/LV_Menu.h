@@ -9,12 +9,11 @@
 */
 
 #pragma once
-#include <JuceHeader.h>
 #include "../Widgets/StyleSheet.h"
 
-namespace juce
+namespace viator_gui
 {
-    class LV_Menu : public ComboBox, private juce::Timer
+    class LV_Menu : public juce::ComboBox, private juce::Timer
     {
         
     public:
@@ -48,18 +47,18 @@ namespace juce
             setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
         }
         
-        void mouseEnter (const MouseEvent& event) override
+        void mouseEnter (const juce::MouseEvent& event) override
         {
             setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::whitesmoke.withAlpha(0.05f));
             startTimer(1000);
         }
         
-        void mouseExit (const MouseEvent& event) override
+        void mouseExit (const juce::MouseEvent& event) override
         {
             setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
             stopTimer();
         }
         
-        LV_Custom_Menu customMenu;
+        juce::LV_Custom_Menu customMenu;
     };
 }

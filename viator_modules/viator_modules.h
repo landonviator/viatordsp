@@ -1,6 +1,3 @@
-#ifndef viator_modules_h
-#define viator_modules_h
-
 /** BEGIN_JUCE_MODULE_DECLARATION
 
     ID:            viator_modules
@@ -16,8 +13,15 @@
     END_JUCE_MODULE_DECLARATION
 */
 
-#endif /* viator_modules_h */
+#pragma once
+#define VIATOR_MODULES_H_INCLUDED
 
-#include "viator_dsp/viator_dsp.h"
-#include "viator_gui/viator_gui.h"
-#include "viator_utils/viator_utils.h"
+#include <juce_core/juce_core.h>
+#include <juce_events/juce_events.h>
+
+/** Viator DSP Headers*/
+#include "viator_dsp/HardClipper.h"
+#include "viator_dsp/svfilter.h"
+
+/** Viator GUI Headers*/
+#include "viator_gui/Widgets/WidgetIncludes.h"

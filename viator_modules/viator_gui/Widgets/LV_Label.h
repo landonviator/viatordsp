@@ -9,12 +9,11 @@
 */
 
 #pragma once
-#include <JuceHeader.h>
 
-namespace juce
+namespace viator_gui
 {
 
-class LV_Label : public Label
+class LV_Label : public juce::Label
 {
 public:
     
@@ -25,7 +24,7 @@ public:
         setColour(0x1000281, juce::Colours::whitesmoke.withAlpha(0.36f));
         setColour(0x1000282, juce::Colour::fromFloatRGBA(0, 0, 0, 0));
         
-        const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
+        const juce::Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
         setFont(font);
     }
     

@@ -23,20 +23,19 @@
 
 #pragma once
 
-#include <JuceHeader.h>
 #include "../Widgets/LV_Label.h"
 #include "../Widgets/StyleSheet.h"
 
 //==============================================================================
 /*
 */
-namespace juce
+namespace viator_gui
 {
-    class LV_Fader  : public Slider
+    class LV_Fader  : public juce::Slider
     {
     public:
         LV_Fader(
-                          String suffix,
+                 juce::String suffix,
                           double rangeStart,
                           double rangeEnd,
                           double intervalValue,
@@ -58,13 +57,13 @@ namespace juce
         
     private:
         
-        void mouseEnter (const MouseEvent& event) override
+        void mouseEnter (const juce::MouseEvent& event) override
         {
             setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedBrightness(1.25));
             setComponentEffect(&sliderShadow);
         }
         
-        void mouseExit (const MouseEvent& event) override
+        void mouseExit (const juce::MouseEvent& event) override
         {
             setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedBrightness(0.8));
             setComponentEffect(&sliderShadow);

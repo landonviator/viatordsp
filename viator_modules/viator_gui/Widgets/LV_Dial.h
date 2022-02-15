@@ -9,21 +9,21 @@
 */
 
 #pragma once
-#include <JuceHeader.h>
 #include "../Widgets/StyleSheet.h"
 
-namespace juce
-{
 namespace viator_gui
 {
-class LV_Dial  : public Slider
+class LV_Dial  : public juce::Slider
 {
 public:
-    LV_Dial(         String suffix,
-                     double rangeStart,
-                     double rangeEnd,
-                     double intervalValue,
-                     double returnValue)
+    
+    LV_Dial
+    (   juce::String suffix,
+        double rangeStart,
+        double rangeEnd,
+        double intervalValue,
+        double returnValue
+    )
     {
         initShadows();
         initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
@@ -72,13 +72,13 @@ public:
 
 private:
     
-    void mouseEnter (const MouseEvent& event) override
+    void mouseEnter (const juce::MouseEvent& event) override
     {
         setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(1.25));
         setComponentEffect(&dialShadow);
     }
     
-    void mouseExit (const MouseEvent& event) override
+    void mouseExit (const juce::MouseEvent& event) override
     {
         setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(0.8f));
         setComponentEffect(&dialShadow);
@@ -86,9 +86,9 @@ private:
     
     /** Slider ================================================================*/
     Slider dial;
-    LV_HardDialLAF hardDial;
-    LV_AlphaDialLAF alphaDial;
-    LV_CustomAbleDialLAF ableDial {false};
+    juce::LV_HardDialLAF hardDial;
+    juce::LV_AlphaDialLAF alphaDial;
+    juce::LV_CustomAbleDialLAF ableDial {false};
     
     /** Methods ================================================================*/
     void initProps(juce::String suffix,
@@ -125,5 +125,4 @@ private:
     juce::DropShadowEffect dialShadow;
     
 };
-}
 }
