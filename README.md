@@ -37,7 +37,7 @@ viatordsp is licensed under the GNU General Public License (GPLv3) agreement.
 If you like my work and would like to support me creating more audio applications, check out my [Patreon](https://www.patreon.com/ViatorDSP) where you can donate and download all of my current plugins!
 
 ## Online Presence
-[Twitch](https://www.twitch.tv/dr_bruisin) & [YouTube](https://www.youtube.com/channel/UCwEc_CsAk3ky7sX_yg6bSSg) I stream JUCE development on Monday, Wednesday, and Friday at 5:30 CST!
+I stream JUCE development on [Twitch](https://www.twitch.tv/dr_bruisin) & [YouTube](https://www.youtube.com/channel/UCwEc_CsAk3ky7sX_yg6bSSg) Monday, Wednesday, and Friday at 5:30 CST!
 <br>[Patreon](https://www.patreon.com/ViatorDSP) 
 <br>[Instagram](https://www.instagram.com/viatordsp/) 
 <br>[Facebook](https://www.facebook.com/Dr-Bruisin-109544051551604)
