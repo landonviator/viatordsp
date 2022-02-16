@@ -1,7 +1,6 @@
 #ifndef HardClipper_h
 #define HardClipper_h
 
-//#include "viator_dsp.h"
 #include "../Common/Common.h"
 
 namespace viator_dsp
@@ -34,4 +33,4 @@ private:
 };
 }
 
-#endif /* svfilter_h */
+#endif /* HardClipper_h */
