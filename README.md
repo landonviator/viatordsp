@@ -32,3 +32,6 @@ Contributions are most welcome! Check out the [issues](https://github.com/landon
 
 ## License
 viatordsp is licensed under the GNU General Public License (GPLv3) agreement.
+
+## Support
+If you like my work and would like to support me creating more audio applications, check out my [Patreon](https://www.patreon.com/ViatorDSP) where you can donate and download all of my current plugins!
