@@ -16,7 +16,7 @@ Clone the [repo](https://github.com/landonviator/viatordsp) viatordsp or downloa
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/projucer.png)
 
 ## Use
-To use viatordsp, there are three namespace: 
+To use viatordsp, there are three namespaces: 
 - viator_dsp
 - viator_gui
 - viator_utils
@@ -24,7 +24,7 @@ To use viatordsp, there are three namespace:
 You can create an instance of a class in the folder viator_dsp, like the HardClipper, with:
 - viator_dsp::HardClipper hardClipper (In the PluginProcessor.h)
 
-Update parameters with:
+Update parameters, e.g.:
 - hardClipper.setParameter(viator_dsp::HardClipper::ParameterID::kPreamp, newPreampValue)
 
 Be sure to call the prepare method of every DSP module in the PluginProcessor.cpp's prepare method!
