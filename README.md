@@ -38,7 +38,7 @@ If you like my work and would like to support me creating more audio application
 
 ## Online Presence
 I stream JUCE development on [Twitch](https://www.twitch.tv/dr_bruisin) & [YouTube](https://www.youtube.com/channel/UCwEc_CsAk3ky7sX_yg6bSSg) Monday, Wednesday, and Friday at 5:30 CST!
-I upload all my plugins to [Patreon](https://www.patreon.com/ViatorDSP)
-Check out my [Instagram](https://www.instagram.com/viatordsp/)
-Check out my [Facebook](https://www.facebook.com/Dr-Bruisin-109544051551604)
-Join my [Discord](https://discord.gg/PgU3Dd8vxJ) server!
+<br>I upload all my plugins to [Patreon](https://www.patreon.com/ViatorDSP)
+<br>Check out my [Instagram](https://www.instagram.com/viatordsp/)
+<br>Check out my [Facebook](https://www.facebook.com/Dr-Bruisin-109544051551604)
+<br>Join my [Discord](https://discord.gg/PgU3Dd8vxJ) server!
