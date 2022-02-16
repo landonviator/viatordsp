@@ -24,6 +24,11 @@ To use viatordsp, there are three namespace:
 You can create an instance of a class in the folder viator_dsp, like the HardClipper, with:
 - viator_dsp::HardClipper hardClipper (In the PluginProcessor.h)
 
+Update parameters with:
+- hardClipper.setParameter(viator_dsp::HardClipper::ParameterID::kPreamp, newPreampValue)
+
+Be sure to call the prepare method of every DSP module in the PluginProcessor.cpp's prepare method!
+
 Or a gui component inside of viator_gui/Widgets, like a dial, with:
 - viator_gui::LV_Dial dial (In the PluginEditor.h)
 
