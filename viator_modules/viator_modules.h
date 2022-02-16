@@ -20,7 +20,7 @@
 #include <juce_events/juce_events.h>
 
 /** Viator DSP Headers*/
-#include "viator_dsp/HardClipper.h"
+#include "viator_dsp/hardClipper.h"
 #include "viator_dsp/svfilter.h"
 
 /** Viator GUI Headers*/
