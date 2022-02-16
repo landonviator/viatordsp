@@ -25,3 +25,6 @@
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/WidgetIncludes.h"
+
+/** Viator Utils Headers*/
+#include "viator_utils/utils.h"

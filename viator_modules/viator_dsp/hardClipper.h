@@ -9,6 +9,8 @@ class HardClipper
 {
 public:
     
+    HardClipper();
+    
     void prepare(const juce::dsp::ProcessSpec& spec);
     
     float processSample(float input);
@@ -17,7 +19,6 @@ public:
     {
         kPreamp,
         kSampleRate,
-        kType,
         kBypass
     };
         
@@ -27,9 +28,8 @@ private:
     
     // Member variables
     float mCurrentSampleRate;
-    float mRawGain;
+    juce::SmoothedValue<float> mRawGain;
     bool mGlobalBypass;
-    bool type = false;
 };
 }
 
