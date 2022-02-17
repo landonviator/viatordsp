@@ -58,7 +58,6 @@ public:
             case ClipType::kHard: return hardClipData(input * mGainDB, mThresh); break;
             case ClipType::kSoft: return softClipData(input * mGainDB); break;
             case ClipType::kDiode: return diodeClipper(input * mGainDB); break;
-            case ClipType::kRectifier: return hardClipData(input * mGainDB, mThresh); break;
         }
     }
     
@@ -75,8 +74,7 @@ public:
     {
         kHard,
         kSoft,
-        kDiode,
-        kRectifier
+        kDiode
     };
         
     /** One method to change any parameter. */

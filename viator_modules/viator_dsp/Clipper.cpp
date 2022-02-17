@@ -1,7 +1,7 @@
 #include "Clipper.h"
 
 viator_dsp::Clipper::Clipper() :
-mGlobalBypass(false), mThresh(1.0f), mClipType(viator_dsp::Clipper::ClipType::kHard), mGainDB(1.0)
+mGlobalBypass(false), mThresh(1.0f), mGainDB(1.0), mClipType(viator_dsp::Clipper::ClipType::kHard)
 {
     mPiDivisor = 2.0 / juce::MathConstants<float>::pi;
 }
@@ -36,7 +36,6 @@ void viator_dsp::Clipper::setClipperType(ClipType clipType)
         case ClipType::kHard: mClipType = viator_dsp::Clipper::ClipType::kHard; break;
         case ClipType::kSoft: mClipType = viator_dsp::Clipper::ClipType::kSoft; break;
         case ClipType::kDiode: mClipType = viator_dsp::Clipper::ClipType::kDiode; break;
-        case ClipType::kRectifier: mClipType = viator_dsp::Clipper::ClipType::kRectifier; break;
     }
 }
 
