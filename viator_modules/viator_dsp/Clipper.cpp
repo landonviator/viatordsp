@@ -62,6 +62,7 @@ float viator_dsp::Clipper::softClipData(float dataToClip)
     /** Soft Clipping algorithim*/
     auto softClipper = mPiDivisor * std::atan(dataToClip) * 2.0;
     
+    /** Auto gain stage the soft clipper*/
     softClipper *= viator_utils::utils::dbToGain(-mRawGain.getNextValue() * 0.25);
     
     return softClipper;
@@ -72,6 +73,7 @@ float viator_dsp::Clipper::diodeClipper(float dataToClip)
     /** Don't do anything if the module is off*/
     if (mGlobalBypass) return dataToClip;
     
+    /** Diode Clipping algorithim*/
     auto diode = 0.105 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (2.0 * 0.0253)) - 1.0);
     diode -= 0.28;
     diode *= 3.0;
