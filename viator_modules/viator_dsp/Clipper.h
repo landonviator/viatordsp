@@ -55,10 +55,10 @@ public:
     {
         switch(mClipType)
         {
-            case ClipType::kHard: return hardClipData(input, mThresh); break;
-            case ClipType::kSoft: return softClipData(input); break;
-            case ClipType::kDiode: return hardClipData(input, mThresh); break;
-            case ClipType::kRectifier: return hardClipData(input, mThresh); break;
+            case ClipType::kHard: return hardClipData(input * mGainDB, mThresh); break;
+            case ClipType::kSoft: return softClipData(input * mGainDB); break;
+            case ClipType::kDiode: return diodeClipper(input * mGainDB); break;
+            case ClipType::kRectifier: return hardClipData(input * mGainDB, mThresh); break;
         }
     }
     
@@ -86,13 +86,14 @@ public:
 private:
     
     // Member variables
-    float mCurrentSampleRate, mThresh, mPiDivisor;
-    juce::SmoothedValue<float> mRawGain;
     bool mGlobalBypass;
+    juce::SmoothedValue<float> mRawGain;
+    float mCurrentSampleRate, mThresh, mPiDivisor, mGainDB;
     
     // Methods
     float hardClipData(float dataToClip, const float thresh);
     float softClipData(float dataToClip);
+    float diodeClipper(float dataToClip);
     
     ClipType mClipType;
 };

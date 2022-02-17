@@ -1,7 +1,7 @@
 #include "Clipper.h"
 
 viator_dsp::Clipper::Clipper() :
-mGlobalBypass(false), mThresh(1.0f), mClipType(viator_dsp::Clipper::ClipType::kHard)
+mGlobalBypass(false), mThresh(1.0f), mClipType(viator_dsp::Clipper::ClipType::kHard), mGainDB(1.0)
 {
     mPiDivisor = 2.0 / juce::MathConstants<float>::pi;
 }
@@ -17,7 +17,12 @@ void viator_dsp::Clipper::setParameter(ParameterId parameter, float parameterVal
 {
     switch (parameter)
     {
-        case ParameterId::kPreamp: mRawGain.setTargetValue(parameterValue); break;
+        case ParameterId::kPreamp:
+            
+        {
+            mRawGain.setTargetValue(parameterValue); break;
+            mGainDB = viator_utils::utils::dbToGain(mRawGain.getNextValue());
+        }
         case ParameterId::kSampleRate: mCurrentSampleRate = parameterValue; break;
         case ParameterId::kThresh: mThresh = parameterValue; break;
         case ParameterId::kBypass: mGlobalBypass = static_cast<bool>(parameterValue);
@@ -40,9 +45,6 @@ float viator_dsp::Clipper::hardClipData(float dataToClip, const float thresh)
     /** Don't do anything if the module is off*/
     if (mGlobalBypass) return dataToClip;
     
-    /** Works well with input * dB range of [0...20]*/
-    dataToClip *= viator_utils::utils::dbToGain(mRawGain.getNextValue());
-    
     /** Hard Clipping algorithim*/
     if (std::abs(dataToClip) > thresh)
     {
@@ -57,9 +59,22 @@ float viator_dsp::Clipper::softClipData(float dataToClip)
     /** Don't do anything if the module is off*/
     if (mGlobalBypass) return dataToClip;
     
-    /** Works well with input * dB range of [0...20]*/
-    dataToClip *= viator_utils::utils::dbToGain(mRawGain.getNextValue());
-    
     /** Soft Clipping algorithim*/
-    return mPiDivisor * std::atan(dataToClip);
+    auto softClipper = mPiDivisor * std::atan(dataToClip) * 2.0;
+    
+    softClipper *= viator_utils::utils::dbToGain(-mRawGain.getNextValue() * 0.25);
+    
+    return softClipper;
+}
+
+float viator_dsp::Clipper::diodeClipper(float dataToClip)
+{
+    /** Don't do anything if the module is off*/
+    if (mGlobalBypass) return dataToClip;
+    
+    auto diode = 0.105 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (2.0 * 0.0253)) - 1.0);
+    diode -= 0.28;
+    diode *= 3.0;
+    
+    return softClipData(diode);
 }
