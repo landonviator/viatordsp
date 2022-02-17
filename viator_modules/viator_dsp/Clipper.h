@@ -1,16 +1,16 @@
-#ifndef HardClipper_h
-#define HardClipper_h
+#ifndef Clipper_h
+#define Clipper_h
 
 #include "../Common/Common.h"
 
 namespace viator_dsp
 {
-class HardClipper
+class Clipper
 {
 public:
     
     /** Creates an uninitialised filter. Call prepare() before first use. */
-    HardClipper();
+    Clipper();
     
     /** Initialises the filter. */
     void prepare(const juce::dsp::ProcessSpec& spec);
@@ -44,13 +44,7 @@ public:
                 auto* output = outBlock.getChannelPointer (channel);
                 
                 auto x = input[sample] * viator_utils::utils::dbToGain(mRawGain.getNextValue());
-                    
-                if (std::abs(x) > 1.0)
-                {
-                    x *= 1.0 / std::abs(x);
-                }
-    
-                output[sample] = x;
+                output[sample] = processSample(x);
             }
         }
     }
@@ -59,16 +53,13 @@ public:
     template <typename SampleType>
     SampleType processSample(SampleType input) noexcept
     {
-        if (mGlobalBypass) return input;
-        
-        input *= viator_utils::utils::dbToGain(mRawGain.getNextValue());
-        
-        if (std::abs(input) > 1.0)
+        switch(mClipType)
         {
-            input *= 1.0 / std::abs(input);
+            case ClipType::kHard: return hardClipData(input, mThresh); break;
+            case ClipType::kSoft: return softClipData(input); break;
+            case ClipType::kDiode: return hardClipData(input, mThresh); break;
+            case ClipType::kRectifier: return hardClipData(input, mThresh); break;
         }
-        
-        return input;
     }
     
     /** The parameters of this module. */
@@ -76,19 +67,35 @@ public:
     {
         kPreamp,
         kSampleRate,
+        kThresh,
         kBypass
+    };
+    
+    enum class ClipType
+    {
+        kHard,
+        kSoft,
+        kDiode,
+        kRectifier
     };
         
     /** One method to change any parameter. */
     void setParameter(ParameterId parameter, float parameterValue);
+    void setClipperType(ClipType clipType);
     
 private:
     
     // Member variables
-    float mCurrentSampleRate;
+    float mCurrentSampleRate, mThresh, mPiDivisor;
     juce::SmoothedValue<float> mRawGain;
     bool mGlobalBypass;
+    
+    // Methods
+    float hardClipData(float dataToClip, const float thresh);
+    float softClipData(float dataToClip);
+    
+    ClipType mClipType;
 };
 }
 
-#endif /* HardClipper_h */
+#endif /* Clipper_h */

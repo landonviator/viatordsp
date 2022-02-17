@@ -10,4 +10,4 @@
 #include "viator_modules.h"
 
 /** Viator DSP CPP Files*/
-#include "viator_dsp/HardClipper.cpp"
+#include "viator_dsp/Clipper.cpp"
