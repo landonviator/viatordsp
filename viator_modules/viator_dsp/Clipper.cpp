@@ -18,7 +18,6 @@ void viator_dsp::Clipper::setParameter(ParameterId parameter, float parameterVal
     switch (parameter)
     {
         case ParameterId::kPreamp:
-            
         {
             mRawGain.setTargetValue(parameterValue); break;
             mGainDB = viator_utils::utils::dbToGain(mRawGain.getNextValue());

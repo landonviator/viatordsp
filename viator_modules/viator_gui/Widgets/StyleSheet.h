@@ -190,6 +190,7 @@ namespace juce
             
             g.setColour(slider.findColour(juce::Slider::ColourIds::rotarySliderOutlineColourId)); //outline
             g.drawEllipse(rx, ry, diameter, diameter, 4.0f);
+            
             juce::Path dialTick;
             g.setColour(slider.findColour(juce::Slider::ColourIds::trackColourId)); //tick color
             dialTick.addRectangle(0, -radius + 2, 4.0f, radius * 0.6);

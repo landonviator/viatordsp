@@ -95,6 +95,6 @@ private:
     
     ClipType mClipType;
 };
-}
+} // namespace viator_dsp
 
 #endif /* Clipper_h */
