@@ -1,6 +1,6 @@
-#include "LV_Menu.h"
+#include "Menu.h"
 
-viator_gui::LV_Menu::LV_Menu()
+viator_gui::Menu::Menu()
 {
     setLookAndFeel(&customMenu);
     setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
@@ -17,23 +17,23 @@ viator_gui::LV_Menu::LV_Menu()
     setJustificationType(juce::Justification::centred);
 }
 
-viator_gui::LV_Menu::~LV_Menu()
+viator_gui::Menu::~Menu()
 {
     setLookAndFeel(nullptr);
 }
 
-void viator_gui::LV_Menu::timerCallback()
+void viator_gui::Menu::timerCallback()
 {
     setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
 }
 
-void viator_gui::LV_Menu::mouseEnter (const juce::MouseEvent& event)
+void viator_gui::Menu::mouseEnter (const juce::MouseEvent& event)
 {
     setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::whitesmoke.withAlpha(0.05f));
     startTimer(1000);
 }
 
-void viator_gui::LV_Menu::mouseExit (const juce::MouseEvent& event)
+void viator_gui::Menu::mouseExit (const juce::MouseEvent& event)
 {
     setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
     stopTimer();

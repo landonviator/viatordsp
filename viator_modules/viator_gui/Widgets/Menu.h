@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    LV_Menu.h
+    Menu.h
     Created: 10 Oct 2021 1:42:17pm
     Author:  Landon Viator
 
@@ -13,14 +13,14 @@
 
 namespace viator_gui
 {
-    class LV_Menu : public juce::ComboBox, private juce::Timer
+    class Menu : public juce::ComboBox, private juce::Timer
     {
         
     public:
     
-        LV_Menu();
+        Menu();
         
-        ~LV_Menu();
+        ~Menu();
         
     private:
         
@@ -30,6 +30,6 @@ namespace viator_gui
         
         void mouseExit (const juce::MouseEvent& event) override;
         
-        juce::LV_Custom_Menu customMenu;
+        juce::Custom_Menu customMenu;
     };
 }

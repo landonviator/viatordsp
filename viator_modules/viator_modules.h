@@ -24,15 +24,15 @@
 #include "viator_dsp/SVFilter.h"
 
 /** Viator GUI Headers*/
-#include "viator_gui/Widgets/LV_Toggle.h"
-#include "viator_gui/Widgets/LV_Dial.h"
-#include "viator_gui/Widgets/LV_Fader.h"
-#include "viator_gui/Widgets/LV_GroupComponent.h"
-#include "viator_gui/Widgets/LV_Label.h"
-#include "viator_gui/Widgets/LV_Menu.h"
-#include "viator_gui/Widgets/LV_PushButton.h"
-#include "viator_gui/Widgets/LV_NumberBox.h"
-#include "viator_gui/Widgets/LV_PushButton.h"
+#include "viator_gui/Widgets/Toggle.h"
+#include "viator_gui/Widgets/Dial.h"
+#include "viator_gui/Widgets/Fader.h"
+#include "viator_gui/Widgets/GroupComponent.h"
+#include "viator_gui/Widgets/Label.h"
+#include "viator_gui/Widgets/Menu.h"
+#include "viator_gui/Widgets/PushButton.h"
+#include "viator_gui/Widgets/NumberBox.h"
+#include "viator_gui/Widgets/PushButton.h"
 #include "viator_gui/Widgets/StyleSheet.h"
 
 /** Viator Utils Headers*/

@@ -1,6 +1,6 @@
-#include "LV_Dial.h"
+#include "Dial.h"
 
-void viator_gui::LV_Dial::setDialStyle(DialStyle dialStyle)
+void viator_gui::Dial::setDialStyle(DialStyle dialStyle)
 {
     switch (dialStyle)
     {
@@ -24,24 +24,24 @@ void viator_gui::LV_Dial::setDialStyle(DialStyle dialStyle)
     }
 }
 
-void viator_gui::LV_Dial::forceShadow()
+void viator_gui::Dial::forceShadow()
 {
     setComponentEffect(&dialShadow);
 }
 
-void viator_gui::LV_Dial::mouseEnter (const juce::MouseEvent& event)
+void viator_gui::Dial::mouseEnter (const juce::MouseEvent& event)
 {
     setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(1.25));
     setComponentEffect(&dialShadow);
 }
 
-void viator_gui::LV_Dial::mouseExit (const juce::MouseEvent& event)
+void viator_gui::Dial::mouseExit (const juce::MouseEvent& event)
 {
     setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(0.8f));
     setComponentEffect(&dialShadow);
 }
 
-void viator_gui::LV_Dial::initProps(juce::String suffix,
+void viator_gui::Dial::initProps(juce::String suffix,
                double rangeStart,
                double rangeEnd,
                double intervalValue,
@@ -62,7 +62,7 @@ void viator_gui::LV_Dial::initProps(juce::String suffix,
     setComponentEffect(&dialShadow);
 }
 
-void viator_gui::LV_Dial::initShadows()
+void viator_gui::Dial::initShadows()
 {
     shadowProperties.radius = 24;
     shadowProperties.offset = juce::Point<int> (-1, 4);

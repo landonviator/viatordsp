@@ -1,23 +1,23 @@
-#include "LV_Fader.h"
+#include "Fader.h"
 
-void viator_gui::LV_Fader::forceShadow()
+void viator_gui::Fader::forceShadow()
 {
     setComponentEffect(&sliderShadow);
 }
 
-void viator_gui::LV_Fader::mouseEnter (const juce::MouseEvent& event)
+void viator_gui::Fader::mouseEnter (const juce::MouseEvent& event)
 {
     setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedBrightness(1.25));
     setComponentEffect(&sliderShadow);
 }
 
-void viator_gui::LV_Fader::mouseExit (const juce::MouseEvent& event)
+void viator_gui::Fader::mouseExit (const juce::MouseEvent& event)
 {
     setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedBrightness(0.8));
     setComponentEffect(&sliderShadow);
 }
 
-void viator_gui::LV_Fader::initProps
+void viator_gui::Fader::initProps
 (
     juce::String suffix,
     double rangeStart,
@@ -40,7 +40,7 @@ void viator_gui::LV_Fader::initProps
     setComponentEffect(&sliderShadow);
 }
 
-void viator_gui::LV_Fader::initShadows()
+void viator_gui::Fader::initShadows()
 {
     sliderShadowProperties.radius = 8;
     sliderShadowProperties.offset = juce::Point<int> (0, 0);

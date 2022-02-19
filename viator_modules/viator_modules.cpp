@@ -14,9 +14,9 @@
 #include "viator_dsp/SVFilter.cpp"
 
 /** Viator GUI CPP Files*/
-#include "viator_gui/Widgets/LV_Dial.cpp"
-#include "viator_gui/Widgets/LV_Fader.cpp"
-#include "viator_gui/Widgets/LV_Menu.cpp"
-#include "viator_gui/Widgets/LV_NumberBox.cpp"
-#include "viator_gui/Widgets/LV_Toggle.cpp"
+#include "viator_gui/Widgets/Dial.cpp"
+#include "viator_gui/Widgets/Fader.cpp"
+#include "viator_gui/Widgets/Menu.cpp"
+#include "viator_gui/Widgets/NumberBox.cpp"
+#include "viator_gui/Widgets/Toggle.cpp"
 #include "viator_gui/Widgets/StyleSheet.cpp"

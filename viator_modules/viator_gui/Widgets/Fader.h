@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    LV_Fader.h
+    Fader.h
     Created: 21 Jul 2021 12:58:40pm
     Author:  landon viator
 
@@ -11,7 +11,7 @@
 /*
   ==============================================================================
 
-    LV_FaderComponent.h
+    FaderComponent.h
     Created: 23 Oct 2021 2:38:27am
     Author:  Landon Viator
  
@@ -23,7 +23,7 @@
 
 #pragma once
 
-#include "../Widgets/LV_Label.h"
+#include "../Widgets/Label.h"
 #include "../Widgets/StyleSheet.h"
 
 //==============================================================================
@@ -31,10 +31,10 @@
 */
 namespace viator_gui
 {
-    class LV_Fader  : public juce::Slider
+    class Fader  : public juce::Slider
     {
     public:
-        LV_Fader(
+        Fader(
                  juce::String suffix,
                           double rangeStart,
                           double rangeEnd,
@@ -45,7 +45,7 @@ namespace viator_gui
             initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
         }
         
-        ~LV_Fader() override
+        ~Fader() override
         {
             setLookAndFeel(nullptr);
         }
@@ -72,7 +72,7 @@ namespace viator_gui
         
         /** Slider */
         juce::Slider slider;
-        juce::LV_FaderLAF customFader;
+        juce::FaderLAF customFader;
         
         /** Fader shadow */
         juce::DropShadow sliderShadowProperties;

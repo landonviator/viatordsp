@@ -14,12 +14,12 @@ namespace juce
 {
 
     /** Custom Ableton-style dial*/
-    class LV_CustomAbleDialLAF : public LookAndFeel_V4
+    class CustomAbleDialLAF : public LookAndFeel_V4
     {
         
     public:
         
-        LV_CustomAbleDialLAF(bool isStereoDial);
+        CustomAbleDialLAF(bool isStereoDial);
         
         void drawRotarySlider
         (
@@ -39,7 +39,7 @@ namespace juce
     };
 
     /** Alpha Dial Style*/
-    class LV_AlphaDialLAF : public juce::LookAndFeel_V4
+    class AlphaDialLAF : public juce::LookAndFeel_V4
     {
         
     public:
@@ -61,7 +61,7 @@ namespace juce
     };
 
     /** Hard Dial Style*/
-    class LV_HardDialLAF : public juce::LookAndFeel_V4
+    class HardDialLAF : public juce::LookAndFeel_V4
     {
         
     public:
@@ -83,7 +83,7 @@ namespace juce
     };
 
     /** Number Box Style*/
-    class LV_CustomNumberBox : public juce::LookAndFeel_V4
+    class CustomNumberBox : public juce::LookAndFeel_V4
     {
         
     public:
@@ -105,7 +105,7 @@ namespace juce
     };
 
     /** Push Button Style*/
-    class LV_CustomPushButton : public juce::LookAndFeel_V4
+    class CustomPushButton : public juce::LookAndFeel_V4
     {
         
     public:
@@ -115,7 +115,7 @@ namespace juce
     };
 
     /** Fader Style*/
-    class LV_FaderLAF : public LookAndFeel_V4
+    class FaderLAF : public LookAndFeel_V4
     {
     public:
         
@@ -142,7 +142,7 @@ namespace juce
     };
 
     /** Phase Button Style*/
-    class LV_PhaseToggleLAF : public LookAndFeel_V4
+    class PhaseToggleLAF : public LookAndFeel_V4
     {
         
     public:
@@ -158,7 +158,7 @@ namespace juce
     };
 
     /** Power Button Style*/
-    class LV_PowerToggleLAF : public LookAndFeel_V4
+    class PowerToggleLAF : public LookAndFeel_V4
     {
         
     public:
@@ -174,7 +174,7 @@ namespace juce
     };
 
     /** Border Style*/
-    class LV_CustomBorder : public LookAndFeel_V2
+    class CustomBorder : public LookAndFeel_V2
     {
         public:
         
@@ -187,7 +187,7 @@ namespace juce
     };
 
     /** Menu Style*/
-    class LV_Custom_Menu : public LookAndFeel_V4
+    class Custom_Menu : public LookAndFeel_V4
     {
         void positionComboBoxText (ComboBox& box, Label& label) override;
     };

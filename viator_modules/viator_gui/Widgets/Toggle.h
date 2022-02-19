@@ -3,14 +3,14 @@
 
 namespace viator_gui
 {
-    class LV_Toggle : public juce::ToggleButton
+    class Toggle : public juce::ToggleButton
     {
         
     public:
     
-        LV_Toggle();
+        Toggle();
         
-        ~LV_Toggle() override;
+        ~Toggle() override;
         
         enum class ToggleStyle
         {
@@ -26,7 +26,7 @@ namespace viator_gui
         
         private:
         
-        juce::LV_PowerToggleLAF powerToggle;
-        juce::LV_PhaseToggleLAF phaseToggle;
+        juce::PowerToggleLAF powerToggle;
+        juce::PhaseToggleLAF phaseToggle;
     };
 }

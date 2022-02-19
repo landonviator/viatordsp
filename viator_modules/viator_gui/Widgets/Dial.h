@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    LV_Dial.h
+    Dial.h
     Created: 20 Jul 2021 9:43:18pm
     Author:  landon viator
 
@@ -13,11 +13,11 @@
 
 namespace viator_gui
 {
-class LV_Dial  : public juce::Slider
+class Dial  : public juce::Slider
 {
 public:
     
-    LV_Dial
+    Dial
     (   juce::String suffix,
         double rangeStart,
         double rangeEnd,
@@ -29,7 +29,7 @@ public:
         initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
     }
     
-    ~LV_Dial() override
+    ~Dial() override
     {
         setLookAndFeel(nullptr);
     }
@@ -62,9 +62,9 @@ private:
     
     /** Slider */
     Slider dial;
-    juce::LV_HardDialLAF hardDial;
-    juce::LV_AlphaDialLAF alphaDial;
-    juce::LV_CustomAbleDialLAF ableDial {false};
+    juce::HardDialLAF hardDial;
+    juce::AlphaDialLAF alphaDial;
+    juce::CustomAbleDialLAF ableDial {false};
     
     /** Shadow */
     juce::DropShadow shadowProperties;

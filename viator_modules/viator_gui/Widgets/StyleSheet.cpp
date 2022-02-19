@@ -1,11 +1,11 @@
 #include "StyleSheet.h"
 
-juce::LV_CustomAbleDialLAF::LV_CustomAbleDialLAF(bool isStereoDial)
+juce::CustomAbleDialLAF::CustomAbleDialLAF(bool isStereoDial)
 {
     setDialIsStereoDial(isStereoDial);
 }
 
-void juce::LV_CustomAbleDialLAF::drawRotarySlider
+void juce::CustomAbleDialLAF::drawRotarySlider
 (
     Graphics &g,
     int x, int y,
@@ -62,7 +62,7 @@ void juce::LV_CustomAbleDialLAF::drawRotarySlider
     g.drawLine(backgroundArc.getBounds().getCentreX(), backgroundArc.getBounds().getCentreY(), thumbPoint.getX(), thumbPoint.getY(), lineW / 2.0);
 }
 
-void juce::LV_CustomAbleDialLAF::setDialIsStereoDial(bool isStereoDial)
+void juce::CustomAbleDialLAF::setDialIsStereoDial(bool isStereoDial)
 {
     if (isStereoDial)
     {
@@ -75,7 +75,7 @@ void juce::LV_CustomAbleDialLAF::setDialIsStereoDial(bool isStereoDial)
     }
 }
 
-void juce::LV_AlphaDialLAF::drawRotarySlider
+void juce::AlphaDialLAF::drawRotarySlider
 (
     Graphics &g,
     int x,
@@ -108,7 +108,7 @@ void juce::LV_AlphaDialLAF::drawRotarySlider
     g.fillPath(dialTick, AffineTransform::rotation(angle).translated(centerX, centerY));
 }
 
-void juce::LV_AlphaDialLAF::drawLabel (Graphics& g, Label& label)
+void juce::AlphaDialLAF::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
@@ -137,7 +137,7 @@ void juce::LV_AlphaDialLAF::drawLabel (Graphics& g, Label& label)
     g.drawRect (label.getLocalBounds());
 }
 
-void juce::LV_HardDialLAF::drawRotarySlider
+void juce::HardDialLAF::drawRotarySlider
 (
     Graphics &g,
     int x,
@@ -171,7 +171,7 @@ void juce::LV_HardDialLAF::drawRotarySlider
     g.fillPath(dialTick, juce::AffineTransform::rotation(angle).translated(centerX, centerY));
 }
 
-void juce::LV_HardDialLAF::drawLabel (Graphics& g, Label& label)
+void juce::HardDialLAF::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
@@ -200,7 +200,7 @@ void juce::LV_HardDialLAF::drawLabel (Graphics& g, Label& label)
     g.drawRect (label.getLocalBounds());
 }
 
-void juce::LV_CustomNumberBox::drawLinearSlider
+void juce::CustomNumberBox::drawLinearSlider
 (
     Graphics& g,
     int x,
@@ -221,7 +221,7 @@ void juce::LV_CustomNumberBox::drawLinearSlider
     }
 }
 
-void juce::LV_CustomNumberBox::drawLabel (Graphics& g, Label& label)
+void juce::CustomNumberBox::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
@@ -251,7 +251,7 @@ g.drawRect (label.getLocalBounds());
     
 }
 
-void juce::LV_CustomPushButton::drawButtonText (Graphics& g, TextButton& button,
+void juce::CustomPushButton::drawButtonText (Graphics& g, TextButton& button,
                      bool /*shouldDrawButtonAsHighlighted*/, bool /*shouldDrawButtonAsDown*/)
 {
     Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
@@ -274,7 +274,7 @@ void juce::LV_CustomPushButton::drawButtonText (Graphics& g, TextButton& button,
                           Justification::centred, 2);
 }
 
-void juce::LV_FaderLAF::drawLinearSlider
+void juce::FaderLAF::drawLinearSlider
 (
     Graphics& g,
     int x,
@@ -382,7 +382,7 @@ void juce::LV_FaderLAF::drawLinearSlider
     }
 }
 
-void juce::LV_FaderLAF::drawLabel(Graphics &g, Label &label)
+void juce::FaderLAF::drawLabel(Graphics &g, Label &label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
@@ -411,7 +411,7 @@ void juce::LV_FaderLAF::drawLabel(Graphics &g, Label &label)
     g.drawRect (label.getLocalBounds());
 }
 
-void juce::LV_PhaseToggleLAF::drawToggleButton
+void juce::PhaseToggleLAF::drawToggleButton
 (
     juce::Graphics &g,
     juce::ToggleButton &toggleButton,
@@ -440,7 +440,7 @@ void juce::LV_PhaseToggleLAF::drawToggleButton
     g.strokePath(button, pst);
 }
 
-void juce::LV_PowerToggleLAF::drawToggleButton
+void juce::PowerToggleLAF::drawToggleButton
 (
     juce::Graphics &g,
     juce::ToggleButton &toggleButton,
@@ -481,7 +481,7 @@ void juce::LV_PowerToggleLAF::drawToggleButton
     g.strokePath(button, pst);
 }
 
-void juce::LV_CustomBorder::drawGroupComponentOutline
+void juce::CustomBorder::drawGroupComponentOutline
 (
     Graphics& g, int width, int height,
     const String& text, const Justification& position,
@@ -546,7 +546,7 @@ void juce::LV_CustomBorder::drawGroupComponentOutline
                 Justification::centred, true);
 }
 
-void juce::LV_Custom_Menu::positionComboBoxText (ComboBox& box, Label& label)
+void juce::Custom_Menu::positionComboBoxText (ComboBox& box, Label& label)
 {
     label.setBounds (1, 1,
                      box.getWidth() - 30,
