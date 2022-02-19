@@ -19,3 +19,4 @@
 #include "viator_gui/Widgets/LV_Menu.cpp"
 #include "viator_gui/Widgets/LV_NumberBox.cpp"
 #include "viator_gui/Widgets/LV_Toggle.cpp"
+#include "viator_gui/Widgets/StyleSheet.cpp"
