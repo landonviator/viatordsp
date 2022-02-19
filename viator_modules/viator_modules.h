@@ -21,7 +21,7 @@
 
 /** Viator DSP Headers*/
 #include "viator_dsp/Clipper.h"
-#include "viator_dsp/svfilter.h"
+#include "viator_dsp/SVFilter.h"
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/WidgetIncludes.h"

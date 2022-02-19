@@ -11,3 +11,4 @@
 
 /** Viator DSP CPP Files*/
 #include "viator_dsp/Clipper.cpp"
+#include "viator_dsp/SVFilter.cpp"
