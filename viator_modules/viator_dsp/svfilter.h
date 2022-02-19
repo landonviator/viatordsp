@@ -11,7 +11,6 @@
 #ifndef SVFilter_h
 #define SVFilter_h
 
-
 namespace viator_dsp
 {
 class SVFilter
