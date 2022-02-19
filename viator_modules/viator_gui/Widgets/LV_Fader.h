@@ -50,60 +50,31 @@ namespace viator_gui
             setLookAndFeel(nullptr);
         }
         
-        void forceShadow()
-        {
-            setComponentEffect(&sliderShadow);
-        }
+        void forceShadow();
         
     private:
         
-        void mouseEnter (const juce::MouseEvent& event) override
-        {
-            setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedBrightness(1.25));
-            setComponentEffect(&sliderShadow);
-        }
+        /** Methods ===============================================================*/
+        void mouseEnter (const juce::MouseEvent& event) override;
+        void mouseExit (const juce::MouseEvent& event) override;
         
-        void mouseExit (const juce::MouseEvent& event) override
-        {
-            setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedBrightness(0.8));
-            setComponentEffect(&sliderShadow);
-        }
+        void initProps
+        (
+            juce::String suffix,
+            double rangeStart,
+            double rangeEnd,
+            double intervalValue,
+            double returnValue
+         );
         
-        /** Slider ================================================================*/
+        /** Fader shadow */
+        void initShadows();
+        
+        /** Slider */
         juce::Slider slider;
         juce::LV_FaderLAF customFader;
         
-        /** Methods ===============================================================*/
-        void initProps(
-                       juce::String suffix,
-                       double rangeStart,
-                       double rangeEnd,
-                       double intervalValue,
-                       double returnValue)
-        {
-            setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-            setTextBoxStyle(juce::Slider::TextBoxBelow, true, 72, 32);
-            setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::black.withAlpha(0.35f));
-            setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::black.withAlpha(0.0f));
-            setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black.withAlpha(0.0f));
-            setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.withAlpha(0.36f));
-            setColour(juce::Slider::ColourIds::thumbColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0));
-            setRange(rangeStart, rangeEnd, intervalValue);
-            setDoubleClickReturnValue(true, returnValue);
-            setTextValueSuffix(suffix);
-            setLookAndFeel(&customFader);
-            setComponentEffect(&sliderShadow);
-        }
-        
-        /** Fader shadow ===========================================================*/
-        void initShadows()
-        {
-            sliderShadowProperties.radius = 8;
-            sliderShadowProperties.offset = juce::Point<int> (0, 0);
-            sliderShadowProperties.colour = juce::Colours::black.withAlpha(1.0f);
-            sliderShadow.setShadowProperties (sliderShadowProperties);
-        }
-        
+        /** Fader shadow */
         juce::DropShadow sliderShadowProperties;
         juce::DropShadowEffect sliderShadow;
     };

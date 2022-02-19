@@ -18,46 +18,17 @@ namespace viator_gui
         
     public:
     
-        LV_Menu()
-        {
-            setLookAndFeel(&customMenu);
-            setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
-            setColour(juce::ComboBox::ColourIds::outlineColourId, juce::Colours::whitesmoke.withAlpha(0.0f));
-            setColour(juce::ComboBox::ColourIds::focusedOutlineColourId, juce::Colours::black.withAlpha(0.5f));
-            setColour(juce::ComboBox::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.5f));
-            setColour(juce::ComboBox::ColourIds::arrowColourId, juce::Colours::skyblue.darker(0.5f));
-
-            getLookAndFeel().setColour(juce::PopupMenu::backgroundColourId, juce::Colours::black.brighter(0.1f));
-            getLookAndFeel().setColour(juce::PopupMenu::highlightedBackgroundColourId, juce::Colours::skyblue.withAlpha(0.1f));
-            getLookAndFeel().setColour(juce::PopupMenu::textColourId, juce::Colours::whitesmoke.withAlpha(0.5f));
-            getLookAndFeel().setColour(juce::PopupMenu::highlightedTextColourId, juce::Colours::skyblue);
+        LV_Menu();
         
-            setJustificationType(juce::Justification::centred);
-        }
-        
-        ~LV_Menu()
-        {
-            setLookAndFeel(nullptr);
-        }
+        ~LV_Menu();
         
     private:
         
-        void timerCallback() final
-        {
-            setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
-        }
+        void timerCallback() final;
         
-        void mouseEnter (const juce::MouseEvent& event) override
-        {
-            setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::whitesmoke.withAlpha(0.05f));
-            startTimer(1000);
-        }
+        void mouseEnter (const juce::MouseEvent& event) override;
         
-        void mouseExit (const juce::MouseEvent& event) override
-        {
-            setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
-            stopTimer();
-        }
+        void mouseExit (const juce::MouseEvent& event) override;
         
         juce::LV_Custom_Menu customMenu;
     };

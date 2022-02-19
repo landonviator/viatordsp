@@ -29,7 +29,7 @@ public:
     {
         setSliderStyle(juce::Slider::SliderStyle::LinearBarVertical);
         setSliderSnapsToMousePosition(false);
-        setMouseDragSensitivity(2500);
+        setMouseDragSensitivity(500);
         setTextBoxStyle(juce::Slider::TextBoxBelow, false, 96, 32);
         setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::transparentBlack);
         setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
@@ -49,15 +49,9 @@ public:
     
 private:
     
-    void mouseEnter (const juce::MouseEvent& event) override
-    {
-        setColour(juce::Slider::ColourIds::textBoxTextColourId, findColour(juce::Slider::ColourIds::textBoxTextColourId).withAlpha(1.0f));
-    }
+    void mouseEnter (const juce::MouseEvent& event) override;
     
-    void mouseExit (const juce::MouseEvent& event) override
-    {
-        setColour(juce::Slider::ColourIds::textBoxTextColourId, findColour(juce::Slider::ColourIds::textBoxTextColourId).withAlpha(0.5f));
-    }
+    void mouseExit (const juce::MouseEvent& event) override;
     
     /** Slider ================================================================*/
     juce::Slider dial;

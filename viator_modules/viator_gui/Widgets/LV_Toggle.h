@@ -8,18 +8,9 @@ namespace viator_gui
         
     public:
     
-        LV_Toggle()
-        {
-            setClickingTogglesState(true);
-            setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::dimgrey.withAlpha(0.5f));
-            setColour(juce::ToggleButton::tickColourId, juce::Colours::springgreen.withAlpha(0.5f));
-            setLookAndFeel(&powerToggle);
-        }
+        LV_Toggle();
         
-        ~LV_Toggle() override
-        {
-            setLookAndFeel(nullptr);
-        }
+        ~LV_Toggle() override;
         
         enum class ToggleStyle
         {
@@ -27,35 +18,11 @@ namespace viator_gui
             kPhase
         };
         
-        void setToggleStyle(ToggleStyle newToggleStyle)
-        {
-            switch (newToggleStyle) {
-                case ToggleStyle::kPower:
-                {
-                    setLookAndFeel(&powerToggle);
-                    break;
-                }
-
-                case ToggleStyle::kPhase:
-                {
-                    setLookAndFeel(&phaseToggle);
-                    break;
-                }
-            }
-        }
+        void setToggleStyle(ToggleStyle newToggleStyle);
         
-        void mouseEnter (const juce::MouseEvent& event) override
-        {
-            setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::whitesmoke);
-            setColour(juce::ToggleButton::tickColourId, juce::Colours::whitesmoke);
-            
-        }
+        void mouseEnter (const juce::MouseEvent& event) override;
         
-        void mouseExit (const juce::MouseEvent& event) override
-        {
-            setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::dimgrey.withAlpha(0.5f));
-            setColour(juce::ToggleButton::tickColourId, juce::Colours::springgreen.withAlpha(0.5f));
-        }
+        void mouseExit (const juce::MouseEvent& event) override;
         
         private:
         
