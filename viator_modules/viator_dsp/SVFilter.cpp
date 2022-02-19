@@ -115,10 +115,10 @@ void viator_dsp::SVFilter::setGain(float value)
 
 float viator_dsp::SVFilter::getShelfQ(float value) const
 {
-    return std::pow(10.0f, std::abs(value) / 20.0f) * 0.25f - 0.24f;
+    return viator_utils::utils::dbToGain(std::abs(value)) * 0.25f - 0.24f;
 }
 
 float viator_dsp::SVFilter::getPeakQ(float value) const
 {
-    return std::pow(10.0f, std::abs(value) / 20.0f) * 0.2f;
+    return viator_utils::utils::dbToGain(std::abs(value)) * 0.2f;
 }
