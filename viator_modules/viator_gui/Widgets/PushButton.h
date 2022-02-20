@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    LV_PushButton.h
+    PushButton.h
     Created: 24 Oct 2021 8:30:03pm
     Author:  Landon Viator
 
@@ -13,12 +13,12 @@
 namespace viator_gui
 {
 
-    class LV_PushButton : public juce::TextButton
+    class PushButton : public juce::TextButton
     {
         
     public:
     
-        LV_PushButton()
+        PushButton()
         {
             setClickingTogglesState(true);
             setColour(0x1000100, juce::Colours::whitesmoke.withAlpha(0.25f));
@@ -29,13 +29,13 @@ namespace viator_gui
             setLookAndFeel(&customButton);
         }
         
-        ~LV_PushButton()
+        ~PushButton()
         {
             setLookAndFeel(nullptr);
         }
         
     private:
-        juce::LV_CustomPushButton customButton;
+        juce::CustomPushButton customButton;
         
     };
 }

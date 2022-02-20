@@ -11,3 +11,12 @@
 
 /** Viator DSP CPP Files*/
 #include "viator_dsp/Clipper.cpp"
+#include "viator_dsp/SVFilter.cpp"
+
+/** Viator GUI CPP Files*/
+#include "viator_gui/Widgets/Dial.cpp"
+#include "viator_gui/Widgets/Fader.cpp"
+#include "viator_gui/Widgets/Menu.cpp"
+#include "viator_gui/Widgets/NumberBox.cpp"
+#include "viator_gui/Widgets/Toggle.cpp"
+#include "viator_gui/Widgets/StyleSheet.cpp"

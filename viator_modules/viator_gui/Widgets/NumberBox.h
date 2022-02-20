@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    LV_Dial.h
+    Dial.h
     Created: 20 Jul 2021 9:43:18pm
     Author:  landon viator
 
@@ -14,11 +14,11 @@
 namespace viator_gui
 {
 
-class LV_NumberBox  : public juce::Slider
+class NumberBox  : public juce::Slider
 {
 public:
     
-    LV_NumberBox
+    NumberBox
     
     (   juce::String suffix,
         double rangeStart,
@@ -29,7 +29,7 @@ public:
     {
         setSliderStyle(juce::Slider::SliderStyle::LinearBarVertical);
         setSliderSnapsToMousePosition(false);
-        setMouseDragSensitivity(2500);
+        setMouseDragSensitivity(500);
         setTextBoxStyle(juce::Slider::TextBoxBelow, false, 96, 32);
         setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::transparentBlack);
         setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
@@ -41,7 +41,7 @@ public:
         setLookAndFeel(&customNumberBox);
     }
     
-    ~LV_NumberBox() override
+    ~NumberBox() override
     {
         setLookAndFeel(nullptr);
     }
@@ -49,19 +49,13 @@ public:
     
 private:
     
-    void mouseEnter (const juce::MouseEvent& event) override
-    {
-        setColour(juce::Slider::ColourIds::textBoxTextColourId, findColour(juce::Slider::ColourIds::textBoxTextColourId).withAlpha(1.0f));
-    }
+    void mouseEnter (const juce::MouseEvent& event) override;
     
-    void mouseExit (const juce::MouseEvent& event) override
-    {
-        setColour(juce::Slider::ColourIds::textBoxTextColourId, findColour(juce::Slider::ColourIds::textBoxTextColourId).withAlpha(0.5f));
-    }
+    void mouseExit (const juce::MouseEvent& event) override;
     
     /** Slider ================================================================*/
     juce::Slider dial;
-    juce::LV_CustomNumberBox customNumberBox;
+    juce::CustomNumberBox customNumberBox;
 };
 }
 

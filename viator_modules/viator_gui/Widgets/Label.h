@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    LV_Label.h
+    Label.h
     Created: 1 Aug 2021 1:17:17am
     Author:  landon viator
 
@@ -13,11 +13,11 @@
 namespace viator_gui
 {
 
-class LV_Label : public juce::Label
+class Label : public juce::Label
 {
 public:
     
-    LV_Label()
+    Label()
     {
         setJustificationType(juce::Justification::centredTop);
         setColour(0x1000280, juce::Colour::fromFloatRGBA(0, 0, 0, 0));

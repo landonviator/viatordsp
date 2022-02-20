@@ -9,10 +9,10 @@ class Clipper
 {
 public:
     
-    /** Creates an uninitialised filter. Call prepare() before first use. */
+    /** Creates an uninitialised clipper. Call prepare() before first use. */
     Clipper();
     
-    /** Initialises the filter. */
+    /** Initialises the clipper. */
     void prepare(const juce::dsp::ProcessSpec& spec);
     
     /** Processes the input and output buffers supplied in the processing context. */
@@ -70,6 +70,7 @@ public:
         kBypass
     };
     
+    /** Different clipper types*/
     enum class ClipType
     {
         kHard,
