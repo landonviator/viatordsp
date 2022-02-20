@@ -17,6 +17,14 @@ class Dial  : public juce::Slider
 {
 public:
     
+    /** Create an instance like this:
+     * viator_dsp::Dial myDial {" dB", 0.0, 10.0, 0.1, 0.0};
+     * " dB" is the text in the dial's number textbox
+     * 0.0 is the range start
+     * 10.0 is the range end
+     * 0.1 is the interval between each dial setting
+     * 0.0 is the number the dial is reset to when double clicked
+    */
     Dial
     (   juce::String suffix,
         double rangeStart,
@@ -34,6 +42,9 @@ public:
         setLookAndFeel(nullptr);
     }
 
+    /** Set the dial style
+     * e.g. myDial.setDialStyle(viator_gui::Dial::DialStyle::kHardDial);
+    */
     enum class DialStyle
     {
         kHardDial,
@@ -43,6 +54,12 @@ public:
     
     void setDialStyle(DialStyle dialStyle);
     
+    /** You need to call this method if you change a dial's color in any way, I'm not sure why but making this method fixed it
+     * call this after all color changes have been made
+     * e.g. 
+     * myDial.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::aliceblue);
+     * myDial.forceShadow();
+    */
     void forceShadow();
 
 private:
