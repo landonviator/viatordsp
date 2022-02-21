@@ -10,6 +10,12 @@ void viator_gui::Dial::setDialStyle(DialStyle dialStyle)
             break;
         }
             
+        case DialStyle::kFullDial:
+        {
+            setLookAndFeel(&fullDial);
+            break;
+        }
+            
         case DialStyle::kAlphaDial:
         {
             setLookAndFeel(&alphaDial);

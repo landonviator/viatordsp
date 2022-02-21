@@ -157,7 +157,7 @@ void juce::HardDialLAF::drawRotarySlider
     float rx = centerX - radius;
     float ry = centerY - radius;
     float angle = rotaryStartAngle + (sliderPos * (rotaryEndAngle - rotaryStartAngle));
-            
+    
     juce::Rectangle<float> dialArea (rx, ry, diameter, diameter);
     g.setColour(slider.findColour(Slider::thumbColourId).withAlpha(0.7f)); //center
     g.fillEllipse(dialArea);
@@ -169,6 +169,100 @@ void juce::HardDialLAF::drawRotarySlider
     g.setColour(slider.findColour(juce::Slider::ColourIds::trackColourId)); //tick color
     dialTick.addRectangle(0, -radius + 2, 4.0f, radius * 0.6);
     g.fillPath(dialTick, juce::AffineTransform::rotation(angle).translated(centerX, centerY));
+    
+    
+}
+
+void juce::FullDialLAF::drawRotarySlider
+(
+    Graphics &g,
+    int x,
+    int y,
+    int width,
+    int height,
+    float sliderPos,
+    float rotaryStartAngle,
+    float rotaryEndAngle,
+    Slider &slider
+)
+{
+    const auto outline  = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
+    const auto fill     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
+    const auto brighter = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.15);
+    const auto text     = slider.findColour (juce::Slider::trackColourId);
+    const auto track    = slider.findColour(juce::Slider::ColourIds::trackColourId);
+
+    auto bounds = juce::Rectangle<int> (x, y, width, height).toFloat().reduced (10);
+    auto centre = bounds.getCentre();
+
+    auto radius = juce::jmin (bounds.getWidth() / 2.0f, bounds.getHeight() / 2.0f);
+
+    g.setColour (text);
+
+    radius = juce::jmin (bounds.getWidth() / 2.0f, bounds.getHeight() / 2.0f);
+    centre = bounds.getCentre();
+
+    if (radius > 50.0f)
+    {
+        for (int i = 0; i < 9; ++i)
+        {
+            const auto angle = juce::jmap (i / 8.0f, rotaryStartAngle, rotaryEndAngle);
+            const auto point = centre.getPointOnCircumference (radius - 2.0f, angle);
+            g.fillEllipse (point.getX() - 3, point.getY() - 3, 6, 6);
+        }
+        radius -= 10.0f;
+    }
+
+    auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
+    auto lineW = juce::jmin (4.0f, radius * 0.5f);
+    auto arcRadius  = radius - lineW;
+
+    juce::Path backgroundArc;
+    backgroundArc.addCentredArc (bounds.getCentreX(),
+                                     bounds.getCentreY(),
+                                     arcRadius,
+                                     arcRadius,
+                                     0.0f,
+                                     rotaryStartAngle,
+                                     rotaryEndAngle,
+                                     true);
+
+    g.setColour (outline);
+    g.strokePath (backgroundArc, juce::PathStrokeType (lineW, juce::PathStrokeType::curved, juce::PathStrokeType::butt));
+
+    auto knobRadius = std:: max (radius - 3.0f * lineW, 10.0f);
+    {
+        juce::Graphics::ScopedSaveState saved (g);
+        if (slider.isEnabled())
+        {
+            juce::ColourGradient fillGradient (brighter, centre.getX() + lineW * 2.0f, centre.getY() - lineW * 4.0f, fill, centre.getX() + knobRadius, centre.getY() + knobRadius, true);
+            g.setGradientFill (fillGradient);
+        }
+        g.fillEllipse (centre.getX() - knobRadius, centre.getY() - knobRadius, knobRadius * 2.0f, knobRadius * 2.0f);
+    }
+    
+    knobRadius = std:: max (knobRadius - 4.0f, 10.0f);
+    g.setColour (outline.brighter());
+    g.drawEllipse (centre.getX() - knobRadius, centre.getY() - knobRadius, knobRadius * 2.0f, knobRadius * 2.0f, 2.0f);
+            
+    juce::Path valueArc;
+            valueArc.addCentredArc (bounds.getCentreX(),
+                                    bounds.getCentreY(),
+                                    arcRadius,
+                                    arcRadius,
+                                    0.0f,
+                                    rotaryStartAngle,
+                                    toAngle,
+                                    true);
+
+    g.setColour (fill);
+    g.strokePath (valueArc, juce::PathStrokeType (lineW, juce::PathStrokeType::curved, juce::PathStrokeType::butt));
+    
+    g.setColour (track);
+        juce::Path p;
+    p.startNewSubPath (centre.getPointOnCircumference (knobRadius - lineW, toAngle));
+    p.lineTo (centre.getPointOnCircumference ((knobRadius - lineW) * 0.6f, toAngle));
+    g.strokePath (p, juce::PathStrokeType (lineW, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
 }
 
 void juce::HardDialLAF::drawLabel (Graphics& g, Label& label)

@@ -82,6 +82,27 @@ namespace juce
         void drawLabel (Graphics& g, Label& label) override;
     };
 
+/** Full Dial Style*/
+class FullDialLAF : public juce::LookAndFeel_V4
+{
+    
+public:
+    
+    void drawRotarySlider
+    (
+        Graphics &g,
+        int x,
+        int y,
+        int width,
+        int height,
+        float sliderPos,
+        float rotaryStartAngle,
+        float rotaryEndAngle,
+        Slider &slider
+    ) override;
+
+};
+
     /** Number Box Style*/
     class CustomNumberBox : public juce::LookAndFeel_V4
     {

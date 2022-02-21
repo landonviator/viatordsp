@@ -37,6 +37,7 @@ public:
     enum class DialStyle
     {
         kHardDial,
+        kFullDial,
         kAlphaDial,
         kAbleDial
     };
@@ -63,6 +64,7 @@ private:
     /** Slider */
     Slider dial;
     juce::HardDialLAF hardDial;
+    juce::FullDialLAF fullDial;
     juce::AlphaDialLAF alphaDial;
     juce::CustomAbleDialLAF ableDial {false};
     
