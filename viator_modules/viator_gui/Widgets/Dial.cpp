@@ -37,13 +37,13 @@ void viator_gui::Dial::forceShadow()
 
 void viator_gui::Dial::mouseEnter (const juce::MouseEvent& event)
 {
-    setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(1.25));
+    setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(1.1));
     setComponentEffect(&dialShadow);
 }
 
 void viator_gui::Dial::mouseExit (const juce::MouseEvent& event)
 {
-    setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(0.8f));
+    setColour(juce::Slider::ColourIds::thumbColourId, findColour(juce::Slider::ColourIds::thumbColourId).withMultipliedLightness(0.909f));
     setComponentEffect(&dialShadow);
 }
 

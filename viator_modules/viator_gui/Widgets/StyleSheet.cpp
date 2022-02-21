@@ -192,7 +192,7 @@ void juce::FullDialLAF::drawRotarySlider
     const auto text     = slider.findColour (juce::Slider::trackColourId);
     const auto track    = slider.findColour(juce::Slider::ColourIds::trackColourId);
 
-    auto bounds = juce::Rectangle<int> (x, y, width, height).toFloat().reduced (10);
+    auto bounds = juce::Rectangle<int> (x, y, width, height).toFloat();
     auto centre = bounds.getCentre();
 
     auto radius = juce::jmin (bounds.getWidth() / 2.0f, bounds.getHeight() / 2.0f);
