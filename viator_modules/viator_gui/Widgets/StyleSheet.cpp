@@ -186,6 +186,7 @@ void juce::FullDialLAF::drawRotarySlider
     Slider &slider
 )
 {
+    /** Define more color variables here for even more customization!*/
     const auto outline  = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     const auto fill     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
     const auto brighter = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.15);
