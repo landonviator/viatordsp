@@ -90,4 +90,4 @@ private:
     juce::DropShadowEffect dialShadow;
     
 }; // class
-}// namespace viator+gui
+}// namespace viator_gui
