@@ -100,6 +100,8 @@ public:
         float rotaryEndAngle,
         Slider &slider
     ) override;
+    
+    void drawLabel (Graphics& g, Label& label) override;
 
 };
 

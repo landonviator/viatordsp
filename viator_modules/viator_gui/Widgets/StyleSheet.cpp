@@ -210,6 +210,7 @@ void juce::FullDialLAF::drawRotarySlider
             const auto point = centre.getPointOnCircumference (radius - 2.0f, angle);
             g.fillEllipse (point.getX() - 3, point.getY() - 3, 6, 6);
         }
+        
         radius -= 10.0f;
     }
 
@@ -263,6 +264,35 @@ void juce::FullDialLAF::drawRotarySlider
     p.startNewSubPath (centre.getPointOnCircumference (knobRadius - lineW, toAngle));
     p.lineTo (centre.getPointOnCircumference ((knobRadius - lineW) * 0.6f, toAngle));
     g.strokePath (p, juce::PathStrokeType (lineW, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
+}
+
+void juce::FullDialLAF::drawLabel (Graphics& g, Label& label)
+{
+    g.fillAll (label.findColour (Label::backgroundColourId));
+
+    if (! label.isBeingEdited())
+    {
+        auto alpha = label.isEnabled() ? 1.0f : 0.5f;
+        const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::plain));
+
+        g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
+        g.setFont (font);
+
+        auto textArea = getLabelBorderSize (label).subtractedFrom (label.getLocalBounds());
+
+        g.drawFittedText (label.getText(), textArea, label.getJustificationType(),
+                          jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())),
+                          label.getMinimumHorizontalScale());
+
+        g.setColour (label.findColour (Label::outlineColourId).withMultipliedAlpha (alpha));
+    }
+    
+    else if (label.isEnabled())
+    {
+        g.setColour (label.findColour (Label::outlineColourId));
+    }
+
+    g.drawRect (label.getLocalBounds());
 }
 
 void juce::HardDialLAF::drawLabel (Graphics& g, Label& label)
