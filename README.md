@@ -30,7 +30,7 @@ Update parameters, e.g.:
 Be sure to call the prepare method of every DSP module in the PluginProcessor.cpp's prepare method!
 
 Or a gui component inside of viator_gui/Widgets, like a dial, with:
-- viator_gui::LV_Dial dial (In the PluginEditor.h)
+- viator_gui::Dial dial {" textValueSuffix", rangeStart, rangeEnd, rangeInterval, returnValue} (In the PluginEditor.h)
 
 ## Contributing
 Contributions are most welcome! Check out the [issues](https://github.com/landonviator/viatordsp/issues) page for more details.
