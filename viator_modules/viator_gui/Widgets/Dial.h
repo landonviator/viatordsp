@@ -55,7 +55,7 @@ public:
     
     void setDialStyle(DialStyle dialStyle);
     
-    /** You need to call this method if you change a dial's color or style in any way, I'm not sure why but making this method fixed it
+    /** You need to call forceShadow() if you change a dial's color or style in any way, I'm not sure why but making this method fixed it
      * e.g. 
      * myDial.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::aliceblue);
      * dial.setDialStyle(viator_gui::Dial::DialStyle::kFullDial);
