@@ -11,6 +11,17 @@ namespace viator_utils
         {
             return std::pow(10.0, input * scalar);
         }
+        
+        template <typename T>
+        static T clipData(T input, T thresh = 1.0)
+        {
+            if (std::abs(input) > thresh)
+            {
+                input *= 1.0 / std::abs(input);
+            }
+            
+            return input;
+        }
     };
 }
 
