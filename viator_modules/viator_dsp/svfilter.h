@@ -23,46 +23,8 @@ public:
     /** Initialises the filter. */
     void prepare(juce::dsp::ProcessSpec& spec);
     
-    /** Processes the input and output buffers supplied in the processing context. */
-    template <typename ProcessContext>
-    void process (const ProcessContext& context) noexcept
-    {
-        auto&& inBlock  = context.getInputBlock();
-        auto&& outBlock = context.getOutputBlock();
-
-        jassert (inBlock.getNumChannels() == outBlock.getNumChannels());
-        jassert (inBlock.getNumSamples() == outBlock.getNumSamples());
-
-        auto len         = inBlock.getNumSamples();
-        auto numChannels = inBlock.getNumChannels();
-
-        if (mGlobalBypass)
-        {
-            if (context.usesSeparateInputAndOutputBlocks())
-                outBlock.copyFrom (inBlock);
-
-            return;
-        }
-
-        for (size_t sample = 0; sample < len; ++sample)
-        {
-            for (size_t channel = 0; channel < numChannels; ++channel)
-            {
-                auto* input = inBlock.getChannelPointer (channel);
-                auto* output = outBlock.getChannelPointer (channel);
-                
-                auto x = input[sample];
-                output[sample] = processSample(x, static_cast<int>(numChannels));
-            }
-        }
-    }
-    
-    /** Process an individual sample */
-    template <typename T>
-    T processSample(T input, int numChannels)
-    {
-        return filterData(input, numChannels);
-    }
+    /** Processes the block */
+    void processBlock(const juce::dsp::AudioBlock<float> &block);
     
     /** The parameters of this module. */
     enum class ParameterId
@@ -114,9 +76,6 @@ private:
     
      /** state variables (z^-1) */
     std::vector<double> mZ1, mZ2;
-    
-    /** Generic method holding the DSP */
-    float filterData(float dataToFilter, int numCh);
     
     /** Convert the gain if needed */
     void setGain(float value);

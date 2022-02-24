@@ -16,9 +16,9 @@ void viator_dsp::SVFilter::prepare(juce::dsp::ProcessSpec& spec)
     mZ2.assign(spec.numChannels, 0.0);
 }
 
-float viator_dsp::SVFilter::filterData(float dataToFilter, int numCh)
+void viator_dsp::SVFilter::processBlock(const juce::dsp::AudioBlock<float> &block)
 {
-    if (mGlobalBypass) return dataToFilter;
+    if (mGlobalBypass) return;
         
     float lsLevel = 0.0;
     float bsLevel = 0.0;
@@ -38,58 +38,62 @@ float viator_dsp::SVFilter::filterData(float dataToFilter, int numCh)
     const double sampleRate2X = mCurrentSampleRate * 2.0;
     const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
         
-    // prewarp the cutoff (for bilinear-transform filters)
-    double wd = mCutoff * 6.28f;
-    double wa = sampleRate2X * tan(wd * halfSampleDuration);
-                
-    //Calculate g (gain element of integrator)
-    mGCoeff = wa * halfSampleDuration;
-                
-    //Calculate Zavalishin's damping parameter (Q)
-    switch (mQType)
+    for (int sample = 0; sample < block.getNumSamples(); ++sample)
     {
-        case kParametric:
-        {
-            mRCoeff = 1.0 - mQ;
-            break;
-        }
-            
-        case kProportional:
-        {
-            if (mType == kBandShelf)
-            {
-                mRCoeff = 1.0 - getPeakQ(mRawGain); break;
-            }
+        // prewarp the cutoff (for bilinear-transform filters)
+        double wd = mCutoff * 6.28f;
+        double wa = sampleRate2X * tan(wd * halfSampleDuration);
                 
-            else
-            {
-                mRCoeff = 1.0 - getShelfQ(mRawGain); break;
-            }
+        //Calculate g (gain element of integrator)
+        mGCoeff = wa * halfSampleDuration;
+                
+        //Calculate Zavalishin's damping parameter (Q)
+        switch (mQType)
+        {
+            case kParametric: mRCoeff = 1.0 - mQ; break;
+            case kProportional:
+                
+                if (mType == kBandShelf)
+                {
+                    mRCoeff = 1.0 - getPeakQ(mRawGain); break;
+                }
+                
+                else
+                {
+                    mRCoeff = 1.0 - getShelfQ(mRawGain); break;
+                }
+        }
+        
+        mRCoeff2 = mRCoeff * 2.0;
+                
+        mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+            
+        for (int ch = 0; ch < block.getNumChannels(); ++ch)
+        {
+            const auto z1 = mZ1[ch];
+            const auto z2 = mZ2[ch];
+            
+            float* data = block.getChannelPointer(ch);
+            
+            const float x = data[sample];
+                
+            const double HP = (x - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
+            const double BP = HP * mGCoeff + z1;
+            const double LP = BP * mGCoeff + z2;
+            const double UBP = mRCoeff2 * BP;
+            const double BShelf = x + UBP * mGain;
+            const double LS = x + mGain * LP;
+            const double HS = x + mGain * HP;
+                
+            //Main output code
+            data[sample] = BShelf * bsLevel + LS * lsLevel + HS * hsLevel + HP * hpLevel + LP * lpLevel;
+                
+            // unit delay (state variable)
+            mZ1[ch] = mGCoeff * HP + BP;
+            mZ2[ch] = mGCoeff * BP + LP;
+            
         }
     }
-        
-    mRCoeff2 = mRCoeff * 2.0;
-    mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
-            
-    const auto z1 = mZ1[numCh];
-    const auto z2 = mZ2[numCh];
-                            
-    const double HP = (dataToFilter - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
-    const double BP = HP * mGCoeff + z1;
-    const double LP = BP * mGCoeff + z2;
-    const double UBP = mRCoeff2 * BP;
-    const double BShelf = dataToFilter + UBP * mGain;
-    const double LS = dataToFilter + mGain * LP;
-    const double HS = dataToFilter + mGain * HP;
-                
-    //Main output code
-    dataToFilter = BShelf * bsLevel + LS * lsLevel + HS * hsLevel + HP * hpLevel + LP * lpLevel;
-               
-    // unit delay (state variable)
-    mZ1[numCh] = mGCoeff * HP + BP;
-    mZ2[numCh] = mGCoeff * BP + LP;
-
-    return dataToFilter;
 }
 
 void viator_dsp::SVFilter::setParameter(ParameterId parameter, float parameterValue)

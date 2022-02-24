@@ -20,6 +20,11 @@ public:
     template <typename ProcessContext>
     void process (const ProcessContext& context) noexcept
     {
+        if (mGlobalBypass)
+        {
+            return;
+        }
+        
         auto&& inBlock  = context.getInputBlock();
         auto&& outBlock = context.getOutputBlock();
 
@@ -29,13 +34,6 @@ public:
         auto len         = inBlock.getNumSamples();
         auto numChannels = inBlock.getNumChannels();
 
-        if (mGlobalBypass)
-        {
-            if (context.usesSeparateInputAndOutputBlocks())
-                outBlock.copyFrom (inBlock);
-
-            return;
-        }
 
         for (size_t sample = 0; sample < len; ++sample)
         {
@@ -55,7 +53,7 @@ public:
     template <typename SampleType>
     SampleType processSample(SampleType input) noexcept
     {
-        return processCubicShaper(input * mGainDB, 5.0, 8.956, -5.37);
+        return processCubicShaper(input);
     }
     
     /** The parameters of this module. */
@@ -77,7 +75,7 @@ private:
     float mCurrentSampleRate, mGainDB;
     
     // Methods
-    float processCubicShaper(float dataToShape, int coeff3, int coeff2, int coeff1);
+    float processCubicShaper(float dataToShape, float coeff3 = 2.32, float coeff2 = 2.26, float coeff1 = 0.26);
 };
 } // namespace viator_dsp
 

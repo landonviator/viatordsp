@@ -19,6 +19,11 @@ public:
     template <typename ProcessContext>
     void process (const ProcessContext& context) noexcept
     {
+        if (mGlobalBypass)
+        {
+            return;
+        }
+        
         auto&& inBlock  = context.getInputBlock();
         auto&& outBlock = context.getOutputBlock();
 
@@ -28,13 +33,6 @@ public:
         auto len         = inBlock.getNumSamples();
         auto numChannels = inBlock.getNumChannels();
 
-        if (mGlobalBypass)
-        {
-            if (context.usesSeparateInputAndOutputBlocks())
-                outBlock.copyFrom (inBlock);
-
-            return;
-        }
 
         for (size_t sample = 0; sample < len; ++sample)
         {

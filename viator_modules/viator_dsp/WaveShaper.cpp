@@ -19,19 +19,17 @@ void viator_dsp::WaveShaper::setParameter(ParameterId parameter, float parameter
         case ParameterId::kPreamp:
         {
             mRawGain.setTargetValue(parameterValue); break;
-            mGainDB = viator_utils::utils::dbToGain(mRawGain.getNextValue());
         }
         case ParameterId::kSampleRate: mCurrentSampleRate = parameterValue; break;
         case ParameterId::kBypass: mGlobalBypass = static_cast<bool>(parameterValue);
     }
 }
 
-float viator_dsp::WaveShaper::processCubicShaper(float dataToShape, int coeff3, int coeff2, int coeff1)
+float viator_dsp::WaveShaper::processCubicShaper(float dataToShape, float coeff3, float coeff2, float coeff1)
 {
     /** Don't do anything if the module is off*/
     if (mGlobalBypass) return dataToShape;
     
-    auto shape = coeff3 * pow(dataToShape, 3) + coeff2 * pow(dataToShape, 2) + coeff1 * dataToShape;
-    
-    return viator_utils::utils::clipData(shape);
+    auto gain = viator_utils::utils::dbToGain(mRawGain.getNextValue());
+    return coeff3 * std::pow(dataToShape * gain, 3) + coeff2 * std::pow(dataToShape * gain, 2) + coeff1 * dataToShape * gain;
 }
