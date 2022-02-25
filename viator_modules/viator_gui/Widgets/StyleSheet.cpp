@@ -204,11 +204,14 @@ void juce::FullDialLAF::drawRotarySlider
     radius = juce::jmin (bounds.getWidth() / 2.0f, bounds.getHeight() / 2.0f);
     centre = bounds.getCentre();
 
+    /** Draw dots */
     if (radius > 50.0f)
     {
-        for (int i = 0; i < 9; ++i)
+        /** How many dots to draw, works well as num dial intervals + 1 for small ranges, e.g. [0 - 10]*/
+        for (int i = 0; i < 11; ++i)
         {
-            const auto angle = juce::jmap (i / 8.0f, rotaryStartAngle, rotaryEndAngle);
+            /** IF you change the number of dots, do i / (num dots - 1) */
+            const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
             const auto point = centre.getPointOnCircumference (radius - 2.0f, angle);
             
             /** Dot thickness*/

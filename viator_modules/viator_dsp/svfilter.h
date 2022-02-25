@@ -26,6 +26,9 @@ public:
     /** Processes the block */
     void processBlock(const juce::dsp::AudioBlock<float> &block);
     
+    /** Processes single samples */
+    float processSample(float input, int ch);
+    
     /** The parameters of this module. */
     enum class ParameterId
     {
