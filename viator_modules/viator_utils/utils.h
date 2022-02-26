@@ -22,6 +22,43 @@ namespace viator_utils
             
             return input;
         }
+        
+        static void hardClipBlock(juce::dsp::AudioBlock<float> &block)
+        {
+            for (int sample = 0; sample < block.getNumSamples(); ++sample)
+            {
+                for (int ch = 0; ch < block.getNumChannels(); ++ch)
+                {
+                    float* data = block.getChannelPointer(ch);
+                    data[sample] = clipData(data[sample]);
+                }
+            }
+        }
+        
+        static void invertBlock(juce::dsp::AudioBlock<float> &block)
+        {
+            for (int sample = 0; sample < block.getNumSamples(); ++sample)
+            {
+                for (int ch = 0; ch < block.getNumChannels(); ++ch)
+                {
+                    float* data = block.getChannelPointer(ch);
+                    data[sample] *= -1.0;
+                }
+            }
+        }
+        
+        static void multiplyBlock(juce::dsp::AudioBlock<float> &block, float multiplier)
+        {
+            for (int sample = 0; sample < block.getNumSamples(); ++sample)
+            {
+                for (int ch = 0; ch < block.getNumChannels(); ++ch)
+                {
+                    float* data = block.getChannelPointer(ch);
+                    data[sample] *= multiplier;
+                }
+            }
+        }
+        
     };
 }
 

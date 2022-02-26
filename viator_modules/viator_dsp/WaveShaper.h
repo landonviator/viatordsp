@@ -75,7 +75,7 @@ private:
     float mCurrentSampleRate, mGainDB;
     
     // Methods
-    float processCubicShaper(float dataToShape, float coeff3 = 3.0, float coeff2 = 5.0, float coeff1 = 2.0);
+    float processCubicShaper(float dataToShape, float coeff3 = 8.0, float coeff2 = 16.0, float coeff1 = 10.0);
 };
 } // namespace viator_dsp
 

@@ -31,5 +31,5 @@ float viator_dsp::WaveShaper::processCubicShaper(float dataToShape, float coeff3
     if (mGlobalBypass) return dataToShape;
     
     auto gain = viator_utils::utils::dbToGain(mRawGain.getNextValue());
-    return coeff3 * std::pow(dataToShape * gain, 3) + coeff2 * std::pow(dataToShape * gain, 2) + coeff1 * dataToShape * gain;
+    return coeff3 * std::pow(dataToShape * gain, 5) - coeff2 * std::pow(dataToShape * gain, 3) + coeff1 * dataToShape * gain;
 }
