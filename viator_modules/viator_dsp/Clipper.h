@@ -35,9 +35,9 @@ public:
         auto numChannels = inBlock.getNumChannels();
 
 
-        for (size_t sample = 0; sample < len; ++sample)
+        for (size_t channel = 0; channel < numChannels; ++channel)
         {
-            for (size_t channel = 0; channel < numChannels; ++channel)
+            for (size_t sample = 0; sample < len; ++sample)
             {
                 auto* input = inBlock.getChannelPointer (channel);
                 auto* output = outBlock.getChannelPointer (channel);
