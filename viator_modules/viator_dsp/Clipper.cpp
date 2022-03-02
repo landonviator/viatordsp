@@ -1,19 +1,22 @@
 #include "Clipper.h"
 
-viator_dsp::Clipper::Clipper() :
-mGlobalBypass(false), mThresh(1.0f), mGainDB(1.0), mClipType(viator_dsp::Clipper::ClipType::kHard)
+template <typename SampleType>
+viator_dsp::Clipper<SampleType>::Clipper() :
+mGlobalBypass(false), mThresh(1.0f), mGainDB(1.0), mClipType(viator_dsp::Clipper<SampleType>::ClipType::kHard)
 {
     mPiDivisor = 2.0 / juce::MathConstants<float>::pi;
 }
 
-void viator_dsp::Clipper::prepare(const juce::dsp::ProcessSpec& spec)
+template <typename SampleType>
+void viator_dsp::Clipper<SampleType>::prepare(const juce::dsp::ProcessSpec& spec)
 {
     mCurrentSampleRate = spec.sampleRate;
     mRawGain.reset(mCurrentSampleRate, 0.02);
     mRawGain.setTargetValue(0.0);
 }
 
-void viator_dsp::Clipper::setParameter(ParameterId parameter, float parameterValue)
+template <typename SampleType>
+void viator_dsp::Clipper<SampleType>::setParameter(ParameterId parameter, SampleType parameterValue)
 {
     switch (parameter)
     {
@@ -28,17 +31,19 @@ void viator_dsp::Clipper::setParameter(ParameterId parameter, float parameterVal
     }
 }
 
-void viator_dsp::Clipper::setClipperType(ClipType clipType)
+template <typename SampleType>
+void viator_dsp::Clipper<SampleType>::setClipperType(ClipType clipType)
 {
     switch (clipType)
     {
-        case ClipType::kHard: mClipType = viator_dsp::Clipper::ClipType::kHard; break;
-        case ClipType::kSoft: mClipType = viator_dsp::Clipper::ClipType::kSoft; break;
-        case ClipType::kDiode: mClipType = viator_dsp::Clipper::ClipType::kDiode; break;
+        case ClipType::kHard: mClipType = viator_dsp::Clipper<SampleType>::ClipType::kHard; break;
+        case ClipType::kSoft: mClipType = viator_dsp::Clipper<SampleType>::ClipType::kSoft; break;
+        case ClipType::kDiode: mClipType = viator_dsp::Clipper<SampleType>::ClipType::kDiode; break;
     }
 }
 
-float viator_dsp::Clipper::hardClipData(float dataToClip, const float thresh)
+template <typename SampleType>
+SampleType viator_dsp::Clipper<SampleType>::hardClipData(SampleType dataToClip, const float thresh)
 {
     /** Don't do anything if the module is off*/
     if (mGlobalBypass) return dataToClip;
@@ -52,7 +57,8 @@ float viator_dsp::Clipper::hardClipData(float dataToClip, const float thresh)
     return dataToClip;
 }
 
-float viator_dsp::Clipper::softClipData(float dataToClip)
+template <typename SampleType>
+SampleType viator_dsp::Clipper<SampleType>::softClipData(SampleType dataToClip)
 {
     /** Don't do anything if the module is off*/
     if (mGlobalBypass) return dataToClip;
@@ -66,7 +72,8 @@ float viator_dsp::Clipper::softClipData(float dataToClip)
     return softClipper;
 }
 
-float viator_dsp::Clipper::diodeClipper(float dataToClip)
+template <typename SampleType>
+SampleType viator_dsp::Clipper<SampleType>::diodeClipper(SampleType dataToClip)
 {
     /** Don't do anything if the module is off*/
     if (mGlobalBypass) return dataToClip;
@@ -78,3 +85,5 @@ float viator_dsp::Clipper::diodeClipper(float dataToClip)
     
     return softClipData(diode);
 }
+template class viator_dsp::Clipper<float>;
+template class viator_dsp::Clipper<double>;
