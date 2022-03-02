@@ -5,6 +5,7 @@
 
 namespace viator_dsp
 {
+template <typename SampleType>
 class Clipper
 {
 public:
@@ -34,9 +35,9 @@ public:
         auto numChannels = inBlock.getNumChannels();
 
 
-        for (size_t sample = 0; sample < len; ++sample)
+        for (size_t channel = 0; channel < numChannels; ++channel)
         {
-            for (size_t channel = 0; channel < numChannels; ++channel)
+            for (size_t sample = 0; sample < len; ++sample)
             {
                 auto* input = inBlock.getChannelPointer (channel);
                 auto* output = outBlock.getChannelPointer (channel);
@@ -48,7 +49,6 @@ public:
     }
     
     /** Process an individual sample */
-    template <typename SampleType>
     SampleType processSample(SampleType input) noexcept
     {
         switch(mClipType)
@@ -77,7 +77,7 @@ public:
     };
         
     /** One method to change any parameter. */
-    void setParameter(ParameterId parameter, float parameterValue);
+    void setParameter(ParameterId parameter, SampleType parameterValue);
     void setClipperType(ClipType clipType);
     
 private:
@@ -88,9 +88,9 @@ private:
     float mCurrentSampleRate, mThresh, mPiDivisor, mGainDB;
     
     // Methods
-    float hardClipData(float dataToClip, const float thresh);
-    float softClipData(float dataToClip);
-    float diodeClipper(float dataToClip);
+    SampleType hardClipData(SampleType dataToClip, const float thresh);
+    SampleType softClipData(SampleType dataToClip);
+    SampleType diodeClipper(SampleType dataToClip);
     
     ClipType mClipType;
 };

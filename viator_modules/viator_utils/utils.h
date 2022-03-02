@@ -27,9 +27,9 @@ namespace viator_utils
         /** Hard clip an audio block */
         static void hardClipBlock(juce::dsp::AudioBlock<float> &block)
         {
-            for (int sample = 0; sample < block.getNumSamples(); ++sample)
+            for (int ch = 0; ch < block.getNumChannels(); ++ch)
             {
-                for (int ch = 0; ch < block.getNumChannels(); ++ch)
+                for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
                     float* data = block.getChannelPointer(ch);
                     data[sample] = clipData(data[sample]);
@@ -40,9 +40,9 @@ namespace viator_utils
         /** Flip the phase of an audio block*/
         static void invertBlock(juce::dsp::AudioBlock<float> &block)
         {
-            for (int sample = 0; sample < block.getNumSamples(); ++sample)
+            for (int ch = 0; ch < block.getNumChannels(); ++ch)
             {
-                for (int ch = 0; ch < block.getNumChannels(); ++ch)
+                for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
                     float* data = block.getChannelPointer(ch);
                     data[sample] *= -1.0;
@@ -53,9 +53,9 @@ namespace viator_utils
         /** Multiply an audio block by a given value*/
         static void multiplyBlock(juce::dsp::AudioBlock<float> &block, float multiplier)
         {
-            for (int sample = 0; sample < block.getNumSamples(); ++sample)
+            for (int ch = 0; ch < block.getNumChannels(); ++ch)
             {
-                for (int ch = 0; ch < block.getNumChannels(); ++ch)
+                for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
                     float* data = block.getChannelPointer(ch);
                     data[sample] *= multiplier;

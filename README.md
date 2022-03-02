@@ -3,9 +3,9 @@
 [![Downloads](https://img.shields.io/github/downloads/landonviator/viatordsp/total)](https://somsubhra.github.io/github-release-stats/?username=landonviator&repository=viatordsp&page=1&per_page=30)
 
 ## Description
-The viatordsp framework is made up of [dsp](https://github.com/landonviator/viatordsp/tree/main/viator_modules/viator_dsp) and [gui](https://github.com/landonviator/viatordsp/tree/main/viator_modules/viator_gui) classes that help make creating plugins faster, easier, and more fun!
-This contains dsp classes such as clippers, filters, compressors, and much more to come.
-The gui contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
+The viatordsp library is made up of [dsp](https://github.com/landonviator/viatordsp/tree/main/viator_modules/viator_dsp) and [gui](https://github.com/landonviator/viatordsp/tree/main/viator_modules/viator_gui) classes that help make creating plugins faster, easier, and more fun!
+The dsp namespace contains dsp classes such as clippers, filters, and much more to come.
+The gui namespace contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
 
 <br>Here is a plugin using those stylized components.<br><br>
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
