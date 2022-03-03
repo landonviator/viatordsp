@@ -28,7 +28,7 @@
 #include "viator_gui/Widgets/Toggle.h"
 #include "viator_gui/Widgets/Dial.h"
 #include "viator_gui/Widgets/Fader.h"
-#include "viator_gui/Widgets/GroupComponent.h"
+#include "viator_gui/Widgets/Border.h"
 #include "viator_gui/Widgets/Label.h"
 #include "viator_gui/Widgets/Menu.h"
 #include "viator_gui/Widgets/PushButton.h"

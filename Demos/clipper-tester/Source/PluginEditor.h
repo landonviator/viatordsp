@@ -14,11 +14,11 @@
 //==============================================================================
 /**
 */
-class ViatorguidemoAudioProcessorEditor  : public juce::AudioProcessorEditor
+class ClippertesterAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    ViatorguidemoAudioProcessorEditor (ViatorguidemoAudioProcessor&);
-    ~ViatorguidemoAudioProcessorEditor() override;
+    ClippertesterAudioProcessorEditor (ClippertesterAudioProcessor&);
+    ~ClippertesterAudioProcessorEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -27,11 +27,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    ViatorguidemoAudioProcessor& audioProcessor;
-    
-    viator_gui::Dial dial;
-    viator_gui::Fader fader;
-    viator_gui::GroupComponent border;
+    ClippertesterAudioProcessor& audioProcessor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorguidemoAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ClippertesterAudioProcessorEditor)
 };
