@@ -75,7 +75,7 @@ public:
     SampleType softClipData(SampleType dataToClip)
     {
         /** Soft Clipping algorithim*/
-        auto softClipper = std::atan(dataToClip);
+        auto softClipper = mPiDivisor * std::atan(dataToClip);
         return softClipper;
     }
 
@@ -117,7 +117,7 @@ private:
     
     // Expressions
     static constexpr float diodeTerm = 2.0 * 0.0253;
-    static constexpr float mPiDivisor = 2.0 / juce::MathConstants<float>::pi * 2.0;
+    static constexpr float mPiDivisor = 2.0 / juce::MathConstants<float>::pi;
     
     ClipType mClipType;
 };

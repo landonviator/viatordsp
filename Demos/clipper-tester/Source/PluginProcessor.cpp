@@ -19,13 +19,37 @@ ClippertesterAudioProcessor::ClippertesterAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+treeState(*this, nullptr, "PARAMETER", createParameterLayout())
 #endif
 {
+    treeState.addParameterListener ("od input", this);
 }
 
 ClippertesterAudioProcessor::~ClippertesterAudioProcessor()
 {
+    treeState.removeParameterListener ("od input", this);
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor::createParameterLayout()
+{
+  std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
+
+  // Make sure to update the number of reservations after adding params
+  params.reserve(1);
+    
+  auto pODInput = std::make_unique<juce::AudioParameterFloat>("od input", "OD Input", 0.0, 20.0, 0.0);
+    
+  params.push_back(std::move(pODInput));
+  return { params.begin(), params.end() };
+}
+
+void ClippertesterAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+{
+    if (parameterID == "od input")
+    {
+        clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, newValue);
+    }
 }
 
 //==============================================================================
@@ -93,8 +117,14 @@ void ClippertesterAudioProcessor::changeProgramName (int index, const juce::Stri
 //==============================================================================
 void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    juce::dsp::ProcessSpec spec;
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = getTotalNumInputChannels();
+    
+    clipper.prepare(spec);
+    clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kDiode);
+    clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, static_cast<float>(*treeState.getRawParameterValue("od input")));
 }
 
 void ClippertesterAudioProcessor::releaseResources()
@@ -138,6 +168,8 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    juce::dsp::AudioBlock<float> block (buffer);
+    clipper.process(juce::dsp::ProcessContextReplacing<float>(block));
 
 }
 

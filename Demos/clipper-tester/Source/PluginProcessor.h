@@ -14,6 +14,7 @@
 /**
 */
 class ClippertesterAudioProcessor  : public juce::AudioProcessor
+, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
@@ -52,8 +53,17 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    /** Value Trees =====================================================*/
+    juce::AudioProcessorValueTreeState treeState;
 
 private:
+    
+    viator_dsp::Clipper<float> clipper;
+    
+    /** Parameters ======================================================*/
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    void parameterChanged (const juce::String& parameterID, float newValue) override;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ClippertesterAudioProcessor)
 };
