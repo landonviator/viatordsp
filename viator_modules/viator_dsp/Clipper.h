@@ -83,7 +83,7 @@ public:
     SampleType diodeClipper(SampleType dataToClip)
     {
         /** Diode Clipping algorithim*/
-        auto diode = 0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (diodeTerm)) - 1.0) - 0.28;
+        auto diode = 0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (diodeTerm)) - 1.0);
         return softClipData(diode);
     }
     

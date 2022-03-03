@@ -24,11 +24,13 @@ treeState(*this, nullptr, "PARAMETER", createParameterLayout())
 #endif
 {
     treeState.addParameterListener ("od input", this);
+    treeState.addParameterListener ("clip type", this);
 }
 
 ClippertesterAudioProcessor::~ClippertesterAudioProcessor()
 {
     treeState.removeParameterListener ("od input", this);
+    treeState.removeParameterListener ("clip type", this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor::createParameterLayout()
@@ -37,10 +39,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
 
   // Make sure to update the number of reservations after adding params
   params.reserve(1);
+  juce::StringArray cliptypes = {"Hard", "Soft", "Diode"};
     
   auto pODInput = std::make_unique<juce::AudioParameterFloat>("od input", "OD Input", 0.0, 20.0, 0.0);
+  auto pClipChoice = std::make_unique<juce::AudioParameterChoice>("clip type", "Clip Type", cliptypes, 0);
     
   params.push_back(std::move(pODInput));
+  params.push_back(std::move(pClipChoice));
+    
   return { params.begin(), params.end() };
 }
 
@@ -49,6 +55,17 @@ void ClippertesterAudioProcessor::parameterChanged(const juce::String &parameter
     if (parameterID == "od input")
     {
         clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, newValue);
+    }
+    
+    if (parameterID == "clip type")
+    {
+        switch (static_cast<int>(newValue))
+        {
+            case 0: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kHard); break;
+            case 1: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kSoft); break;
+            case 2: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kDiode); break;
+        }
+        
     }
 }
 
@@ -123,7 +140,7 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     spec.numChannels = getTotalNumInputChannels();
     
     clipper.prepare(spec);
-    clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kDiode);
+    clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kHard);
     clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, static_cast<float>(*treeState.getRawParameterValue("od input")));
 }
 
