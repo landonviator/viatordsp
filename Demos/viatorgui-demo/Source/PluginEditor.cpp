@@ -12,8 +12,10 @@
 //==============================================================================
 ViatorguidemoAudioProcessorEditor::ViatorguidemoAudioProcessorEditor (ViatorguidemoAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
+, dial(" dB", -10.0, 10.0, 0.1, 0.0)
 , fader(" dB", -10.0, 10.0, 0.1, 0.0)
 {
+    addAndMakeVisible(dial);
     addAndMakeVisible(fader);
     
     setSize (900, 300);
@@ -37,7 +39,8 @@ void ViatorguidemoAudioProcessorEditor::paint (juce::Graphics& g)
 void ViatorguidemoAudioProcessorEditor::resized()
 {
     auto topMargin = 12;
-    auto leftMargin = 2;
+    auto leftMargin = 16;
     
-    fader.setBounds(leftMargin, topMargin, 128, 256);
+    dial.setBounds(leftMargin, topMargin, 128, 256);
+    fader.setBounds(dial.getX() + dial.getWidth(), topMargin, 128, 256);
 }

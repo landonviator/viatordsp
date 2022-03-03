@@ -59,6 +59,34 @@ public:
         }
     }
     
+    /** Hard Clip */
+    SampleType hardClipData(SampleType dataToClip, const float thresh)
+    {
+        /** Hard Clipping algorithim*/
+        if (std::abs(dataToClip) > thresh)
+        {
+            dataToClip *= thresh / std::abs(dataToClip);
+        }
+        
+        return dataToClip;
+    }
+
+    /** Soft Clip */
+    SampleType softClipData(SampleType dataToClip)
+    {
+        /** Soft Clipping algorithim*/
+        auto softClipper = std::atan(dataToClip);
+        return softClipper;
+    }
+
+    /** Diode Clip */
+    SampleType diodeClipper(SampleType dataToClip)
+    {
+        /** Diode Clipping algorithim*/
+        auto diode = 0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (diodeTerm)) - 1.0) - 0.28;
+        return softClipData(diode);
+    }
+    
     /** The parameters of this module. */
     enum class ParameterId
     {
@@ -85,12 +113,11 @@ private:
     // Member variables
     bool mGlobalBypass;
     juce::SmoothedValue<float> mRawGain;
-    float mCurrentSampleRate, mThresh, mPiDivisor, mGainDB;
+    float mCurrentSampleRate, mThresh, mGainDB;
     
-    // Methods
-    SampleType hardClipData(SampleType dataToClip, const float thresh);
-    SampleType softClipData(SampleType dataToClip);
-    SampleType diodeClipper(SampleType dataToClip);
+    // Expressions
+    static constexpr float diodeTerm = 2.0 * 0.0253;
+    static constexpr float mPiDivisor = 2.0 / juce::MathConstants<float>::pi * 2.0;
     
     ClipType mClipType;
 };

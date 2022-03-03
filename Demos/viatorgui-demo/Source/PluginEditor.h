@@ -29,6 +29,7 @@ private:
     // access the processor object that created it.
     ViatorguidemoAudioProcessor& audioProcessor;
     
+    viator_gui::Dial dial;
     viator_gui::Fader fader;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorguidemoAudioProcessorEditor)
