@@ -142,6 +142,14 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     clipper.prepare(spec);
     clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kHard);
     clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, static_cast<float>(*treeState.getRawParameterValue("od input")));
+    
+    filter.prepare(spec);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, 1000.0);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, 0.33);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, 0.0);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQType, viator_dsp::SVFilter<float>::QType::kParametric);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kSampleRate, spec.sampleRate);
 }
 
 void ClippertesterAudioProcessor::releaseResources()
@@ -186,7 +194,7 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         buffer.clear (i, 0, buffer.getNumSamples());
 
     juce::dsp::AudioBlock<float> block (buffer);
-    clipper.process(juce::dsp::ProcessContextReplacing<float>(block));
+    filter.process(juce::dsp::ProcessContextReplacing<float>(block));
 
 }
 

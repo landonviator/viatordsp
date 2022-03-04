@@ -31,7 +31,7 @@ private:
     
     viator_gui::Dial dial;
     viator_gui::Fader fader;
-    viator_gui::GroupComponent border;
+    viator_gui::Border border;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorguidemoAudioProcessorEditor)
 };

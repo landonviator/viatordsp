@@ -56,6 +56,8 @@ public:
     viator_dsp::Clipper<float> clipper;
 
 private:
+    
+    viator_dsp::SVFilter<float> filter;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorguidemoAudioProcessor)
 };
