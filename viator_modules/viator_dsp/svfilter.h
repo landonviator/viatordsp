@@ -8,8 +8,8 @@
   ==============================================================================
 */
 
-#ifndef SVFilter_h
-#define SVFilter_h
+#ifndef svfilter_h
+#define svfilter_h
 
 namespace viator_dsp
 {
@@ -85,7 +85,6 @@ public:
                 // unit delay (state variable)
                 mZ1[channel] = mGCoeff * HP + BP;
                 mZ2[channel] = mGCoeff * BP + LP;
-                
             }
         }
     }
@@ -162,4 +161,4 @@ private:
 };
 }
 
-#endif /* SVFilter_h */
+#endif /* svfilter_h */
