@@ -20,11 +20,11 @@ namespace viator_gui
         
         void setToggleStyle(ToggleStyle newToggleStyle);
         
-        void mouseEnter (const juce::MouseEvent& event) override;
-        
-        void mouseExit (const juce::MouseEvent& event) override;
         
         private:
+        
+        void mouseEnter (const juce::MouseEvent& event) override;
+        void mouseExit (const juce::MouseEvent& event) override;
         
         juce::PowerToggleLAF powerToggle;
         juce::PhaseToggleLAF phaseToggle;

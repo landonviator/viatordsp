@@ -21,6 +21,14 @@ ViatorguidemoAudioProcessorEditor::ViatorguidemoAudioProcessorEditor (Viatorguid
     addAndMakeVisible(border);
     border.setText("Border");
     
+    addAndMakeVisible(button);
+    button.setButtonText("Button");
+    
+    addAndMakeVisible(phase);
+    phase.setToggleStyle(viator_gui::Toggle::ToggleStyle::kPhase);
+    
+    addAndMakeVisible(power);
+    
     setSize (900, 400);
 }
 
@@ -47,4 +55,7 @@ void ViatorguidemoAudioProcessorEditor::resized()
     dial.setBounds(leftMargin, topMargin, 128, 256);
     fader.setBounds(dial.getX() + dial.getWidth(), topMargin, 128, 256);
     border.setBounds(fader.getX() + fader.getWidth(), topMargin, dial.getWidth(), dial.getHeight());
+    button.setBounds(border.getX() + border.getWidth() + 32, topMargin, 90, 30);
+    phase.setBounds(button.getX() + button.getWidth() + 32, topMargin, 40, 40);
+    power.setBounds(phase.getX() + phase.getWidth() + 10, topMargin, 40, 40);
 }

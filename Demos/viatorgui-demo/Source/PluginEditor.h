@@ -30,8 +30,11 @@ private:
     ViatorguidemoAudioProcessor& audioProcessor;
     
     viator_gui::Dial dial;
-    viator_gui::Fader fader;
+    viator_gui::NumberBox fader;
     viator_gui::Border border;
+    viator_gui::PushButton button;
+    viator_gui::Toggle phase;
+    viator_gui::Toggle power;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorguidemoAudioProcessorEditor)
 };
