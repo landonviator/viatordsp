@@ -50,27 +50,6 @@ public:
                     
             //Calculate g (gain element of integrator)
             mGCoeff = wa * halfSampleDuration;
-                    
-            //Calculate Zavalishin's damping parameter (Q)
-            switch (mQType)
-            {
-                case kParametric: mRCoeff = 1.0 - mQ; break;
-                case kProportional:
-                    
-                    if (mType == kBandShelf)
-                    {
-                        mRCoeff = 1.0 - getPeakQ(mRawGain); break;
-                    }
-                    
-                    else
-                    {
-                        mRCoeff = 1.0 - getShelfQ(mRawGain); break;
-                    }
-            }
-            
-            mRCoeff2 = mRCoeff * 2.0;
-                    
-            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
             
             for (size_t channel = 0; channel < numChannels; ++channel)
             {
