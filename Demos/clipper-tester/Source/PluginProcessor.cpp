@@ -25,12 +25,16 @@ treeState(*this, nullptr, "PARAMETER", createParameterLayout())
 {
     treeState.addParameterListener ("od input", this);
     treeState.addParameterListener ("clip type", this);
+    treeState.addParameterListener ("cutoff", this);
+    treeState.addParameterListener ("q", this);
 }
 
 ClippertesterAudioProcessor::~ClippertesterAudioProcessor()
 {
     treeState.removeParameterListener ("od input", this);
     treeState.removeParameterListener ("clip type", this);
+    treeState.removeParameterListener ("cutoff", this);
+    treeState.removeParameterListener ("q", this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor::createParameterLayout()
@@ -38,14 +42,18 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
   std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
 
   // Make sure to update the number of reservations after adding params
-  params.reserve(1);
+  params.reserve(4);
   juce::StringArray cliptypes = {"Hard", "Soft", "Diode"};
     
-  auto pODInput = std::make_unique<juce::AudioParameterFloat>("od input", "OD Input", 0.0, 20.0, 0.0);
   auto pClipChoice = std::make_unique<juce::AudioParameterChoice>("clip type", "Clip Type", cliptypes, 0);
+  auto pODInput = std::make_unique<juce::AudioParameterFloat>("od input", "OD Input", 0.0, 20.0, 0.0);
+  auto pCutoff = std::make_unique<juce::AudioParameterFloat>("cutoff", "Cutoff", juce::NormalisableRange<float>(20.0, 20000.0, 1.0, 0.2), 2000.0);
+  auto pBandwidth = std::make_unique<juce::AudioParameterFloat>("q", "Q", 0.1, 0.9, 0.33);
     
-  params.push_back(std::move(pODInput));
   params.push_back(std::move(pClipChoice));
+  params.push_back(std::move(pODInput));
+  params.push_back(std::move(pCutoff));
+  params.push_back(std::move(pBandwidth));
     
   return { params.begin(), params.end() };
 }
@@ -65,7 +73,16 @@ void ClippertesterAudioProcessor::parameterChanged(const juce::String &parameter
             case 1: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kSoft); break;
             case 2: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kDiode); break;
         }
-        
+    }
+    
+    if (parameterID == "cutoff")
+    {
+        filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, newValue);
+    }
+    
+    if (parameterID == "q")
+    {
+        filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, newValue);
     }
 }
 
@@ -142,6 +159,14 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     clipper.prepare(spec);
     clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kHard);
     clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, static_cast<float>(*treeState.getRawParameterValue("od input")));
+    
+    filter.prepare(spec);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, 1000.0);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, 0.33);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, 0.0);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQType, viator_dsp::SVFilter<float>::QType::kParametric);
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kSampleRate, spec.sampleRate);
 }
 
 void ClippertesterAudioProcessor::releaseResources()
@@ -186,7 +211,7 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         buffer.clear (i, 0, buffer.getNumSamples());
 
     juce::dsp::AudioBlock<float> block (buffer);
-    clipper.process(juce::dsp::ProcessContextReplacing<float>(block));
+    filter.process(juce::dsp::ProcessContextReplacing<float>(block));
 
 }
 

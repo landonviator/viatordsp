@@ -60,6 +60,7 @@ public:
 private:
     
     viator_dsp::Clipper<float> clipper;
+    viator_dsp::SVFilter<float> filter;
     
     /** Parameters ======================================================*/
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
