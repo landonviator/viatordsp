@@ -42,8 +42,7 @@ public:
                 auto* input = inBlock.getChannelPointer (channel);
                 auto* output = outBlock.getChannelPointer (channel);
                 
-                auto x = input[sample] * viator_utils::utils::dbToGain(mRawGain.getNextValue());
-                output[sample] = processSample(x);
+                output[sample] = processSample(input[sample] * viator_utils::utils::dbToGain(mRawGain.getNextValue()));
             }
         }
     }
@@ -75,16 +74,14 @@ public:
     SampleType softClipData(SampleType dataToClip)
     {
         /** Soft Clipping algorithim*/
-        auto softClipper = mPiDivisor * std::atan(dataToClip);
-        return softClipper;
+        return = mPiDivisor * std::atan(dataToClip);
     }
 
     /** Diode Clip */
     SampleType diodeClipper(SampleType dataToClip)
     {
         /** Diode Clipping algorithim*/
-        auto diode = 0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (diodeTerm)) - 1.0);
-        return softClipData(diode);
+        return = softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (diodeTerm)) - 1.0));
     }
     
     /** The parameters of this module. */
