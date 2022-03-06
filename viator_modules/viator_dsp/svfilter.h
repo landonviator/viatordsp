@@ -51,6 +51,9 @@ public:
             //Calculate g (gain element of integrator)
             mGCoeff = wa * halfSampleDuration;
             
+            mRCoeff2 = mRCoeff * 2.0;
+            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+            
             for (size_t channel = 0; channel < numChannels; ++channel)
             {
                 auto* input = inBlock.getChannelPointer (channel);
@@ -68,9 +71,16 @@ public:
                 const double BShelf = x + UBP * mGain;
                 const double LS = x + mGain * LP;
                 const double HS = x + mGain * HP;
-                    
+                
                 //Main output code
-                output[sample] = BShelf * bsLevel + LS * lsLevel + HS * hsLevel + HP * hpLevel + LP * lpLevel;
+                switch (mType)
+                {
+                    case kBandShelf: output[sample] = BShelf; break;
+                    case kLowShelf: output[sample] = LS; break;
+                    case kHighShelf: output[sample] = HS; break;
+                    case kHighPass: output[sample] = HP; break;
+                    case kLowPass: output[sample] = LP; break;
+                }
                     
                 // unit delay (state variable)
                 mZ1[channel] = mGCoeff * HP + BP;
