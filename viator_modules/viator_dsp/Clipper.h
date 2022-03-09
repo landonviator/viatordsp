@@ -74,14 +74,14 @@ public:
     SampleType softClipData(SampleType dataToClip)
     {
         /** Soft Clipping algorithim*/
-        return = mPiDivisor * std::atan(dataToClip);
+        return mPiDivisor * std::atan(dataToClip);
     }
 
     /** Diode Clip */
     SampleType diodeClipper(SampleType dataToClip)
     {
         /** Diode Clipping algorithim*/
-        return = softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (diodeTerm)) - 1.0));
+        return softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (diodeTerm)) - 1.0));
     }
     
     /** The parameters of this module. */
