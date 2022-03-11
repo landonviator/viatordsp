@@ -200,7 +200,6 @@ void juce::FullDialLAF::drawRotarySlider
     /** Dot color*/
     g.setColour (textColor);
 
-    fullRadius = juce::jmin (dialBounds.getWidth() / 2.0f, dialBounds.getHeight() / 2.0f);
     centre = dialBounds.getCentre();
 
     /** Draw dots */
