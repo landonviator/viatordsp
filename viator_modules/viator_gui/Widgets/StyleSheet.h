@@ -105,6 +105,29 @@ public:
 
 };
 
+/** Full Dial Mirrow Style*/
+class FullDialMirrowLAF : public juce::LookAndFeel_V4
+{
+    
+public:
+    
+    void drawRotarySlider
+    (
+        Graphics &g,
+        int x,
+        int y,
+        int width,
+        int height,
+        float sliderPos,
+        float rotaryStartAngle,
+        float rotaryEndAngle,
+        Slider &slider
+    ) override;
+    
+    void drawLabel (Graphics& g, Label& label) override;
+
+};
+
     /** Number Box Style*/
     class CustomNumberBox : public juce::LookAndFeel_V4
     {

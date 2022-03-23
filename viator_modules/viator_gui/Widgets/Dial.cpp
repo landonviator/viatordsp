@@ -16,6 +16,12 @@ void viator_gui::Dial::setDialStyle(DialStyle dialStyle)
             break;
         }
             
+        case DialStyle::kFullDialMirrow:
+        {
+            setLookAndFeel(&fullDialMirrow);
+            break;
+        }
+            
         case DialStyle::kAlphaDial:
         {
             setLookAndFeel(&alphaDial);
@@ -64,7 +70,7 @@ void viator_gui::Dial::initProps(juce::String suffix,
     setRange(rangeStart, rangeEnd, intervalValue);
     setDoubleClickReturnValue(true, returnValue);
     setTextValueSuffix(suffix);
-    setLookAndFeel(&hardDial);
+    setLookAndFeel(&fullDial);
     setComponentEffect(&dialShadow);
 }
 

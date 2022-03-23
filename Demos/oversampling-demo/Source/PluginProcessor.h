@@ -67,8 +67,29 @@ private:
     // Distortion
     float dbInput {0.0};
     float rawInput {1.0};
+    float bias {0.0};
+    float cutoff {1000.0};
+    
+    enum class DisModels
+    {
+        kSoft,
+        kHard,
+        kTube,
+        kHalfWave,
+        kFullWave
+    };
+    
+    DisModels disModel = DisModels::kSoft;
+    
     float softClipData(float samples);
+    float hardClipData(float samples);
+    float halfWaveData(float samples);
+    float fullWaveData(float samples);
+    float cheapTubeData(float samples);
+    
     static constexpr float piDivisor = 2.0 / juce::MathConstants<float>::pi;
+    
+    juce::dsp::LinkwitzRileyFilter<float> lowPassFilter;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OversamplingdemoAudioProcessor)

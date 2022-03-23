@@ -49,6 +49,7 @@ public:
     {
         kHardDial,
         kFullDial,
+        kFullDialMirrow,
         kAlphaDial,
         kAbleDial
     };
@@ -82,6 +83,7 @@ private:
     Slider dial;
     juce::HardDialLAF hardDial;
     juce::FullDialLAF fullDial;
+    juce::FullDialMirrowLAF fullDialMirrow;
     juce::AlphaDialLAF alphaDial;
     juce::CustomAbleDialLAF ableDial {false};
     

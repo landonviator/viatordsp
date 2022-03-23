@@ -25,25 +25,39 @@ oversamplingModule(2, 2, juce::dsp::Oversampling<float>::FilterType::filterHalfB
 #endif
 {
     treeState.addParameterListener ("os", this);
+    treeState.addParameterListener ("model", this);
     treeState.addParameterListener ("input", this);
+    treeState.addParameterListener ("bias", this);
+    treeState.addParameterListener ("cutoff", this);
 }
 
 OversamplingdemoAudioProcessor::~OversamplingdemoAudioProcessor()
 {
     treeState.removeParameterListener ("os", this);
+    treeState.removeParameterListener ("model", this);
     treeState.removeParameterListener ("input", this);
+    treeState.removeParameterListener ("bias", this);
+    treeState.removeParameterListener ("cutoff", this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout OversamplingdemoAudioProcessor::createParameterLayout()
 {
   std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
+    
+    juce::StringArray disModels = {"Soft", "Hard", "Tube", "Half-Wave", "Full-Wave"};
 
   // Make sure to update the number of reservations after adding params
   auto pOSToggle = std::make_unique<juce::AudioParameterBool>("os", "OS", false);
+  auto pModels = std::make_unique<juce::AudioParameterChoice>("model", "Model", disModels, 0);
   auto pInput = std::make_unique<juce::AudioParameterFloat>("input", "Input", -24.0, 24.0, 0.0);
+  auto pBias = std::make_unique<juce::AudioParameterFloat>("bias", "Bias", 0.0, 1.0, 0.0);
+  auto pCutoff = std::make_unique<juce::AudioParameterFloat>("cutoff", "Cutoff", juce::NormalisableRange<float>(20.0, 20000.0, 1.0, 0.22), 1000.0);
   
   params.push_back(std::move(pOSToggle));
+  params.push_back(std::move(pModels));
   params.push_back(std::move(pInput));
+  params.push_back(std::move(pBias));
+  params.push_back(std::move(pCutoff));
 
   return { params.begin(), params.end() };
 }
@@ -57,8 +71,40 @@ void OversamplingdemoAudioProcessor::parameterChanged(const juce::String &parame
     
     if (parameterID == "input")
     {
-        dbInput = newValue;
-        rawInput = juce::Decibels::decibelsToGain(newValue);
+        if (disModel == DisModels::kTube)
+        {
+            dbInput = newValue * 0.4;
+            rawInput = juce::Decibels::decibelsToGain(dbInput);
+        }
+        
+        else
+        {
+            dbInput = newValue;
+            rawInput = juce::Decibels::decibelsToGain(dbInput);
+        }
+    }
+    
+    if (parameterID == "bias")
+    {
+        bias = newValue;
+    }
+    
+    if (parameterID == "model")
+    {
+        switch (static_cast<int>(newValue))
+        {
+            case 0: disModel = DisModels::kSoft; break;
+            case 1: disModel = DisModels::kHard; break;
+            case 2: disModel = DisModels::kTube; break;
+            case 3: disModel = DisModels::kHalfWave; break;
+            case 4: disModel = DisModels::kFullWave; break;
+        }
+    }
+    
+    if (parameterID == "cutoff")
+    {
+        cutoff = newValue;
+        lowPassFilter.setCutoffFrequency(cutoff);
     }
 }
 
@@ -134,6 +180,10 @@ void OversamplingdemoAudioProcessor::prepareToPlay (double sampleRate, int sampl
     
     osToggle = treeState.getRawParameterValue("os")->load();
     oversamplingModule.initProcessing(samplesPerBlock);
+    
+    lowPassFilter.prepare(spec);
+    lowPassFilter.setType(juce::dsp::LinkwitzRileyFilterType::lowpass);
+    lowPassFilter.setCutoffFrequency(treeState.getRawParameterValue("cutoff")->load());
 }
 
 void OversamplingdemoAudioProcessor::releaseResources()
@@ -193,7 +243,14 @@ void OversamplingdemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
             {
                 float* data = upSampledBlock.getChannelPointer(ch);
 
-                data[sample] = softClipData(data[sample]);
+                switch (disModel)
+                {
+                    case DisModels::kSoft: data[sample] = softClipData(data[sample]); break;
+                    case DisModels::kHard: data[sample] = hardClipData(data[sample]); break;
+                    case DisModels::kTube: data[sample] = cheapTubeData(data[sample]); break;
+                    case DisModels::kHalfWave: data[sample] = halfWaveData(data[sample]); break;
+                    case DisModels::kFullWave: data[sample] = fullWaveData(data[sample]); break;
+                }
             }
         }
         
@@ -211,15 +268,88 @@ void OversamplingdemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
             {
                 float* data = block.getChannelPointer(ch);
                 
-                data[sample] = softClipData(data[sample]);
+                switch (disModel)
+                {
+                    case DisModels::kSoft: data[sample] = softClipData(data[sample]); break;
+                    case DisModels::kHard: data[sample] = hardClipData(data[sample]); break;
+                    case DisModels::kTube: data[sample] = cheapTubeData(data[sample]); break;
+                    case DisModels::kHalfWave: data[sample] = halfWaveData(data[sample]); break;
+                    case DisModels::kFullWave: data[sample] = fullWaveData(data[sample]); break;
+                }
             }
         }
+        
+        lowPassFilter.process(juce::dsp::ProcessContextReplacing<float>(block));
     }
 }
 
 float OversamplingdemoAudioProcessor::softClipData(float samples)
 {
-    return piDivisor * std::atan(samples * rawInput);
+    samples *= rawInput;
+    
+    return piDivisor * std::atan(samples);
+}
+
+float OversamplingdemoAudioProcessor::hardClipData(float samples)
+{
+    samples *= rawInput;
+    
+    if (std::abs(samples) > 1.0)
+    {
+        samples *= 1.0 / std::abs(samples);
+    }
+    
+    return samples;
+}
+
+float OversamplingdemoAudioProcessor::cheapTubeData(float samples)
+{
+    samples *= rawInput;
+    samples += 0.1;
+    
+    if (samples < 0.0)
+    {
+        samples = softClipData(samples);
+    }
+    
+    else
+    {
+        samples = hardClipData(samples);
+    }
+    
+    samples -= 0.1;
+    
+    return softClipData(samples);
+}
+
+float OversamplingdemoAudioProcessor::halfWaveData(float samples)
+{
+    samples *= rawInput;
+    samples += 0.15;
+    
+    if (samples < 0.0)
+    {
+        samples = 0.0;
+    }
+    
+    samples -= 0.15;
+    
+    return softClipData(samples);
+}
+
+float OversamplingdemoAudioProcessor::fullWaveData(float samples)
+{
+    samples *= rawInput;
+    samples += 0.1;
+    
+    if (samples < 0.0)
+    {
+        samples *= -1.0;
+    }
+    
+    samples -= 0.1;
+    
+    return softClipData(samples);
 }
 
 //==============================================================================
