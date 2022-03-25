@@ -42,7 +42,7 @@ public:
                 auto* input = inBlock.getChannelPointer (channel);
                 auto* output = outBlock.getChannelPointer (channel);
                 
-                output[sample] = processSample(input[sample] * viator_utils::utils::dbToGain(mRawGain.getNextValue()));
+                output[sample] = processSample(input[sample] * viator_utils::utils::dbToGain(mRawGainDB.getNextValue()));
             }
         }
     }
@@ -51,24 +51,92 @@ public:
     SampleType processSample(SampleType input) noexcept
     {
         // Get the saturation and soft clip it with gain compensation
-        return softClipData(saturateData(input)) * viator_utils::utils::dbToGain(mRawGain.getNextValue() * -0.5);
+        switch(mDistortionType)
+        {
+            case DistortionType::kHard: return hardClipData(input); break;
+            case DistortionType::kSaturation: return saturateData(input); break;
+            case DistortionType::kTube: return tubeDistortion(input); break;
+            case DistortionType::kTransformer: return transformerDis(input); break;
+        }
     }
     
 
+    /** Hard Clip */
+    SampleType hardClipData(SampleType dataToClip)
+    {
+        /** Hard Clipping algorithim*/
+        if (std::abs(dataToClip) >= mThresh)
+        {
+            dataToClip *= mThresh / std::abs(dataToClip);
+        }
+            
+        return dataToClip;
+    }
+    
     /** Saturation */
     SampleType saturateData(SampleType dataToSaturate)
     {
-        // Saturation algorithim
-        return ( 2.0 * dataToSaturate) / ( 1.0 + std::sqrt(1.0 + std::abs(4.0 * dataToSaturate)));
+        /** preamp param needs to be between 0 dB and 6 dB for this saturation algorithm*/
+        const float newGain = juce::jmap(mRawGainDB.getNextValue(), 0.0f, 20.0f, 0.0f, 6.0f);
+        
+        float next_drive = dataToSaturate * juce::Decibels::decibelsToGain(newGain);
+        
+        if (next_drive < 0.5)
+        {
+            next_drive = 0.5;
+        }
+        
+        const float x_n = dataToSaturate * next_drive;
+        
+        const auto saturation = 2.0 * x_n / (1.0 + x_n * x_n);
+        
+        return saturation;
     }
     
     /** Soft Clip */
     SampleType softClipData(SampleType dataToClip)
     {
-        // Soft clip with added gain compensation
-        return std::atan(dataToClip) * 1.25;
+        return std::atan(dataToClip);
     }
-
+    
+    /** Tube Clip */
+    SampleType tubeDistortion(SampleType dataToClip)
+    {
+        dataToClip += 0.1;
+                
+        if (dataToClip < 0.0)
+        {
+            dataToClip = softClipData(dataToClip);
+        }
+                
+        else
+        {
+            dataToClip = hardClipData(dataToClip);
+        }
+                
+        dataToClip -= 0.1;
+            
+        return softClipData(dataToClip);
+    }
+    
+    /** Transformer Clip */
+    SampleType transformerDis(SampleType dataToClip)
+    {
+        /** TODO */
+        // add proportional lowshelf that is driven by the input drive
+        
+        return piDivisor * std::atan(dataToClip);
+    }
+    
+    /** Different clipper types*/
+    enum class DistortionType
+    {
+        kHard,
+        kSaturation,
+        kTube,
+        kTransformer
+    };
+    
     /** The parameters of this module. */
     enum class ParameterId
     {
@@ -79,17 +147,20 @@ public:
     };
     
         
-    /** One method to change any parameter. */
     void setParameter(ParameterId parameter, SampleType parameterValue);
+    void setDistortionType(DistortionType distortionType);
     
 private:
     
     // Member variables
     bool mGlobalBypass;
-    juce::SmoothedValue<float> mRawGain;
-    float mCurrentSampleRate, mThresh, mGainDB;
+    juce::SmoothedValue<float> mRawGainDB;
+    float mCurrentSampleRate, mThresh, mRawGain;
+    
+    DistortionType mDistortionType;
     
     // Expressions
+    static constexpr float piDivisor = 2.0 / juce::MathConstants<float>::pi;
 };
 } // namespace viator_dsp
 

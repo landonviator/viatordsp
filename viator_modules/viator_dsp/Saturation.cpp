@@ -2,7 +2,7 @@
 
 template <typename SampleType>
 viator_dsp::Saturation<SampleType>::Saturation() :
-mGlobalBypass(false), mThresh(1.0f), mGainDB(1.0)
+mGlobalBypass(false), mThresh(1.0f), mRawGain(1.0)
 {
 }
 
@@ -10,8 +10,8 @@ template <typename SampleType>
 void viator_dsp::Saturation<SampleType>::prepare(const juce::dsp::ProcessSpec& spec)
 {
     mCurrentSampleRate = spec.sampleRate;
-    mRawGain.reset(mCurrentSampleRate, 0.02);
-    mRawGain.setTargetValue(0.0);
+    mRawGainDB.reset(mCurrentSampleRate, 0.02);
+    mRawGainDB.setTargetValue(0.0);
 }
 
 template <typename SampleType>
@@ -21,12 +21,25 @@ void viator_dsp::Saturation<SampleType>::setParameter(ParameterId parameter, Sam
     {
         case ParameterId::kPreamp:
         {
-            mRawGain.setTargetValue(parameterValue); break;
-            mGainDB = viator_utils::utils::dbToGain(mRawGain.getNextValue());
+            mRawGainDB.setTargetValue(parameterValue); break;
+            mRawGain = viator_utils::utils::dbToGain(mRawGainDB.getNextValue());
         }
         case ParameterId::kSampleRate: mCurrentSampleRate = parameterValue; break;
         case ParameterId::kThresh: mThresh = parameterValue; break;
         case ParameterId::kBypass: mGlobalBypass = static_cast<bool>(parameterValue);
+    }
+}
+
+template <typename SampleType>
+void viator_dsp::Saturation<SampleType>::setDistortionType(DistortionType distortionType)
+{
+    switch (distortionType)
+    {
+        case DistortionType::kHard: mDistortionType = Saturation<SampleType>::DistortionType::kHard; break;
+        case DistortionType::kSaturation: mDistortionType = Saturation<SampleType>::DistortionType::kSaturation; break;
+        case DistortionType::kTube: mDistortionType = Saturation<SampleType>::DistortionType::kTube; break;
+        case DistortionType::kTransformer: mDistortionType = Saturation<SampleType>::DistortionType::kTransformer; break;
+
     }
 }
 
