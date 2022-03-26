@@ -10,6 +10,7 @@
 
 #pragma once
 #include "../Widgets/StyleSheet.h"
+#include "Label.h"
 
 namespace viator_gui
 {
@@ -27,6 +28,7 @@ public:
     */
     Dial
     (   juce::String suffix,
+        juce::String labelText,
         double rangeStart,
         double rangeEnd,
         double intervalValue,
@@ -35,6 +37,10 @@ public:
     {
         initShadows();
         initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
+        addAndMakeVisible(dialLabel);
+        dialLabel.setText(labelText, juce::dontSendNotification);
+        dialLabel.attachToComponent(this, false);
+        dialLabel.setJustificationType(juce::Justification::centred);
     }
     
     ~Dial() override
@@ -90,6 +96,9 @@ private:
     /** Shadow */
     juce::DropShadow shadowProperties;
     juce::DropShadowEffect dialShadow;
+    
+    /** Label */
+    Label dialLabel;
     
 }; // class
 }// namespace viator_gui

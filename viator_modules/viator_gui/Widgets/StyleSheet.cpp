@@ -833,6 +833,10 @@ void juce::CustomBorder::drawGroupComponentOutline
         textX = cs + (w - cs2 - textW) * 0.5f;
     else if (position.testFlags (Justification::right))
         textX = w - cs - textW - textEdgeGap;
+    
+    /** Background Layer*/
+    g.setColour(juce::Colours::black.withAlpha(0.1f));
+    g.fillRect(x, y, w, h);
 
     p.startNewSubPath (x + textX + textW, y);
     p.lineTo (x + w - cs, y);
@@ -854,7 +858,7 @@ void juce::CustomBorder::drawGroupComponentOutline
     g.setColour (group.findColour (GroupComponent::outlineColourId)
                     .withMultipliedAlpha (alpha));
 
-    g.strokePath (p, PathStrokeType (3.0f));
+    g.strokePath (p, PathStrokeType (6.0f));
 
     g.setColour (group.findColour (GroupComponent::textColourId)
                     .withMultipliedAlpha (alpha));

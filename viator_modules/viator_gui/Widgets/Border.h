@@ -9,8 +9,8 @@ namespace viator_gui
         
         Border()
         {
-            setColour(juce::GroupComponent::ColourIds::outlineColourId, juce::Colours::whitesmoke.withAlpha(0.125f));
-            setColour(juce::GroupComponent::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.36f));
+            setColour(juce::GroupComponent::ColourIds::outlineColourId, juce::Colours::black.withAlpha(0.35f));
+            setColour(juce::GroupComponent::ColourIds::textColourId, juce::Colours::whitesmoke.darker(1.0));
             setTextLabelPosition(juce::Justification::centred);
             setLookAndFeel(&customBorder);
         }
