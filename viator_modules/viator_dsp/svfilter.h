@@ -22,7 +22,7 @@ public:
     SVFilter();
     
     /** Initialises the filter. */
-    void prepare(juce::dsp::ProcessSpec& spec);
+    void prepare(const juce::dsp::ProcessSpec& spec);
     
     /** Processes the input and output buffers supplied in the processing context. */
     template <typename ProcessContext>

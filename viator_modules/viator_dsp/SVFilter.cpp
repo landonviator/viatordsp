@@ -11,7 +11,7 @@ viator_dsp::SVFilter<SampleType>::SVFilter()
 }
 
 template <typename SampleType>
-void viator_dsp::SVFilter<SampleType>::prepare(juce::dsp::ProcessSpec& spec)
+void viator_dsp::SVFilter<SampleType>::prepare(const juce::dsp::ProcessSpec& spec)
 {
     mCurrentSampleRate = spec.sampleRate;
     sampleRate2X = mCurrentSampleRate * 2.0;
