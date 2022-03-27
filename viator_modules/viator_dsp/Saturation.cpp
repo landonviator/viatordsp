@@ -50,7 +50,7 @@ void viator_dsp::Saturation<SampleType>::setDistortionType(DistortionType distor
         case DistortionType::kHard: mDistortionType = Saturation<SampleType>::DistortionType::kHard; break;
         case DistortionType::kSaturation: mDistortionType = Saturation<SampleType>::DistortionType::kSaturation; break;
         case DistortionType::kTube: mDistortionType = Saturation<SampleType>::DistortionType::kTube; break;
-        case DistortionType::kTransformer: mDistortionType = Saturation<SampleType>::DistortionType::kTransformer; break;
+        case DistortionType::kTape: mDistortionType = Saturation<SampleType>::DistortionType::kTape; break;
 
     }
 }

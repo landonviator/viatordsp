@@ -47,14 +47,14 @@ public:
     }
     
     /** Process an individual sample */
-    SampleType processSample(SampleType input, int channels) noexcept
+    SampleType processSample(SampleType input, SampleType channels) noexcept
     {
         switch(mDistortionType)
         {
             case DistortionType::kHard: return hardClipData(input); break;
             case DistortionType::kSaturation: return saturateData(input); break;
             case DistortionType::kTube: return tubeDistortion(input); break;
-            case DistortionType::kTransformer: return tapeFilter.processSample(tapeOverdrive(input), channels); break;
+            case DistortionType::kTape: return tapeFilter.processSample(tapeOverdrive(input), channels); break;
         }
     }
 
@@ -122,7 +122,7 @@ public:
         kHard,
         kSaturation,
         kTube,
-        kTransformer
+        kTape
     };
     
     /** The parameters of this module. */
