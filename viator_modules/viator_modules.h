@@ -24,6 +24,7 @@
 #include "viator_dsp/svfilter.h"
 #include "viator_dsp/WaveShaper.h"
 #include "viator_dsp/Saturation.h"
+#include "viator_dsp/LFOGenerator.h"
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/Toggle.h"

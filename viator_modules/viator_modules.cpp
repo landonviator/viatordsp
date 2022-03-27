@@ -14,6 +14,7 @@
 #include "viator_dsp/SVFilter.cpp"
 #include "viator_dsp/WaveShaper.cpp"
 #include "viator_dsp/Saturation.cpp"
+#include "viator_dsp/LFOGenerator.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
