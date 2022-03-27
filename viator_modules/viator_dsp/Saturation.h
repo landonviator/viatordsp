@@ -41,28 +41,22 @@ public:
                 auto* input = inBlock.getChannelPointer (channel);
                 auto* output = outBlock.getChannelPointer (channel);
                 
-                output[sample] = processSample(input[sample]);
+                output[sample] = processSample(input[sample], channel);
             }
-        }
-        
-        if (mDistortionType == DistortionType::kTransformer)
-        {
-            tapeFilter.process(context);
         }
     }
     
     /** Process an individual sample */
-    SampleType processSample(SampleType input) noexcept
+    SampleType processSample(SampleType input, int channels) noexcept
     {
         switch(mDistortionType)
         {
             case DistortionType::kHard: return hardClipData(input); break;
             case DistortionType::kSaturation: return saturateData(input); break;
             case DistortionType::kTube: return tubeDistortion(input); break;
-            case DistortionType::kTransformer: return tapeOverdrive(input); break;
+            case DistortionType::kTransformer: return tapeFilter.processSample(tapeOverdrive(input), channels); break;
         }
     }
-    
 
     /** Hard Clip */
     SampleType hardClipData(SampleType dataToClip)

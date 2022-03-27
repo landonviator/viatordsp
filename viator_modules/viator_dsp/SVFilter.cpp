@@ -2,7 +2,7 @@
 template <typename SampleType>
 viator_dsp::SVFilter<SampleType>::SVFilter()
 : mCurrentSampleRate (44100.0f), mQ (0.1f), mCutoff (1000.0f), mRawGain (0.0f), twoPi (juce::MathConstants<float>::twoPi)
-, mGlobalBypass (false), mClipOutput (false)
+, mGlobalBypass (false)
 , mGCoeff (0.0), mRCoeff (0.0), mRCoeff2 (0.0), mK (1.0), mInversion (0.0)
 , mType (FilterType::kLowPass), mQType (QType::kParametric)
 {
@@ -77,9 +77,6 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
             
         // Filter Bypass
         case ParameterId::kBypass: mGlobalBypass = static_cast<bool>(parameterValue); break;
-            
-        // Filter Clip
-        case ParameterId::kClipOutput: mClipOutput = static_cast<bool>(parameterValue); break;
     }
 }
 

@@ -59,8 +59,13 @@ public:
 
 private:
     
-    viator_dsp::Clipper<float> clipper;
+    viator_dsp::Saturation<float> saturationModule;
+    void updateSaturationParameters();
+    float inputGainDB {0.0};
+    
     viator_dsp::SVFilter<float> filter;
+    void updateFilterParameters();
+    
     
     /** Parameters ======================================================*/
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();

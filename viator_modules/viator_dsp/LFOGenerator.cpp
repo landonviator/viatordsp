@@ -12,7 +12,7 @@ void viator_dsp::LFOGenerator::process()
 {
     if (m_GlobalBypass)
     {
-        m_LFOValue.setTargetValue(0.0);
+        m_LFOValue = 0.0;
         return;
     }
     

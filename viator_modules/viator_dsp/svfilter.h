@@ -89,8 +89,49 @@ public:
         }
     }
     
-    /** Processes single samples */
-    //float processSample(SampleType input, int ch);
+    /** Process an individual sample */
+    SampleType processSample(SampleType input, SampleType ch) noexcept
+    {
+        // prewarp the cutoff (for bilinear-transform filters)
+        double wd = mCutoff * 6.28f;
+        double wa = sampleRate2X * tan(wd * halfSampleDuration);
+                
+        //Calculate g (gain element of integrator)
+        mGCoeff = wa * halfSampleDuration;
+        
+        mRCoeff2 = mRCoeff * 2.0;
+        mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+        
+        const auto z1 = mZ1[ch];
+        const auto z2 = mZ2[ch];
+            
+        float x = input;
+                
+        const double HP = (x - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
+        const double BP = HP * mGCoeff + z1;
+        const double LP = BP * mGCoeff + z2;
+        const double UBP = mRCoeff2 * BP;
+        const double BShelf = x + UBP * mGain;
+        const double LS = x + mGain * LP;
+        const double HS = x + mGain * HP;
+            
+        //Main output code
+        switch (mType)
+        {
+            case kBandShelf: x = BShelf; break;
+            case kLowShelf: x = LS; break;
+            case kHighShelf: x = HS; break;
+            case kHighPass: x = HP; break;
+            case kLowPass: x = LP; break;
+        }
+                
+        // unit delay (state variable)
+        mZ1[ch] = mGCoeff * HP + BP;
+        mZ2[ch] = mGCoeff * BP + LP;
+        
+        return x;
+    }
+    
     
     /** The parameters of this module. */
     enum class ParameterId
@@ -129,7 +170,7 @@ private:
     
     /** Member variables */
     float mCurrentSampleRate, mQ, mCutoff, mGain, mRawGain, twoPi;
-    bool mGlobalBypass, mClipOutput;
+    bool mGlobalBypass;
     
     float lsLevel = 0.0;
     float bsLevel = 0.0;

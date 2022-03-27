@@ -23,18 +23,20 @@ ClippertesterAudioProcessor::ClippertesterAudioProcessor()
 treeState(*this, nullptr, "PARAMETER", createParameterLayout())
 #endif
 {
-    treeState.addParameterListener ("od input", this);
-    treeState.addParameterListener ("clip type", this);
+    treeState.addParameterListener ("model", this);
+    treeState.addParameterListener ("input", this);
     treeState.addParameterListener ("filter type", this);
+    treeState.addParameterListener ("filter gain", this);
     treeState.addParameterListener ("cutoff", this);
     treeState.addParameterListener ("q", this);
 }
 
 ClippertesterAudioProcessor::~ClippertesterAudioProcessor()
 {
-    treeState.removeParameterListener ("od input", this);
-    treeState.removeParameterListener ("clip type", this);
+    treeState.removeParameterListener ("model", this);
+    treeState.removeParameterListener ("input", this);
     treeState.removeParameterListener ("filter type", this);
+    treeState.removeParameterListener ("filter gain", this);
     treeState.removeParameterListener ("cutoff", this);
     treeState.removeParameterListener ("q", this);
 }
@@ -44,19 +46,22 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
   std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
 
   // Make sure to update the number of reservations after adding params
-  params.reserve(5);
-  juce::StringArray cliptypes = {"Hard", "Soft", "Diode"};
+  params.reserve(6);
+  juce::StringArray models = {"Hard Clip", "Saturation", "Tube", "Tape"};
   juce::StringArray filtertypes = {"LowPass", "LowShelf", "Notch", "HighPass", "HighShelf"};
-    
-  auto pClipChoice = std::make_unique<juce::AudioParameterChoice>("clip type", "Clip Type", cliptypes, 0);
-  auto pODInput = std::make_unique<juce::AudioParameterFloat>("od input", "OD Input", 0.0, 20.0, 0.0);
+
+  // Make sure to update the number of reservations after adding params
+  auto pModelChoice = std::make_unique<juce::AudioParameterChoice>("model", "Model", models, 0);
+  auto pODInput = std::make_unique<juce::AudioParameterFloat>("input", "Input", 0.0, 20.0, 0.0);
   auto pFilterChoice = std::make_unique<juce::AudioParameterChoice>("filter type", "Filter Type", filtertypes, 0);
+  auto pFilterGain = std::make_unique<juce::AudioParameterFloat>("filter gain", "Filter Gain", -24.0, 24.0, 0.0);
   auto pCutoff = std::make_unique<juce::AudioParameterFloat>("cutoff", "Cutoff", juce::NormalisableRange<float>(20.0, 20000.0, 1.0, 0.2), 1000.0);
   auto pBandwidth = std::make_unique<juce::AudioParameterFloat>("q", "Q", 0.1, 0.9, 0.33);
     
-  params.push_back(std::move(pClipChoice));
+  params.push_back(std::move(pModelChoice));
   params.push_back(std::move(pODInput));
   params.push_back(std::move(pFilterChoice));
+  params.push_back(std::move(pFilterGain));
   params.push_back(std::move(pCutoff));
   params.push_back(std::move(pBandwidth));
     
@@ -65,42 +70,88 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
 
 void ClippertesterAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
-    if (parameterID == "od input")
+    if (parameterID == "model")
     {
-        clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, newValue);
+        updateSaturationParameters();
+    }
+    
+    if (parameterID == "input")
+    {
+        updateSaturationParameters();
     }
     
     if (parameterID == "clip type")
     {
-        switch (static_cast<int>(newValue))
-        {
-            case 0: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kHard); break;
-            case 1: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kSoft); break;
-            case 2: clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kDiode); break;
-        }
-    }
-    
-    if (parameterID == "cutoff")
-    {
-        filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, newValue);
-    }
-    
-    if (parameterID == "q")
-    {
-        filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, newValue);
+        updateSaturationParameters();
     }
     
     if (parameterID == "filter type")
     {
-        switch (static_cast<int>(newValue))
+        updateFilterParameters();
+    }
+    
+    if (parameterID == "filter gain")
+    {
+        updateFilterParameters();
+    }
+    
+    if (parameterID == "cutoff")
+    {
+        updateFilterParameters();
+    }
+    
+    if (parameterID == "q")
+    {
+        updateFilterParameters();
+    }
+}
+
+void ClippertesterAudioProcessor::updateFilterParameters()
+{
+    switch (static_cast<int>(treeState.getRawParameterValue("filter type")->load()))
+    {
+        case 0: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass); break;
+        case 1: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowShelf); break;
+        case 2: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kBandShelf); break;
+        case 3: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighPass); break;
+        case 4: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighShelf); break;
+    }
+    
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, treeState.getRawParameterValue("cutoff")->load());
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, treeState.getRawParameterValue("q")->load());
+    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, treeState.getRawParameterValue("filter gain")->load());
+}
+
+void ClippertesterAudioProcessor::updateSaturationParameters()
+{
+    switch (static_cast<int>(treeState.getRawParameterValue("model")->load()))
+    {
+        case 0:
         {
-            case 0: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass); break;
-            case 1: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowShelf); break;
-            case 2: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kBandShelf); break;
-            case 3: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighPass); break;
-            case 4: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighShelf); break;
+            saturationModule.setDistortionType(viator_dsp::Saturation<float>::DistortionType::kHard);
+            break;
+        }
+                
+        case 1:
+        {
+            saturationModule.setDistortionType(viator_dsp::Saturation<float>::DistortionType::kSaturation);
+            break;
+        }
+                
+        case 2:
+        {
+            saturationModule.setDistortionType(viator_dsp::Saturation<float>::DistortionType::kTube);
+            break;
+        }
+                
+        case 3:
+        {
+            saturationModule.setDistortionType(viator_dsp::Saturation<float>::DistortionType::kTransformer);
+            break;
         }
     }
+    
+    saturationModule.setParameter(viator_dsp::Saturation<float>::ParameterId::kPreamp, treeState.getRawParameterValue("input")->load());
 }
 
 //==============================================================================
@@ -173,12 +224,12 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = getTotalNumInputChannels();
     
-    clipper.prepare(spec);
-    clipper.setClipperType(viator_dsp::Clipper<float>::ClipType::kHard);
-    clipper.setParameter(viator_dsp::Clipper<float>::ParameterId::kPreamp, static_cast<float>(*treeState.getRawParameterValue("od input")));
+    /** To prepare for switch statement*/
+    saturationModule.prepare(spec);
+    updateSaturationParameters();
     
     filter.prepare(spec);
-    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, 5.0);
+    updateFilterParameters();
 }
 
 void ClippertesterAudioProcessor::releaseResources()
@@ -223,7 +274,17 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         buffer.clear (i, 0, buffer.getNumSamples());
 
     juce::dsp::AudioBlock<float> block (buffer);
-    filter.process(juce::dsp::ProcessContextReplacing<float>(block));
+    
+    for (int sample = 0; sample < block.getNumSamples(); ++sample)
+    {
+        for (int ch = 0; ch < block.getNumChannels(); ++ch)
+        {
+            float* data = block.getChannelPointer(ch);
+            
+            data[sample] = saturationModule.processSample(data[sample], ch);
+            data[sample] = filter.processSample(data[sample], ch);
+        }
+    }
 
 }
 
