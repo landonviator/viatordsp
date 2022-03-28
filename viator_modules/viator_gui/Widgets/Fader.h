@@ -34,15 +34,22 @@ namespace viator_gui
     class Fader  : public juce::Slider
     {
     public:
-        Fader(
-                 juce::String suffix,
-                          double rangeStart,
-                          double rangeEnd,
-                          double intervalValue,
-                          double returnValue)
+        Fader
+        (
+            juce::String suffix,
+            juce::String labelText,
+            double rangeStart,
+            double rangeEnd,
+            double intervalValue,
+            double returnValue
+        )
         {
             initShadows();
             initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
+            addAndMakeVisible(trimLabel);
+            trimLabel.setText(labelText, juce::dontSendNotification);
+            trimLabel.attachToComponent(this, false);
+            trimLabel.setJustificationType(juce::Justification::centred);
         }
         
         ~Fader() override
@@ -77,5 +84,8 @@ namespace viator_gui
         /** Fader shadow */
         juce::DropShadow sliderShadowProperties;
         juce::DropShadowEffect sliderShadow;
+        
+        /** Label */
+        Label trimLabel;
     };
 }
