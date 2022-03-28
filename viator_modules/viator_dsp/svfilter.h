@@ -142,8 +142,7 @@ public:
         kGain,
         kQType,
         kSampleRate,
-        kBypass,
-        kClipOutput
+        kBypass
     };
         
     /** Different filter types*/

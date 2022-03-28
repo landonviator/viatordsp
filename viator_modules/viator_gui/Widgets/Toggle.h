@@ -1,5 +1,6 @@
 #pragma once
 #include "StyleSheet.h"
+#include "Label.h"
 
 namespace viator_gui
 {
@@ -8,7 +9,7 @@ namespace viator_gui
         
     public:
     
-        Toggle();
+        Toggle(juce::String labelText);
         
         ~Toggle() override;
         
@@ -28,5 +29,10 @@ namespace viator_gui
         
         juce::PowerToggleLAF powerToggle;
         juce::PhaseToggleLAF phaseToggle;
+        
+        /** Label */
+        Label toggleLabel;
     };
+
+
 }

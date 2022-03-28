@@ -754,7 +754,7 @@ void juce::PhaseToggleLAF::drawToggleButton
     PathStrokeType pst(2.0f, PathStrokeType::JointStyle::curved);
             
     auto color =
-    toggleButton.getToggleState() ? toggleButton.findColour(juce::ToggleButton::tickDisabledColourId) : toggleButton.findColour(juce::ToggleButton::tickColourId);
+    toggleButton.getToggleState() ? toggleButton.findColour(juce::ToggleButton::tickColourId) : toggleButton.findColour(juce::ToggleButton::tickDisabledColourId);
             
     g.setColour(color);
     g.strokePath(button, pst);
@@ -795,8 +795,8 @@ void juce::PowerToggleLAF::drawToggleButton
     PathStrokeType pst(2.0f, PathStrokeType::JointStyle::curved);
             
     auto color =
-    toggleButton.getToggleState() ? toggleButton.findColour(juce::ToggleButton::tickDisabledColourId) : toggleButton.findColour(juce::ToggleButton::tickColourId);
-            
+    toggleButton.getToggleState() ? toggleButton.findColour(juce::ToggleButton::tickColourId) : toggleButton.findColour(juce::ToggleButton::tickDisabledColourId);
+
     g.setColour(color);
     g.strokePath(button, pst);
 }
