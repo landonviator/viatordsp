@@ -51,10 +51,10 @@ public:
     {
         switch(mDistortionType)
         {
-            case DistortionType::kHard: return hardClipData(input); break;
-            case DistortionType::kSaturation: return saturateData(input); break;
-            case DistortionType::kTube: return tubeDistortion(input); break;
-            case DistortionType::kTape: return tapeFilter.processSample(tapeOverdrive(input), channels); break;
+            case DistortionType::kHard: return getMix(input, hardClipData(input)); break;
+            case DistortionType::kSaturation: return getMix(input, saturateData(input)); break;
+            case DistortionType::kTube: return getMix(input, tubeDistortion(input)); break;
+            case DistortionType::kTape: return getMix(input, tapeFilter.processSample(tapeOverdrive(input), channels)); break;
         }
     }
 
@@ -116,6 +116,11 @@ public:
         return piDivisor * std::tanh(dataToClip) * juce::Decibels::decibelsToGain(6.0 + -mRawGainDB.getNextValue() * 0.75);
     }
     
+    SampleType getMix(SampleType dryInput, SampleType wetInput)
+    {
+        return (1.0 - mMix.getNextValue()) * dryInput + wetInput * mMix.getNextValue();
+    }
+    
     /** Different clipper types*/
     enum class DistortionType
     {
@@ -131,6 +136,7 @@ public:
         kPreamp,
         kSampleRate,
         kThresh,
+        kMix,
         kBypass
     };
     
@@ -142,7 +148,7 @@ private:
     
     // Member variables
     bool mGlobalBypass;
-    juce::SmoothedValue<float> mRawGainDB;
+    juce::SmoothedValue<float> mRawGainDB, mMix;
     float mCurrentSampleRate, mThresh, mRawGain;
     
     DistortionType mDistortionType;

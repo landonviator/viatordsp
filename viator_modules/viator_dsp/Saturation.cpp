@@ -13,6 +13,9 @@ void viator_dsp::Saturation<SampleType>::prepare(const juce::dsp::ProcessSpec& s
     mRawGainDB.reset(mCurrentSampleRate, 0.02);
     mRawGainDB.setTargetValue(0.0);
     
+    mMix.reset(mCurrentSampleRate, 0.02);
+    mMix.setTargetValue(0.0);
+    
     tapeFilter.prepare(spec);
     tapeFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowShelf);
     tapeFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQType, viator_dsp::SVFilter<float>::QType::kParametric);
@@ -38,6 +41,14 @@ void viator_dsp::Saturation<SampleType>::setParameter(ParameterId parameter, Sam
             
         case ParameterId::kSampleRate: mCurrentSampleRate = parameterValue; break;
         case ParameterId::kThresh: mThresh = parameterValue; break;
+            
+        case ParameterId::kMix:
+        {
+            auto newMix = juce::jmap(static_cast<float>(parameterValue), 0.0f, 100.0f, 0.0f, 1.0f);
+            mMix.setTargetValue(newMix);
+            break;
+        }
+            
         case ParameterId::kBypass: mGlobalBypass = static_cast<bool>(parameterValue);
     }
 }
