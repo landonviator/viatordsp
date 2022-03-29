@@ -61,7 +61,7 @@ void viator_gui::Dial::initProps(juce::String suffix,
 {
     setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     setTextBoxStyle(juce::Slider::TextBoxBelow, false, 96, 32);
-    setColour(juce::Slider::ColourIds::rotarySliderFillColourId, findColour(Slider::ColourIds::thumbColourId));
+    setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::whitesmoke.withAlpha(0.35f));
     setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::black.brighter(0.1).withAlpha(0.8f));
     setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::whitesmoke.darker(1.75f).withAlpha(0.7f));
     setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black.withAlpha(0.0f));

@@ -19,17 +19,11 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    
-    
-    
-    
 private:
     //==============================================================================
     // Your private member variables go here...
     juce::TextButton triggerButton;
-    
     std::unique_ptr<juce::ProgressBar> meter;
-    
     MeterThread meterThread;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

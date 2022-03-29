@@ -188,7 +188,8 @@ void juce::FullDialLAF::drawRotarySlider
 {
     /** Define color variables for customization. */
     const auto outlineColor  = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
-    const auto fillColor     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
+    const auto fillColor     = slider.findColour(Slider::rotarySliderFillColourId);
+    const auto mainColor     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
     const auto brighterColor = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.15);
     const auto textColor     = slider.findColour (juce::Slider::trackColourId);
     const auto trackColor    = slider.findColour(juce::Slider::ColourIds::trackColourId);
@@ -252,7 +253,7 @@ void juce::FullDialLAF::drawRotarySlider
                 brighterColor,
                 centre.getX() + lineWidth * 2.0f,
                 centre.getY() - lineWidth * 4.0f,
-                fillColor,
+                mainColor,
                 centre.getX() + dialRadius,
                 centre.getY() + dialRadius,
                 true
@@ -310,7 +311,7 @@ void juce::FullDialLAF::drawLabel (Graphics& g, Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::plain));
+        const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
@@ -347,7 +348,8 @@ void juce::FullDialMirrowLAF::drawRotarySlider
 {
     /** Define color variables for customization. */
     const auto outlineColor  = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
-    const auto fillColor     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
+    const auto fillColor     = slider.findColour(Slider::rotarySliderFillColourId);
+    const auto mainColor     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
     const auto brighterColor = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.15);
     const auto textColor     = slider.findColour (juce::Slider::trackColourId);
     const auto trackColor    = slider.findColour(juce::Slider::ColourIds::trackColourId);
@@ -411,7 +413,7 @@ void juce::FullDialMirrowLAF::drawRotarySlider
                 brighterColor,
                 centre.getX() + lineWidth * 2.0f,
                 centre.getY() - lineWidth * 4.0f,
-                fillColor,
+                mainColor,
                 centre.getX() + dialRadius,
                 centre.getY() + dialRadius,
                 true
@@ -469,7 +471,7 @@ void juce::FullDialMirrowLAF::drawLabel (Graphics& g, Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::plain));
+        const Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
