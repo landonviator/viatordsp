@@ -74,10 +74,11 @@ public:
     /** Saturation */
     SampleType saturateData(SampleType dataToSaturate)
     {
-        auto x = dataToSaturate * viator_utils::utils::dbToGain(mRawGainDB.getNextValue());
-                                                                
-        auto saturation = x * (1.0 - std::abs(x) / 4.0);
-        return saturation;
+        auto x = dataToSaturate * viator_utils::utils::dbToGain(mRawGainDB.getNextValue() * 0.5);
+
+        auto saturation = x - ((x * x * x) / 6.75);
+
+        return softClipData(saturation);
     }
     
     /** Soft Clip */

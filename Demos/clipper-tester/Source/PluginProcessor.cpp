@@ -25,6 +25,7 @@ treeState(*this, nullptr, "PARAMETER", createParameterLayout())
 {
     treeState.addParameterListener ("model", this);
     treeState.addParameterListener ("input", this);
+    treeState.addParameterListener ("mix", this);
     treeState.addParameterListener ("filter type", this);
     treeState.addParameterListener ("filter gain", this);
     treeState.addParameterListener ("cutoff", this);
@@ -35,6 +36,7 @@ ClippertesterAudioProcessor::~ClippertesterAudioProcessor()
 {
     treeState.removeParameterListener ("model", this);
     treeState.removeParameterListener ("input", this);
+    treeState.removeParameterListener ("mix", this);
     treeState.removeParameterListener ("filter type", this);
     treeState.removeParameterListener ("filter gain", this);
     treeState.removeParameterListener ("cutoff", this);
@@ -53,6 +55,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
   // Make sure to update the number of reservations after adding params
   auto pModelChoice = std::make_unique<juce::AudioParameterChoice>("model", "Model", models, 0);
   auto pODInput = std::make_unique<juce::AudioParameterFloat>("input", "Input", 0.0, 20.0, 0.0);
+  auto pMix = std::make_unique<juce::AudioParameterFloat>("mix", "Mix", 0.0, 100.0, 0.0);
   auto pFilterChoice = std::make_unique<juce::AudioParameterChoice>("filter type", "Filter Type", filtertypes, 0);
   auto pFilterGain = std::make_unique<juce::AudioParameterFloat>("filter gain", "Filter Gain", -24.0, 24.0, 0.0);
   auto pCutoff = std::make_unique<juce::AudioParameterFloat>("cutoff", "Cutoff", juce::NormalisableRange<float>(20.0, 20000.0, 1.0, 0.2), 1000.0);
@@ -60,6 +63,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
     
   params.push_back(std::move(pModelChoice));
   params.push_back(std::move(pODInput));
+  params.push_back(std::move(pMix));
   params.push_back(std::move(pFilterChoice));
   params.push_back(std::move(pFilterGain));
   params.push_back(std::move(pCutoff));
@@ -76,6 +80,11 @@ void ClippertesterAudioProcessor::parameterChanged(const juce::String &parameter
     }
     
     if (parameterID == "input")
+    {
+        updateSaturationParameters();
+    }
+    
+    if (parameterID == "mix")
     {
         updateSaturationParameters();
     }
@@ -146,12 +155,13 @@ void ClippertesterAudioProcessor::updateSaturationParameters()
                 
         case 3:
         {
-            saturationModule.setDistortionType(viator_dsp::Saturation<float>::DistortionType::kTransformer);
+            saturationModule.setDistortionType(viator_dsp::Saturation<float>::DistortionType::kTape);
             break;
         }
     }
     
     saturationModule.setParameter(viator_dsp::Saturation<float>::ParameterId::kPreamp, treeState.getRawParameterValue("input")->load());
+    saturationModule.setParameter(viator_dsp::Saturation<float>::ParameterId::kMix, treeState.getRawParameterValue("mix")->load());
 }
 
 //==============================================================================
