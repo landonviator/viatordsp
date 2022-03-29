@@ -74,45 +74,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
 
 void ClippertesterAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
-    if (parameterID == "model")
-    {
-        updateSaturationParameters();
-    }
-    
-    if (parameterID == "input")
-    {
-        updateSaturationParameters();
-    }
-    
-    if (parameterID == "mix")
-    {
-        updateSaturationParameters();
-    }
-    
-    if (parameterID == "clip type")
-    {
-        updateSaturationParameters();
-    }
-    
-    if (parameterID == "filter type")
-    {
-        updateFilterParameters();
-    }
-    
-    if (parameterID == "filter gain")
-    {
-        updateFilterParameters();
-    }
-    
-    if (parameterID == "cutoff")
-    {
-        updateFilterParameters();
-    }
-    
-    if (parameterID == "q")
-    {
-        updateFilterParameters();
-    }
+    updateSaturationParameters();
+    updateFilterParameters();
 }
 
 void ClippertesterAudioProcessor::updateFilterParameters()
@@ -234,7 +197,6 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = getTotalNumInputChannels();
     
-    /** To prepare for switch statement*/
     saturationModule.prepare(spec);
     updateSaturationParameters();
     
@@ -313,15 +275,22 @@ juce::AudioProcessorEditor* ClippertesterAudioProcessor::createEditor()
 //==============================================================================
 void ClippertesterAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    // Save params
+    juce::MemoryOutputStream stream(destData, false);
+    treeState.state.writeToStream (stream);
 }
 
 void ClippertesterAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    // Recall params
+        auto tree = juce::ValueTree::readFromData (data, size_t(sizeInBytes));
+        
+        if (tree.isValid())
+        {
+            treeState.state = tree;
+            updateSaturationParameters();
+            updateFilterParameters();
+        }
 }
 
 //==============================================================================
