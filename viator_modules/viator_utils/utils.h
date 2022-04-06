@@ -14,11 +14,11 @@ namespace viator_utils
         
         /** Hard clip data */
         template <typename T>
-        static T clipData(T input, T thresh = 1.0)
+        static T clipData(T input, T thresh = 0.99)
         {
             if (std::abs(input) > thresh)
             {
-                input *= 1.0 / std::abs(input);
+                input *= thresh / std::abs(input);
             }
             
             return input;

@@ -61,9 +61,9 @@ void LevelMeter::paint (juce::Graphics& g)
     g.fillRect(rightMeter.getX(), rightMeter.getY(), rightMeter.getWidth(), rightMeter.getHeight());
     
     g.setColour(juce::Colours::whitesmoke.withAlpha(0.5f));
-    g.setFont (juce::Font (16.0f));
+    g.setFont (juce::Font (12.0f));
     
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 10; i++)
     {
         float lineY = rightMeter.getY() - rightMeter.getPositionOfValue(0.0) + rightMeter.getPositionOfValue(i * -3) + 1;
         
