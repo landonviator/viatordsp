@@ -63,9 +63,12 @@ private:
     void updateSaturationParameters();
     float inputGainDB {0.0};
     
-    viator_dsp::SVFilter<float> filter;
+    viator_dsp::SVFilter<float> leftFilter;
+    viator_dsp::SVFilter<float> rightFilter;
     void updateFilterParameters();
     
+    viator_dsp::LFOGenerator leftLFO;
+    viator_dsp::LFOGenerator rightLFO;
     
     /** Parameters ======================================================*/
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();

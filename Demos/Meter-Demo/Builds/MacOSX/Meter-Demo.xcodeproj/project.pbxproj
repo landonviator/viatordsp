@@ -31,6 +31,7 @@
 		10AC2A4B452169E31A3DC2ED /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXBuildFile; fileRef = 9F252B16566B5BC32758C1F2; };
 		1230810C47BF6404EC41CFA6 /* AU */ = {isa = PBXBuildFile; fileRef = 809CD4C6251DC117D2E5B739; };
 		1C0EFBABECA0C7128171A4F2 /* include_juce_audio_processors.mm */ = {isa = PBXBuildFile; fileRef = 8463F197341302C816DF737F; };
+		1EA7F303F45201AC0D541F3A /* LevelMeter.cpp */ = {isa = PBXBuildFile; fileRef = F8C5D2E66638FECC98B74402; };
 		2EBE0DF2AFA532CE72EE779D /* RecentFilesMenuTemplate.nib */ = {isa = PBXBuildFile; fileRef = 0B3E512EA9AC4E2ADA8310AB; };
 		31594CAE221F698829843DF2 /* CoreAudio.framework */ = {isa = PBXBuildFile; fileRef = 0421869EB0A6A40A874DAAFC; };
 		4138A730C0D8A46FFB7ADBFC /* include_juce_audio_basics.mm */ = {isa = PBXBuildFile; fileRef = EFDD7B38091F8F4DBCD0CE90; };
@@ -51,7 +52,9 @@
 		9BC5FB40AA84560DA420A766 /* AudioUnit.framework */ = {isa = PBXBuildFile; fileRef = EF139E60F80D1D296FB1F503; };
 		AF81F48098A5B1B6E399A424 /* include_juce_audio_plugin_client_VST3.cpp */ = {isa = PBXBuildFile; fileRef = 4ECC9B0583A5EF96FCE53539; };
 		B01670472F6E5F5E18E5FC2A /* Standalone Plugin */ = {isa = PBXBuildFile; fileRef = 8F68C4C8099C4AFC89F77B41; };
+		BA761CD5CA07787FD380B45C /* include_juce_dsp.mm */ = {isa = PBXBuildFile; fileRef = C2749BF539DBD6670B7F4DB1; };
 		BCF165ECC317040420705052 /* VST3 */ = {isa = PBXBuildFile; fileRef = 2A8DF27E4185760713771E72; };
+		C0765AB51D8D8185AA7B39D6 /* include_viator_modules.cpp */ = {isa = PBXBuildFile; fileRef = 23BA792F5E530485463AAFA7; };
 		C5CA543EFA08B2643316300A /* include_juce_audio_utils.mm */ = {isa = PBXBuildFile; fileRef = DFA661887EC9C670EB4C65B9; };
 		C7A2F6353B92CE3671FF64AD /* include_juce_gui_basics.mm */ = {isa = PBXBuildFile; fileRef = F872ED8544E2C0B1D9ED2C5A; };
 		CCDF9DA1DFB5FFB0C8A96453 /* include_juce_data_structures.mm */ = {isa = PBXBuildFile; fileRef = 7A7F23DD5390FA55EF2E4D89; };
@@ -69,8 +72,11 @@
 		0421869EB0A6A40A874DAAFC /* CoreAudio.framework */ /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		07A7E3C525057C9764C1508C /* CoreMIDI.framework */ /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		0B3E512EA9AC4E2ADA8310AB /* RecentFilesMenuTemplate.nib */ /* RecentFilesMenuTemplate.nib */ = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = SOURCE_ROOT; };
+		0C5B995678D3007FC26CBF6C /* LevelMeter.h */ /* LevelMeter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LevelMeter.h; path = ../../Source/LevelMeter.h; sourceTree = SOURCE_ROOT; };
 		0CE743675656905937AB47F9 /* CoreAudioKit.framework */ /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		0F2B6C802454BBD31D600546 /* viator_modules */ /* viator_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = viator_modules; path = ../../../../viator_modules; sourceTree = SOURCE_ROOT; };
 		22A22EA694E4989F171AF7A6 /* juce_graphics */ /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_graphics; sourceTree = "<absolute>"; };
+		23BA792F5E530485463AAFA7 /* include_viator_modules.cpp */ /* include_viator_modules.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_viator_modules.cpp; path = ../../JuceLibraryCode/include_viator_modules.cpp; sourceTree = SOURCE_ROOT; };
 		2591FC9D071DD3943EB1AE2A /* Info-AU.plist */ /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-AU.plist"; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
 		29898F806817089A425B99C4 /* Accelerate.framework */ /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2A8DF27E4185760713771E72 /* VST3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Meter-Demo.vst3"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +98,7 @@
 		8D4F9589253903E82BDF2D11 /* Info-VST3.plist */ /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-VST3.plist"; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
 		8ED525BAC768337BA06A067C /* WebKit.framework */ /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8F68C4C8099C4AFC89F77B41 /* Standalone Plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meter-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		917400ED9A9546A248883875 /* juce_dsp */ /* juce_dsp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_dsp; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_dsp; sourceTree = "<absolute>"; };
 		95A08F8C23E71D44D8433BF5 /* include_juce_audio_plugin_client_AU_2.mm */ /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		97A189D6F2A05469CBE716D8 /* juce_gui_extra */ /* juce_gui_extra */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_extra; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_gui_extra; sourceTree = "<absolute>"; };
 		97F6997B24D2F3312C33705A /* include_juce_audio_plugin_client_utils.cpp */ /* include_juce_audio_plugin_client_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_utils.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp; sourceTree = SOURCE_ROOT; };
@@ -104,6 +111,7 @@
 		B7F99636E206AAA1A7812538 /* juce_audio_utils */ /* juce_audio_utils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_utils; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_utils; sourceTree = "<absolute>"; };
 		B89B9CFD67E8FDE1B9438DC5 /* juce_data_structures */ /* juce_data_structures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_data_structures; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_data_structures; sourceTree = "<absolute>"; };
 		BBD98789449AB6F200C6ACB2 /* juce_audio_plugin_client */ /* juce_audio_plugin_client */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_plugin_client; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client; sourceTree = "<absolute>"; };
+		C2749BF539DBD6670B7F4DB1 /* include_juce_dsp.mm */ /* include_juce_dsp.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_dsp.mm; path = ../../JuceLibraryCode/include_juce_dsp.mm; sourceTree = SOURCE_ROOT; };
 		C35A210ED8AA34DAA099F7D6 /* PluginProcessor.h */ /* PluginProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginProcessor.h; path = ../../Source/PluginProcessor.h; sourceTree = SOURCE_ROOT; };
 		C412B12694C62A5099F7E726 /* include_juce_core.mm */ /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		C5AF7DF639A6C187A23BF4A0 /* include_juce_graphics.mm */ /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
@@ -122,6 +130,7 @@
 		F8054F5A2E7B31DEC8AA6B1A /* juce_audio_devices */ /* juce_audio_devices */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_devices; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_devices; sourceTree = "<absolute>"; };
 		F80DE42B49D7E14F6F566EF7 /* include_juce_audio_plugin_client_VST_utils.mm */ /* include_juce_audio_plugin_client_VST_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_VST_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm; sourceTree = SOURCE_ROOT; };
 		F872ED8544E2C0B1D9ED2C5A /* include_juce_gui_basics.mm */ /* include_juce_gui_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_gui_basics.mm; path = ../../JuceLibraryCode/include_juce_gui_basics.mm; sourceTree = SOURCE_ROOT; };
+		F8C5D2E66638FECC98B74402 /* LevelMeter.cpp */ /* LevelMeter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = LevelMeter.cpp; path = ../../Source/LevelMeter.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,10 +219,12 @@
 				B7F99636E206AAA1A7812538,
 				64A32C0EABAF59D4749B50CC,
 				B89B9CFD67E8FDE1B9438DC5,
+				917400ED9A9546A248883875,
 				A8CA4C8B86AD93B7345577A8,
 				22A22EA694E4989F171AF7A6,
 				989D23B7D9407A1EBEDB8C67,
 				97A189D6F2A05469CBE716D8,
+				0F2B6C802454BBD31D600546,
 			);
 			name = "JUCE Modules";
 			sourceTree = "<group>";
@@ -232,6 +243,8 @@
 		7B0924D27CD469F43F448AD4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F8C5D2E66638FECC98B74402,
+				0C5B995678D3007FC26CBF6C,
 				A17E5A129E896A76A27FD525,
 				C35A210ED8AA34DAA099F7D6,
 				A5DCC4D9AE85A5787CDAC6AF,
@@ -296,10 +309,12 @@
 				DFA661887EC9C670EB4C65B9,
 				C412B12694C62A5099F7E726,
 				7A7F23DD5390FA55EF2E4D89,
+				C2749BF539DBD6670B7F4DB1,
 				5265D5B1DBD79A28AE223F4D,
 				C5AF7DF639A6C187A23BF4A0,
 				F872ED8544E2C0B1D9ED2C5A,
 				56A1B10E9D6145B4A3BF93FB,
+				23BA792F5E530485463AAFA7,
 				519C96975CF8F92E31121599,
 				E9CE89B21FCF987158F758AB,
 			);
@@ -563,6 +578,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EA7F303F45201AC0D541F3A,
 				9B69A75A7085809363170C89,
 				02C93F9B4CBAD43F37C7A922,
 				4138A730C0D8A46FFB7ADBFC,
@@ -574,10 +590,12 @@
 				C5CA543EFA08B2643316300A,
 				ED88DD815BD5BFD3F94F620C,
 				CCDF9DA1DFB5FFB0C8A96453,
+				BA761CD5CA07787FD380B45C,
 				08130FCC9AA76F8B44B36E46,
 				F6A0C1B619F0DD4B4CB4D8A1,
 				C7A2F6353B92CE3671FF64AD,
 				101ED0BA5E9CB60341BDB4AD,
+				C0765AB51D8D8185AA7B39D6,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,10 +684,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -732,13 +752,14 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info-Standalone_Plugin.plist;
 				INFOPLIST_PREPROCESS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-lMeter-Demo";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;
 				PRODUCT_NAME = "Meter-Demo";
@@ -773,10 +794,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -839,6 +862,7 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -846,7 +870,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-lMeter-Demo";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;
 				PRODUCT_NAME = "Meter-Demo";
@@ -891,10 +915,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -958,6 +984,7 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -967,7 +994,7 @@
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lMeter-Demo";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;
@@ -1006,10 +1033,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1073,6 +1102,7 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -1081,7 +1111,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lMeter-Demo";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;
 				PRODUCT_NAME = "Meter-Demo";
@@ -1117,10 +1147,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1184,12 +1216,13 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;
 				PRODUCT_NAME = "Meter-Demo";
 				SKIP_INSTALL = YES;
@@ -1275,10 +1308,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1342,6 +1377,7 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -1351,7 +1387,7 @@
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lMeter-Demo";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;
 				PRODUCT_NAME = "Meter-Demo";
@@ -1387,10 +1423,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1454,13 +1492,14 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;
 				PRODUCT_NAME = "Meter-Demo";
 				SKIP_INSTALL = YES;
@@ -1553,10 +1592,12 @@
 					"JUCE_MODULE_AVAILABLE_juce_audio_utils=1",
 					"JUCE_MODULE_AVAILABLE_juce_core=1",
 					"JUCE_MODULE_AVAILABLE_juce_data_structures=1",
+					"JUCE_MODULE_AVAILABLE_juce_dsp=1",
 					"JUCE_MODULE_AVAILABLE_juce_events=1",
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1620,6 +1661,7 @@
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/land00m/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../../viatordsp",
 					"/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -1628,7 +1670,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/land00m/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../../viatordsp /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lMeter-Demo";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ViatorDSP.MeterDemo;

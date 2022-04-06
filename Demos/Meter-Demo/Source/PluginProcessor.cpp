@@ -93,8 +93,8 @@ void MeterDemoAudioProcessor::changeProgramName (int index, const juce::String& 
 //==============================================================================
 void MeterDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    leftLevel.reset(sampleRate, 0.75);
-    rightLevel.reset(sampleRate, 0.75);
+    leftLevel.reset(sampleRate, 0.5);
+    rightLevel.reset(sampleRate, 0.5);
 }
 
 void MeterDemoAudioProcessor::releaseResources()

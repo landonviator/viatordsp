@@ -11,6 +11,8 @@ namespace viator_dsp
     public:
         
         void prepare(const juce::dsp::ProcessSpec& spec);
+        
+        void reset();
             
         /** Must be called in the sample loop*/
         void process();

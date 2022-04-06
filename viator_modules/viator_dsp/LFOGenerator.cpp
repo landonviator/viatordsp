@@ -7,6 +7,11 @@ void viator_dsp::LFOGenerator::prepare(const juce::dsp::ProcessSpec &spec)
     m_deltaTime = 1 / spec.sampleRate;
 }
 
+void viator_dsp::LFOGenerator::reset()
+{
+    m_LFOValue = 0.0f;
+}
+
 /** Must be called in the sample loop*/
 void viator_dsp::LFOGenerator::process()
 {

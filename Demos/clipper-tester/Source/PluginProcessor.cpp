@@ -48,7 +48,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout ClippertesterAudioProcessor:
   std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
 
   // Make sure to update the number of reservations after adding params
-  params.reserve(6);
+  params.reserve(7);
   juce::StringArray models = {"Hard Clip", "Saturation", "Tube", "Tape"};
   juce::StringArray filtertypes = {"LowPass", "LowShelf", "Notch", "HighPass", "HighShelf"};
 
@@ -82,16 +82,51 @@ void ClippertesterAudioProcessor::updateFilterParameters()
 {
     switch (static_cast<int>(treeState.getRawParameterValue("filter type")->load()))
     {
-        case 0: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass); break;
-        case 1: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowShelf); break;
-        case 2: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kBandShelf); break;
-        case 3: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighPass); break;
-        case 4: filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighShelf); break;
+        case 0:
+        {
+            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass);
+            rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass); break;
+
+        }
+            
+        case 1:
+        {
+            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowShelf);
+            rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowShelf); break;
+
+        }
+            
+        case 2:
+        {
+            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kBandShelf);
+            rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kBandShelf); break;
+
+        }
+            
+        case 3:
+        {
+            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighPass);
+            rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighPass); break;
+
+        }
+            
+        case 4:
+        {
+            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighShelf);
+            rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kHighShelf); break;
+
+        }
     }
     
-    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, treeState.getRawParameterValue("cutoff")->load());
-    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, treeState.getRawParameterValue("q")->load());
-    filter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, treeState.getRawParameterValue("filter gain")->load());
+    leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, treeState.getRawParameterValue("cutoff")->load());
+    rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, treeState.getRawParameterValue("cutoff")->load());
+    
+    leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, treeState.getRawParameterValue("q")->load());
+    rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQ, treeState.getRawParameterValue("q")->load());
+
+    leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, treeState.getRawParameterValue("filter gain")->load());
+    rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, treeState.getRawParameterValue("filter gain")->load());
+
 }
 
 void ClippertesterAudioProcessor::updateSaturationParameters()
@@ -200,8 +235,15 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     saturationModule.prepare(spec);
     updateSaturationParameters();
     
-    filter.prepare(spec);
+    leftFilter.prepare(spec);
+    rightFilter.prepare(spec);
     updateFilterParameters();
+    
+    leftLFO.prepare(spec);
+    leftLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, 4);
+    
+    rightLFO.prepare(spec);
+    rightLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, 4);
 }
 
 void ClippertesterAudioProcessor::releaseResources()
@@ -247,17 +289,34 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 
     juce::dsp::AudioBlock<float> block (buffer);
     
+        
     for (int sample = 0; sample < block.getNumSamples(); ++sample)
     {
-        for (int ch = 0; ch < block.getNumChannels(); ++ch)
-        {
-            float* data = block.getChannelPointer(ch);
-            
-            data[sample] = saturationModule.processSample(data[sample], ch);
-            data[sample] = filter.processSample(data[sample], ch);
-        }
-    }
+        leftLFO.process();
+        auto leftCutoff = leftLFO.getCurrentLFOValue() * 24.0f;
 
+        rightLFO.process();
+        auto rightCutoff = rightLFO.getCurrentLFOValue() * 24.0f;
+
+        leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, leftCutoff);
+        block.setSample(0, sample, leftFilter.processSample(block.getSample(0, sample), 1));
+
+        rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, rightCutoff);
+        block.setSample(1, sample, rightFilter.processSample(block.getSample(1, sample), 1));
+    }
+    
+//    for (int channelIndex = 0; channelIndex < block.getNumChannels(); ++channelIndex)
+//    {
+//        float* blockData = block.getChannelPointer(channelIndex);
+//
+//        for (int sampleIndex = 0; sampleIndex < block.getNumSamples(); ++sampleIndex)
+//        {
+//            leftLFO.process();
+//            auto leftCutoff = leftLFO.getCurrentLFOValue() * 24.0f;
+//            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, leftCutoff);
+//            blockData[sampleIndex] = leftFilter.processSample(blockData[sampleIndex], channelIndex);
+//        }
+//    }
 }
 
 //==============================================================================
