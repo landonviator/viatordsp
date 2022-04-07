@@ -25,7 +25,6 @@ MeterDemoAudioProcessorEditor::~MeterDemoAudioProcessorEditor()
 //==============================================================================
 void MeterDemoAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
     juce::Rectangle<int> background = getLocalBounds();
     g.setGradientFill(juce::ColourGradient::vertical(juce::Colour::fromFloatRGBA(0.18f, 0.20f, 0.24f, 1.0), getHeight() * 0.25, juce::Colour::fromFloatRGBA(0.18f, 0.20f, 0.24f, 1.0).darker(0.15), getHeight() * 0.75));
     g.fillRect(background);
@@ -38,5 +37,5 @@ void MeterDemoAudioProcessorEditor::paint (juce::Graphics& g)
 
 void MeterDemoAudioProcessorEditor::resized()
 {
-    meters.setBounds(200, 200, 256, 256);
+    meters.setBounds(200, 200, 256, 384);
 }

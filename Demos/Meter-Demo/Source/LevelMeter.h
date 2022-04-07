@@ -28,16 +28,20 @@ public:
     void timerCallback() final
     {
         leftMeter.setValue(audioProcessor.getLeftLevel());
+        rightMeter.setValue(audioProcessor.getRightLevel());
         
-        if(leftMeter.getValue() > leftMax)
+        if(leftMeter.getValue() > leftMax || rightMeter.getValue() > rightMax)
         {
             leftMax = leftMeter.getValue();
             leftMeterString = leftMeter.getTextFromValue(leftMeter.getValue());
             leftSliderValueLabel.setText(leftMeterString, juce::dontSendNotification);
-            setLabelColorLogic();
+            setLabelColorLogic(leftSliderValueLabel);
+            
+            rightMax = rightMeter.getValue();
+            rightMeterString = rightMeter.getTextFromValue(rightMeter.getValue());
+            rightSliderValueLabel.setText(rightMeterString, juce::dontSendNotification);
+            setLabelColorLogic(rightSliderValueLabel);
         }
-        
-        rightMeter.setValue(audioProcessor.getRightLevel());
     }
 
 private:
@@ -47,26 +51,34 @@ private:
     juce::Slider rightMeter;
     juce::ToggleButton meterToggle;
     juce::String leftMeterString;
+    juce::String rightMeterString;
     
     juce::Label leftSliderValueLabel;
-    void setLabelColorLogic();
+    juce::Label rightSliderValueLabel;
+    void setLabelColorLogic(juce::Label& label);
     
     std::vector<std::string> meterNumbers =
     {
-        "-0-",
-        "-9-",
-        "-18-",
-        "-27-",
-        "-36-",
-        "-45-",
-        "-54-"
+        " 0",
+        "-9",
+        "-18",
+        "-27",
+        "-36",
+        "-45",
+        "-54"
     };
     
     void mouseDown(const juce::MouseEvent& event) override
     {
         leftMax = -60.0;
+        rightMax = -60.0;
     }
     
+    /** Fader shadow */
+    juce::DropShadow sliderShadowProperties;
+    juce::DropShadowEffect sliderShadow;
+    
     float leftMax = -60.0;
+    float rightMax = -60.0;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LevelMeter)
 };

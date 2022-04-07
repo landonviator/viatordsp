@@ -14,27 +14,46 @@
 //==============================================================================
 LevelMeter::LevelMeter(MeterDemoAudioProcessor& p) : audioProcessor (p)
 {
+    sliderShadowProperties.radius = 8;
+    sliderShadowProperties.offset = juce::Point<int> (0, 0);
+    sliderShadowProperties.colour = juce::Colours::black.withAlpha(1.0f);
+    sliderShadow.setShadowProperties (sliderShadowProperties);
+    
     addAndMakeVisible(leftMeter);
-    leftMeter.setSliderStyle(juce::Slider::SliderStyle::LinearBarVertical);
+    leftMeter.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     leftMeter.setRange(-60.0, 0.0, 0.05);
     leftMeter.setSkewFactorFromMidPoint(-21.0);
-    leftMeter.setTextBoxStyle(juce::Slider::TextBoxAbove, true, 96, 72);
+    leftMeter.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 96, 72);
     leftMeter.setScrollWheelEnabled(false);
     
     leftMeter.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black.withAlpha(0.0f));
-    leftMeter.setColour(juce::Slider::ColourIds::trackColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 0.4f));
+    leftMeter.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::black.withAlpha(0.0f));
+    leftMeter.setColour(juce::Slider::ColourIds::trackColourId, juce::Colour::fromFloatRGBA(0.18f, 0.20f, 0.24f, 1.0));
     leftMeter.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.withAlpha(0.0f));
+    leftMeter.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::black.withAlpha(0.0f));
+    
+    addAndMakeVisible(leftSliderValueLabel);
+    leftSliderValueLabel.setFont(12.0f);
+    leftSliderValueLabel.attachToComponent(&leftMeter, false);
+    leftSliderValueLabel.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible(rightMeter);
-    rightMeter.setSliderStyle(juce::Slider::SliderStyle::LinearBarVertical);
+    rightMeter.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     rightMeter.setRange(-60.0, 0.0, 0.05);
     rightMeter.setSkewFactorFromMidPoint(-21.0);
-    rightMeter.setTextBoxStyle(juce::Slider::TextBoxAbove, true, 96, 72);
+    rightMeter.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 96, 72);
     rightMeter.setScrollWheelEnabled(false);
     
     rightMeter.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black.withAlpha(0.0f));
-    rightMeter.setColour(juce::Slider::ColourIds::trackColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 0.4f));
+    rightMeter.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::black.withAlpha(0.0f));
+    rightMeter.setColour(juce::Slider::ColourIds::trackColourId, juce::Colour::fromFloatRGBA(0.18f, 0.20f, 0.24f, 1.0));
     rightMeter.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.withAlpha(0.0f));
+    rightMeter.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::black.withAlpha(0.0f));
+    
+    addAndMakeVisible(rightSliderValueLabel);
+    rightSliderValueLabel.setFont(12.0f);
+    rightSliderValueLabel.attachToComponent(&rightMeter, false);
+    rightSliderValueLabel.setJustificationType(juce::Justification::centred);
     
     addAndMakeVisible(meterToggle);
     meterToggle.setButtonText("Is RMS");
@@ -47,6 +66,9 @@ LevelMeter::LevelMeter(MeterDemoAudioProcessor& p) : audioProcessor (p)
     leftSliderValueLabel.setJustificationType(juce::Justification::centred);
     leftSliderValueLabel.attachToComponent(&leftMeter, false);
     
+    leftMeter.setComponentEffect(&sliderShadow);
+    rightMeter.setComponentEffect(&sliderShadow);
+    
     startTimerHz(30);
 }
 
@@ -56,45 +78,48 @@ LevelMeter::~LevelMeter()
 
 void LevelMeter::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colours::black.withAlpha(0.5f));
-    g.fillRect(leftMeter.getX(), leftMeter.getY(), leftMeter.getWidth(), leftMeter.getHeight());
-    g.fillRect(rightMeter.getX(), rightMeter.getY(), rightMeter.getWidth(), rightMeter.getHeight());
+    g.setColour(juce::Colours::black.brighter(0.1f));
+    g.fillRect(getLocalBounds());
     
     g.setColour(juce::Colours::whitesmoke.withAlpha(0.5f));
     g.setFont (juce::Font (12.0f));
     
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 19; i++)
     {
-        float lineY = rightMeter.getY() - rightMeter.getPositionOfValue(0.0) + rightMeter.getPositionOfValue(i * -3) + 1;
+        float lineY = rightMeter.getY() + rightMeter.getPositionOfValue(i * -3) - 2;
         
         if (i % 3 == 0)
         {
-            g.drawText(meterNumbers[i/3], leftMeter.getX() + leftMeter.getWidth() * 0.9, lineY - 8, 64, 24, juce::Justification::centredTop);
+            g.drawText(meterNumbers[i/3], 0, lineY - 6, 64, 24, juce::Justification::centredTop);
+            
+            g.setColour(juce::Colours::whitesmoke.withAlpha(0.25f));
+            g.drawLine(48, lineY, rightMeter.getX() + rightMeter.getWidth(), lineY);
         }
+        
     }
 }
 
 void LevelMeter::resized()
 {
-    leftMeter.setBounds(0, 60, 64, 256);
-    rightMeter.setBounds(leftMeter.getX() + leftMeter.getWidth() * 1.75, 60, 64, 256);
-    meterToggle.setBounds(leftMeter.getX() + leftMeter.getWidth(), leftMeter.getY() - 50, 72, 24);
+    leftMeter.setBounds(48, 64, 64, getHeight());
+    rightMeter.setBounds(leftMeter.getX() + leftMeter.getWidth() * 0.6, leftMeter.getY(), 64, leftMeter.getHeight());
+    meterToggle.setBounds(rightMeter.getX() + rightMeter.getWidth() * 1.25, leftMeter.getY(), 72, 24);
 }
 
-void LevelMeter::setLabelColorLogic()
+void LevelMeter::setLabelColorLogic(juce::Label& label)
 {
-    if (leftSliderValueLabel.getTextValue() >= -0.1)
+    if (label.getTextValue() >= -0.1)
     {
-        leftSliderValueLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::indianred);
+        label.setColour(juce::Label::ColourIds::textColourId, juce::Colours::indianred);
     }
       
-    else if (leftSliderValueLabel.getTextValue() < 0.0 && leftSliderValueLabel.getTextValue() >= -18.0)
+    else if (label.getTextValue() < 0.0 && leftSliderValueLabel.getTextValue() >= -18.0)
     {
-        leftSliderValueLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::orange);
+        label.setColour(juce::Label::ColourIds::textColourId, juce::Colours::orange);
     }
       
     else
     {
-        leftSliderValueLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::green.brighter(0.5));
+        label.setColour(juce::Label::ColourIds::textColourId, juce::Colours::green.brighter(0.5));
     }
 }
