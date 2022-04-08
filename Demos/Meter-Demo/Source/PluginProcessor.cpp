@@ -28,6 +28,7 @@ MeterDemoAudioProcessor::~MeterDemoAudioProcessor()
 {
 }
 
+
 //==============================================================================
 const juce::String MeterDemoAudioProcessor::getName() const
 {
@@ -93,14 +94,16 @@ void MeterDemoAudioProcessor::changeProgramName (int index, const juce::String& 
 //==============================================================================
 void MeterDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    
+    
     leftLevel.reset(sampleRate, 0.5);
     rightLevel.reset(sampleRate, 0.5);
 }
 
 void MeterDemoAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    leftLevel.setTargetValue(-60.0);
+    rightLevel.setTargetValue(-60.0);
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -145,6 +148,30 @@ void MeterDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     // Smoothed value logic for levels
     levelSmoothLogic();
     
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+    {
+        float* data = buffer.getWritePointer(ch);
+        
+        for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
+        {
+            sampleValue += data[sample];
+        }
+    }
+    
+    if (sampleValue == 0.0)
+    {
+        leftLevel.setTargetValue(-60.0);
+        rightLevel.setTargetValue(-60.0);
+    }
+    
+    juce::AudioPlayHead::CurrentPositionInfo info;
+    getPlayHead()->getCurrentPosition(info);
+    
+    if (!info.isPlaying)
+    {
+        leftLevel.setTargetValue(-60.0);
+        rightLevel.setTargetValue(-60.0);
+    }
 }
 
 double MeterDemoAudioProcessor::getLeftLevel()

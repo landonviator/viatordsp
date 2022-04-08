@@ -25,7 +25,7 @@ class MeterThread : public juce::Thread
             timeMethods();
             signalThreadShouldExit();
         }
-        
+    
         void timeMethods()
         {
             currentCount = 0;
@@ -41,7 +41,7 @@ class MeterThread : public juce::Thread
             loop2();
             stop = std::chrono::high_resolution_clock::now();
             auto phaseExpression = duration_cast<std::chrono::microseconds>(stop - start);
-            std::cout << "The JLIMIT took " << phaseExpression.count() * 0.000001 << " seconds to execute" << std::endl;
+            std::cout << "The sign took " << phaseExpression.count() * 0.000001 << " seconds to execute" << std::endl;
             auto rawESecs = phaseExpression.count() * 0.000001;
                     
             if (rawCSecs < rawESecs)
@@ -84,15 +84,15 @@ class MeterThread : public juce::Thread
         {
             for (int i {0}; i < runLength; ++i)
             {
-                auto value = juce::jlimit(-1.0f, 1.0f, static_cast<float>(i));
+                auto value = std::copysign(1.0, -0.99);
                 
                 for (int i {0}; i < runLength; ++i)
                 {
-                    value = juce::jlimit(-1.0f, 1.0f, static_cast<float>(i));
+                    value = std::copysign(1.0, -0.99);
                     
                     for (int i {0}; i < runLength; ++i)
                     {
-                        value = juce::jlimit(-1.0f, 1.0f, static_cast<float>(i));
+                        value = std::copysign(1.0, -0.99);
                     }
                 }
                 
@@ -103,7 +103,6 @@ class MeterThread : public juce::Thread
     
     //currentCount++;
     //currentPercentage = currentCount / (runLength * 2);
-            
     double currentPercentage {0};
     double currentCount;
     int runLength {1000};

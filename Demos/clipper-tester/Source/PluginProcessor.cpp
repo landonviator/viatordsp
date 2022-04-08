@@ -240,10 +240,12 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     updateFilterParameters();
     
     leftLFO.prepare(spec);
-    leftLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, 4);
+    leftLFO.setWaveType(viator_dsp::LFOGenerator::WaveType::kSine);
+    leftLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, 2);
     
     rightLFO.prepare(spec);
-    rightLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, 4);
+    rightLFO.setWaveType(viator_dsp::LFOGenerator::WaveType::kSine);
+    rightLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, 2);
 }
 
 void ClippertesterAudioProcessor::releaseResources()
@@ -292,11 +294,8 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         
     for (int sample = 0; sample < block.getNumSamples(); ++sample)
     {
-        leftLFO.process();
-        auto leftCutoff = leftLFO.getCurrentLFOValue() * 24.0f;
-
-        rightLFO.process();
-        auto rightCutoff = rightLFO.getCurrentLFOValue() * 24.0f;
+        auto leftCutoff = leftLFO.processSample(block.getSample(0, sample)) * 24.0f;
+        auto rightCutoff = rightLFO.processSample(block.getSample(1, sample)) * 24.0f;
 
         leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, leftCutoff);
         block.setSample(0, sample, leftFilter.processSample(block.getSample(0, sample), 1));
@@ -304,19 +303,6 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, rightCutoff);
         block.setSample(1, sample, rightFilter.processSample(block.getSample(1, sample), 1));
     }
-    
-//    for (int channelIndex = 0; channelIndex < block.getNumChannels(); ++channelIndex)
-//    {
-//        float* blockData = block.getChannelPointer(channelIndex);
-//
-//        for (int sampleIndex = 0; sampleIndex < block.getNumSamples(); ++sampleIndex)
-//        {
-//            leftLFO.process();
-//            auto leftCutoff = leftLFO.getCurrentLFOValue() * 24.0f;
-//            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, leftCutoff);
-//            blockData[sampleIndex] = leftFilter.processSample(blockData[sampleIndex], channelIndex);
-//        }
-//    }
 }
 
 //==============================================================================

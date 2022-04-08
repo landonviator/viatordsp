@@ -36,6 +36,7 @@ LevelMeter::LevelMeter(MeterDemoAudioProcessor& p) : audioProcessor (p)
     leftSliderValueLabel.setFont(12.0f);
     leftSliderValueLabel.attachToComponent(&leftMeter, false);
     leftSliderValueLabel.setJustificationType(juce::Justification::centred);
+    leftSliderValueLabel.setText("0.0", juce::dontSendNotification);
     
     addAndMakeVisible(rightMeter);
     rightMeter.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
@@ -54,6 +55,7 @@ LevelMeter::LevelMeter(MeterDemoAudioProcessor& p) : audioProcessor (p)
     rightSliderValueLabel.setFont(12.0f);
     rightSliderValueLabel.attachToComponent(&rightMeter, false);
     rightSliderValueLabel.setJustificationType(juce::Justification::centred);
+    rightSliderValueLabel.setText("0.0", juce::dontSendNotification);
     
     addAndMakeVisible(meterToggle);
     meterToggle.setButtonText("Is RMS");

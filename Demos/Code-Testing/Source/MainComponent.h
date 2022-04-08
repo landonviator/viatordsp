@@ -19,6 +19,7 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
+    juce::Label label;
 private:
     //==============================================================================
     // Your private member variables go here...

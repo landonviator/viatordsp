@@ -2,37 +2,36 @@
 
 void viator_dsp::LFOGenerator::prepare(const juce::dsp::ProcessSpec &spec)
 {
-    m_frequency = 1;
-    m_time = 0.0;
-    m_deltaTime = 1 / spec.sampleRate;
+    sampleRate = spec.sampleRate;
+    m_frequency.reset (sampleRate, 0.05);
+    m_frequency.setTargetValue(1.0);
+    phase.reset();
 }
 
-void viator_dsp::LFOGenerator::reset()
+void viator_dsp::LFOGenerator::initialise (const std::function<float (float)>& function,
+                 size_t lookupTableNumPoints)
 {
-    m_LFOValue = 0.0f;
-}
-
-/** Must be called in the sample loop*/
-void viator_dsp::LFOGenerator::process()
-{
-    if (m_GlobalBypass)
+    if (lookupTableNumPoints != 0)
     {
-        m_LFOValue = 0.0;
-        return;
+        auto* table = new juce::dsp::LookupTableTransform<float> (function,
+                                                             -juce::MathConstants<float>::pi,
+                                                                  juce::MathConstants<float>::pi,
+                                                             lookupTableNumPoints);
+
+        lookupTable.reset (table);
+        generator = [table] (float x) { return (*table) (x); };
     }
     
-    if (m_time >= std::numeric_limits<float>::max())
+    else
     {
-        m_time = 0.0;
+        generator = function;
     }
-    
-    m_LFOValue = sin(2 * juce::double_Pi * m_frequency * m_time);
-    m_time += m_deltaTime;
 }
 
-float viator_dsp::LFOGenerator::getCurrentLFOValue()
+float viator_dsp::LFOGenerator::processSample(float newInput)
 {
-    return m_LFOValue;
+    auto increment = juce::MathConstants<float>::twoPi * m_frequency.getNextValue() / sampleRate;
+    return newInput + generator (phase.advance (increment) - juce::MathConstants<float>::pi);
 }
 
 void viator_dsp::LFOGenerator::setParameter(ParameterId parameter, float parameterValue)
@@ -41,5 +40,29 @@ void viator_dsp::LFOGenerator::setParameter(ParameterId parameter, float paramet
     {
         case viator_dsp::LFOGenerator::ParameterId::kFrequency: m_frequency = static_cast<int>(parameterValue); break;
         case viator_dsp::LFOGenerator::ParameterId::kBypass: m_GlobalBypass = static_cast<bool>(parameterValue); break;
+    }
+}
+
+void viator_dsp::LFOGenerator::setWaveType(WaveType newWaveType)
+{
+    switch (newWaveType)
+    {
+        case viator_dsp::LFOGenerator::WaveType::kSine:
+        {
+            initialise([](float x){return std::sin(x); });
+            break;
+        }
+            
+        case viator_dsp::LFOGenerator::WaveType::kSaw:
+        {
+            initialise([](float x){return x / juce::MathConstants<float>::pi; });
+            break;
+        }
+            
+        case viator_dsp::LFOGenerator::WaveType::kSquare:
+        {
+            initialise([](float x){return x < 0.0f ? -1.0f : 1.0f; });
+            break;
+        }
     }
 }

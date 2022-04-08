@@ -14,6 +14,8 @@ MainComponent::MainComponent()
         meterThread.startThread();
     };
     
+    addAndMakeVisible(label);
+    
     setSize (600, 300);
 }
 
@@ -41,5 +43,5 @@ void MainComponent::resized()
     
     triggerButton.setBounds(getLocalBounds().withSizeKeepingCentre(buttonSize, buttonSize * 0.5));
     meter->setBounds(getLocalBounds().withTrimmedTop(200).withSizeKeepingCentre(getWidth() * 0.45, getHeight() * 0.08));
-
+    label.setBounds(100, 100, 100, 100);
 }

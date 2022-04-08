@@ -56,6 +56,9 @@ public:
     double getLeftLevel();
     double getRightLevel();
     void setMeterType(bool newstate);
+    
+    float sampleValue = 0.0;
+    int timerCount = 0;
 
 private:
     
@@ -66,6 +69,9 @@ private:
     
     void setLevelForMeter(juce::AudioBuffer<float> &theBuffer);
     void levelSmoothLogic();
+    
+    
+    
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MeterDemoAudioProcessor)

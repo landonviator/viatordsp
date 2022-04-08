@@ -14,14 +14,9 @@ namespace viator_utils
         
         /** Hard clip data */
         template <typename T>
-        static T clipData(T input, T thresh = 0.99)
+        static T clipData(T input, T thresh = 1.0)
         {
-            if (std::abs(input) > thresh)
-            {
-                input *= thresh / std::abs(input);
-            }
-            
-            return input;
+            return std::copysign(thresh, input);
         }
         
         /** Hard clip an audio block */
@@ -29,9 +24,10 @@ namespace viator_utils
         {
             for (int ch = 0; ch < block.getNumChannels(); ++ch)
             {
+                float* data = block.getChannelPointer(ch);
+                
                 for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
-                    float* data = block.getChannelPointer(ch);
                     data[sample] = clipData(data[sample]);
                 }
             }

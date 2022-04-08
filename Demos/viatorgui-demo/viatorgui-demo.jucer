@@ -4,6 +4,8 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP">
   <MAINGROUP id="Yrc6dZ" name="viatorgui-demo">
     <GROUP id="{B7479FAB-E8D0-D27A-06D6-9B43E30CCADA}" name="Source">
+      <FILE id="jfPlRx" name="pluginBackground2.png" compile="0" resource="1"
+            file="Source/pluginBackground2.png"/>
       <FILE id="Egvce0" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="nzTgOs" name="PluginProcessor.h" compile="0" resource="0"

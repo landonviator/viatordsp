@@ -12,26 +12,37 @@ namespace viator_dsp
         
         void prepare(const juce::dsp::ProcessSpec& spec);
         
-        void reset();
-            
-        /** Must be called in the sample loop*/
-        void process();
+        void initialise (const std::function<float (float)>& function, size_t lookupTableNumPoints = 0);
+        
+        float processSample(float newInput);
             
         enum class ParameterId
         {
             kFrequency,
             kBypass
         };
+        
+        enum class WaveType
+        {
+            kSine,
+            kSaw,
+            kSquare
+        };
 
         void setParameter(ParameterId parameter, float parameterValue);
-        float getCurrentLFOValue();
+        
+        void setWaveType(WaveType newWaveType);
         
     private:
         
-        float m_frequency;
-        float m_time;
-        float m_deltaTime;
-        float m_LFOValue;
+        juce::SmoothedValue<float> m_frequency;
+        float sampleRate;
+        
+        juce::dsp::Phase<float> phase;
+        
+        std::function<float (float)> generator;
+        std::unique_ptr<juce::dsp::LookupTableTransform<float>> lookupTable;
+        
         bool m_GlobalBypass {false};
         
     }; // class
