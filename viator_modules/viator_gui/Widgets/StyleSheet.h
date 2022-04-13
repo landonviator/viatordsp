@@ -32,6 +32,7 @@ namespace juce
          );
         
         void setDialIsStereoDial(bool isStereoDial);
+        float sliderWidth;
         
     private:
         
@@ -58,6 +59,7 @@ namespace juce
         ) override;
         
         void drawLabel (Graphics& g, Label& label) override;
+        float sliderWidth;
     };
 
     /** Hard Dial Style*/
@@ -80,6 +82,7 @@ namespace juce
         ) override;
 
         void drawLabel (Graphics& g, Label& label) override;
+        float sliderWidth;
     };
 
 /** Full Dial Style*/
@@ -102,6 +105,7 @@ public:
     ) override;
     
     void drawLabel (Graphics& g, Label& label) override;
+    float sliderWidth;
 
 };
 
@@ -125,6 +129,7 @@ public:
     ) override;
     
     void drawLabel (Graphics& g, Label& label) override;
+    float sliderWidth;
 
 };
 
