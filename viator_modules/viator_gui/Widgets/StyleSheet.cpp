@@ -112,6 +112,8 @@ void juce::AlphaDialLAF::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
+    label.setEditable(true);
+    
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
@@ -308,6 +310,8 @@ void juce::FullDialLAF::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
+    label.setEditable(true);
+    
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
@@ -468,6 +472,8 @@ void juce::FullDialMirrowLAF::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
+    label.setEditable(true);
+    
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
@@ -497,6 +503,8 @@ void juce::HardDialLAF::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
+    label.setEditable(true);
+    
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
@@ -547,6 +555,8 @@ void juce::CustomNumberBox::drawLabel (Graphics& g, Label& label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
+    label.setEditable(true);
+    
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
