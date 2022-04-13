@@ -619,6 +619,19 @@ void juce::FaderLAF::drawLinearSlider
     
     else
     {
+        /** Draw Grid Lines*/
+        g.setColour(slider.findColour (Slider::backgroundColourId));
+        for (int i = slider.getMinimum(); i < slider.getMaximum() + 1; i++)
+        {
+            auto startX = x + width * 0.4;
+            auto endX = x + width * 0.6;
+            
+            if (i % 2 == 0)
+            {
+                g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), 1.0);
+            }
+        }
+        
         auto isTwoVal   = (style == Slider::SliderStyle::TwoValueVertical   || style == Slider::SliderStyle::TwoValueHorizontal);
         auto isThreeVal = (style == Slider::SliderStyle::ThreeValueVertical || style == Slider::SliderStyle::ThreeValueHorizontal);
 
@@ -702,6 +715,7 @@ void juce::FaderLAF::drawLinearSlider
             }
         }
     }
+    
 }
 
 void juce::FaderLAF::drawLabel(Graphics &g, Label &label)

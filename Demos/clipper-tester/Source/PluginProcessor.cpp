@@ -250,8 +250,6 @@ void ClippertesterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 
 void ClippertesterAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -286,22 +284,68 @@ void ClippertesterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+    playHead = this->getPlayHead();
+    playHead->getCurrentPosition (currentPositionInfo);
+    setBPM(currentPositionInfo.bpm);
 
     juce::dsp::AudioBlock<float> block (buffer);
     
-        
-    for (int sample = 0; sample < block.getNumSamples(); ++sample)
+    frequencyFromRhythm(Rhythm::kQuarter);
+    
+    if (currentPositionInfo.isPlaying)
     {
-        auto leftCutoff = leftLFO.processSample(block.getSample(0, sample)) * 24.0f;
-        auto rightCutoff = rightLFO.processSample(block.getSample(1, sample)) * 24.0f;
+        for (int sample = 0; sample < block.getNumSamples(); ++sample)
+        {
+            auto leftGain = leftLFO.processSample(block.getSample(0, sample)) * 24.0f;
+            auto rightGain = rightLFO.processSample(block.getSample(1, sample)) * 24.0f;
+            
+            leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, leftGain);
+            block.setSample(0, sample, leftFilter.processSample(block.getSample(0, sample), 1));
+            
+            rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, rightGain);
+            block.setSample(1, sample, rightFilter.processSample(block.getSample(1, sample), 1));
+        }
+    }
+}
 
-        leftFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, leftCutoff);
-        block.setSample(0, sample, leftFilter.processSample(block.getSample(0, sample), 1));
+float ClippertesterAudioProcessor::getBPM()
+{
+    return m_BPM;
+}
 
-        rightFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, rightCutoff);
-        block.setSample(1, sample, rightFilter.processSample(block.getSample(1, sample), 1));
+void ClippertesterAudioProcessor::setBPM(float newBPM)
+{
+    m_BPM = newBPM;
+    DBG(m_BPM);
+}
+
+void ClippertesterAudioProcessor::frequencyFromRhythm(Rhythm newRhythm)
+{
+    switch (newRhythm)
+    {
+        case Rhythm::kQuarter:
+        {
+            leftLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 60.0);
+            rightLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 60.0); break;
+        }
+            
+        case Rhythm::kEighth:
+        {
+            leftLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 30.0);
+            rightLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 30.0); break;
+        }
+            
+        case Rhythm::kTriplet:
+        {
+            leftLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 30.0);
+            rightLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 30.0); break;
+        }
+            
+        case Rhythm::kSixteenth:
+        {
+            leftLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 15.0);
+            rightLFO.setParameter(viator_dsp::LFOGenerator::ParameterId::kFrequency, m_BPM / 15.0); break;
+        }
     }
 }
 

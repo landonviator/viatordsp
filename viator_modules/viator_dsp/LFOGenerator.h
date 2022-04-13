@@ -12,6 +12,8 @@ namespace viator_dsp
         
         void prepare(const juce::dsp::ProcessSpec& spec);
         
+        void reset();
+        
         void initialise (const std::function<float (float)>& function, size_t lookupTableNumPoints = 0);
         
         float processSample(float newInput);

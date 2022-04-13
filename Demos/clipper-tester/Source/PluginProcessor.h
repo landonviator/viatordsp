@@ -56,6 +56,8 @@ public:
     
     /** Value Trees =====================================================*/
     juce::AudioProcessorValueTreeState treeState;
+    
+    float getBPM();
 
 private:
     
@@ -69,6 +71,24 @@ private:
     
     viator_dsp::LFOGenerator leftLFO;
     viator_dsp::LFOGenerator rightLFO;
+    
+    /** Playhead position info */
+    juce::AudioPlayHead* playHead;
+    juce::AudioPlayHead::CurrentPositionInfo currentPositionInfo;
+    float m_BPM = 0.0f;
+    void setBPM(float newBPM);
+    
+    enum class Rhythm
+    {
+        kQuarter,
+        kEighth,
+        kTriplet,
+        kSixteenth
+    };
+    
+    void frequencyFromRhythm(Rhythm newRhythm);
+    
+    Rhythm rhythm = Rhythm::kQuarter;
     
     /** Parameters ======================================================*/
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();

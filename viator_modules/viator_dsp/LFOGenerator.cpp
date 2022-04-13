@@ -5,6 +5,12 @@ void viator_dsp::LFOGenerator::prepare(const juce::dsp::ProcessSpec &spec)
     sampleRate = spec.sampleRate;
     m_frequency.reset (sampleRate, 0.05);
     m_frequency.setTargetValue(1.0);
+    
+    reset();
+}
+
+void viator_dsp::LFOGenerator::reset()
+{
     phase.reset();
 }
 
