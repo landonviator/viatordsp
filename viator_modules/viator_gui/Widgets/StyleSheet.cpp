@@ -623,8 +623,8 @@ void juce::FaderLAF::drawLinearSlider
         g.setColour(slider.findColour (Slider::backgroundColourId));
         for (int i = slider.getMinimum(); i < slider.getMaximum() + 1; i++)
         {
-            auto startX = x + width * 0.4;
-            auto endX = x + width * 0.6;
+            auto startX = x + width * 0.35;
+            auto endX = x + width * 0.66;
             
             if (i % 2 == 0)
             {
@@ -722,6 +722,8 @@ void juce::FaderLAF::drawLabel(Graphics &g, Label &label)
 {
     g.fillAll (label.findColour (Label::backgroundColourId));
 
+    label.setEditable(true);
+    
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
