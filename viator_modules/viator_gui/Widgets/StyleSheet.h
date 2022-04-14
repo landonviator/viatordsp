@@ -153,6 +153,7 @@ public:
          ) override;
 
         void drawLabel (Graphics& g, Label& label) override;
+        float sliderWidth;
     };
 
     /** Push Button Style*/
