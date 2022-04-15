@@ -31,7 +31,7 @@
 */
 namespace viator_gui
 {
-    class Fader  : public juce::Slider
+    class Fader  : public juce::Slider, private juce::Timer
     {
     public:
         Fader
@@ -44,6 +44,7 @@ namespace viator_gui
             double returnValue
         )
         {
+            startTimerHz(5);
             initShadows();
             initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
             addAndMakeVisible(trimLabel);
@@ -55,6 +56,79 @@ namespace viator_gui
         ~Fader() override
         {
             setLookAndFeel(nullptr);
+        }
+        
+        void paint(juce::Graphics& g) override
+        {
+            juce::Slider::paint(g);
+            
+            if (isSelectable)
+            {
+                g.setColour(juce::Colours::purple.withAlpha(0.25f));
+                g.fillRect(getLocalBounds());
+                
+                if (isSelected)
+                {
+                    g.resetToDefaultState();
+                    g.setColour(juce::Colours::whitesmoke.withAlpha(0.25f));
+                    g.fillRect(getLocalBounds());
+                }
+                
+                else
+                {
+                    g.resetToDefaultState();
+                    g.setColour(juce::Colours::purple.withAlpha(0.25f));
+                    g.fillRect(getLocalBounds());
+                }
+            }
+        }
+        
+        void timerCallback() override
+        {
+            repaint();
+        }
+        
+        void setSelectable(bool sliderISSelectable)
+        {
+            isSelectable = sliderISSelectable;
+        }
+        
+        void mouseDoubleClick (const juce::MouseEvent &event) override
+        {
+            if (isSelectable)
+            {
+                if (isSelected)
+                {
+                    isSelected = false;
+                    DBG("Slider deselected!");
+                }
+                
+                else
+                {
+                    isSelected = true;
+                    DBG("Slider selected!");
+                }
+            }
+        }
+        
+        bool getIsSelected()
+        {
+            return isSelected;
+        }
+        
+        void setSelected(bool newSelectState)
+        {
+            isSelected = newSelectState;
+        }
+        
+        void setHasMidiMap(bool newHasMidiMap)
+        {
+            hasMidiMap = newHasMidiMap;
+        }
+        
+        bool getHasMidiMap()
+        {
+            return hasMidiMap;
         }
         
         void forceShadow();
@@ -87,5 +161,10 @@ namespace viator_gui
         
         /** Label */
         Label trimLabel;
+        
+        /** Midi Map*/
+        bool isSelectable = false;
+        bool isSelected = false;
+        bool hasMidiMap = false;
     };
 }

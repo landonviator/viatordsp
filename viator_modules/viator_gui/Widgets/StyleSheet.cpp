@@ -200,6 +200,9 @@ void juce::FullDialLAF::drawRotarySlider
     auto centre = dialBounds.getCentre();
     auto fullRadius = juce::jmin (dialBounds.getWidth() / 2.0f, dialBounds.getHeight() / 2.0f);
 
+    
+    sliderWidth = width;
+    
     /** Dot color*/
     g.setColour (textColor);
 
@@ -315,7 +318,7 @@ void juce::FullDialLAF::drawLabel (Graphics& g, Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const Font font (juce::Font ("Helvetica", sliderWidth * 0.12, juce::Font::FontStyleFlags::bold));
+        const Font font (juce::Font ("Helvetica", sliderWidth * 0.1, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
@@ -640,7 +643,7 @@ void juce::FaderLAF::drawLinearSlider
             
             if (i % 2 == 0)
             {
-                g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), 1.0);
+                g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), sliderWidth * 0.0025);
             }
         }
         
@@ -739,7 +742,7 @@ void juce::FaderLAF::drawLabel(Graphics &g, Label &label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const Font font (juce::Font (sliderFont, sliderWidth * 0.12, juce::Font::FontStyleFlags::bold));
+        const Font font (juce::Font (sliderFont, sliderWidth * 0.08, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);

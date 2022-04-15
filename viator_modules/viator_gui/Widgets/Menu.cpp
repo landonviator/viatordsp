@@ -2,6 +2,8 @@
 
 viator_gui::Menu::Menu()
 {
+    setLookAndFeel(&customMenu);
+    
     setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::black.brighter(0.1f).withAlpha(0.0f));
     setColour(juce::ComboBox::ColourIds::outlineColourId, juce::Colours::whitesmoke.withAlpha(0.0f));
     setColour(juce::ComboBox::ColourIds::focusedOutlineColourId, juce::Colours::black.withAlpha(0.5f));
@@ -14,7 +16,6 @@ viator_gui::Menu::Menu()
     getLookAndFeel().setColour(juce::PopupMenu::highlightedTextColourId, juce::Colours::skyblue);
 
     setJustificationType(juce::Justification::centred);
-    setLookAndFeel(&customMenu);
 }
 
 viator_gui::Menu::~Menu()
