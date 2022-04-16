@@ -634,25 +634,31 @@ void juce::FaderLAF::drawLinearSlider
     
     else
     {
+        sliderHeight = height;
         sliderWidth = width;
         
         /** Draw Grid Lines*/
         g.setColour(slider.findColour (Slider::backgroundColourId));
+        
         for (int i = slider.getMinimum(); i < slider.getMaximum() + 1; i++)
         {
             auto startX = x + width * 0.35;
             auto endX = x + width * 0.66;
-            
+                
             if (i % 2 == 0)
             {
-                g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), sliderWidth * 0.0025);
+                if (i < 13)
+                {
+                    g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), width * 0.005);
+                }
             }
         }
+        
         
         auto isTwoVal   = (style == Slider::SliderStyle::TwoValueVertical   || style == Slider::SliderStyle::TwoValueHorizontal);
         auto isThreeVal = (style == Slider::SliderStyle::ThreeValueVertical || style == Slider::SliderStyle::ThreeValueHorizontal);
 
-        auto trackWidth = jmin (9.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
+        auto trackWidth = slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.1f;
 
         Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
                                  slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
@@ -699,7 +705,7 @@ void juce::FaderLAF::drawLinearSlider
         if (! isTwoVal)
         {
             Rectangle<float> thumbRec;
-            thumbRec.setSize(static_cast<float> (width / 2.0), static_cast<float> (width / 6.0));
+            thumbRec.setSize(static_cast<float> (width * 0.75), static_cast<float> (width * 0.25));
             
             g.setColour(slider.findColour(Slider::thumbColourId));
             g.fillRoundedRectangle(thumbRec.withCentre(isThreeVal ? thumbPoint : maxPoint), 6.0f);
@@ -744,7 +750,7 @@ void juce::FaderLAF::drawLabel(Graphics &g, Label &label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const Font font (juce::Font (sliderFont, sliderWidth * 0.08, juce::Font::FontStyleFlags::bold));
+        const Font font (juce::Font (sliderFont, sliderWidth * 0.15, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);

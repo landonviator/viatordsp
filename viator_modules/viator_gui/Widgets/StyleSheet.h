@@ -186,6 +186,7 @@ public:
          ) override;
         
         void drawLabel(Graphics &g, Label &label) override;
+        float sliderHeight;
         float sliderWidth;
         
     private:
