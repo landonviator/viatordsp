@@ -14,8 +14,6 @@ template <typename SampleType>
 void viator_dsp::SVFilter<SampleType>::prepare(const juce::dsp::ProcessSpec& spec)
 {
     mCurrentSampleRate = spec.sampleRate;
-    sampleRate2X = mCurrentSampleRate * 2.0;
-    halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
     
     mZ1.assign(spec.numChannels, 0.0);
     mZ2.assign(spec.numChannels, 0.0);
@@ -70,8 +68,6 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kSampleRate:
         {
             mCurrentSampleRate = parameterValue;
-            sampleRate2X = mCurrentSampleRate * 2.0;
-            halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
             break;
         }
             

@@ -42,6 +42,10 @@ public:
         auto len         = inBlock.getNumSamples();
         auto numChannels = inBlock.getNumChannels();
         
+        
+        const double sampleRate2X = mCurrentSampleRate * 2.0;
+        const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
+        
         for (size_t sample = 0; sample < len; ++sample)
         {
             // prewarp the cutoff (for bilinear-transform filters)
@@ -92,6 +96,10 @@ public:
     /** Process an individual sample */
     SampleType processSample(SampleType input, SampleType ch) noexcept
     {
+        
+        const double sampleRate2X = mCurrentSampleRate * 2.0;
+        const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
+        
         // prewarp the cutoff (for bilinear-transform filters)
         double wd = mCutoff * 6.28f;
         double wa = sampleRate2X * tan(wd * halfSampleDuration);
