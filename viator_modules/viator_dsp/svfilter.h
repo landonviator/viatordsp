@@ -97,6 +97,11 @@ public:
     SampleType processSample(SampleType input, SampleType ch) noexcept
     {
         
+        if (mGlobalBypass)
+        {
+            return input;
+        }
+        
         const double sampleRate2X = mCurrentSampleRate * 2.0;
         const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
         

@@ -62,7 +62,12 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         }
             
         // Filter Gain
-        case ParameterId::kGain: setGain(parameterValue); break;
+        case ParameterId::kGain:
+        {
+            setGain(parameterValue);
+            parameterValue == 0.0 ? mGlobalBypass = true : mGlobalBypass = false;
+            break;
+        }
             
         // Filter samplerate
         case ParameterId::kSampleRate:
