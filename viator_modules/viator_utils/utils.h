@@ -28,7 +28,26 @@ namespace viator_utils
                 
                 for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
-                    data[sample] = clipData(data[sample]);
+                    if (std::abs(data[sample]) >= 1.0)
+                    {
+                        data[sample] *= 1.0 / std::abs(data[sample]);
+                    }
+                }
+            }
+        }
+        
+        static void softClipBlock(juce::dsp::AudioBlock<float> &block)
+        {
+            for (int ch = 0; ch < block.getNumChannels(); ++ch)
+            {
+                float* data = block.getChannelPointer(ch);
+                
+                for (int sample = 0; sample < block.getNumSamples(); ++sample)
+                {
+                    if (std::abs(data[sample]) >= 1.0)
+                    {
+                        data[sample] *= std::atan(std::abs(data[sample]));
+                    }
                 }
             }
         }

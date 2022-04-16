@@ -196,9 +196,9 @@ void juce::FullDialLAF::drawRotarySlider
     const auto textColor     = slider.findColour (juce::Slider::trackColourId);
     const auto trackColor    = slider.findColour(juce::Slider::ColourIds::trackColourId);
 
-    auto dialBounds = juce::Rectangle<int> (x, y, width, height).toFloat().reduced(10.0);
+    auto dialBounds = juce::Rectangle<int> (x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
-    auto fullRadius = juce::jmin (dialBounds.getWidth() / 2.0f, dialBounds.getHeight() / 2.0f);
+    auto fullRadius = juce::jmin (dialBounds.getWidth() / 1.95f, dialBounds.getHeight() / 1.95f);
 
     
     sliderWidth = width;
@@ -209,27 +209,29 @@ void juce::FullDialLAF::drawRotarySlider
     centre = dialBounds.getCentre();
 
     /** Draw dots */
-    if (fullRadius > 50.0f)
+    /** How many dots to draw, works well as num dial intervals + 1 for small ranges, e.g. [0 - 10]*/
+    
+    for (int i = 0; i < 11; ++i)
     {
-        /** How many dots to draw, works well as num dial intervals + 1 for small ranges, e.g. [0 - 10]*/
-        for (int i = 0; i < 11; ++i)
-        {
-            /** IF you change the number of dots, do i / (num dots - 1) */
-            const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
-            const auto point = centre.getPointOnCircumference (fullRadius - 2.0f, angle);
-            
-            /** Dot thickness*/
-            g.fillEllipse (point.getX() - 3, point.getY() - 3, 7, 7);
-        }
+        auto dotSize = width * 0.025;
         
-        fullRadius -= 10.0f;
+        /** IF you change the number of dots, do i / (num dots - 1) */
+        
+        const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
+        const auto point = centre.getPointOnCircumference (fullRadius - width * 0.045, angle);
+            
+        /** Dot thickness*/
+        g.fillEllipse (point.getX() - 3, point.getY() - 3, dotSize, dotSize);
     }
+        
+    fullRadius -= 10.0f;
 
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     
     /** Track thickness*/
-    auto lineWidth = juce::jmin (6.0f, fullRadius * 0.5f);
-    auto arcRadius  = fullRadius - lineWidth;
+    float lineWidthMultiplier = width * 0.035;
+    auto lineWidth = juce::jmin (lineWidthMultiplier, fullRadius * 0.5f);
+    auto arcRadius  = fullRadius - lineWidth * 2.25;
 
     juce::Path backgroundArc;
     backgroundArc.addCentredArc
