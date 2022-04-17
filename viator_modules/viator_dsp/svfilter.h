@@ -42,53 +42,55 @@ public:
         auto len         = inBlock.getNumSamples();
         auto numChannels = inBlock.getNumChannels();
         
-        
-        const double sampleRate2X = mCurrentSampleRate * 2.0;
-        const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
-        
-        for (size_t sample = 0; sample < len; ++sample)
+        for (size_t channel = 0; channel < numChannels; ++channel)
         {
-            // prewarp the cutoff (for bilinear-transform filters)
-            double wd = mCutoff * 6.28f;
-            double wa = sampleRate2X * tan(wd * halfSampleDuration);
-                    
-            //Calculate g (gain element of integrator)
-            mGCoeff = wa * halfSampleDuration;
             
-            mRCoeff2 = mRCoeff * 2.0;
-            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+            auto *input = inBlock.getChannelPointer(channel);
+            auto* output = outBlock.getChannelPointer (channel);
             
-            for (size_t channel = 0; channel < numChannels; ++channel)
+            auto *leftInputData = inBlock.getChannelPointer(0);
+            auto *rightInputData = inBlock.getChannelPointer(1);
+            
+            auto *leftOutputData = outBlock.getChannelPointer(0);
+            auto *rightOutputData = outBlock.getChannelPointer(1);
+            
+            for (size_t sample = 0; sample < len; ++sample)
             {
-                auto* input = inBlock.getChannelPointer (channel);
-                auto* output = outBlock.getChannelPointer (channel);
+                auto mid_x = 0.5 * (leftInputData[sample] + rightInputData[sample]);
+                auto side_x = 0.5 * (leftInputData[sample] - rightInputData[sample]);
                 
-                const auto z1 = mZ1[channel];
-                const auto z2 = mZ2[channel];
-                
-                const float x = input[sample];
-                    
-                const double HP = (x - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
-                const double BP = HP * mGCoeff + z1;
-                const double LP = BP * mGCoeff + z2;
-                const double UBP = mRCoeff2 * BP;
-                const double BShelf = x + UBP * mGain;
-                const double LS = x + mGain * LP;
-                const double HS = x + mGain * HP;
-                
-                //Main output code
-                switch (mType)
+                switch (mStereoType)
                 {
-                    case kBandShelf: output[sample] = BShelf; break;
-                    case kLowShelf: output[sample] = LS; break;
-                    case kHighShelf: output[sample] = HS; break;
-                    case kHighPass: output[sample] = HP; break;
-                    case kLowPass: output[sample] = LP; break;
+                    case StereoId::kStereo:
+                    {
+                        output[sample] = processSample(input[sample], channel);
+                        break;
+                    }
+                        
+                    case StereoId::kMids:
+                    {
+                        mid_x = processSample(mid_x, channel);
+                        
+                        auto newL = mid_x + side_x;
+                        auto newR = mid_x - side_x;
+                        
+                        leftOutputData[sample] = newL;
+                        rightOutputData[sample] = newR;
+                        break;
+                    }
+                        
+                    case StereoId::kSides:
+                    {
+                        side_x = processSample(side_x, channel);
+                        
+                        auto newL = mid_x + side_x;
+                        auto newR = mid_x - side_x;
+                        
+                        leftOutputData[sample] = newL;
+                        rightOutputData[sample] = newR;
+                        break;
+                    }
                 }
-                    
-                // unit delay (state variable)
-                mZ1[channel] = mGCoeff * HP + BP;
-                mZ2[channel] = mGCoeff * BP + LP;
             }
         }
     }
@@ -111,6 +113,26 @@ public:
                 
         //Calculate g (gain element of integrator)
         mGCoeff = wa * halfSampleDuration;
+        
+        //Calculate Zavalishin's damping parameter (Q)
+        switch (mQType)
+        {
+            case kParametric: mRCoeff = 1.0 - mQ; break;
+                
+            case kProportional:
+                
+                if (mType == kBandShelf)
+                {
+                    mRCoeff = 1.0 - getPeakQ(mRawGain); break;
+                }
+                
+                else
+                {
+                    mRCoeff = 1.0 - getShelfQ(mRawGain); break;
+                }
+                
+                break;
+        }
         
         mRCoeff2 = mRCoeff * 2.0;
         mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
@@ -175,8 +197,16 @@ public:
         kProportional,
     };
     
+    enum class StereoId
+    {
+        kStereo,
+        kMids,
+        kSides
+    };
+    
     /** One method to change any parameter. */
     void setParameter(ParameterId parameter, SampleType parameterValue);
+    void setStereoType(StereoId newStereoType);
     
 private:
     
@@ -201,6 +231,9 @@ private:
     
      /** Q mode switch */
     QType mQType;
+    
+    /** Stereo Type*/
+    StereoId mStereoType;
     
      /** state variables (z^-1) */
     std::vector<double> mZ1, mZ2;

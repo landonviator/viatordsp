@@ -31,34 +31,18 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kQType: mQType = (QType)parameterValue; break;
             
         // Filter Cutoff
-        case ParameterId::kCutoff: mCutoff = parameterValue; break;
+        case ParameterId::kCutoff:
+        {
+            mCutoff = parameterValue;
+            mType == kHighPass && mCutoff == 20.0 ? mGlobalBypass == true : mGlobalBypass = false;
+            mType == kLowPass && mCutoff == 20000.0 ? mGlobalBypass == true : mGlobalBypass = false;
+            break;
+        }
             
         // Bandwidth
         case ParameterId::kQ:
         {
-            mQ = parameterValue;
-            
-            //Calculate Zavalishin's damping parameter (Q)
-            switch (mQType)
-            {
-                case kParametric: mRCoeff = 1.0 - mQ; break;
-                    
-                case kProportional:
-                    
-                    if (mType == kBandShelf)
-                    {
-                        mRCoeff = 1.0 - getPeakQ(mRawGain); break;
-                    }
-                    
-                    else
-                    {
-                        mRCoeff = 1.0 - getShelfQ(mRawGain); break;
-                    }
-                    
-                    break;
-            }
-            
-            break;
+            mQ = parameterValue; break;
         }
             
         // Filter Gain
@@ -78,6 +62,17 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
             
         // Filter Bypass
         case ParameterId::kBypass: mGlobalBypass = static_cast<bool>(parameterValue); break;
+    }
+}
+
+template <typename SampleType>
+void viator_dsp::SVFilter<SampleType>::setStereoType(StereoId newStereoID)
+{
+    switch (newStereoID)
+    {
+        case StereoId::kStereo: mStereoType = newStereoID; break;
+        case StereoId::kMids: mStereoType = newStereoID; break;
+        case StereoId::kSides: mStereoType = newStereoID; break;
     }
 }
 
