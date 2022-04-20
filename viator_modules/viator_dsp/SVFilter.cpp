@@ -14,10 +14,7 @@ template <typename SampleType>
 void viator_dsp::SVFilter<SampleType>::prepare(const juce::dsp::ProcessSpec& spec)
 {
     mCurrentSampleRate = spec.sampleRate;
-    sampleRate2X = mCurrentSampleRate * 2.0;
-    halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
-    
-    
+    setSampleRates();
     
     mZ1.assign(spec.numChannels, 0.0);
     mZ2.assign(spec.numChannels, 0.0);
@@ -32,16 +29,7 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kType:
         {
             mType = (FilterType)parameterValue;
-            
-            switch (mType)
-            {
-                case kLowShelf: lsLevel = 1.0; break;
-                case kBandShelf: bsLevel = 1.0; break;
-                case kHighShelf: hsLevel = 1.0; break;
-                case kLowPass: lpLevel = 1.0; break;
-                case kHighPass: hpLevel = 1.0; break;
-            }
-            
+            setType();
             break;
         }
             
@@ -60,36 +48,14 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
                     if (mType == kBandShelf)
                     {
                         mRCoeff = 1.0 - getPeakQ(mRawGain);
-                        
-                        // prewarp the cutoff (for bilinear-transform filters)
-                        wd = mCutoff * 6.28f;
-                        wa = sampleRate2X * std::tan(wd * halfSampleDuration);
-                                
-                        //Calculate g (gain element of integrator)
-                        mGCoeff = wa * halfSampleDuration;
-                                
-                        mRCoeff2 = mRCoeff * 2.0;
-                                
-                        mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
-                        
+                        preWarp();
                         break;
                     }
                     
                     else
                     {
                         mRCoeff = 1.0 - getShelfQ(mRawGain);
-                        
-                        // prewarp the cutoff (for bilinear-transform filters)
-                        wd = mCutoff * 6.28f;
-                        wa = sampleRate2X * std::tan(wd * halfSampleDuration);
-                                
-                        //Calculate g (gain element of integrator)
-                        mGCoeff = wa * halfSampleDuration;
-                                
-                        mRCoeff2 = mRCoeff * 2.0;
-                                
-                        mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
-                        
+                        preWarp();
                         break;
                     }
                 }
@@ -102,18 +68,7 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kCutoff:
         {
             mCutoff = parameterValue;
-            
-            // prewarp the cutoff (for bilinear-transform filters)
-            wd = mCutoff * 6.28f;
-            wa = sampleRate2X * std::tan(wd * halfSampleDuration);
-                    
-            //Calculate g (gain element of integrator)
-            mGCoeff = wa * halfSampleDuration;
-                    
-            mRCoeff2 = mRCoeff * 2.0;
-                    
-            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
-            
+            preWarp();
             break;
         }
             
@@ -134,8 +89,7 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kSampleRate:
         {
             mCurrentSampleRate = parameterValue;
-            sampleRate2X = mCurrentSampleRate * 2.0;
-            halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
+            setSampleRates();
             break;
         }
             
@@ -172,6 +126,41 @@ template <typename SampleType>
 SampleType viator_dsp::SVFilter<SampleType>::getPeakQ(SampleType value) const
 {
     return viator_utils::utils::dbToGain(std::abs(value)) * 0.1f;
+}
+
+template <typename SampleType>
+void viator_dsp::SVFilter<SampleType>::preWarp()
+{
+    // prewarp the cutoff (for bilinear-transform filters)
+    wd = mCutoff * 6.28f;
+    wa = sampleRate2X * std::tan(wd * halfSampleDuration);
+            
+    //Calculate g (gain element of integrator)
+    mGCoeff = wa * halfSampleDuration;
+            
+    mRCoeff2 = mRCoeff * 2.0;
+            
+    mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+}
+
+template <typename SampleType>
+void viator_dsp::SVFilter<SampleType>::setType()
+{
+    switch (mType)
+    {
+        case kLowShelf: lsLevel = 1.0; break;
+        case kBandShelf: bsLevel = 1.0; break;
+        case kHighShelf: hsLevel = 1.0; break;
+        case kLowPass: lpLevel = 1.0; break;
+        case kHighPass: hpLevel = 1.0; break;
+    }
+}
+
+template <typename SampleType>
+void viator_dsp::SVFilter<SampleType>::setSampleRates()
+{
+    sampleRate2X = mCurrentSampleRate * 2.0;
+    halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
 }
 
 template class viator_dsp::SVFilter<float>;

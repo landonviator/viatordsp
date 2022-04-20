@@ -216,6 +216,10 @@ private:
     
     double wd;
     double wa;
+    
+    void preWarp();
+    void setType();
+    void setSampleRates();
 };
 }
 
