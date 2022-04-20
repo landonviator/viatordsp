@@ -28,10 +28,19 @@ public:
     template <typename ProcessContext>
     void process (const ProcessContext& context) noexcept
     {
-        if (mGlobalBypass)
+        if (mRawGain == 0.0)
         {
-            return;
+            if (mType != kHighPass && mType != kLowPass)
+            {
+                return;
+            }
         }
+        
+        if (mType == kHighPass && mCutoff == 20.0) return;
+        if (mType == kLowPass && mCutoff == 20000.0) return;
+        
+        
+        if (mGlobalBypass) return;
         
         auto&& inBlock  = context.getInputBlock();
         auto&& outBlock = context.getOutputBlock();
@@ -106,37 +115,6 @@ public:
     /** Process an individual sample */
     SampleType processSample(SampleType input, SampleType ch) noexcept
     {
-        
-        if (mType == kHighPass && mCutoff == 20.0) return input;
-        if (mType == kLowPass && mCutoff == 20000.0) return input;
-        
-        if (mRawGain == 0.0)
-        {
-            if (mType != kHighPass && mType != kLowPass)
-            {
-                return input;
-            }
-        }
-        
-        if (mGlobalBypass) return input;
-            
-        float lsLevel = 0.0;
-        float bsLevel = 0.0;
-        float hsLevel = 0.0;
-        float lpLevel = 0.0;
-        float hpLevel = 0.0;
-            
-        switch (mType)
-        {
-            case kLowShelf: lsLevel = 1.0; break;
-            case kBandShelf: bsLevel = 1.0; break;
-            case kHighShelf: hsLevel = 1.0; break;
-            case kLowPass: lpLevel = 1.0; break;
-            case kHighPass: hpLevel = 1.0; break;
-        }
-            
-        const double sampleRate2X = mCurrentSampleRate * 2.0;
-        const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
             
             // prewarp the cutoff (for bilinear-transform filters)
             double wd = mCutoff * 6.28f;
@@ -145,26 +123,6 @@ public:
             //Calculate g (gain element of integrator)
             mGCoeff = wa * halfSampleDuration;
                     
-            //Calculate Zavalishin's damping parameter (Q)
-            switch (mQType)
-            {
-                case kParametric: mRCoeff = 1.0 - mQ; break;
-                    
-                case kProportional:
-                {
-                    if (mType == kBandShelf)
-                    {
-                        mRCoeff = 1.0 - getPeakQ(mRawGain); break;
-                    }
-                    
-                    else
-                    {
-                        mRCoeff = 1.0 - getShelfQ(mRawGain); break;
-                    }
-                }
-            }
-                    
-            
             mRCoeff2 = mRCoeff * 2.0;
                     
             mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
@@ -237,9 +195,6 @@ private:
     float mCurrentSampleRate, mQ, mCutoff, mGain, mRawGain, twoPi;
     bool mGlobalBypass;
     
-    float sampleRate2X = mCurrentSampleRate * 2.0;
-    float halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
-    
      /** Variables for the Z filter equations */
     double mGCoeff, mRCoeff, mRCoeff2, mK, mInversion;
     
@@ -261,6 +216,15 @@ private:
     /** Get the different Q-Fators*/
     SampleType getShelfQ(SampleType value) const;
     SampleType getPeakQ(SampleType value) const;
+    
+    float lsLevel = 0.0;
+    float bsLevel = 0.0;
+    float hsLevel = 0.0;
+    float lpLevel = 0.0;
+    float hpLevel = 0.0;
+    
+    double sampleRate2X;
+    double halfSampleDuration;
 };
 }
 

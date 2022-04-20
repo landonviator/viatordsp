@@ -118,7 +118,7 @@ void SIMDTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumOutputChannels();
     
-    iirCoefficients = juce::dsp::IIR::Coefficients<float>::makeLowPass (sampleRate, 1000.0f);
+    iirCoefficients = juce::dsp::IIR::Coefficients<float>::makeNotch(sampleRate, 1000.0f);
     
     for(auto& filter : filters)
     {
