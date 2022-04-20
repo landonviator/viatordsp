@@ -115,35 +115,23 @@ public:
     /** Process an individual sample */
     SampleType processSample(SampleType input, SampleType ch) noexcept
     {
-            
-            // prewarp the cutoff (for bilinear-transform filters)
-            double wd = mCutoff * 6.28f;
-            double wa = sampleRate2X * tan(wd * halfSampleDuration);
-                    
-            //Calculate g (gain element of integrator)
-            mGCoeff = wa * halfSampleDuration;
-                    
-            mRCoeff2 = mRCoeff * 2.0;
-                    
-            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
-                
-            const auto z1 = mZ1[ch];
-            const auto z2 = mZ2[ch];
+        const auto z1 = mZ1[ch];
+        const auto z2 = mZ2[ch];
                                 
-            const double HP = (input - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
-            const double BP = HP * mGCoeff + z1;
-            const double LP = BP * mGCoeff + z2;
-            const double UBP = mRCoeff2 * BP;
-            const double BShelf = input + UBP * mGain;
-            const double LS = input + mGain * LP;
-            const double HS = input + mGain * HP;
+        const double HP = (input - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
+        const double BP = HP * mGCoeff + z1;
+        const double LP = BP * mGCoeff + z2;
+        const double UBP = mRCoeff2 * BP;
+        const double BShelf = input + UBP * mGain;
+        const double LS = input + mGain * LP;
+        const double HS = input + mGain * HP;
                     
-            //Main output code
-            input = BShelf * bsLevel + LS * lsLevel + HS * hsLevel + HP * hpLevel + LP * lpLevel;
+        //Main output code
+        input = BShelf * bsLevel + LS * lsLevel + HS * hsLevel + HP * hpLevel + LP * lpLevel;
                    
-            // unit delay (state variable)
-            mZ1[ch] = mGCoeff * HP + BP;
-            mZ2[ch] = mGCoeff * BP + LP;
+        // unit delay (state variable)
+        mZ1[ch] = mGCoeff * HP + BP;
+        mZ2[ch] = mGCoeff * BP + LP;
 
         return input;
     }
@@ -225,6 +213,9 @@ private:
     
     double sampleRate2X;
     double halfSampleDuration;
+    
+    double wd;
+    double wa;
 };
 }
 

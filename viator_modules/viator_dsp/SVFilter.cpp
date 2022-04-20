@@ -17,6 +17,8 @@ void viator_dsp::SVFilter<SampleType>::prepare(const juce::dsp::ProcessSpec& spe
     sampleRate2X = mCurrentSampleRate * 2.0;
     halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
     
+    
+    
     mZ1.assign(spec.numChannels, 0.0);
     mZ2.assign(spec.numChannels, 0.0);
 }
@@ -57,12 +59,38 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
                 {
                     if (mType == kBandShelf)
                     {
-                        mRCoeff = 1.0 - getPeakQ(mRawGain); break;
+                        mRCoeff = 1.0 - getPeakQ(mRawGain);
+                        
+                        // prewarp the cutoff (for bilinear-transform filters)
+                        wd = mCutoff * 6.28f;
+                        wa = sampleRate2X * std::tan(wd * halfSampleDuration);
+                                
+                        //Calculate g (gain element of integrator)
+                        mGCoeff = wa * halfSampleDuration;
+                                
+                        mRCoeff2 = mRCoeff * 2.0;
+                                
+                        mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+                        
+                        break;
                     }
                     
                     else
                     {
-                        mRCoeff = 1.0 - getShelfQ(mRawGain); break;
+                        mRCoeff = 1.0 - getShelfQ(mRawGain);
+                        
+                        // prewarp the cutoff (for bilinear-transform filters)
+                        wd = mCutoff * 6.28f;
+                        wa = sampleRate2X * std::tan(wd * halfSampleDuration);
+                                
+                        //Calculate g (gain element of integrator)
+                        mGCoeff = wa * halfSampleDuration;
+                                
+                        mRCoeff2 = mRCoeff * 2.0;
+                                
+                        mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+                        
+                        break;
                     }
                 }
             }
@@ -74,6 +102,18 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kCutoff:
         {
             mCutoff = parameterValue;
+            
+            // prewarp the cutoff (for bilinear-transform filters)
+            wd = mCutoff * 6.28f;
+            wa = sampleRate2X * std::tan(wd * halfSampleDuration);
+                    
+            //Calculate g (gain element of integrator)
+            mGCoeff = wa * halfSampleDuration;
+                    
+            mRCoeff2 = mRCoeff * 2.0;
+                    
+            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
+            
             break;
         }
             
