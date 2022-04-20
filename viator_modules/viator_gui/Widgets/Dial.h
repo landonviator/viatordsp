@@ -37,10 +37,6 @@ public:
     {
         initShadows();
         initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
-        addAndMakeVisible(dialLabel);
-        dialLabel.setText(labelText, juce::dontSendNotification);
-        dialLabel.attachToComponent(this, false);
-        dialLabel.setJustificationType(juce::Justification::centred);
     }
     
     ~Dial() override

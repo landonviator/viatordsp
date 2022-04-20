@@ -49,47 +49,55 @@ public:
             auto* output = outBlock.getChannelPointer (channel);
             
             auto *leftInputData = inBlock.getChannelPointer(0);
-            auto *rightInputData = inBlock.getChannelPointer(1);
-            
             auto *leftOutputData = outBlock.getChannelPointer(0);
-            auto *rightOutputData = outBlock.getChannelPointer(1);
             
             for (size_t sample = 0; sample < len; ++sample)
             {
-                auto mid_x = 0.5 * (leftInputData[sample] + rightInputData[sample]);
-                auto side_x = 0.5 * (leftInputData[sample] - rightInputData[sample]);
-                
-                switch (mStereoType)
+                if (inBlock.getNumChannels() == 2)
                 {
-                    case StereoId::kStereo:
+                        
+                    auto *rightInputData = inBlock.getChannelPointer(1);
+                    auto *rightOutputData = outBlock.getChannelPointer(1);
+                    auto mid_x = 0.5 * (leftInputData[sample] + rightInputData[sample]);
+                    auto side_x = 0.5 * (leftInputData[sample] - rightInputData[sample]);
+                        
+                    switch (mStereoType)
                     {
-                        output[sample] = processSample(input[sample], channel);
-                        break;
+                        case StereoId::kStereo:
+                        {
+                            output[sample] = processSample(input[sample], channel);
+                            break;
+                        }
+                                
+                        case StereoId::kMids:
+                        {
+                            mid_x = processSample(mid_x, channel);
+                                
+                            auto newL = mid_x + side_x;
+                            auto newR = mid_x - side_x;
+                                
+                            leftOutputData[sample] = newL;
+                            rightOutputData[sample] = newR;
+                            break;
+                        }
+                                
+                        case StereoId::kSides:
+                        {
+                            side_x = processSample(side_x, channel);
+                                
+                            auto newL = mid_x + side_x;
+                            auto newR = mid_x - side_x;
+                                
+                            leftOutputData[sample] = newL;
+                            rightOutputData[sample] = newR;
+                            break;
+                        }
                     }
-                        
-                    case StereoId::kMids:
-                    {
-                        mid_x = processSample(mid_x, channel);
-                        
-                        auto newL = mid_x + side_x;
-                        auto newR = mid_x - side_x;
-                        
-                        leftOutputData[sample] = newL;
-                        rightOutputData[sample] = newR;
-                        break;
-                    }
-                        
-                    case StereoId::kSides:
-                    {
-                        side_x = processSample(side_x, channel);
-                        
-                        auto newL = mid_x + side_x;
-                        auto newR = mid_x - side_x;
-                        
-                        leftOutputData[sample] = newL;
-                        rightOutputData[sample] = newR;
-                        break;
-                    }
+                }
+                    
+                else
+                {
+                    output[sample] = processSample(input[sample], channel);
                 }
             }
         }
@@ -99,72 +107,87 @@ public:
     SampleType processSample(SampleType input, SampleType ch) noexcept
     {
         
-        if (mGlobalBypass)
+        if (mType == kHighPass && mCutoff == 20.0) return input;
+        if (mType == kLowPass && mCutoff == 20000.0) return input;
+        
+        if (mRawGain == 0.0)
         {
-            return input;
+            if (mType != kHighPass && mType != kLowPass)
+            {
+                return input;
+            }
         }
         
-        const double sampleRate2X = mCurrentSampleRate * 2.0;
-        const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
-        
-        // prewarp the cutoff (for bilinear-transform filters)
-        double wd = mCutoff * 6.28f;
-        double wa = sampleRate2X * tan(wd * halfSampleDuration);
-                
-        //Calculate g (gain element of integrator)
-        mGCoeff = wa * halfSampleDuration;
-        
-        //Calculate Zavalishin's damping parameter (Q)
-        switch (mQType)
-        {
-            case kParametric: mRCoeff = 1.0 - mQ; break;
-                
-            case kProportional:
-                
-                if (mType == kBandShelf)
-                {
-                    mRCoeff = 1.0 - getPeakQ(mRawGain); break;
-                }
-                
-                else
-                {
-                    mRCoeff = 1.0 - getShelfQ(mRawGain); break;
-                }
-                
-                break;
-        }
-        
-        mRCoeff2 = mRCoeff * 2.0;
-        mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
-        
-        const auto z1 = mZ1[ch];
-        const auto z2 = mZ2[ch];
+        if (mGlobalBypass) return input;
             
-        float x = input;
-                
-        const double HP = (x - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
-        const double BP = HP * mGCoeff + z1;
-        const double LP = BP * mGCoeff + z2;
-        const double UBP = mRCoeff2 * BP;
-        const double BShelf = x + UBP * mGain;
-        const double LS = x + mGain * LP;
-        const double HS = x + mGain * HP;
+        float lsLevel = 0.0;
+        float bsLevel = 0.0;
+        float hsLevel = 0.0;
+        float lpLevel = 0.0;
+        float hpLevel = 0.0;
             
-        //Main output code
         switch (mType)
         {
-            case kBandShelf: x = BShelf; break;
-            case kLowShelf: x = LS; break;
-            case kHighShelf: x = HS; break;
-            case kHighPass: x = HP; break;
-            case kLowPass: x = LP; break;
+            case kLowShelf: lsLevel = 1.0; break;
+            case kBandShelf: bsLevel = 1.0; break;
+            case kHighShelf: hsLevel = 1.0; break;
+            case kLowPass: lpLevel = 1.0; break;
+            case kHighPass: hpLevel = 1.0; break;
         }
+            
+        const double sampleRate2X = mCurrentSampleRate * 2.0;
+        const double halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;
+            
+            // prewarp the cutoff (for bilinear-transform filters)
+            double wd = mCutoff * 6.28f;
+            double wa = sampleRate2X * tan(wd * halfSampleDuration);
+                    
+            //Calculate g (gain element of integrator)
+            mGCoeff = wa * halfSampleDuration;
+                    
+            //Calculate Zavalishin's damping parameter (Q)
+            switch (mQType)
+            {
+                case kParametric: mRCoeff = 1.0 - mQ; break;
+                    
+                case kProportional:
+                {
+                    if (mType == kBandShelf)
+                    {
+                        mRCoeff = 1.0 - getPeakQ(mRawGain); break;
+                    }
+                    
+                    else
+                    {
+                        mRCoeff = 1.0 - getShelfQ(mRawGain); break;
+                    }
+                }
+            }
+                    
+            
+            mRCoeff2 = mRCoeff * 2.0;
+                    
+            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
                 
-        // unit delay (state variable)
-        mZ1[ch] = mGCoeff * HP + BP;
-        mZ2[ch] = mGCoeff * BP + LP;
-        
-        return x;
+            const auto z1 = mZ1[ch];
+            const auto z2 = mZ2[ch];
+                                
+            const double HP = (input - mRCoeff2 * z1 - mGCoeff * z1 - z2) * mInversion;
+            const double BP = HP * mGCoeff + z1;
+            const double LP = BP * mGCoeff + z2;
+            const double UBP = mRCoeff2 * BP;
+            const double BShelf = input + UBP * mGain;
+            const double LS = input + mGain * LP;
+            const double HS = input + mGain * HP;
+                    
+            //Main output code
+            input = BShelf * bsLevel + LS * lsLevel + HS * hsLevel + HP * hpLevel + LP * lpLevel;
+                   
+            // unit delay (state variable)
+            mZ1[ch] = mGCoeff * HP + BP;
+            mZ2[ch] = mGCoeff * BP + LP;
+
+        return input;
     }
     
     
@@ -213,12 +236,6 @@ private:
     /** Member variables */
     float mCurrentSampleRate, mQ, mCutoff, mGain, mRawGain, twoPi;
     bool mGlobalBypass;
-    
-    float lsLevel = 0.0;
-    float bsLevel = 0.0;
-    float hsLevel = 0.0;
-    float lpLevel = 0.0;
-    float hpLevel = 0.0;
     
     float sampleRate2X = mCurrentSampleRate * 2.0;
     float halfSampleDuration = 1.0 / mCurrentSampleRate / 2.0;

@@ -31,7 +31,7 @@
 */
 namespace viator_gui
 {
-    class Fader  : public juce::Slider, private juce::Timer
+    class Fader  : public juce::Slider
     {
     public:
         Fader
@@ -44,13 +44,9 @@ namespace viator_gui
             double returnValue
         )
         {
-            startTimerHz(5);
             initShadows();
             initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
-            addAndMakeVisible(trimLabel);
-            trimLabel.setText(labelText, juce::dontSendNotification);
-            trimLabel.attachToComponent(this, false);
-            trimLabel.setJustificationType(juce::Justification::centred);
+            faderReturnValue = returnValue;
         }
         
         ~Fader() override
@@ -67,47 +63,44 @@ namespace viator_gui
                 g.setColour(juce::Colours::purple.withAlpha(0.25f));
                 g.fillRect(getLocalBounds());
                 
-                if (isSelected)
+                if (isSelected || hasMidiMap)
                 {
                     g.resetToDefaultState();
                     g.setColour(juce::Colours::whitesmoke.withAlpha(0.25f));
                     g.fillRect(getLocalBounds());
                 }
-                
-                else
-                {
-                    g.resetToDefaultState();
-                    g.setColour(juce::Colours::purple.withAlpha(0.25f));
-                    g.fillRect(getLocalBounds());
-                }
             }
-        }
-        
-        void timerCallback() override
-        {
-            repaint();
-        }
-        
-        void setSelectable(bool sliderISSelectable)
-        {
-            isSelectable = sliderISSelectable;
         }
         
         void mouseDoubleClick (const juce::MouseEvent &event) override
         {
             if (isSelectable)
             {
-                if (isSelected)
-                {
-                    isSelected = false;
-                    DBG("Slider deselected!");
-                }
-                
-                else
-                {
-                    isSelected = true;
-                    DBG("Slider selected!");
-                }
+                isSelected ? isSelected = false : isSelected = true;
+            }
+            
+            setValue(faderReturnValue);
+        }
+        
+        void setSelectable(bool sliderISSelectable)
+        {
+            isSelectable = sliderISSelectable;
+            repaint();
+        }
+        
+        
+        bool getIsSelectable()
+        {
+            return isSelectable;
+        }
+        
+        void setSelected(bool newSelectState)
+        {
+            isSelected = newSelectState;
+            
+            if (isSelected)
+            {
+                setSelectable(false);
             }
         }
         
@@ -116,14 +109,15 @@ namespace viator_gui
             return isSelected;
         }
         
-        void setSelected(bool newSelectState)
-        {
-            isSelected = newSelectState;
-        }
         
         void setHasMidiMap(bool newHasMidiMap)
         {
             hasMidiMap = newHasMidiMap;
+            
+            if (!hasMidiMap)
+            {
+                setSelectable(true);
+            }
         }
         
         bool getHasMidiMap()
@@ -131,11 +125,37 @@ namespace viator_gui
             return hasMidiMap;
         }
         
+        void setToBeDeleted(bool newIsToBeDeleted)
+        {
+            isToBeDeleted = newIsToBeDeleted;
+        }
+        
+        bool getIsToBeDeleted()
+        {
+            return isToBeDeleted;
+        }
+        
         void forceShadow();
         
     private:
         
         /** Methods ===============================================================*/
+//        void mouseDown(const juce::MouseEvent &event) override
+//        {
+//            /** Delete mapping on right click*/
+//            const auto& modifiers = juce::ModifierKeys::getCurrentModifiers();
+//            
+//            if (modifiers.isRightButtonDown())
+//            {
+//                setToBeDeleted(true);
+//            }
+//            
+//            else
+//            {
+//                return;
+//            }
+//        }
+        
         void mouseEnter (const juce::MouseEvent& event) override;
         void mouseExit (const juce::MouseEvent& event) override;
         
@@ -166,5 +186,8 @@ namespace viator_gui
         bool isSelectable = false;
         bool isSelected = false;
         bool hasMidiMap = false;
+        bool isToBeDeleted = false;
+        
+        double faderReturnValue;
     };
 }

@@ -4,7 +4,7 @@ viator_dsp::SVFilter<SampleType>::SVFilter()
 : mCurrentSampleRate (44100.0f), mQ (0.1f), mCutoff (1000.0f), mRawGain (0.0f), twoPi (juce::MathConstants<float>::twoPi)
 , mGlobalBypass (false)
 , mGCoeff (0.0), mRCoeff (0.0), mRCoeff2 (0.0), mK (1.0), mInversion (0.0)
-, mType (FilterType::kLowPass), mQType (QType::kParametric)
+, mType (FilterType::kLowPass), mQType (QType::kParametric), mStereoType(StereoId::kStereo)
 {
     // This needs to be called at initialization or the filter breaks
     setParameter(ParameterId::kQ, mQ);
@@ -34,8 +34,6 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kCutoff:
         {
             mCutoff = parameterValue;
-            mType == kHighPass && mCutoff == 20.0 ? mGlobalBypass == true : mGlobalBypass = false;
-            mType == kLowPass && mCutoff == 20000.0 ? mGlobalBypass == true : mGlobalBypass = false;
             break;
         }
             
@@ -49,7 +47,6 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         case ParameterId::kGain:
         {
             setGain(parameterValue);
-            parameterValue == 0.0 ? mGlobalBypass = true : mGlobalBypass = false;
             break;
         }
             
@@ -92,8 +89,9 @@ SampleType viator_dsp::SVFilter<SampleType>::getShelfQ(SampleType value) const
 template <typename SampleType>
 SampleType viator_dsp::SVFilter<SampleType>::getPeakQ(SampleType value) const
 {
-    return viator_utils::utils::dbToGain(std::abs(value)) * 0.2f;
+    return viator_utils::utils::dbToGain(std::abs(value)) * 0.1f;
 }
 
 template class viator_dsp::SVFilter<float>;
 template class viator_dsp::SVFilter<double>;
+
