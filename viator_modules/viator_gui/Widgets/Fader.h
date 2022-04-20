@@ -140,21 +140,41 @@ namespace viator_gui
     private:
         
         /** Methods ===============================================================*/
-//        void mouseDown(const juce::MouseEvent &event) override
-//        {
-//            /** Delete mapping on right click*/
-//            const auto& modifiers = juce::ModifierKeys::getCurrentModifiers();
-//            
-//            if (modifiers.isRightButtonDown())
-//            {
-//                setToBeDeleted(true);
-//            }
-//            
-//            else
-//            {
-//                return;
-//            }
-//        }
+        void mouseDown(const juce::MouseEvent &event) override
+        {
+            /** Delete mapping on right click*/
+            const auto& modifiers = juce::ModifierKeys::getCurrentModifiers();
+            
+            if (modifiers.isRightButtonDown())
+            {
+                slider.setSliderSnapsToMousePosition(false);
+                setToBeDeleted(true);
+            }
+            
+            else
+            {
+                juce::Slider::mouseDown(event);
+                slider.setSliderSnapsToMousePosition(true);
+            }
+        }
+        
+        void mouseUp(const juce::MouseEvent &event) override
+        {
+            /** Delete mapping on right click*/
+            const auto& modifiers = juce::ModifierKeys::getCurrentModifiers();
+            
+            if (modifiers.isRightButtonDown())
+            {
+                slider.setSliderSnapsToMousePosition(false);
+                setToBeDeleted(true);
+            }
+            
+            else
+            {
+                juce::Slider::mouseUp(event);
+                slider.setSliderSnapsToMousePosition(true);
+            }
+        }
         
         void mouseEnter (const juce::MouseEvent& event) override;
         void mouseExit (const juce::MouseEvent& event) override;
