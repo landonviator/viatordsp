@@ -142,10 +142,7 @@ namespace viator_gui
         /** Methods ===============================================================*/
         void mouseDown(const juce::MouseEvent &event) override
         {
-            /** Delete mapping on right click*/
-            const auto& modifiers = juce::ModifierKeys::getCurrentModifiers();
-            
-            if (modifiers.isRightButtonDown())
+            if (event.mods.isRightButtonDown())
             {
                 slider.setSliderSnapsToMousePosition(false);
                 setToBeDeleted(true);
@@ -160,10 +157,7 @@ namespace viator_gui
         
         void mouseUp(const juce::MouseEvent &event) override
         {
-            /** Delete mapping on right click*/
-            const auto& modifiers = juce::ModifierKeys::getCurrentModifiers();
-            
-            if (modifiers.isRightButtonDown())
+            if (event.mods.isRightButtonDown())
             {
                 slider.setSliderSnapsToMousePosition(false);
                 setToBeDeleted(true);
