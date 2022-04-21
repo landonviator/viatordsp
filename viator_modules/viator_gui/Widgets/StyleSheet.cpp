@@ -204,7 +204,7 @@ void juce::FullDialLAF::drawRotarySlider
     sliderWidth = width;
     
     /** Dot color*/
-    g.setColour (textColor);
+    g.setColour (fillColor);
 
     centre = dialBounds.getCentre();
 
@@ -625,120 +625,63 @@ void juce::FaderLAF::drawLinearSlider
     Slider& slider
 )
 {
-    if (slider.isBar())
-    {
-        g.setColour (slider.findColour (Slider::trackColourId));
-        g.fillRect (slider.isHorizontal() ? Rectangle<float> (static_cast<float> (x), (float) y + 0.5f, sliderPos - (float) x, (float) height - 1.0f)
-                                          : Rectangle<float> ((float) x + 0.5f, sliderPos, (float) width - 1.0f, (float) y + ((float) height - sliderPos)));
-    }
+    /** Define color variables for customization. */
+    const auto mainColor     = slider.findColour(Slider::thumbColourId);
+    const auto brighterColor = slider.findColour(Slider::thumbColourId).brighter(0.05f);
     
-    else
+    sliderHeight = height;
+    sliderWidth = width;
+        
+    /** Draw Grid Lines*/
+    g.setColour(slider.findColour (Slider::backgroundColourId));
+        
+    for (int i = slider.getMinimum(); i < slider.getMaximum() + 1; i++)
     {
-        sliderHeight = height;
-        sliderWidth = width;
-        
-        /** Draw Grid Lines*/
-        g.setColour(slider.findColour (Slider::backgroundColourId));
-        
-        for (int i = slider.getMinimum(); i < slider.getMaximum() + 1; i++)
-        {
-            auto startX = x + width * 0.35;
-            auto endX = x + width * 0.66;
+        auto startX = x + width * 0.35;
+        auto endX = x + width * 0.66;
                 
-            if (i % 2 == 0)
+        if (i % 2 == 0)
+        {
+            if (i < 13)
             {
-                if (i < 13)
-                {
-                    g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), width * 0.005);
-                }
+                g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), width * 0.005);
             }
         }
+    }
         
-        
-        auto isTwoVal   = (style == Slider::SliderStyle::TwoValueVertical   || style == Slider::SliderStyle::TwoValueHorizontal);
-        auto isThreeVal = (style == Slider::SliderStyle::ThreeValueVertical || style == Slider::SliderStyle::ThreeValueHorizontal);
+    auto trackWidth = slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.1f;
 
-        auto trackWidth = slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.1f;
-
-        Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
+    Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
                                  slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
 
-        Point<float> endPoint (slider.isHorizontal() ? (float) (width + x) : startPoint.x,
+    Point<float> endPoint (slider.isHorizontal() ? (float) (width + x) : startPoint.x,
                                slider.isHorizontal() ? startPoint.y : (float) y);
 
-        Path backgroundTrack;
-        backgroundTrack.startNewSubPath (startPoint);
-        backgroundTrack.lineTo (endPoint);
-        g.setColour (slider.findColour (Slider::backgroundColourId));
-        g.strokePath (backgroundTrack, { static_cast<float>(trackWidth * 1.25), PathStrokeType::curved, PathStrokeType::rounded });
+    Path backgroundTrack;
+    backgroundTrack.startNewSubPath (startPoint);
+    backgroundTrack.lineTo (endPoint);
+    g.setColour (slider.findColour (Slider::backgroundColourId));
+    g.strokePath (backgroundTrack, { static_cast<float>(trackWidth * 1.25), PathStrokeType::curved, PathStrokeType::rounded });
 
-        Path valueTrack;
-        Point<float> minPoint, maxPoint, thumbPoint;
+    Path valueTrack;
+    Point<float> minPoint, maxPoint;
 
-        if (isTwoVal || isThreeVal)
-        {
-            minPoint = { slider.isHorizontal() ? minSliderPos : (float) width * 0.5f,
-                         slider.isHorizontal() ? (float) height * 0.5f : minSliderPos };
+    auto kx = slider.isHorizontal() ? sliderPos : ((float) x + (float) width * 0.5f);
+    auto ky = slider.isHorizontal() ? ((float) y + (float) height * 0.5f) : sliderPos;
 
-            if (isThreeVal)
-                thumbPoint = { slider.isHorizontal() ? sliderPos : (float) width * 0.5f,
-                               slider.isHorizontal() ? (float) height * 0.5f : sliderPos };
+    minPoint = startPoint;
+    maxPoint = { kx, ky };
 
-            maxPoint = { slider.isHorizontal() ? maxSliderPos : (float) width * 0.5f,
-                         slider.isHorizontal() ? (float) height * 0.5f : maxSliderPos };
-        }
-        
-        else
-        {
-            auto kx = slider.isHorizontal() ? sliderPos : ((float) x + (float) width * 0.5f);
-            auto ky = slider.isHorizontal() ? ((float) y + (float) height * 0.5f) : sliderPos;
+    valueTrack.startNewSubPath (minPoint);
+    valueTrack.lineTo (maxPoint);
+    g.setColour (slider.findColour (Slider::trackColourId));
+    g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
-            minPoint = startPoint;
-            maxPoint = { kx, ky };
-        }
-
-        valueTrack.startNewSubPath (minPoint);
-        valueTrack.lineTo (isThreeVal ? thumbPoint : maxPoint);
-        g.setColour (slider.findColour (Slider::trackColourId));
-        g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
-
-        if (! isTwoVal)
-        {
-            Rectangle<float> thumbRec;
-            thumbRec.setSize(static_cast<float> (width * 0.75), static_cast<float> (width * 0.25));
-            
-            g.setColour(slider.findColour(Slider::thumbColourId));
-            g.fillRoundedRectangle(thumbRec.withCentre(isThreeVal ? thumbPoint : maxPoint), 6.0f);
-        }
-
-        if (isTwoVal || isThreeVal)
-        {
-            auto sr = jmin (trackWidth, (slider.isHorizontal() ? (float) height : (float) width) * 0.4f);
-            auto pointerColour = slider.findColour (Slider::thumbColourId);
-
-            if (slider.isHorizontal())
-            {
-                drawPointer (g, minSliderPos - sr,
-                             jmax (0.0f, (float) y + (float) height * 0.5f - trackWidth * 2.0f),
-                             trackWidth * 2.0f, pointerColour, 2);
-
-                drawPointer (g, maxSliderPos - trackWidth,
-                             jmin ((float) (y + height) - trackWidth * 2.0f, (float) y + (float) height * 0.5f),
-                             trackWidth * 2.0f, pointerColour, 4);
-            }
-            
-            else
-            {
-                drawPointer (g, jmax (0.0f, (float) x + (float) width * 0.5f - trackWidth * 2.0f),
-                             minSliderPos - trackWidth,
-                             trackWidth * 2.0f, pointerColour, 1);
-
-                drawPointer (g, jmin ((float) (x + width) - trackWidth * 2.0f, (float) x + (float) width * 0.5f), maxSliderPos - sr,
-                             trackWidth * 2.0f, pointerColour, 3);
-            }
-        }
-    }
-    
+    /** Thumb */
+    Rectangle<float> thumbRec;
+    thumbRec.setSize(static_cast<float> (width * 0.75), static_cast<float> (width * 0.25));
+    g.setGradientFill(juce::ColourGradient::horizontal(brighterColor, thumbRec.getWidth() * 0.25, mainColor, thumbRec.getWidth() * 0.75));
+    g.fillRoundedRectangle(thumbRec.withCentre(maxPoint), 6.0f);
 }
 
 void juce::FaderLAF::drawLabel(Graphics &g, Label &label)
