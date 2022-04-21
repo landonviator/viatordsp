@@ -193,7 +193,6 @@ void juce::FullDialLAF::drawRotarySlider
     const auto fillColor     = slider.findColour(Slider::rotarySliderFillColourId);
     const auto mainColor     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
     const auto brighterColor = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.15);
-    const auto textColor     = slider.findColour (juce::Slider::trackColourId);
     const auto trackColor    = slider.findColour(juce::Slider::ColourIds::trackColourId);
 
     auto dialBounds = juce::Rectangle<int> (x, y, width, height).toFloat();
