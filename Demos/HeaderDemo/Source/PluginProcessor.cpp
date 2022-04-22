@@ -20,12 +20,33 @@ HeaderDemoAudioProcessor::HeaderDemoAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        )
+, treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
+    cpuLoad.store(0.0f);
+    
+    treeState.addParameterListener("cpu", this);
 }
 
 HeaderDemoAudioProcessor::~HeaderDemoAudioProcessor()
 {
+    treeState.removeParameterListener("cpu", this);
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout HeaderDemoAudioProcessor::createParameterLayout()
+{
+    std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
+        
+    auto pCPU = std::make_unique<juce::AudioParameterBool>("cpu", "CPU", true);
+    
+    params.push_back(std::move(pCPU));
+    
+    return { params.begin(), params.end() };
+}
+
+void HeaderDemoAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+{
+    
 }
 
 //==============================================================================
@@ -93,8 +114,7 @@ void HeaderDemoAudioProcessor::changeProgramName (int index, const juce::String&
 //==============================================================================
 void HeaderDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    cpuMeasureModule.reset(sampleRate, samplesPerBlock);
 }
 
 void HeaderDemoAudioProcessor::releaseResources()
@@ -134,7 +154,37 @@ void HeaderDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
+    
+    
+    if (treeState.getRawParameterValue("cpu")->load())
+    {
+        juce::AudioProcessLoadMeasurer::ScopedTimer s(cpuMeasureModule);
+            
+        for (int i = 0; i < 30; i++)
+        {
+            auto value = 2;
+            value *= std::pow(value, 10);
+                
+            for (int i = 0; i < 30; i++)
+            {
+                auto value = 2;
+                value *= std::pow(value, 10);
+                    
+                for (int i = 0; i < 30; i++)
+                {
+                    auto value = 2;
+                    value *= std::pow(value, 10);
+                }
+            }
+        }
+        
+        cpuLoad = cpuMeasureModule.getLoadAsPercentage();
+    }
+}
 
+float HeaderDemoAudioProcessor::getCPULoad()
+{
+    return cpuLoad.load();
 }
 
 //==============================================================================

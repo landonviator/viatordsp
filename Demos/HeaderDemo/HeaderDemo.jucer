@@ -4,6 +4,31 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="fM56sX" name="HeaderDemo">
     <GROUP id="{CF62DFAB-8A41-603E-3B82-89C7963769D1}" name="Source">
+      <GROUP id="{88F45A2C-B5DB-E8E2-806D-9F33F5473B1A}" name="UI-Methods">
+        <FILE id="fueYft" name="OversamplingMenu.cpp" compile="1" resource="0"
+              file="Source/UI-Methods/OversamplingMenu.cpp"/>
+        <FILE id="OaqC3c" name="UI-Constructor.cpp" compile="1" resource="0"
+              file="Source/UI-Methods/UI-Constructor.cpp"/>
+        <FILE id="RVIOIZ" name="UI-InitWindow.cpp" compile="1" resource="0"
+              file="Source/UI-Methods/UI-InitWindow.cpp"/>
+        <FILE id="T2WVkF" name="UI-Paint.cpp" compile="1" resource="0" file="Source/UI-Methods/UI-Paint.cpp"/>
+        <FILE id="JMlMXR" name="UI-Resized.cpp" compile="1" resource="0" file="Source/UI-Methods/UI-Resized.cpp"/>
+        <FILE id="AERL2C" name="UI-SaveWindow.cpp" compile="1" resource="0"
+              file="Source/UI-Methods/UI-SaveWindow.cpp"/>
+      </GROUP>
+      <GROUP id="{3B155963-D63B-8687-7717-0EE82D4F5BDC}" name="Assets">
+        <FILE id="e1XUe7" name="dark_blue.png" compile="0" resource="1" file="Source/Assets/dark_blue.png"/>
+        <FILE id="XEQicX" name="landon55-03.png" compile="0" resource="1" file="Source/Assets/landon55-03.png"/>
+        <FILE id="k65UM8" name="landon55-04.png" compile="0" resource="1" file="Source/Assets/landon55-04.png"/>
+        <FILE id="vUXXxC" name="oscilloscope-01.png" compile="0" resource="1"
+              file="Source/Assets/oscilloscope-01.png"/>
+        <FILE id="bejMiC" name="pluginBackground.png" compile="0" resource="1"
+              file="Source/Assets/pluginBackground.png"/>
+        <FILE id="bRgD5f" name="pluginBackground2.png" compile="0" resource="1"
+              file="Source/Assets/pluginBackground2.png"/>
+        <FILE id="VzSmCD" name="testTexture.png" compile="0" resource="1" file="Source/Assets/testTexture.png"/>
+        <FILE id="pI8G2s" name="TEXTURE5.png" compile="0" resource="1" file="Source/Assets/TEXTURE5.png"/>
+      </GROUP>
       <FILE id="SzYBkb" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="JaR7v3" name="PluginProcessor.h" compile="0" resource="0"
