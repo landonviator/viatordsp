@@ -29,4 +29,10 @@ void HeaderDemoAudioProcessorEditor::uiConstructor()
     cpuButton.setColour(juce::TextButton::ColourIds::textColourOffId, juce::Colours::whitesmoke.darker(1.0f));
     cpuButton.setColour(juce::TextButton::ColourIds::textColourOnId, juce::Colours::whitesmoke.darker(1.0f));
     cpuButton.setColour(0x1000c00, juce::Colours::whitesmoke.withAlpha(0.06f));
+    
+    addAndMakeVisible(msMenu);
+    msMenu.setTextWhenNothingSelected("M / S");
+    msMenu.addItem("Stereo", 1);
+    msMenu.addItem("Mid", 2);
+    msMenu.addItem("Sides", 3);
 }

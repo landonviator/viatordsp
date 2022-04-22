@@ -37,6 +37,7 @@
 #include "viator_gui/Widgets/NumberBox.h"
 #include "viator_gui/Widgets/PushButton.h"
 #include "viator_gui/Widgets/StyleSheet.h"
+#include "viator_gui/Widgets/Menu_Styles.h"
 
 /** Viator Utils Headers*/
 #include "viator_utils/utils.h"
