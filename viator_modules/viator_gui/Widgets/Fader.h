@@ -1,26 +1,3 @@
-/*
-  ==============================================================================
-
-    Fader.h
-    Created: 21 Jul 2021 12:58:40pm
-    Author:  landon viator
-
-  ==============================================================================
-*/
-
-/*
-  ==============================================================================
-
-    FaderComponent.h
-    Created: 23 Oct 2021 2:38:27am
-    Author:  Landon Viator
- 
-    In your main editor, make sure to call setColour first, then enableShadow, if not,
-    the shadow won't show up.
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include "../Widgets/Label.h"
