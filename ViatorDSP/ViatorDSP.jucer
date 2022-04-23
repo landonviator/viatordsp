@@ -3,6 +3,24 @@
 <JUCERPROJECT id="HucnVL" name="ViatorDSP" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="PXXYzS" name="ViatorDSP">
+    <GROUP id="{CB692224-9D8B-F43A-FD03-F612873A9B34}" name="Assets">
+      <FILE id="iIFKRg" name="Articulations_back.png" compile="0" resource="1"
+            file="../Assets/Articulations_back.png"/>
+      <FILE id="WHUMAg" name="Articulations_decore.png" compile="0" resource="1"
+            file="../Assets/Articulations_decore.png"/>
+      <FILE id="GyGgf8" name="Articulations_line_1.png" compile="0" resource="1"
+            file="../Assets/Articulations_line_1.png"/>
+      <FILE id="zcYoYs" name="Articulations_line_2.png" compile="0" resource="1"
+            file="../Assets/Articulations_line_2.png"/>
+      <FILE id="UB0lUS" name="background.png" compile="0" resource="1" file="../Assets/background.png"/>
+      <FILE id="jliOnx" name="btclipper.png" compile="0" resource="1" file="../Assets/btclipper.png"/>
+      <FILE id="Am3vpY" name="landon55-04.png" compile="0" resource="1" file="../Assets/landon55-04.png"/>
+      <FILE id="dV6Lpz" name="led_off.png" compile="0" resource="1" file="../Assets/led_off.png"/>
+      <FILE id="Ykldqc" name="led_on.png" compile="0" resource="1" file="../Assets/led_on.png"/>
+      <FILE id="O7Oh2s" name="pluginBackground2.png" compile="0" resource="1"
+            file="../Assets/pluginBackground2.png"/>
+      <FILE id="ZkDIzD" name="projucer.png" compile="0" resource="1" file="../Assets/projucer.png"/>
+    </GROUP>
     <GROUP id="{4DABE531-5381-A0DA-C928-21637E729B4A}" name="Source">
       <FILE id="rXPE8S" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -34,6 +52,7 @@
         <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="viator_modules" path="../../viatordsp"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -52,5 +71,6 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="viator_modules" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
 </JUCERPROJECT>

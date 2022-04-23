@@ -31,6 +31,7 @@
 		23E6B4155805F6F965021A7E /* include_juce_audio_utils.mm */ = {isa = PBXBuildFile; fileRef = 6298A7EDD0A79454243480CD; };
 		243BBCD6E8A88BA6E0B56487 /* Cocoa.framework */ = {isa = PBXBuildFile; fileRef = BA1A8C0A0375BCA9C8B4CB88; };
 		2EC8C7A6C5097E44DA695F91 /* Accelerate.framework */ = {isa = PBXBuildFile; fileRef = 437163A71613B9B91605AA3B; };
+		3A5736DE3933492A73989457 /* include_viator_modules.cpp */ = {isa = PBXBuildFile; fileRef = 5C162DF68DD5DF7AA5C694DF; };
 		3C524691DC69F8757E947B6E /* Carbon.framework */ = {isa = PBXBuildFile; fileRef = FB5B79FE87FBD81961D732A1; };
 		432C464A8DC4B27A442FD7AB /* include_juce_audio_basics.mm */ = {isa = PBXBuildFile; fileRef = 37CD9D4B348C2A4FEBCD32E6; };
 		494290C29EE4B7EF04BBC029 /* IOKit.framework */ = {isa = PBXBuildFile; fileRef = F0369A144462348B7990CFD4; };
@@ -39,6 +40,7 @@
 		51C700E420F92E445A76A96F /* DiscRecording.framework */ = {isa = PBXBuildFile; fileRef = E1E5523EB62C5B8F6F4707DF; };
 		5BCB9D6174975ACF5032695B /* PluginProcessor.cpp */ = {isa = PBXBuildFile; fileRef = 5039A4A719D133B12A61DBF9; };
 		6B920A316E6025CB57B84B18 /* Standalone Plugin */ = {isa = PBXBuildFile; fileRef = 5E58CD49C70EDBC097966FBB; };
+		70DA6E59DECE25016842509A /* BinaryData2.cpp */ = {isa = PBXBuildFile; fileRef = 1B5EC28A856799088C1C16B9; };
 		777836752CFC548A9D6372F0 /* include_juce_graphics.mm */ = {isa = PBXBuildFile; fileRef = 5D44CBEC5BB1B2C1581A9D71; };
 		7EC8FEA3AFDCBCC6436E2C9D /* RecentFilesMenuTemplate.nib */ = {isa = PBXBuildFile; fileRef = C5B078E45B9F1529C25C2CA2; };
 		84A275F71093D3334005F9B1 /* include_juce_audio_processors.mm */ = {isa = PBXBuildFile; fileRef = AEBBEB5982FE875131C68CB7; };
@@ -54,9 +56,11 @@
 		C4CC6D57E8C2AD24A2806ADC /* AudioToolbox.framework */ = {isa = PBXBuildFile; fileRef = 174927902B99E075A2EC3506; };
 		C5E91F3AD36747362B87A319 /* CoreAudio.framework */ = {isa = PBXBuildFile; fileRef = 074DEE0AE4FFF93438B11ACD; };
 		C86BB9362BF256C2942F5BEE /* include_juce_core.mm */ = {isa = PBXBuildFile; fileRef = 04E4FDE9AE71DA4026934798; };
+		CA9B8712A51DA763C758A574 /* BinaryData3.cpp */ = {isa = PBXBuildFile; fileRef = E92A0F269566B68C0C0F9DF3; };
 		CB3E39BEDB2E786866196A86 /* VST3 */ = {isa = PBXBuildFile; fileRef = 99B8F85359052FAF27DA0015; };
 		CBDDF46DD54325286A5047B3 /* WebKit.framework */ = {isa = PBXBuildFile; fileRef = 02AECCB2E1D3629EB4AC59F3; };
 		CDE928757386CE1433C759FE /* include_juce_gui_extra.mm */ = {isa = PBXBuildFile; fileRef = 2D4A8668022EAB06D8E62489; };
+		D761C060F8E08785334E3600 /* BinaryData.cpp */ = {isa = PBXBuildFile; fileRef = 6510925E99DB39125CA14885; };
 		D9B89872B114B9AFCCF86D6E /* AudioUnit.framework */ = {isa = PBXBuildFile; fileRef = 3C5D1B044399BDF11DB35573; };
 		E1D1B649B8BE75E8CEB1679D /* include_juce_audio_plugin_client_AU.r */ = {isa = PBXBuildFile; fileRef = CFA03C004CB1052E9CCF13CF; };
 		EB2F6B1D6564E300F200B332 /* include_juce_events.mm */ = {isa = PBXBuildFile; fileRef = 709F0FD494A7CC8D138B769E; };
@@ -73,6 +77,7 @@
 		1347527AB38AE5E8D8FA8057 /* include_juce_audio_plugin_client_AU_2.mm */ /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		14DC2FC479E39B6ED2BA4C5B /* Info-AU.plist */ /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-AU.plist"; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
 		174927902B99E075A2EC3506 /* AudioToolbox.framework */ /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1B5EC28A856799088C1C16B9 /* BinaryData2.cpp */ /* BinaryData2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData2.cpp; path = ../../JuceLibraryCode/BinaryData2.cpp; sourceTree = SOURCE_ROOT; };
 		238B66FD264534DF2A65CC5B /* juce_dsp */ /* juce_dsp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_dsp; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_dsp; sourceTree = "<absolute>"; };
 		25B8A194700559F9CC3E0185 /* PluginProcessor.h */ /* PluginProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginProcessor.h; path = ../../Source/PluginProcessor.h; sourceTree = SOURCE_ROOT; };
 		2AF28C8D64C6C130DFE799C2 /* juce_audio_formats */ /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_formats; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_formats; sourceTree = "<absolute>"; };
@@ -85,39 +90,55 @@
 		3FDCBC0C65C2DEEE22C1526A /* QuartzCore.framework */ /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		431B716A2C90DF4CEEC82447 /* juce_events */ /* juce_events */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_events; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_events; sourceTree = "<absolute>"; };
 		437163A71613B9B91605AA3B /* Accelerate.framework */ /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		4C3057994A8E33134AB38367 /* Articulations_line_1.png */ /* Articulations_line_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_line_1.png; path = ../../../Assets/Articulations_line_1.png; sourceTree = SOURCE_ROOT; };
 		5039A4A719D133B12A61DBF9 /* PluginProcessor.cpp */ /* PluginProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginProcessor.cpp; path = ../../Source/PluginProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		52E60D2448A48FD33755F6A8 /* viator_modules */ /* viator_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = viator_modules; path = ../../../viator_modules; sourceTree = SOURCE_ROOT; };
+		56BEF19191ADDBEF91BC5408 /* pluginBackground2.png */ /* pluginBackground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pluginBackground2.png; path = ../../../Assets/pluginBackground2.png; sourceTree = SOURCE_ROOT; };
 		5B73470E02BAB9648A8A5785 /* include_juce_audio_plugin_client_utils.cpp */ /* include_juce_audio_plugin_client_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_utils.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp; sourceTree = SOURCE_ROOT; };
+		5C162DF68DD5DF7AA5C694DF /* include_viator_modules.cpp */ /* include_viator_modules.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_viator_modules.cpp; path = ../../JuceLibraryCode/include_viator_modules.cpp; sourceTree = SOURCE_ROOT; };
 		5D44CBEC5BB1B2C1581A9D71 /* include_juce_graphics.mm */ /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
 		5E58CD49C70EDBC097966FBB /* Standalone Plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViatorDSP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E929E821B5D073CFCB6C82C /* include_juce_audio_formats.mm */ /* include_juce_audio_formats.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_formats.mm; path = ../../JuceLibraryCode/include_juce_audio_formats.mm; sourceTree = SOURCE_ROOT; };
 		5EF8F8072010A4399CA34355 /* include_juce_audio_plugin_client_AU_1.mm */ /* include_juce_audio_plugin_client_AU_1.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_1.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_1.mm; sourceTree = SOURCE_ROOT; };
 		6298A7EDD0A79454243480CD /* include_juce_audio_utils.mm */ /* include_juce_audio_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_utils.mm; sourceTree = SOURCE_ROOT; };
+		6510925E99DB39125CA14885 /* BinaryData.cpp */ /* BinaryData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData.cpp; path = ../../JuceLibraryCode/BinaryData.cpp; sourceTree = SOURCE_ROOT; };
+		6DF7F3ABE3408C5DA9F49185 /* btclipper.png */ /* btclipper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btclipper.png; path = ../../../Assets/btclipper.png; sourceTree = SOURCE_ROOT; };
 		709F0FD494A7CC8D138B769E /* include_juce_events.mm */ /* include_juce_events.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_events.mm; path = ../../JuceLibraryCode/include_juce_events.mm; sourceTree = SOURCE_ROOT; };
+		7E6207C858A0D376682F9B06 /* Articulations_line_2.png */ /* Articulations_line_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_line_2.png; path = ../../../Assets/Articulations_line_2.png; sourceTree = SOURCE_ROOT; };
 		89931C30CB0C332AF571B16D /* PluginEditor.cpp */ /* PluginEditor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginEditor.cpp; path = ../../Source/PluginEditor.cpp; sourceTree = SOURCE_ROOT; };
 		8DC4905FDEDB0D0D957FBF5A /* juce_data_structures */ /* juce_data_structures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_data_structures; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_data_structures; sourceTree = "<absolute>"; };
 		90309F7FA23DB54901614FE1 /* Info-Standalone_Plugin.plist */ /* Info-Standalone_Plugin.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-Standalone_Plugin.plist"; path = "Info-Standalone_Plugin.plist"; sourceTree = SOURCE_ROOT; };
 		90DE06584ECAAE87567EDA66 /* include_juce_audio_plugin_client_VST_utils.mm */ /* include_juce_audio_plugin_client_VST_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_VST_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm; sourceTree = SOURCE_ROOT; };
 		91188FC27B0277CFDCEF7300 /* include_juce_audio_plugin_client_Standalone.cpp */ /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
+		938647A2B7F42A4FD183C630 /* Articulations_decore.png */ /* Articulations_decore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_decore.png; path = ../../../Assets/Articulations_decore.png; sourceTree = SOURCE_ROOT; };
+		94474E322FF1813B0086E430 /* BinaryData.h */ /* BinaryData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BinaryData.h; path = ../../JuceLibraryCode/BinaryData.h; sourceTree = SOURCE_ROOT; };
 		97A7F4C77192244FCBE6CC74 /* include_juce_audio_plugin_client_VST3.cpp */ /* include_juce_audio_plugin_client_VST3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_VST3.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp; sourceTree = SOURCE_ROOT; };
 		99B8F85359052FAF27DA0015 /* VST3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViatorDSP.vst3; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D07C6FA7E6DE8508A0DED89 /* JucePluginDefines.h */ /* JucePluginDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JucePluginDefines.h; path = ../../JuceLibraryCode/JucePluginDefines.h; sourceTree = SOURCE_ROOT; };
 		9FFBDA11E023B121003B8BB1 /* juce_audio_devices */ /* juce_audio_devices */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_devices; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_devices; sourceTree = "<absolute>"; };
 		A75C8D55804741ED1E1BED67 /* Info-VST3.plist */ /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-VST3.plist"; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
 		AC2D50102ED2637B297FC9DC /* juce_audio_basics */ /* juce_audio_basics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_basics; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_basics; sourceTree = "<absolute>"; };
+		ACC753DE90CE172B211D6906 /* landon55-04.png */ /* landon55-04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "landon55-04.png"; path = "../../../Assets/landon55-04.png"; sourceTree = SOURCE_ROOT; };
 		AEBBEB5982FE875131C68CB7 /* include_juce_audio_processors.mm */ /* include_juce_audio_processors.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_processors.mm; path = ../../JuceLibraryCode/include_juce_audio_processors.mm; sourceTree = SOURCE_ROOT; };
 		B4400DC08C27EEFABB72187E /* include_juce_gui_basics.mm */ /* include_juce_gui_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_gui_basics.mm; path = ../../JuceLibraryCode/include_juce_gui_basics.mm; sourceTree = SOURCE_ROOT; };
+		B753D940AEF5B38FD6968E6E /* led_on.png */ /* led_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = led_on.png; path = ../../../Assets/led_on.png; sourceTree = SOURCE_ROOT; };
 		BA016C29F85D1FD4974B992D /* JuceHeader.h */ /* JuceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = SOURCE_ROOT; };
 		BA1A8C0A0375BCA9C8B4CB88 /* Cocoa.framework */ /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C5B078E45B9F1529C25C2CA2 /* RecentFilesMenuTemplate.nib */ /* RecentFilesMenuTemplate.nib */ = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = SOURCE_ROOT; };
 		C93301E9B29E9071F81FB170 /* AU */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViatorDSP.component; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA6EE5804B86822FD2EF20C7 /* led_off.png */ /* led_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = led_off.png; path = ../../../Assets/led_off.png; sourceTree = SOURCE_ROOT; };
+		CF78862B0BB96C510CB19569 /* projucer.png */ /* projucer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = projucer.png; path = ../../../Assets/projucer.png; sourceTree = SOURCE_ROOT; };
 		CFA03C004CB1052E9CCF13CF /* include_juce_audio_plugin_client_AU.r */ /* include_juce_audio_plugin_client_AU.r */ = {isa = PBXFileReference; lastKnownFileType = file.r; name = include_juce_audio_plugin_client_AU.r; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r; sourceTree = SOURCE_ROOT; };
 		D11F8A825A7A6A71704DEA98 /* juce_gui_extra */ /* juce_gui_extra */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_extra; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_gui_extra; sourceTree = "<absolute>"; };
 		D775418C13CB4B5674159847 /* juce_core */ /* juce_core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_core; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_core; sourceTree = "<absolute>"; };
 		DDAE4976802BF1B16FE2CC26 /* CoreAudioKit.framework */ /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		DDFB3B4E14AA8BB917F491A0 /* juce_audio_processors */ /* juce_audio_processors */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_processors; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors; sourceTree = "<absolute>"; };
+		DDFFD42FC0745441E892097D /* background.png */ /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = ../../../Assets/background.png; sourceTree = SOURCE_ROOT; };
 		DEE52BA340848CF2261BA13D /* Shared Code */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libViatorDSP.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E5523EB62C5B8F6F4707DF /* DiscRecording.framework */ /* DiscRecording.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiscRecording.framework; path = System/Library/Frameworks/DiscRecording.framework; sourceTree = SDKROOT; };
 		E4B1FDC99055A45D072E2C6B /* PluginEditor.h */ /* PluginEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginEditor.h; path = ../../Source/PluginEditor.h; sourceTree = SOURCE_ROOT; };
+		E5F06D75B35506A7C6E0427D /* Articulations_back.png */ /* Articulations_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_back.png; path = ../../../Assets/Articulations_back.png; sourceTree = SOURCE_ROOT; };
+		E92A0F269566B68C0C0F9DF3 /* BinaryData3.cpp */ /* BinaryData3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData3.cpp; path = ../../JuceLibraryCode/BinaryData3.cpp; sourceTree = SOURCE_ROOT; };
 		EB0CA84449582A8FCE61C9C8 /* include_juce_dsp.mm */ /* include_juce_dsp.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_dsp.mm; path = ../../JuceLibraryCode/include_juce_dsp.mm; sourceTree = SOURCE_ROOT; };
 		EE174755FA3419F61D57ECB2 /* Foundation.framework */ /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EE69FAD08CDF58BCE255AAE1 /* juce_audio_utils */ /* juce_audio_utils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_utils; path = /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_utils; sourceTree = "<absolute>"; };
@@ -203,6 +224,10 @@
 		2EB3074BBA88DD8600B6B5C9 /* JUCE Library Code */ = {
 			isa = PBXGroup;
 			children = (
+				6510925E99DB39125CA14885,
+				94474E322FF1813B0086E430,
+				1B5EC28A856799088C1C16B9,
+				E92A0F269566B68C0C0F9DF3,
 				37CD9D4B348C2A4FEBCD32E6,
 				F2F2B193616044BDB7BB3C14,
 				5E929E821B5D073CFCB6C82C,
@@ -222,6 +247,7 @@
 				5D44CBEC5BB1B2C1581A9D71,
 				B4400DC08C27EEFABB72187E,
 				2D4A8668022EAB06D8E62489,
+				5C162DF68DD5DF7AA5C694DF,
 				BA016C29F85D1FD4974B992D,
 				9D07C6FA7E6DE8508A0DED89,
 			);
@@ -244,6 +270,7 @@
 				2B82D923D1D41E6F000C3E62,
 				36E69233153297E8CE3A6452,
 				D11F8A825A7A6A71704DEA98,
+				52E60D2448A48FD33755F6A8,
 			);
 			name = "JUCE Modules";
 			sourceTree = "<group>";
@@ -271,6 +298,7 @@
 		5A84AABFCEB045F63A85FB22 /* ViatorDSP */ = {
 			isa = PBXGroup;
 			children = (
+				916E6257CE4691C277E89021,
 				EA5B7D32521951D09D221C71,
 			);
 			name = ViatorDSP;
@@ -298,6 +326,24 @@
 				0773EAD9AC44C5E16806FAF2,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		916E6257CE4691C277E89021 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E5F06D75B35506A7C6E0427D,
+				938647A2B7F42A4FD183C630,
+				4C3057994A8E33134AB38367,
+				7E6207C858A0D376682F9B06,
+				DDFFD42FC0745441E892097D,
+				6DF7F3ABE3408C5DA9F49185,
+				ACC753DE90CE172B211D6906,
+				CA6EE5804B86822FD2EF20C7,
+				B753D940AEF5B38FD6968E6E,
+				56BEF19191ADDBEF91BC5408,
+				CF78862B0BB96C510CB19569,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		EA5B7D32521951D09D221C71 /* Source */ = {
@@ -579,6 +625,9 @@
 			files = (
 				5BCB9D6174975ACF5032695B,
 				0582679A6FC42F2BAA682536,
+				D761C060F8E08785334E3600,
+				70DA6E59DECE25016842509A,
+				CA9B8712A51DA763C758A574,
 				432C464A8DC4B27A442FD7AB,
 				1FB74542910ED8055D79ED49,
 				4ADC2205FAF13275026620BC,
@@ -593,6 +642,7 @@
 				777836752CFC548A9D6372F0,
 				C0200EA5CF0BD45491FAA252,
 				CDE928757386CE1433C759FE,
+				3A5736DE3933492A73989457,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +730,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -743,6 +794,7 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -752,7 +804,7 @@
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lViatorDSP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
 				PRODUCT_NAME = "ViatorDSP";
@@ -794,6 +846,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -857,13 +910,14 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
 				PRODUCT_NAME = "ViatorDSP";
 				SKIP_INSTALL = YES;
@@ -904,6 +958,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -967,12 +1022,13 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
 				PRODUCT_NAME = "ViatorDSP";
 				SKIP_INSTALL = YES;
@@ -1061,6 +1117,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1123,6 +1180,7 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -1130,7 +1188,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-lViatorDSP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
 				PRODUCT_NAME = "ViatorDSP";
@@ -1179,6 +1237,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1241,13 +1300,14 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info-Standalone_Plugin.plist;
 				INFOPLIST_PREPROCESS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-lViatorDSP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
 				PRODUCT_NAME = "ViatorDSP";
@@ -1298,6 +1358,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1361,6 +1422,7 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -1370,7 +1432,7 @@
 				LIBRARY_STYLE = Bundle;
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lViatorDSP";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
@@ -1415,6 +1477,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1478,6 +1541,7 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -1486,7 +1550,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lViatorDSP";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -d arm64_$arm64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
@@ -1580,6 +1644,7 @@
 					"JUCE_MODULE_AVAILABLE_juce_graphics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_basics=1",
 					"JUCE_MODULE_AVAILABLE_juce_gui_extra=1",
+					"JUCE_MODULE_AVAILABLE_viator_modules=1",
 					"JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1",
 					"JUCE_VST3_CAN_REPLACE_VST2=0",
 					"JUCE_STRICT_REFCOUNTEDPOINTER=1",
@@ -1643,6 +1708,7 @@
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"$(SRCROOT)/../../JuceLibraryCode",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules",
+					"$(SRCROOT)/../../../../viatordsp",
 					"/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client",
 					"$(inherited)",
 				);
@@ -1651,7 +1717,7 @@
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST3/";
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
+				MTL_HEADER_SEARCH_PATHS = "/Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_processors/format_types/VST3_SDK $(SRCROOT)/../../JuceLibraryCode /Users/drbruisin/Documents/GitHub/JUCE/modules $(SRCROOT)/../../../../viatordsp /Users/drbruisin/Documents/GitHub/JUCE/modules/juce_audio_plugin_client";
 				OTHER_LDFLAGS = "-bundle -lViatorDSP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ViatorDSP;
 				PRODUCT_NAME = "ViatorDSP";

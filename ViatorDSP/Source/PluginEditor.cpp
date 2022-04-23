@@ -13,9 +13,32 @@
 ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    // Grab the window instance and create a rectangle
+    juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
+    
+    // Using the width is more useful than the height, because we know the height will always be < than width
+    int x = r.getWidth();
+    
+    auto width = 0;
+    
+    if (r.getWidth() <= 1440)
+    {
+        width = x * 0.65;
+    }
+    
+    else
+    {
+        width = x * 0.5;
+    }
+    
+    auto height = width * 0.7;
+    
+    //Making the window resizable by aspect ratio and setting size
+    AudioProcessorEditor::setResizable(true, true);
+    AudioProcessorEditor::setResizeLimits(width * 0.75, height * 0.75, width * 1.25, height * 1.25);
+    AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(1.43);
+    
+    setSize (width, height);
 }
 
 ViatorDSPAudioProcessorEditor::~ViatorDSPAudioProcessorEditor()
@@ -25,16 +48,29 @@ ViatorDSPAudioProcessorEditor::~ViatorDSPAudioProcessorEditor()
 //==============================================================================
 void ViatorDSPAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    // Background
+        g.fillAll(juce::Colours::black);
 
-    g.setColour (juce::Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+        // Background
+        auto background = juce::ImageCache::getFromMemory(BinaryData::background_png, BinaryData::background_pngSize);
+        g.drawImageWithin(background, 0, 0, getWidth(), getHeight(), juce::RectanglePlacement::stretchToFit);
+        
+        auto back = juce::ImageCache::getFromMemory(BinaryData::Articulations_back_png, BinaryData::Articulations_back_pngSize);
+        
+        g.drawImageWithin(back, 128, 128, 32, 32, juce::RectanglePlacement::stretchToFit);
+        
+        auto decor = juce::ImageCache::getFromMemory(BinaryData::Articulations_decore_png, BinaryData::Articulations_decore_pngSize);
+        
+        g.drawImageWithin(decor, 128, 128, 32, 32, juce::RectanglePlacement::stretchToFit);
+        
+        // Logo layer
+        auto headerLogo = juce::ImageCache::getFromMemory(BinaryData::landon5504_png, BinaryData::landon5504_pngSize);
+        
+        // Draw and position the image
+        g.drawImageWithin(headerLogo, getWidth() * 0.42, topHeaderMargin, getWidth() * 0.15, getHeight() * 0.05, juce::RectanglePlacement::centred);
 }
 
 void ViatorDSPAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    topHeaderMargin = getHeight() * 0.015;
 }
