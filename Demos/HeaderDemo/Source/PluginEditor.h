@@ -49,6 +49,7 @@ private:
     
     juce::Label cpuLabel;
     juce::TextButton cpuButton;
+    viator_gui::Menu msMenu;
     
     std::unique_ptr <juce::AudioProcessorValueTreeState::ButtonAttachment> cpuButtonAttach;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HeaderDemoAudioProcessorEditor)

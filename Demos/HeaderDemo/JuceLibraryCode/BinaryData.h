@@ -8,32 +8,14 @@
 
 namespace BinaryData
 {
-    extern const char*   dark_blue_png;
-    const int            dark_blue_pngSize = 3938445;
-
-    extern const char*   landon5503_png;
-    const int            landon5503_pngSize = 28292;
-
     extern const char*   landon5504_png;
     const int            landon5504_pngSize = 26270;
-
-    extern const char*   oscilloscope01_png;
-    const int            oscilloscope01_pngSize = 466394;
-
-    extern const char*   pluginBackground_png;
-    const int            pluginBackground_pngSize = 8282212;
 
     extern const char*   pluginBackground2_png;
     const int            pluginBackground2_pngSize = 2893608;
 
-    extern const char*   testTexture_png;
-    const int            testTexture_pngSize = 3965203;
-
-    extern const char*   TEXTURE5_png;
-    const int            TEXTURE5_pngSize = 3515887;
-
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 8;
+    const int namedResourceListSize = 2;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

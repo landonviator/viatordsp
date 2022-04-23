@@ -9,7 +9,7 @@
 */
 
 #pragma once
-#include "../Widgets/StyleSheet.h"
+#include "../Widgets/Menu_Styles.h"
 
 namespace viator_gui
 {
@@ -30,6 +30,6 @@ namespace viator_gui
         
         void mouseExit (const juce::MouseEvent& event) override;
         
-        juce::Custom_Menu customMenu;
+        juce::CustomMenuLAF customMenuLAF;
     };
 }
