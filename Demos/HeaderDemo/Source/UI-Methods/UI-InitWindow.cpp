@@ -22,7 +22,7 @@ void HeaderDemoAudioProcessorEditor::initWindow()
     
     if (r.getWidth() <= 1440)
     {
-        width = x;
+        width = x * 0.65;
     }
     
     else
@@ -30,12 +30,12 @@ void HeaderDemoAudioProcessorEditor::initWindow()
         width = x * 0.5;
     }
     
-    auto height = width * 0.606;
+    auto height = width * 0.7;
     
     //Making the window resizable by aspect ratio and setting size
     AudioProcessorEditor::setResizable(true, true);
     AudioProcessorEditor::setResizeLimits(width * 0.75, height * 0.75, width * 1.25, height * 1.25);
-    AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(1.65);
+    AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(1.43);
     
     setSize (width, height);
     
