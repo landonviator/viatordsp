@@ -41,15 +41,14 @@ private:
     void uiPaint(juce::Graphics &g);
     void uiResized();
     bool constructorFinished = false;
-    float headerSize;
-    float backgroundSize;
-    float leftHeaderMargin;
     float topHeaderMargin;
     float cpu = 0;
     
     juce::Label cpuLabel;
     juce::TextButton cpuButton;
     viator_gui::Menu msMenu;
+    
+    viator_gui::Dial dial {" dB", "", -12.0, 12.0, 0.1, 0.0};
     
     std::unique_ptr <juce::AudioProcessorValueTreeState::ButtonAttachment> cpuButtonAttach;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HeaderDemoAudioProcessorEditor)
