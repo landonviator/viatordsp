@@ -78,6 +78,6 @@ void viator_gui::Dial::initShadows()
 {
     shadowProperties.radius = 24;
     shadowProperties.offset = juce::Point<int> (-1, 4);
-    shadowProperties.colour = juce::Colours::black.withAlpha(0.5f);
+    shadowProperties.colour = juce::Colours::black.withAlpha(0.25f);
     dialShadow.setShadowProperties (shadowProperties);
 }

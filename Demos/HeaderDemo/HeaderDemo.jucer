@@ -17,7 +17,14 @@
               file="Source/UI-Methods/UI-SaveWindow.cpp"/>
       </GROUP>
       <GROUP id="{3B155963-D63B-8687-7717-0EE82D4F5BDC}" name="Assets">
+        <FILE id="SyZ9VE" name="Articulations_back.png" compile="0" resource="1"
+              file="Source/Assets/Articulations_back.png"/>
+        <FILE id="uge4lh" name="Articulations_decore.png" compile="0" resource="1"
+              file="Source/Assets/Articulations_decore.png"/>
+        <FILE id="rsXxdl" name="background.png" compile="0" resource="1" file="Source/Assets/background.png"/>
         <FILE id="k65UM8" name="landon55-04.png" compile="0" resource="1" file="Source/Assets/landon55-04.png"/>
+        <FILE id="JOtgM1" name="led_off.png" compile="0" resource="1" file="Source/Assets/led_off.png"/>
+        <FILE id="NXHVCr" name="led_on.png" compile="0" resource="1" file="Source/Assets/led_on.png"/>
         <FILE id="bRgD5f" name="pluginBackground2.png" compile="0" resource="1"
               file="Source/Assets/pluginBackground2.png"/>
       </GROUP>

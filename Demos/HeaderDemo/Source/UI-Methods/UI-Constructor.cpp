@@ -35,4 +35,6 @@ void HeaderDemoAudioProcessorEditor::uiConstructor()
     msMenu.addItem("Stereo", 1);
     msMenu.addItem("Mid", 2);
     msMenu.addItem("Sides", 3);
+    
+   // addAndMakeVisible(dial);
 }
