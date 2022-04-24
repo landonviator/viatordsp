@@ -13,7 +13,7 @@
 //==============================================================================
 /**
 */
-class ViatorDSPAudioProcessor  : public juce::AudioProcessor
+class ViatorDSPAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
@@ -53,7 +53,16 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    juce::AudioProcessorValueTreeState treeState;
+    float getCPULoad();
+    
 private:
+    
+    juce::AudioProcessLoadMeasurer cpuMeasureModule;
+    std::atomic<float> cpuLoad;
+    
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+        void parameterChanged (const juce::String& parameterID, float newValue) override;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorDSPAudioProcessor)
 };

@@ -13,6 +13,13 @@
 ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    startTimerHz(10);
+    
+    addAndMakeVisible(label);
+    label.setText("CPU", juce::dontSendNotification);
+    label.setJustificationType(juce::Justification::centred);
+    label.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.darker(1.0f));
+    
     // Grab the window instance and create a rectangle
     juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
     
@@ -55,14 +62,6 @@ void ViatorDSPAudioProcessorEditor::paint (juce::Graphics& g)
         auto background = juce::ImageCache::getFromMemory(BinaryData::background_png, BinaryData::background_pngSize);
         g.drawImageWithin(background, 0, 0, getWidth(), getHeight(), juce::RectanglePlacement::stretchToFit);
         
-        auto back = juce::ImageCache::getFromMemory(BinaryData::Articulations_back_png, BinaryData::Articulations_back_pngSize);
-        
-        g.drawImageWithin(back, 128, 128, 32, 32, juce::RectanglePlacement::stretchToFit);
-        
-        auto decor = juce::ImageCache::getFromMemory(BinaryData::Articulations_decore_png, BinaryData::Articulations_decore_pngSize);
-        
-        g.drawImageWithin(decor, 128, 128, 32, 32, juce::RectanglePlacement::stretchToFit);
-        
         // Logo layer
         auto headerLogo = juce::ImageCache::getFromMemory(BinaryData::landon5504_png, BinaryData::landon5504_pngSize);
         
@@ -73,4 +72,7 @@ void ViatorDSPAudioProcessorEditor::paint (juce::Graphics& g)
 void ViatorDSPAudioProcessorEditor::resized()
 {
     topHeaderMargin = getHeight() * 0.015;
+    auto labelSize = getWidth() * 0.05;
+    
+    label.setBounds(getWidth() * 0.93, getHeight() * 0.87, labelSize, labelSize);
 }

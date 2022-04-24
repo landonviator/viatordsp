@@ -27,6 +27,14 @@ public:
         setFont(font);
     }
     
+    ~Label() override
+    {
+    }
+    
+    void paint(juce::Graphics& g) override;
+    
+    void resized() override;
+    
 private:
     
 };
