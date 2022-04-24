@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "./UI-Components/CPUComponent.h"
 
 //==============================================================================
 /**
@@ -28,7 +29,7 @@ public:
     void timerCallback() override
     {
         cpu = audioProcessor.getCPULoad();
-        cpuLabel.setText(std::to_string(static_cast<int>(cpu)) + "%", juce::dontSendNotification);
+        cpuComponent.updateLabel(std::to_string(static_cast<int>(cpu)) + "%");
     }
 
 private:
@@ -36,14 +37,13 @@ private:
     // access the processor object that created it.
     ViatorDSPAudioProcessor& audioProcessor;
     
-    float topHeaderMargin;
     float cpu = 0;
+    float topHeaderMargin;
     
     viator_gui::Label cpuLabel {false, "CPU"};
     viator_gui::Label cpuHeader {true, "CPU"};
     viator_gui::LEDButton cpuButton;
-    std::unique_ptr <juce::AudioProcessorValueTreeState::ButtonAttachment> cpuButtonAttach;
-
+    CPUComponent cpuComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorDSPAudioProcessorEditor)
 };

@@ -11,15 +11,11 @@
 
 //==============================================================================
 ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), audioProcessor (p), cpuComponent(audioProcessor)
 {
     startTimerHz(10);
-    
-    addAndMakeVisible(cpuLabel);
-    addAndMakeVisible(cpuHeader);
-    addAndMakeVisible(cpuButton);
-    cpuButtonAttach = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.treeState, "cpu", cpuButton);
 
+    addAndMakeVisible(cpuComponent);
     
     // Grab the window instance and create a rectangle
     juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
@@ -72,10 +68,5 @@ void ViatorDSPAudioProcessorEditor::paint (juce::Graphics& g)
 
 void ViatorDSPAudioProcessorEditor::resized()
 {
-    topHeaderMargin = getHeight() * 0.015;
-    auto labelSize = getWidth() * 0.05;
-    
-    cpuButton.setBounds(getWidth() * 0.84, getHeight() * 0.87, labelSize, labelSize);
-    cpuLabel.setBounds(cpuButton.getX() + cpuButton.getWidth(), cpuButton.getY(), labelSize, labelSize);
-    cpuHeader.setBounds(cpuLabel.getX() + cpuLabel.getWidth(), cpuLabel.getY(), labelSize, labelSize);
+    cpuComponent.setBounds(getLocalBounds());
 }
