@@ -28,6 +28,7 @@
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/Toggle.h"
+#include "viator_gui/Widgets/ToggleButton.h"
 #include "viator_gui/Widgets/Dial.h"
 #include "viator_gui/Widgets/Fader.h"
 #include "viator_gui/Widgets/Border.h"

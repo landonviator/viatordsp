@@ -29,6 +29,18 @@ namespace BinaryData
     extern const char*   btclipper_png;
     const int            btclipper_pngSize = 724068;
 
+    extern const char*   button_middle_off_png;
+    const int            button_middle_off_pngSize = 36978;
+
+    extern const char*   button_middle_on_png;
+    const int            button_middle_on_pngSize = 20554;
+
+    extern const char*   button_small_off_png;
+    const int            button_small_off_pngSize = 27080;
+
+    extern const char*   button_small_on_png;
+    const int            button_small_on_pngSize = 12514;
+
     extern const char*   landon5504_png;
     const int            landon5504_pngSize = 26270;
 
@@ -45,7 +57,7 @@ namespace BinaryData
     const int            projucer_pngSize = 123572;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 12;
+    const int namedResourceListSize = 16;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

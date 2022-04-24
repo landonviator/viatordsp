@@ -24,5 +24,6 @@
 #include "viator_gui/Widgets/Menu.cpp"
 #include "viator_gui/Widgets/NumberBox.cpp"
 #include "viator_gui/Widgets/Toggle.cpp"
+#include "viator_gui/Widgets/ToggleButton.cpp"
 #include "viator_gui/Widgets/StyleSheet.cpp"
 #include "viator_gui/Widgets/Menu_Styles.cpp"

@@ -16,6 +16,7 @@ ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProc
     startTimerHz(10);
 
     addAndMakeVisible(cpuComponent);
+    addAndMakeVisible(toggleButton);
     
     // Grab the window instance and create a rectangle
     juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
@@ -69,4 +70,5 @@ void ViatorDSPAudioProcessorEditor::paint (juce::Graphics& g)
 void ViatorDSPAudioProcessorEditor::resized()
 {
     cpuComponent.setBounds(getLocalBounds());
+    toggleButton.setBounds(128, 128, 96, 48);
 }

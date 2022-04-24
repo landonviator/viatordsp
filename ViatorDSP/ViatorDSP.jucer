@@ -16,6 +16,14 @@
             file="../Assets/back_vu-meter_decore.png"/>
       <FILE id="UB0lUS" name="background.png" compile="0" resource="1" file="../Assets/background.png"/>
       <FILE id="jliOnx" name="btclipper.png" compile="0" resource="1" file="../Assets/btclipper.png"/>
+      <FILE id="oryoKZ" name="button_middle_off.png" compile="0" resource="1"
+            file="../Assets/button_middle_off.png"/>
+      <FILE id="gFUBrL" name="button_middle_on.png" compile="0" resource="1"
+            file="../Assets/button_middle_on.png"/>
+      <FILE id="QppJXF" name="button_small_off.png" compile="0" resource="1"
+            file="../Assets/button_small_off.png"/>
+      <FILE id="L1AhCS" name="button_small_on.png" compile="0" resource="1"
+            file="../Assets/button_small_on.png"/>
       <FILE id="Am3vpY" name="landon55-04.png" compile="0" resource="1" file="../Assets/landon55-04.png"/>
       <FILE id="dV6Lpz" name="led_off.png" compile="0" resource="1" file="../Assets/led_off.png"/>
       <FILE id="Ykldqc" name="led_on.png" compile="0" resource="1" file="../Assets/led_on.png"/>
