@@ -39,7 +39,7 @@ private:
     float topHeaderMargin;
     float cpu = 0;
     
-    viator_gui::Label label;
+    viator_gui::Label label {false};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorDSPAudioProcessorEditor)
 };

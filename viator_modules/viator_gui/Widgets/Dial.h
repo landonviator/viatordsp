@@ -94,7 +94,7 @@ private:
     juce::DropShadowEffect dialShadow;
     
     /** Label */
-    Label dialLabel;
+    Label dialLabel {true};
     
 }; // class
 }// namespace viator_gui

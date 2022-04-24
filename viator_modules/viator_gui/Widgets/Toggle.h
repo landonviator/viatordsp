@@ -31,8 +31,6 @@ namespace viator_gui
         juce::PhaseToggleLAF phaseToggle;
         
         /** Label */
-        Label toggleLabel;
+        Label toggleLabel {true};
     };
-
-
 }
