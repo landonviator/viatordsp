@@ -15,10 +15,11 @@ ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProc
 {
     startTimerHz(10);
     
-    addAndMakeVisible(label);
-    label.setText("CPU", juce::dontSendNotification);
-    label.setJustificationType(juce::Justification::centred);
-    label.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.darker(1.0f));
+    addAndMakeVisible(cpuLabel);
+    addAndMakeVisible(cpuHeader);
+    addAndMakeVisible(cpuButton);
+    cpuButtonAttach = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.treeState, "cpu", cpuButton);
+
     
     // Grab the window instance and create a rectangle
     juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
@@ -74,5 +75,7 @@ void ViatorDSPAudioProcessorEditor::resized()
     topHeaderMargin = getHeight() * 0.015;
     auto labelSize = getWidth() * 0.05;
     
-    label.setBounds(getWidth() * 0.93, getHeight() * 0.87, labelSize, labelSize);
+    cpuButton.setBounds(getWidth() * 0.84, getHeight() * 0.87, labelSize, labelSize);
+    cpuLabel.setBounds(cpuButton.getX() + cpuButton.getWidth(), cpuButton.getY(), labelSize, labelSize);
+    cpuHeader.setBounds(cpuLabel.getX() + cpuLabel.getWidth(), cpuLabel.getY(), labelSize, labelSize);
 }

@@ -28,7 +28,7 @@ public:
     void timerCallback() override
     {
         cpu = audioProcessor.getCPULoad();
-        label.setText(std::to_string(static_cast<int>(cpu)) + "%", juce::dontSendNotification);
+        cpuLabel.setText(std::to_string(static_cast<int>(cpu)) + "%", juce::dontSendNotification);
     }
 
 private:
@@ -39,7 +39,11 @@ private:
     float topHeaderMargin;
     float cpu = 0;
     
-    viator_gui::Label label {false};
+    viator_gui::Label cpuLabel {false, "CPU"};
+    viator_gui::Label cpuHeader {true, "CPU"};
+    viator_gui::LEDButton cpuButton;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::ButtonAttachment> cpuButtonAttach;
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorDSPAudioProcessorEditor)
 };

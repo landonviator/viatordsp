@@ -20,6 +20,7 @@
 #include "viator_gui/Widgets/Dial.cpp"
 #include "viator_gui/Widgets/Fader.cpp"
 #include "viator_gui/Widgets/Label.cpp"
+#include "viator_gui/Widgets/LEDButton.cpp"
 #include "viator_gui/Widgets/Menu.cpp"
 #include "viator_gui/Widgets/NumberBox.cpp"
 #include "viator_gui/Widgets/Toggle.cpp"

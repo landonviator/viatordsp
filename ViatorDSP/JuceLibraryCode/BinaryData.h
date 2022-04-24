@@ -20,6 +20,9 @@ namespace BinaryData
     extern const char*   Articulations_line_2_png;
     const int            Articulations_line_2_pngSize = 304;
 
+    extern const char*   back_vumeter_decore_png;
+    const int            back_vumeter_decore_pngSize = 54425;
+
     extern const char*   background_png;
     const int            background_pngSize = 2682319;
 
@@ -42,7 +45,7 @@ namespace BinaryData
     const int            projucer_pngSize = 123572;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 11;
+    const int namedResourceListSize = 12;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
