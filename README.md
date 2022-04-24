@@ -7,6 +7,9 @@ The viatordsp library is made up of [dsp](https://github.com/landonviator/viator
 The dsp namespace contains dsp classes such as clippers, filters, and much more to come.
 The gui namespace contains stylized versions of JUCE's built-in widgets (like sliders and comboboxes) that have their own lookandfeel overrides to make them look awesome!
 
+## DISCLAIMER
+I unfortunately cannot give you permission to use the gui objects that have images attached to them per the license of the images. You can however copy the logic and apply your own images to them!
+
 <br>Here is a plugin using those stylized components.<br><br>
 ![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
 
