@@ -43,7 +43,7 @@ private:
     viator_gui::Label cpuLabel {false, "CPU"};
     viator_gui::Label cpuHeader {true, "CPU"};
     viator_gui::LEDButton cpuButton;
-    viator_gui::ToggleButton toggleButton {false};
+    viator_gui::ToggleButton toggleButton {true, "Toggle"};
     CPUComponent cpuComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorDSPAudioProcessorEditor)

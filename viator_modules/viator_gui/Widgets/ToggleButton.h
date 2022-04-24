@@ -7,7 +7,7 @@ class ToggleButton : public juce::ImageButton
 {
 public:
     
-    ToggleButton(bool isLargeButton);
+    ToggleButton(bool isLargeButton, juce::String labelText);
     
     ~ToggleButton() override
     {
@@ -18,6 +18,8 @@ public:
     void resized() override;
     
 private:
+    
+    viator_gui::Label label {true, ""};
     
 };
 }

@@ -42,8 +42,6 @@ void viator_gui::Label::resized()
 {
     juce::Label::resized();
     
-    /** Just make the Label a square, bud*/
-    if (!labelIsTransparent) jassert(getWidth() == getHeight());
     setFont(juce::Font ("Helvetica", getHeight() * 0.3, juce::Font::FontStyleFlags::bold));
     
 }
