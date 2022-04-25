@@ -12,13 +12,14 @@
 //==============================================================================
 ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), cpuComponent(audioProcessor)
-, knob(129, true, "Knob")
+, knob(129, true, " dB", "Gain")
 {
     startTimerHz(10);
 
     addAndMakeVisible(cpuComponent);
     addAndMakeVisible(toggleButton);
     addAndMakeVisible(knob);
+    knob.setRange(-12.0, 12.0, 0.01);
     
     // Grab the window instance and create a rectangle
     juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
@@ -66,7 +67,7 @@ void ViatorDSPAudioProcessorEditor::paint (juce::Graphics& g)
     auto headerLogo = juce::ImageCache::getFromMemory(BinaryData::landon5504_png, BinaryData::landon5504_pngSize);
         
     // Draw and position the image
-    g.drawImageWithin(headerLogo, getWidth() * 0.42, topHeaderMargin, getWidth() * 0.15, getHeight() * 0.05, juce::RectanglePlacement::centred);
+    //g.drawImageWithin(headerLogo, getWidth() * 0.42, topHeaderMargin, getWidth() * 0.15, getHeight() * 0.05, juce::RectanglePlacement::centred);
 }
 
 void ViatorDSPAudioProcessorEditor::resized()

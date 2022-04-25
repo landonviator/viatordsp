@@ -13,8 +13,7 @@ viator_gui::Label::Label(bool isTransparent, juce::String text)
     setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.darker(1.0f));
     setJustificationType(juce::Justification::centred);
     
-    const juce::Font font (juce::Font ("Helvetica", 16.0f, juce::Font::FontStyleFlags::bold));
-    setFont(font);
+    setFont(juce::Font ("Helvetica", getHeight() * 0.3, juce::Font::FontStyleFlags::bold));
     
     labelIsTransparent = isTransparent;
 }
@@ -42,6 +41,8 @@ void viator_gui::Label::resized()
 {
     juce::Label::resized();
     
-    setFont(juce::Font ("Helvetica", getHeight() * 0.3, juce::Font::FontStyleFlags::bold));
-    
+    if (autoResize)
+    {
+        setFont(juce::Font ("Helvetica", getHeight() * 0.3, juce::Font::FontStyleFlags::bold));
+    }
 }
