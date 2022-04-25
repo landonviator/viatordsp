@@ -24,12 +24,18 @@
             file="../Assets/button_small_off.png"/>
       <FILE id="L1AhCS" name="button_small_on.png" compile="0" resource="1"
             file="../Assets/button_small_on.png"/>
+      <FILE id="jGPTcH" name="knob_middle.png" compile="0" resource="1" file="../Assets/knob_middle.png"/>
+      <FILE id="oxfvu2" name="knob_small.png" compile="0" resource="1" file="../Assets/knob_small.png"/>
       <FILE id="Am3vpY" name="landon55-04.png" compile="0" resource="1" file="../Assets/landon55-04.png"/>
       <FILE id="dV6Lpz" name="led_off.png" compile="0" resource="1" file="../Assets/led_off.png"/>
       <FILE id="Ykldqc" name="led_on.png" compile="0" resource="1" file="../Assets/led_on.png"/>
       <FILE id="O7Oh2s" name="pluginBackground2.png" compile="0" resource="1"
             file="../Assets/pluginBackground2.png"/>
       <FILE id="ZkDIzD" name="projucer.png" compile="0" resource="1" file="../Assets/projucer.png"/>
+      <FILE id="laHeqi" name="scale_knob middle.png" compile="0" resource="1"
+            file="../Assets/scale_knob middle.png"/>
+      <FILE id="Bmy4L3" name="scale_knob small_.png" compile="0" resource="1"
+            file="../Assets/scale_knob small_.png"/>
     </GROUP>
     <GROUP id="{4DABE531-5381-A0DA-C928-21637E729B4A}" name="Source">
       <FILE id="rXPE8S" name="PluginProcessor.cpp" compile="1" resource="0"

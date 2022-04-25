@@ -27,3 +27,4 @@
 #include "viator_gui/Widgets/ToggleButton.cpp"
 #include "viator_gui/Widgets/StyleSheet.cpp"
 #include "viator_gui/Widgets/Menu_Styles.cpp"
+#include "viator_gui/Widgets/FilmStripKnob.cpp"

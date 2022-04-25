@@ -12,11 +12,14 @@
 //==============================================================================
 ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), cpuComponent(audioProcessor)
+, knob(129, true)
 {
     startTimerHz(10);
 
     addAndMakeVisible(cpuComponent);
     addAndMakeVisible(toggleButton);
+    addAndMakeVisible(knob);
+    knob.setRange(-12.0, 12.0, 0.01);
     
     // Grab the window instance and create a rectangle
     juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
@@ -71,4 +74,5 @@ void ViatorDSPAudioProcessorEditor::resized()
 {
     cpuComponent.setBounds(getLocalBounds());
     toggleButton.setBounds(128, 128, 96, 48);
+    knob.setBounds(256, 256, 128, 128);
 }

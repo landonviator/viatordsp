@@ -45,6 +45,8 @@ private:
     viator_gui::LEDButton cpuButton;
     viator_gui::ToggleButton toggleButton {true, "Toggle"};
     CPUComponent cpuComponent;
+    
+    viator_gui::FilmStripKnob knob;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorDSPAudioProcessorEditor)
 };
