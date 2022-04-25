@@ -127,7 +127,7 @@ void juce::AlphaDialLAF::drawLabel (Graphics& g, Label& label)
         g.drawFittedText (label.getText(), textArea, label.getJustificationType(),
                           jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())),
                           label.getMinimumHorizontalScale());
-
+        
         g.setColour (label.findColour (Label::outlineColourId).withMultipliedAlpha (alpha));
     }
     
