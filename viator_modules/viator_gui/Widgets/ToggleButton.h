@@ -17,6 +17,8 @@ public:
     
     void resized() override;
     
+    void setWidth(float newWidth);
+    
 private:
     
     viator_gui::Label label {true, ""};

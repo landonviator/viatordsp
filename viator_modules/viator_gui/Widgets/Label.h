@@ -31,7 +31,7 @@ public:
 private:
     
     bool labelIsTransparent = false;
-    bool autoResize = true;
+    bool autoResize = false;
     
 };
 }

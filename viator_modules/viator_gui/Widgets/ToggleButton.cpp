@@ -27,7 +27,5 @@ void viator_gui::ToggleButton::paint(juce::Graphics& g)
 
 void viator_gui::ToggleButton::resized()
 {
-    juce::Button::resized();
-    
-    label.setFont(getWidth() * 0.33);
+    label.setFont(getWidth() * 0.15);
 }

@@ -34,7 +34,10 @@ void viator_gui::Label::paint(juce::Graphics& g)
         juce::Label::paint(g);
     }
     
-    juce::Label::paint(g);
+    else
+    {
+        juce::Label::paint(g);
+    }
 }
 
 void viator_gui::Label::resized()
