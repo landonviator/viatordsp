@@ -36,6 +36,8 @@
             file="../Assets/scale_knob middle.png"/>
       <FILE id="Bmy4L3" name="scale_knob small_.png" compile="0" resource="1"
             file="../Assets/scale_knob small_.png"/>
+      <FILE id="I2rwzS" name="slider_vertical.png" compile="0" resource="1"
+            file="../Assets/slider_vertical.png"/>
     </GROUP>
     <GROUP id="{4DABE531-5381-A0DA-C928-21637E729B4A}" name="Source">
       <FILE id="rXPE8S" name="PluginProcessor.cpp" compile="1" resource="0"

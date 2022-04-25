@@ -131,6 +131,7 @@
 		B753D940AEF5B38FD6968E6E /* led_on.png */ /* led_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = led_on.png; path = ../../../Assets/led_on.png; sourceTree = SOURCE_ROOT; };
 		BA016C29F85D1FD4974B992D /* JuceHeader.h */ /* JuceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = SOURCE_ROOT; };
 		BA1A8C0A0375BCA9C8B4CB88 /* Cocoa.framework */ /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BC2134AABC733456F174319B /* slider_vertical.png */ /* slider_vertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = slider_vertical.png; path = ../../../Assets/slider_vertical.png; sourceTree = SOURCE_ROOT; };
 		BEC9D794D553BEAFEF5686DE /* knob_small.png */ /* knob_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = knob_small.png; path = ../../../Assets/knob_small.png; sourceTree = SOURCE_ROOT; };
 		C18B99979CEED28F5EB2D28B /* juce_audio_utils */ /* juce_audio_utils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_utils; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_utils; sourceTree = "<absolute>"; };
 		C5B078E45B9F1529C25C2CA2 /* RecentFilesMenuTemplate.nib */ /* RecentFilesMenuTemplate.nib */ = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = SOURCE_ROOT; };
@@ -376,6 +377,7 @@
 				CF78862B0BB96C510CB19569,
 				CA9CC7046D231E00719D22D0,
 				6EC538B4C4EE52F25AFF4373,
+				BC2134AABC733456F174319B,
 			);
 			name = Assets;
 			sourceTree = "<group>";

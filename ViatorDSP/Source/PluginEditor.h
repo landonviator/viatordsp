@@ -47,6 +47,7 @@ private:
     CPUComponent cpuComponent;
     
     viator_gui::FilmStripKnob knob;
+    viator_gui::Fader fader;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorDSPAudioProcessorEditor)
 };

@@ -12,7 +12,8 @@
 //==============================================================================
 ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), cpuComponent(audioProcessor)
-, knob(129, true, " dB", "Gain")
+, knob(129, true, " dB", "Knob")
+, fader(" dB", "Fader", -12.0, 12.0, 0.01, 0.0)
 {
     startTimerHz(10);
 
@@ -20,6 +21,9 @@ ViatorDSPAudioProcessorEditor::ViatorDSPAudioProcessorEditor (ViatorDSPAudioProc
     addAndMakeVisible(toggleButton);
     addAndMakeVisible(knob);
     knob.setRange(-12.0, 12.0, 0.01);
+    
+    addAndMakeVisible(fader);
+    fader.setRange(-12.0, 12.0, 0.01);
     
     // Grab the window instance and create a rectangle
     juce::Rectangle<int> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea;
@@ -75,4 +79,7 @@ void ViatorDSPAudioProcessorEditor::resized()
     cpuComponent.setBounds(getLocalBounds());
     toggleButton.setBounds(128, 128, 96, 48);
     knob.setBounds(getWidth() * 0.1, getWidth() * 0.3, getWidth() * 0.1, getWidth() * 0.1);
+    fader.setBounds(knob.getX() + knob.getWidth(), getWidth() * 0.3, getWidth() * 0.075, getHeight() * 0.3);
 }
+
+

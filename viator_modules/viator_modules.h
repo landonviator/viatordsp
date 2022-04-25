@@ -41,6 +41,7 @@
 #include "viator_gui/Widgets/StyleSheet.h"
 #include "viator_gui/Widgets/Menu_Styles.h"
 #include "viator_gui/Widgets/FilmStripKnob.h"
+#include "viator_gui/Widgets/FilmStripFader.h"
 
 /** Viator Utils Headers*/
 #include "viator_utils/utils.h"
