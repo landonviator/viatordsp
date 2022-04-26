@@ -30,12 +30,12 @@ void HeaderDemoAudioProcessorEditor::initWindow()
         width = x * 0.5;
     }
     
-    auto height = width * 0.7;
+    auto height = width * 0.5;
     
     //Making the window resizable by aspect ratio and setting size
     AudioProcessorEditor::setResizable(true, true);
     AudioProcessorEditor::setResizeLimits(width * 0.75, height * 0.75, width * 1.25, height * 1.25);
-    AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(1.43);
+    AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(2.0);
     
     setSize (width, height);
     
