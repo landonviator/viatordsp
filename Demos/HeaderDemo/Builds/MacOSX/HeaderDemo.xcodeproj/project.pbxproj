@@ -25,7 +25,6 @@
 
 /* Begin PBXBuildFile section */
 		00A9DE0BEE735B2CA5042029 /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXBuildFile; fileRef = 28419D51D213D8DE26E3DD4E; };
-		013B7E59A027E48313EFEDDB /* UI-SaveWindow.cpp */ = {isa = PBXBuildFile; fileRef = A852820D4B461039003CDC63; };
 		0E9876AC6C014E2480833FDE /* CoreAudio.framework */ = {isa = PBXBuildFile; fileRef = E1D77542177BF87E8A3973F6; };
 		10586DBB12A350F86642508F /* include_juce_audio_devices.mm */ = {isa = PBXBuildFile; fileRef = 3C730A9ECE8CFD7145DE4D4E; };
 		1123B49E0CCE7ABE3F59C7F5 /* UI-Constructor.cpp */ = {isa = PBXBuildFile; fileRef = 253052622160905167C74D74; };
@@ -125,7 +124,6 @@
 		A6EBCB276A3323FA860424FE /* include_juce_audio_utils.mm */ /* include_juce_audio_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_utils.mm; sourceTree = SOURCE_ROOT; };
 		A736ABD66185F7F1AB10F11C /* led_off.png */ /* led_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = led_off.png; path = ../../Source/Assets/led_off.png; sourceTree = SOURCE_ROOT; };
 		A7E5397169F65A86585EC0C6 /* juce_gui_basics */ /* juce_gui_basics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_basics; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_gui_basics; sourceTree = "<absolute>"; };
-		A852820D4B461039003CDC63 /* UI-SaveWindow.cpp */ /* UI-SaveWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "UI-SaveWindow.cpp"; path = "../../Source/UI-Methods/UI-SaveWindow.cpp"; sourceTree = SOURCE_ROOT; };
 		AE7513BCBA43A47E93361D6E /* juce_core */ /* juce_core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_core; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_core; sourceTree = "<absolute>"; };
 		AFAF57B4BBC799C323F90EA9 /* Articulations_back.png */ /* Articulations_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_back.png; path = ../../Source/Assets/Articulations_back.png; sourceTree = SOURCE_ROOT; };
 		B3FD7B0D7873FF0082A8347B /* Info-AU.plist */ /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-AU.plist"; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
@@ -232,7 +230,6 @@
 				3C04C1DDC37480023CC119CC,
 				E21C5E9F17564B3438377789,
 				B5EF281D2A72311CE840EFAE,
-				A852820D4B461039003CDC63,
 			);
 			name = "UI-Methods";
 			sourceTree = "<group>";
@@ -646,7 +643,6 @@
 				170294D3D8DBD7EA45E06A59,
 				7494F464218A16954A780068,
 				8FBC39378702F9730FB44E96,
-				013B7E59A027E48313EFEDDB,
 				8B1F27BE57A939C8936F904D,
 				CF974C71EB67B5C1F002D3A9,
 				947657CB0E3D47F321374225,

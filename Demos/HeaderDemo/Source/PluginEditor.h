@@ -34,9 +34,6 @@ private:
     void initWindow();
     void uiPaint(juce::Graphics &g);
     void uiResized();
-    bool constructorFinished = false;
-    float topHeaderMargin;
-    float cpu = 0;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HeaderDemoAudioProcessorEditor)
 };

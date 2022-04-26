@@ -4,6 +4,7 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="fM56sX" name="HeaderDemo">
     <GROUP id="{CF62DFAB-8A41-603E-3B82-89C7963769D1}" name="Source">
+      <GROUP id="{550C24D1-24A6-8A99-D245-7343C2E8B5DE}" name="DSP"/>
       <GROUP id="{88F45A2C-B5DB-E8E2-806D-9F33F5473B1A}" name="UI-Methods">
         <FILE id="fueYft" name="OversamplingMenu.cpp" compile="1" resource="0"
               file="Source/UI-Methods/OversamplingMenu.cpp"/>
@@ -13,8 +14,6 @@
               file="Source/UI-Methods/UI-InitWindow.cpp"/>
         <FILE id="T2WVkF" name="UI-Paint.cpp" compile="1" resource="0" file="Source/UI-Methods/UI-Paint.cpp"/>
         <FILE id="JMlMXR" name="UI-Resized.cpp" compile="1" resource="0" file="Source/UI-Methods/UI-Resized.cpp"/>
-        <FILE id="AERL2C" name="UI-SaveWindow.cpp" compile="1" resource="0"
-              file="Source/UI-Methods/UI-SaveWindow.cpp"/>
       </GROUP>
       <GROUP id="{3B155963-D63B-8687-7717-0EE82D4F5BDC}" name="Assets">
         <FILE id="SyZ9VE" name="Articulations_back.png" compile="0" resource="1"

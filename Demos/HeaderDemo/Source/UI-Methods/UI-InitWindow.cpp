@@ -38,6 +38,4 @@ void HeaderDemoAudioProcessorEditor::initWindow()
     AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(2.0);
     
     setSize (width, height);
-    
-    constructorFinished = true;
 }
