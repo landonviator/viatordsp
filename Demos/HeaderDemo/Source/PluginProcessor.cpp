@@ -23,30 +23,30 @@ HeaderDemoAudioProcessor::HeaderDemoAudioProcessor()
 , treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    cpuLoad.store(0.0f);
+    cpuPercentage.store(0.0);
     
-    treeState.addParameterListener("cpu", this);
+    treeState.addParameterListener("input", this);
 }
 
 HeaderDemoAudioProcessor::~HeaderDemoAudioProcessor()
 {
-    treeState.removeParameterListener("cpu", this);
+    treeState.removeParameterListener("input", this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout HeaderDemoAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
-    auto pCPU = std::make_unique<juce::AudioParameterBool>("cpu", "CPU", true);
+    auto pInput = std::make_unique<juce::AudioParameterFloat>("input", "Input", -12.0f, 12.0f, 0.0f);
     
-    params.push_back(std::move(pCPU));
+    params.push_back(std::move(pInput));
     
     return { params.begin(), params.end() };
 }
 
 void HeaderDemoAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
-    
+    myDistortionModule.setDrive(treeState.getRawParameterValue("input")->load());
 }
 
 //==============================================================================
@@ -114,13 +114,25 @@ void HeaderDemoAudioProcessor::changeProgramName (int index, const juce::String&
 //==============================================================================
 void HeaderDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    cpuMeasureModule.reset(sampleRate, samplesPerBlock);
+    // Initialize spec for dsp modules
+    juce::dsp::ProcessSpec spec;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.sampleRate = sampleRate;
+    spec.numChannels = getTotalNumOutputChannels();
+    
+    gainModule.prepare(spec);
+    gainModule.setGainDecibels(treeState.getRawParameterValue("input")->load());
+    gainModule.setRampDurationSeconds(0.02);
+    
+    myDistortionModule.prepare(spec);
+    myDistortionModule.setDrive(treeState.getRawParameterValue("input")->load());
+    
+    cpuMeasureModule.reset(spec.sampleRate, spec.maximumBlockSize);
 }
 
 void HeaderDemoAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    gainModule.reset();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -155,36 +167,18 @@ void HeaderDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
+    juce::AudioProcessLoadMeasurer::ScopedTimer s(cpuMeasureModule);
     
-    if (treeState.getRawParameterValue("cpu")->load())
-    {
-        juce::AudioProcessLoadMeasurer::ScopedTimer s(cpuMeasureModule);
-            
-        for (int i = 0; i < 30; i++)
-        {
-            auto value = 2;
-            value *= std::pow(value, 10);
-                
-            for (int i = 0; i < 30; i++)
-            {
-                auto value = 2;
-                value *= std::pow(value, 10);
-                    
-                for (int i = 0; i < 30; i++)
-                {
-                    auto value = 2;
-                    value *= std::pow(value, 10);
-                }
-            }
-        }
-        
-        cpuLoad = cpuMeasureModule.getLoadAsPercentage();
-    }
+    juce::dsp::AudioBlock<float> audioBlock {buffer};
+    
+    myDistortionModule.processBlock(audioBlock);
+    
+    cpuPercentage.store(cpuMeasureModule.getLoadAsPercentage());
 }
 
-float HeaderDemoAudioProcessor::getCPULoad()
+float HeaderDemoAudioProcessor::getCPU()
 {
-    return cpuLoad.load();
+    return cpuPercentage.load();
 }
 
 //==============================================================================
@@ -196,6 +190,7 @@ bool HeaderDemoAudioProcessor::hasEditor() const
 juce::AudioProcessorEditor* HeaderDemoAudioProcessor::createEditor()
 {
     return new HeaderDemoAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

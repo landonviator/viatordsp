@@ -13,4 +13,9 @@
 void HeaderDemoAudioProcessorEditor::uiConstructor()
 {
     initWindow();
+    
+    startTimerHz(10);
+    
+    addAndMakeVisible(cpuLabel);
+    cpuLabel.setText("CPU", juce::dontSendNotification);
 }

@@ -12,5 +12,5 @@
 
 void HeaderDemoAudioProcessorEditor::uiResized()
 {
-    
+    cpuLabel.setBounds(getWidth() * 0.9, getHeight() * 0.02, getWidth() * 0.5, getHeight() * 0.025);
 }
