@@ -75,7 +75,32 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         // Bandwidth
         case ParameterId::kQ:
         {
-            mQ = parameterValue; break;
+            mQ = parameterValue;
+            
+            //Calculate Zavalishin's damping parameter (Q)
+            switch (mQType)
+            {
+                case kParametric: mRCoeff = 1.0 - mQ; break;
+                    
+                case kProportional:
+                {
+                    if (mType == kBandShelf)
+                    {
+                        mRCoeff = 1.0 - getPeakQ(mRawGain);
+                        preWarp();
+                        break;
+                    }
+                    
+                    else
+                    {
+                        mRCoeff = 1.0 - getShelfQ(mRawGain);
+                        preWarp();
+                        break;
+                    }
+                }
+            }
+            
+            break;
         }
             
         // Filter Gain

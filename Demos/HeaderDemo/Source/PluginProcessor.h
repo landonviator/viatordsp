@@ -9,7 +9,6 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "./DSP/Distortion.h"
 
 //==============================================================================
 /**
@@ -56,16 +55,7 @@ public:
     
     juce::AudioProcessorValueTreeState treeState;
 
-    float getCPU();
-    
 private:
-    
-    juce::dsp::Gain<float> gainModule;
-    
-    Distortion myDistortionModule;
-    
-    std::atomic<float> cpuPercentage;
-    juce::AudioProcessLoadMeasurer cpuMeasureModule;
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void parameterChanged (const juce::String& parameterID, float newValue) override;

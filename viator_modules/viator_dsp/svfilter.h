@@ -115,6 +115,8 @@ public:
     /** Process an individual sample */
     SampleType processSample(SampleType input, SampleType ch) noexcept
     {
+        
+        
         const auto z1 = mZ1[ch];
         const auto z2 = mZ2[ch];
                                 

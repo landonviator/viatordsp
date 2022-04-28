@@ -14,7 +14,7 @@
 //==============================================================================
 /**
 */
-class HeaderDemoAudioProcessorEditor  : public juce::AudioProcessorEditor, private juce::Timer
+class HeaderDemoAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
     HeaderDemoAudioProcessorEditor (HeaderDemoAudioProcessor&);
@@ -24,11 +24,6 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    void timerCallback() override
-    {
-        cpu = audioProcessor.getCPU();
-        cpuLabel.setText("CPU " + juce::String (cpu, 2) + "%", juce::dontSendNotification);
-    }
     
 private:
     // This reference is provided as a quick way for your editor to
@@ -42,7 +37,9 @@ private:
     void uiResized();
     
     juce::Label cpuLabel;
-    float cpu = 0;
+    juce::Slider gainSlider;
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttach;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HeaderDemoAudioProcessorEditor)
 };

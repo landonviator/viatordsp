@@ -23,8 +23,6 @@ HeaderDemoAudioProcessor::HeaderDemoAudioProcessor()
 , treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    cpuPercentage.store(0.0);
-    
     treeState.addParameterListener("input", this);
 }
 
@@ -37,7 +35,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout HeaderDemoAudioProcessor::cr
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
-    auto pInput = std::make_unique<juce::AudioParameterFloat>("input", "Input", -12.0f, 12.0f, 0.0f);
+    auto pInput = std::make_unique<juce::AudioParameterFloat>("input", "Input", 0.0f, 20.0f, 0.0f);
     
     params.push_back(std::move(pInput));
     
@@ -46,7 +44,6 @@ juce::AudioProcessorValueTreeState::ParameterLayout HeaderDemoAudioProcessor::cr
 
 void HeaderDemoAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
-    myDistortionModule.setDrive(treeState.getRawParameterValue("input")->load());
 }
 
 //==============================================================================
@@ -120,19 +117,10 @@ void HeaderDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumOutputChannels();
     
-    gainModule.prepare(spec);
-    gainModule.setGainDecibels(treeState.getRawParameterValue("input")->load());
-    gainModule.setRampDurationSeconds(0.02);
-    
-    myDistortionModule.prepare(spec);
-    myDistortionModule.setDrive(treeState.getRawParameterValue("input")->load());
-    
-    cpuMeasureModule.reset(spec.sampleRate, spec.maximumBlockSize);
 }
 
 void HeaderDemoAudioProcessor::releaseResources()
 {
-    gainModule.reset();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -167,20 +155,9 @@ void HeaderDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
-    juce::AudioProcessLoadMeasurer::ScopedTimer s(cpuMeasureModule);
-    
     juce::dsp::AudioBlock<float> audioBlock {buffer};
     
-    myDistortionModule.processBlock(audioBlock);
-    
-    cpuPercentage.store(cpuMeasureModule.getLoadAsPercentage());
 }
-
-float HeaderDemoAudioProcessor::getCPU()
-{
-    return cpuPercentage.load();
-}
-
 //==============================================================================
 bool HeaderDemoAudioProcessor::hasEditor() const
 {
