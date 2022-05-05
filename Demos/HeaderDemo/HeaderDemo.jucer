@@ -4,7 +4,10 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="fM56sX" name="HeaderDemo">
     <GROUP id="{CF62DFAB-8A41-603E-3B82-89C7963769D1}" name="Source">
-      <GROUP id="{550C24D1-24A6-8A99-D245-7343C2E8B5DE}" name="DSP"/>
+      <GROUP id="{550C24D1-24A6-8A99-D245-7343C2E8B5DE}" name="DSP">
+        <FILE id="zimVcj" name="SoftClipper.cpp" compile="1" resource="0" file="Source/DSP/SoftClipper.cpp"/>
+        <FILE id="DKa3rG" name="SoftClipper.h" compile="0" resource="0" file="Source/DSP/SoftClipper.h"/>
+      </GROUP>
       <GROUP id="{88F45A2C-B5DB-E8E2-806D-9F33F5473B1A}" name="UI-Methods">
         <FILE id="fueYft" name="OversamplingMenu.cpp" compile="1" resource="0"
               file="Source/UI-Methods/OversamplingMenu.cpp"/>

@@ -9,17 +9,16 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "./DSP/SoftClipper.h"
 
 //==============================================================================
 /**
 */
-class HeaderDemoAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
+class PanelsAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
-    HeaderDemoAudioProcessor();
-    ~HeaderDemoAudioProcessor() override;
+    PanelsAudioProcessor();
+    ~PanelsAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -53,17 +52,8 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-    
-    juce::AudioProcessorValueTreeState treeState;
 
 private:
-    
-    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
-    void parameterChanged (const juce::String& parameterID, float newValue) override;
-    
-    juce::dsp::Gain<float> gainModule;
-    SoftClipper<float> softClipperModule;
-    
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HeaderDemoAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PanelsAudioProcessor)
 };
