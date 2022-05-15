@@ -15,13 +15,59 @@
 //==============================================================================
 /**
 */
-struct SourceItemListboxContents  : public ListBoxModel
+
+class Data
 {
+public:
+    Data() {}
+
+    juce::String getName() { return m_name; }
+
+private:
+    juce::String m_name;
+};
+
+class CustomComponent : public juce::Component
+{
+public:
+    
+    CustomComponent()
+    {
+        addAndMakeVisible(slider);
+        slider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    }
+    
+    ~CustomComponent()
+    {
+        
+    }
+    
+    void paint(juce::Graphics& g) override
+    {
+        
+    }
+    
+    void resized() override
+    {
+        slider.setBounds(getLocalBounds());
+    }
+    
+private:
+    juce::Slider slider;
+    
+};
+
+class SourceItemListboxContents  : public ListBoxModel
+{
+public:
+    
     // The following methods implement the necessary virtual functions from ListBoxModel,
     // telling the listbox how many rows there are, painting them, etc.
     int getNumRows() override
     {
-        return 5;
+        auto numRows = 5;
+        m_data.resize(numRows);
+        return numRows;
     }
 
     void paintListBoxItem (int rowNumber, Graphics& g,
@@ -29,26 +75,35 @@ struct SourceItemListboxContents  : public ListBoxModel
     {
         if (rowIsSelected)
             g.fillAll (Colours::lightblue);
-
-        g.setColour (LookAndFeel::getDefaultLookAndFeel().findColour (Label::textColourId));
-        g.setFont ((float) height * 0.7f);
-
-        g.drawText ("Draggable Thing #" + String (rowNumber + 1),
-                    5, 0, width, height,
-                    Justification::centredLeft, true);
+        
     }
-
-    var getDragSourceDescription (const SparseSet<int>& selectedRows) override
+    
+    Component* refreshComponentForRow(int rowNumber, bool isRowSelected, Component* existingComponentToUpdate) override
     {
-        // for our drag description, we'll just make a comma-separated list of the selected row
-        // numbers - this will be picked up by the drag target and displayed in its box.
-        StringArray rows;
+        CustomComponent *row = static_cast<CustomComponent*>(existingComponentToUpdate);
 
-        for (int i = 0; i < selectedRows.size(); ++i)
-            rows.add (String (selectedRows[i] + 1));
+        if(rowNumber < m_data.size())
+        {
+             if(!row)
+             {
+                 row = new CustomComponent();
+             }
 
-        return rows.joinIntoString (", ");
+            /* Update all properties of your custom component with the data for the current row  */
+           //row->nameLabel.setText(m_data[rowNumber].getName());
+        }
+        else
+        {
+            //Nothing to display, free the custom component
+            delete existingComponentToUpdate;
+            row = nullptr;
+        }
+
+        return row;
     }
+    
+private:
+    std::vector<Data> m_data;
 };
 
 class PanelsAudioProcessorEditor  : public juce::AudioProcessorEditor
