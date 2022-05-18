@@ -35,12 +35,12 @@ namespace viator_gui
         {
             juce::Slider::paint(g);
             
-            if (isSelectable)
+            if (isMidiSelectable)
             {
                 g.setColour(juce::Colours::purple.withAlpha(0.25f));
                 g.fillRect(getLocalBounds());
                 
-                if (isSelected || hasMidiMap)
+                if (isMidiSelected || hasMidiMap)
                 {
                     g.resetToDefaultState();
                     g.setColour(juce::Colours::whitesmoke.withAlpha(0.25f));
@@ -51,41 +51,39 @@ namespace viator_gui
         
         void mouseDoubleClick (const juce::MouseEvent &event) override
         {
-            if (isSelectable)
+            if (isMidiSelectable)
             {
-                isSelected ? isSelected = false : isSelected = true;
+                isMidiSelected ? isMidiSelected = false : isMidiSelected = true;
             }
             
             setValue(faderReturnValue);
         }
         
-        void setSelectable(bool sliderISSelectable)
+        void setMidiSelectable(bool sliderISSelectable)
         {
-            isSelectable = sliderISSelectable;
+            isMidiSelectable = sliderISSelectable;
             repaint();
         }
         
-        
-        bool getIsSelectable()
+        bool getIsMidiSelectable()
         {
-            return isSelectable;
+            return isMidiSelectable;
         }
         
-        void setSelected(bool newSelectState)
+        void setMidiSelected(bool newSelectState)
         {
-            isSelected = newSelectState;
+            isMidiSelected = newSelectState;
             
-            if (isSelected)
+            if (isMidiSelected)
             {
-                setSelectable(false);
+                setMidiSelectable(false);
             }
         }
         
-        bool getIsSelected()
+        bool getIsMidiSelected()
         {
-            return isSelected;
+            return isMidiSelected;
         }
-        
         
         void setHasMidiMap(bool newHasMidiMap)
         {
@@ -93,7 +91,7 @@ namespace viator_gui
             
             if (!hasMidiMap)
             {
-                setSelectable(true);
+                setMidiSelectable(true);
             }
         }
         
@@ -102,14 +100,14 @@ namespace viator_gui
             return hasMidiMap;
         }
         
-        void setToBeDeleted(bool newIsToBeDeleted)
+        void setMidiMapToBeDeleted(bool newIsToBeDeleted)
         {
-            isToBeDeleted = newIsToBeDeleted;
+            isMidiMapToBeDeleted = newIsToBeDeleted;
         }
         
-        bool getIsToBeDeleted()
+        bool getIsMidiMapToBeDeleted()
         {
-            return isToBeDeleted;
+            return isMidiMapToBeDeleted;
         }
         
         void forceShadow();
@@ -122,7 +120,7 @@ namespace viator_gui
             if (event.mods.isRightButtonDown())
             {
                 slider.setSliderSnapsToMousePosition(false);
-                setToBeDeleted(true);
+                setMidiMapToBeDeleted(true);
             }
             
             else
@@ -137,7 +135,7 @@ namespace viator_gui
             if (event.mods.isRightButtonDown())
             {
                 slider.setSliderSnapsToMousePosition(false);
-                setToBeDeleted(true);
+                setMidiMapToBeDeleted(true);
             }
             
             else
@@ -174,10 +172,10 @@ namespace viator_gui
         Label trimLabel {true, ""};
         
         /** Midi Map*/
-        bool isSelectable = false;
-        bool isSelected = false;
+        bool isMidiSelectable = false;
+        bool isMidiSelected = false;
         bool hasMidiMap = false;
-        bool isToBeDeleted = false;
+        bool isMidiMapToBeDeleted = false;
         
         double faderReturnValue;
     };

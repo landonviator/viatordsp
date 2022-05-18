@@ -30,5 +30,6 @@ void PanelsAudioProcessorEditor::paint (juce::Graphics& g)
 
 void PanelsAudioProcessorEditor::resized()
 {
-    listBox.setBounds(getLocalBounds().withSizeKeepingCentre(getWidth() * 0.25, getHeight() * 0.25));
+    listBox.setBounds(getLocalBounds().withSizeKeepingCentre(getWidth() * 0.5, getHeight() * 0.5));
+    listBox.setRowHeight(100);
 }
