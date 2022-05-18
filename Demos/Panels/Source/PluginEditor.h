@@ -34,7 +34,7 @@ public:
     CustomComponent()
     {
         addAndMakeVisible(slider);
-        slider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+        slider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     }
     
     ~CustomComponent()
