@@ -12,14 +12,23 @@
 #include "HeaderComponent.h"
 
 //==============================================================================
-HeaderComponent::HeaderComponent()
+HeaderComponent::HeaderComponent(LVTemplateAudioProcessor& p) : audioProcessor(p)
 {
+    startTimerHz(10);
+    
     addAndMakeVisible(settingsButton);
     settingsButtonProps();
+    
+    addAndMakeVisible(cpuLabel);
+    cpuLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.5f));
+    cpuLabel.setLookAndFeel(&customLabelLAF);
 }
 
 HeaderComponent::~HeaderComponent()
 {
+    stopTimer();
+    
+    cpuLabel.setLookAndFeel(nullptr);
 }
 
 void HeaderComponent::paint (juce::Graphics& g)
@@ -40,8 +49,12 @@ void HeaderComponent::resized()
     auto buttonTopMargin = getHeight() * 0.125f;
     auto buttonWidth = getWidth() * 0.04;
     auto buttonHeight = getHeight() * 0.75;
+    auto spaceBetween = 1.25;
+    
+    cpuLabel.setFont(juce::Font ("Helvetica", getHeight() * 0.35f, juce::Font::FontStyleFlags::bold));
     
     settingsButton.setBounds(rightMargin, buttonTopMargin, buttonWidth, buttonHeight);
+    cpuLabel.setBounds(settingsButton.getX() - settingsButton.getWidth() * spaceBetween, buttonTopMargin, buttonWidth, buttonHeight);
 }
 
 bool HeaderComponent::getSettingsButtonToggleState()

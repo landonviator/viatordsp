@@ -69,7 +69,12 @@ public:
     float windowWidth {0.0f};
     float windowHeight {0.0f};
     
+    float getCPULoad();
+    
 private:
+    juce::dsp::ProcessSpec spec;
+    juce::AudioProcessLoadMeasurer cpuMeasureModule;
+    std::atomic<float> cpuLoad;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessor)
 };

@@ -12,12 +12,14 @@
 //==============================================================================
 LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
+, headerComponent(audioProcessor)
 {
     uiConstructor();
 }
 
 LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
 {
+    stopTimer();
 }
 
 //==============================================================================
@@ -29,4 +31,10 @@ void LVTemplateAudioProcessorEditor::paint (juce::Graphics& g)
 void LVTemplateAudioProcessorEditor::resized()
 {
     uiResized();
+}
+
+void LVTemplateAudioProcessorEditor::showToolTip(bool shouldShowTips)
+{
+    tooltipWindow.setEnabled(shouldShowTips);
+    tooltipWindow.setVisible(shouldShowTips);
 }

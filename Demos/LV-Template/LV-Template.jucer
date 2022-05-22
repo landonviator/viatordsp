@@ -14,6 +14,8 @@
         <FILE id="Jf2Nz0" name="SettingsPage.h" compile="0" resource="0" file="Source/UI-Components/SettingsPage.h"/>
       </GROUP>
       <GROUP id="{61BDD98C-0416-BA35-7B23-AEB9F101A16B}" name="LookAndFeel">
+        <FILE id="TB26a9" name="LabelLAF.cpp" compile="1" resource="0" file="Source/LookAndFeel/LabelLAF.cpp"/>
+        <FILE id="sFS4qE" name="LabelLAF.h" compile="0" resource="0" file="Source/LookAndFeel/LabelLAF.h"/>
         <FILE id="qpcBHQ" name="MenuSliderLAF.cpp" compile="1" resource="0"
               file="Source/LookAndFeel/MenuSliderLAF.cpp"/>
         <FILE id="GsUy3f" name="MenuSliderLAF.h" compile="0" resource="0" file="Source/LookAndFeel/MenuSliderLAF.h"/>
@@ -21,6 +23,10 @@
               file="Source/LookAndFeel/SettingsButtonLAF.cpp"/>
         <FILE id="nv1b6K" name="SettingsButtonLAF.h" compile="0" resource="0"
               file="Source/LookAndFeel/SettingsButtonLAF.h"/>
+        <FILE id="fyAFa1" name="ToggleButtonLAF.cpp" compile="1" resource="0"
+              file="Source/LookAndFeel/ToggleButtonLAF.cpp"/>
+        <FILE id="GniJHH" name="ToggleButtonLAF.h" compile="0" resource="0"
+              file="Source/LookAndFeel/ToggleButtonLAF.h"/>
       </GROUP>
       <GROUP id="{E8B42584-1533-AE2C-6378-BB30791BF034}" name="Assets">
         <FILE id="F3Uv2K" name="Articulations_back.png" compile="0" resource="1"
@@ -102,6 +108,7 @@
         <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="viator_modules" path="../../../viatordsp"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -120,5 +127,6 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="viator_modules" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
 </JUCERPROJECT>

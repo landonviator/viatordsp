@@ -16,7 +16,7 @@
 //==============================================================================
 /**
 */
-class LVTemplateAudioProcessorEditor  : public juce::AudioProcessorEditor
+class LVTemplateAudioProcessorEditor  : public juce::AudioProcessorEditor, private juce::Timer
 {
 public:
     LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor&);
@@ -25,7 +25,12 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-
+    
+    void timerCallback() override
+    {
+        showToolTip(settingsPage.getShouldUseToolTips());
+    }
+    
 private:
 
     LVTemplateAudioProcessor& audioProcessor;
@@ -47,6 +52,9 @@ private:
     SettingsPage settingsPage;
     void setSettingsPageBounds();
     juce::ComponentAnimator settingsPageAnimator;
+    
+    juce::TooltipWindow tooltipWindow{nullptr, 500};
+    void showToolTip(bool shouldShowTips);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessorEditor)
 };
