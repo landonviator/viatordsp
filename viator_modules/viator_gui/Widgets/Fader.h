@@ -35,12 +35,12 @@ namespace viator_gui
         {
             juce::Slider::paint(g);
             
-            if (isMidiSelectable)
+            if (isMidiSelectable || isMacroSelectable)
             {
                 g.setColour(juce::Colours::purple.withAlpha(0.25f));
                 g.fillRect(getLocalBounds());
                 
-                if (isMidiSelected || hasMidiMap)
+                if (isMidiSelected || hasMidiMap || isMacroSelected || hasMacroMap)
                 {
                     g.resetToDefaultState();
                     g.setColour(juce::Colours::whitesmoke.withAlpha(0.25f));
@@ -59,6 +59,7 @@ namespace viator_gui
             setValue(faderReturnValue);
         }
         
+        /** MIDI */
         void setMidiSelectable(bool sliderISSelectable)
         {
             isMidiSelectable = sliderISSelectable;
@@ -110,6 +111,58 @@ namespace viator_gui
             return isMidiMapToBeDeleted;
         }
         
+        /** MACRO */
+        void setMacroSelectable(bool sliderISSelectable)
+        {
+            isMacroSelectable = sliderISSelectable;
+            repaint();
+        }
+        
+        bool getIsMacroSelectable()
+        {
+            return isMacroSelectable;
+        }
+        
+        void setMacroSelected(bool newSelectState)
+        {
+            isMacroSelected = newSelectState;
+            
+            if (isMacroSelected)
+            {
+                setMacroSelectable(false);
+            }
+        }
+        
+        bool getIsMacroSelected()
+        {
+            return isMacroSelected;
+        }
+        
+        void setHasMacroMap(bool newHasMacroMap)
+        {
+            hasMacroMap = newHasMacroMap;
+            
+            if (!hasMacroMap)
+            {
+                setMacroSelectable(true);
+            }
+        }
+        
+        bool getHasMacroMap()
+        {
+            return hasMacroMap;
+        }
+        
+        void setMacroMapToBeDeleted(bool newIsToBeDeleted)
+        {
+            isMacroMapToBeDeleted = newIsToBeDeleted;
+        }
+        
+        bool getIsMacroMapToBeDeleted()
+        {
+            return isMacroMapToBeDeleted;
+        }
+        
         void forceShadow();
         
     private:
@@ -121,6 +174,8 @@ namespace viator_gui
             {
                 slider.setSliderSnapsToMousePosition(false);
                 setMidiMapToBeDeleted(true);
+                
+                setMacroMapToBeDeleted(true);
             }
             
             else
@@ -136,6 +191,7 @@ namespace viator_gui
             {
                 slider.setSliderSnapsToMousePosition(false);
                 setMidiMapToBeDeleted(true);
+                setMacroMapToBeDeleted(true);
             }
             
             else
@@ -176,6 +232,12 @@ namespace viator_gui
         bool isMidiSelected = false;
         bool hasMidiMap = false;
         bool isMidiMapToBeDeleted = false;
+        
+        /** Macro Map*/
+        bool isMacroSelectable = false;
+        bool isMacroSelected = false;
+        bool hasMacroMap = false;
+        bool isMacroMapToBeDeleted = false;
         
         double faderReturnValue;
     };
