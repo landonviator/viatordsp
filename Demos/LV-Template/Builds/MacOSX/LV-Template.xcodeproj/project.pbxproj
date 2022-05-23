@@ -24,6 +24,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0551085BF5537C9D07A43372 /* ColorButtonLAF.cpp */ = {isa = PBXBuildFile; fileRef = 8F10B48016B3B97EA269CD15; };
 		059D445AC4CBDC393FEE39AA /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXBuildFile; fileRef = 03CB1252A50DE4D8052D1F58; };
 		0A5A288B39EB5E6A6682FA42 /* UI-Resized.cpp */ = {isa = PBXBuildFile; fileRef = 91E63E2FACA0EF9F400C02CD; };
 		0D70C9F0CA2B652605482B36 /* include_juce_gui_basics.mm */ = {isa = PBXBuildFile; fileRef = 9DBBA85918826C181376F5CB; };
@@ -80,12 +81,14 @@
 		E91529DE97779EAF79D38DBD /* include_juce_audio_plugin_client_AU.r */ = {isa = PBXBuildFile; fileRef = 57D1F928A68E69C1C814DD65; };
 		EC9BF809D48B906E6ECF9CF8 /* include_juce_audio_plugin_client_AU_1.mm */ = {isa = PBXBuildFile; fileRef = 2192E4A27B84A4A9989363AC; };
 		F64D01611FED59A71EC9B0DA /* include_juce_core.mm */ = {isa = PBXBuildFile; fileRef = 2304767CE0C52A9E76E27B12; };
+		F7674F3482CD1A32FCB37097 /* Globals.cpp */ = {isa = PBXBuildFile; fileRef = 8F7B12E0D7B08A5292A9A3EB; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		006B9FB6D33E441B8094F576 /* AU */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LV-Template.component"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00BF7CE2BA7603BC93C1C1FB /* include_juce_graphics.mm */ /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
 		017380486B5F50A92C4F9910 /* LabelLAF.h */ /* LabelLAF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LabelLAF.h; path = ../../Source/LookAndFeel/LabelLAF.h; sourceTree = SOURCE_ROOT; };
+		0339DD9733E989FBED77D731 /* ColorButtonLAF.h */ /* ColorButtonLAF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorButtonLAF.h; path = ../../Source/LookAndFeel/ColorButtonLAF.h; sourceTree = SOURCE_ROOT; };
 		03CB1252A50DE4D8052D1F58 /* include_juce_audio_plugin_client_Standalone.cpp */ /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
 		05434714617643B932458865 /* SettingsPage.h */ /* SettingsPage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SettingsPage.h; path = "../../Source/UI-Components/SettingsPage.h"; sourceTree = SOURCE_ROOT; };
 		09481AA83A6BE8E919F6CA6C /* MenuSliderLAF.h */ /* MenuSliderLAF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MenuSliderLAF.h; path = ../../Source/LookAndFeel/MenuSliderLAF.h; sourceTree = SOURCE_ROOT; };
@@ -141,6 +144,8 @@
 		8AF6EB3A256D781B3117232B /* juce_audio_formats */ /* juce_audio_formats */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_formats; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_formats; sourceTree = "<absolute>"; };
 		8B552545E94A6B888F9558AC /* led_on.png */ /* led_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = led_on.png; path = ../../../../Assets/led_on.png; sourceTree = SOURCE_ROOT; };
 		8CD0373AA2B96AB040065DCC /* Info-VST3.plist */ /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-VST3.plist"; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
+		8F10B48016B3B97EA269CD15 /* ColorButtonLAF.cpp */ /* ColorButtonLAF.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ColorButtonLAF.cpp; path = ../../Source/LookAndFeel/ColorButtonLAF.cpp; sourceTree = SOURCE_ROOT; };
+		8F7B12E0D7B08A5292A9A3EB /* Globals.cpp */ /* Globals.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Globals.cpp; path = ../../Source/Globals.cpp; sourceTree = SOURCE_ROOT; };
 		91E63E2FACA0EF9F400C02CD /* UI-Resized.cpp */ /* UI-Resized.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "UI-Resized.cpp"; path = "../../Source/UI-Methods/UI-Resized.cpp"; sourceTree = SOURCE_ROOT; };
 		9885806067E314B00A2E6566 /* button_small_on.png */ /* button_small_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_small_on.png; path = ../../../../Assets/button_small_on.png; sourceTree = SOURCE_ROOT; };
 		99180393BF8C2E3316F5B07F /* juce_gui_basics */ /* juce_gui_basics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_basics; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_gui_basics; sourceTree = "<absolute>"; };
@@ -160,6 +165,7 @@
 		AF70C75990670FAB8BD1BCA2 /* Info-AU.plist */ /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-AU.plist"; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
 		B18998F323FBD445518772A3 /* ToggleButtonLAF.h */ /* ToggleButtonLAF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ToggleButtonLAF.h; path = ../../Source/LookAndFeel/ToggleButtonLAF.h; sourceTree = SOURCE_ROOT; };
 		B3A7FC6FDDC118E6F53EBA7B /* PluginProcessor.cpp */ /* PluginProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginProcessor.cpp; path = ../../Source/PluginProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		B66C3C4A7C3E712EAC219FA8 /* Globals.h */ /* Globals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Globals.h; path = ../../Source/Globals.h; sourceTree = SOURCE_ROOT; };
 		BDE3998088223D6691541033 /* Articulations_decore.png */ /* Articulations_decore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_decore.png; path = ../../../../Assets/Articulations_decore.png; sourceTree = SOURCE_ROOT; };
 		BF541003E331E4B1816FE20D /* CoreAudio.framework */ /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		C098D47A37A4C9BDED91C024 /* button_middle_on.png */ /* button_middle_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_middle_on.png; path = ../../../../Assets/button_middle_on.png; sourceTree = SOURCE_ROOT; };
@@ -289,6 +295,8 @@
 		13318285A723CFCAF4CB8B73 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8F7B12E0D7B08A5292A9A3EB,
+				B66C3C4A7C3E712EAC219FA8,
 				5C7ACA4B5E91FB699F4C7448,
 				D64CCFC9D7701E67006DC016,
 				19F4236084F544A8786C3206,
@@ -429,6 +437,8 @@
 		D64CCFC9D7701E67006DC016 /* LookAndFeel */ = {
 			isa = PBXGroup;
 			children = (
+				8F10B48016B3B97EA269CD15,
+				0339DD9733E989FBED77D731,
 				9F81FCBE3C5D478C06324E51,
 				017380486B5F50A92C4F9910,
 				C60CC1B79D630ECA7D35AC1C,
@@ -717,8 +727,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7674F3482CD1A32FCB37097,
 				BDD705FBC5F669E0BA256D19,
 				E3AC07645446372F2D4C1751,
+				0551085BF5537C9D07A43372,
 				1DC80B1C54BF2DF5EF54CE79,
 				20BAA3B8DA3DB045535231E3,
 				871D0DDDD304BC7F2D0FAABA,

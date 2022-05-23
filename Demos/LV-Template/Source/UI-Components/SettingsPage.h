@@ -14,6 +14,8 @@
 #include "../LookAndFeel/MenuSliderLAF.h"
 #include "../LookAndFeel/ToggleButtonLAF.h"
 #include "../LookAndFeel/LabelLAF.h"
+#include "../LookAndFeel/ColorButtonLAF.h"
+#include "../Globals.h"
 
 //==============================================================================
 /*
@@ -39,6 +41,11 @@ private:
     ToggleButtonLAF customToggleButton;
     LabelLAF customLabelLAF;
     bool shouldUseToolTips = false;
+    
+    juce::TextButton color1Button;
+    juce::TextButton color2Button;
+    juce::TextButton color3Button;
+    ColorButtonLAF customColorButtonLAF;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsPage)
 };

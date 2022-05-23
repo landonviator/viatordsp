@@ -33,8 +33,8 @@ void SettingsButtonLAF::drawButtonBackground (juce::Graphics& g,
     
     g.fillRoundedRectangle (bounds, cornerSize);
     
-    g.setColour (juce::Colour::fromRGB(15, 15, 15));
-    g.drawRoundedRectangle (bounds, cornerSize, 2.0f);
+    g.setColour (button.findColour (juce::ComboBox::outlineColourId));
+    g.drawRoundedRectangle (bounds, cornerSize, 4.0f);
     
     g.drawEllipse(bounds.withSizeKeepingCentre(bounds.getHeight() * 0.75, bounds.getHeight() * 0.75), 2.0f);
     g.drawEllipse(bounds.withSizeKeepingCentre(bounds.getHeight() * 0.5, bounds.getHeight() * 0.5), 2.0f);

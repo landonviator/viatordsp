@@ -25,7 +25,7 @@ void LabelLAF::drawLabel(juce::Graphics &g, juce::Label &label)
     auto bounds = label.getLocalBounds().toFloat().reduced (0.5f, 0.5f);
     
     //Fill
-    g.setColour(juce::Colour::fromRGB(54, 57, 63));
+    g.setColour(label.findColour (juce::Label::backgroundColourId));
     g.fillRoundedRectangle (bounds, cornerSize);
 
     //Text
@@ -37,6 +37,6 @@ void LabelLAF::drawLabel(juce::Graphics &g, juce::Label &label)
                           label.getMinimumHorizontalScale());
 
     //Border
-    g.setColour (juce::Colour::fromRGB(15, 15, 15));
-    g.drawRoundedRectangle (bounds, cornerSize, 2.0f);
+    g.setColour (label.findColour (juce::Label::textColourId));
+    g.drawRoundedRectangle (bounds, cornerSize, 4.0f);
 }

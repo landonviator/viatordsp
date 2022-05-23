@@ -13,8 +13,9 @@
 void HeaderComponent::settingsButtonProps()
 {
     settingsButton.setClickingTogglesState(true);
-    settingsButton.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(54, 57, 63));
-    settingsButton.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(54, 57, 63).brighter(0.2));
+    settingsButton.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::transparentBlack);
+    settingsButton.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::transparentBlack);
+    settingsButton.setColour(juce::ComboBox::ColourIds::outlineColourId, juce::Colours::whitesmoke);
     settingsButton.setLookAndFeel(&customSettingsButtonLAF);
     settingsButton.onClick = [this]()
     {

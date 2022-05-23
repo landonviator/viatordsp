@@ -21,8 +21,6 @@ void ToggleButtonLAF::drawButtonBackground (juce::Graphics& g,
                                            bool shouldDrawButtonAsHighlighted,
                                            bool shouldDrawButtonAsDown)
 {
-    button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(54, 57, 63));
-    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(54, 57, 63).brighter(0.2));
     button.setClickingTogglesState(true);
     
     auto cornerSize = 6.0f;
@@ -37,11 +35,10 @@ void ToggleButtonLAF::drawButtonBackground (juce::Graphics& g,
     
     g.fillRoundedRectangle (bounds, cornerSize);
     
-    g.setColour (juce::Colour::fromRGB(15, 15, 15));
-    g.drawRoundedRectangle (bounds, cornerSize, 2.0f);
+    g.setColour (button.findColour (juce::ComboBox::outlineColourId));
+    g.drawRoundedRectangle (bounds, cornerSize, 4.0f);
     
     //Tick
-    auto fontSize = juce::jmin (15.0f, (float) button.getHeight() * 0.75f);
     auto tickX = bounds.getWidth() * 0.255;
     auto tickY = bounds.getHeight() * 0.14f;
 

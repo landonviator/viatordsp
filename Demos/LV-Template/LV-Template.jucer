@@ -4,6 +4,8 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP">
   <MAINGROUP id="CSr7ch" name="LV-Template">
     <GROUP id="{EC06E44D-19CB-06C9-A06E-F6C274FE6E89}" name="Source">
+      <FILE id="ro4MAl" name="Globals.cpp" compile="1" resource="0" file="Source/Globals.cpp"/>
+      <FILE id="MRVyNH" name="Globals.h" compile="0" resource="0" file="Source/Globals.h"/>
       <GROUP id="{EEF9F521-943E-42EB-BA70-78C3228C6650}" name="UI-Components">
         <FILE id="veNFwy" name="HeaderComponent.cpp" compile="1" resource="0"
               file="Source/UI-Components/HeaderComponent.cpp"/>
@@ -14,6 +16,10 @@
         <FILE id="Jf2Nz0" name="SettingsPage.h" compile="0" resource="0" file="Source/UI-Components/SettingsPage.h"/>
       </GROUP>
       <GROUP id="{61BDD98C-0416-BA35-7B23-AEB9F101A16B}" name="LookAndFeel">
+        <FILE id="j7SDm5" name="ColorButtonLAF.cpp" compile="1" resource="0"
+              file="Source/LookAndFeel/ColorButtonLAF.cpp"/>
+        <FILE id="SGudQ4" name="ColorButtonLAF.h" compile="0" resource="0"
+              file="Source/LookAndFeel/ColorButtonLAF.h"/>
         <FILE id="TB26a9" name="LabelLAF.cpp" compile="1" resource="0" file="Source/LookAndFeel/LabelLAF.cpp"/>
         <FILE id="sFS4qE" name="LabelLAF.h" compile="0" resource="0" file="Source/LookAndFeel/LabelLAF.h"/>
         <FILE id="qpcBHQ" name="MenuSliderLAF.cpp" compile="1" resource="0"

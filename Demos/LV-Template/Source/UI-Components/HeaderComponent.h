@@ -14,6 +14,7 @@
 #include "../LookAndFeel/SettingsButtonLAF.h"
 #include "../LookAndFeel/LabelLAF.h"
 #include "../PluginProcessor.h"
+#include "../Globals.h"
 //==============================================================================
 /*
 */

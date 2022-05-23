@@ -38,3 +38,4 @@ void LVTemplateAudioProcessorEditor::showToolTip(bool shouldShowTips)
     tooltipWindow.setEnabled(shouldShowTips);
     tooltipWindow.setVisible(shouldShowTips);
 }
+

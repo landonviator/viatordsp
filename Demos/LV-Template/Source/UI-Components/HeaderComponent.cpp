@@ -20,7 +20,8 @@ HeaderComponent::HeaderComponent(LVTemplateAudioProcessor& p) : audioProcessor(p
     settingsButtonProps();
     
     addAndMakeVisible(cpuLabel);
-    cpuLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.5f));
+    cpuLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke);
+    cpuLabel.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
     cpuLabel.setLookAndFeel(&customLabelLAF);
 }
 
@@ -36,8 +37,18 @@ void HeaderComponent::paint (juce::Graphics& g)
     //Header
     juce::Rectangle<float> headerRect;
     headerRect.setBounds(0.0f, 0.0f, getWidth(), getHeight());
-    g.setColour(juce::Colour::fromRGB(32, 34, 37));
+    g.setColour(masterColor);
     g.fillRect(headerRect);
+    
+    // Logo laye
+    auto headerLogo = juce::ImageCache::getFromMemory(BinaryData::landon5504_png, BinaryData::landon5504_pngSize);
+    g.drawImageWithin(headerLogo,
+                      getWidth() * -0.24f,
+                      getHeight() * 0.2f,
+                      getWidth() * 0.6f,
+                      getHeight() * 0.65f,
+                      juce::RectanglePlacement::centred);
+    
     
     g.setColour(juce::Colours::whitesmoke.darker(1.0f).darker(1.0f));
     g.drawLine(0, getHeight(), getWidth(), getHeight(), 2.0f);
