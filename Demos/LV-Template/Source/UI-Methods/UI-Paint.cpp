@@ -21,4 +21,6 @@ void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
     // Background
     auto background = juce::ImageCache::getFromMemory(BinaryData::background_png, BinaryData::background_pngSize);
     g.drawImageWithin(background, leftMargin, topMargin, getWidth() * scale, getHeight() * scale, juce::RectanglePlacement::stretchToFit);
+    
+    largeDial.updateLabelColor(masterColor);
 }

@@ -38,5 +38,5 @@ void LabelLAF::drawLabel(juce::Graphics &g, juce::Label &label)
 
     //Border
     g.setColour (label.findColour (juce::Label::textColourId));
-    g.drawRoundedRectangle (bounds, cornerSize, 4.0f);
+    g.drawRoundedRectangle (bounds, cornerSize, 1.0f);
 }

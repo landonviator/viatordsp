@@ -100,10 +100,8 @@ void viator_gui::FilmStripKnob::resized()
 {
     if (_knobSize == 2)
     {
-        knobLabel.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colours::whitesmoke.withAlpha(0.25f));
-        knobLabel.setBounds(getLocalBounds().reduced(0, getHeight() * JUCE_LIVE_CONSTANT(0.5f)).withY(
-                                                                                                      getHeight() * JUCE_LIVE_CONSTANT(0.5f)));
-        knobLabel.setFont(getWidth() * 0.1);
+        knobLabel.setBounds(getLocalBounds().reduced(0, getHeight() * 0.45f).withY(getHeight() * 0.9f));
+        knobLabel.setFont(getWidth() * 0.075);
         knobTitle.setFont(juce::Font ("Helvetica", getWidth() * 0.1, juce::Font::FontStyleFlags::bold));
     }
     
@@ -112,5 +110,20 @@ void viator_gui::FilmStripKnob::resized()
         knobLabel.setBounds(getLocalBounds().reduced(0, getHeight() * 0.35).withY(getHeight() * 0.7));
         knobLabel.setFont(getWidth() * 0.12);
         knobTitle.setFont(juce::Font ("Helvetica", getHeight() * 0.12, juce::Font::FontStyleFlags::bold));
+    }
+}
+
+void viator_gui::FilmStripKnob::updateLabelColor(juce::Colour newColor)
+{
+    if (newColor == juce::Colours::black)
+    {
+        knobLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
+        knobTitle.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
+    }
+    
+    else
+    {
+        knobLabel.setColour(juce::Label::ColourIds::textColourId, newColor.withAlpha(0.6f));
+        knobTitle.setColour(juce::Label::ColourIds::textColourId, newColor.withAlpha(0.6f));
     }
 }

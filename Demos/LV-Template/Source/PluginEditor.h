@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "./UI-Components/HeaderComponent.h"
 #include "./UI-Components/SettingsPage.h"
+#include "./UI-Components/SettingsComps/ToolTipSettingsComp.h"
 
 //==============================================================================
 /**

@@ -20,9 +20,9 @@ void LVTemplateAudioProcessorEditor::initWindow()
     
     auto width = 0;
     
-    if (r.getWidth() <= 1440)
+    if (r.getWidth() <= 1920)
     {
-        width = x * 0.65;
+        width = x * 0.7;
     }
     
     else

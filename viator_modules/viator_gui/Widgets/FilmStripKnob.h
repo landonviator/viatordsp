@@ -12,6 +12,7 @@ public:
     
     void resized() override;
     
+    void updateLabelColor(juce::Colour newColor);
     
 private:
     const int _knobSize = 0;
