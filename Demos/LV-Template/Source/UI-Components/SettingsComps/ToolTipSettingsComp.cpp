@@ -34,13 +34,15 @@ ToolTipSettingsComp::ToolTipSettingsComp()
 ToolTipSettingsComp::~ToolTipSettingsComp()
 {
     toolTipToggle.setLookAndFeel(nullptr);
-
 }
 
 void ToolTipSettingsComp::paint (juce::Graphics& g)
 {
     g.setColour(juce::Colours::black.withAlpha(0.2f));
     g.fillRoundedRectangle(getWidth() * 0.05, getHeight() * 0.05, getWidth() * 0.9, getHeight() * 0.9, 2.0f);
+    
+    g.setColour(juce::Colours::black.withAlpha(0.3f));
+    g.drawRoundedRectangle(getWidth() * 0.05, getHeight() * 0.05, getWidth() * 0.9, getHeight() * 0.9, 2.0f, 2.0f);
 }
 
 void ToolTipSettingsComp::resized()

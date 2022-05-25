@@ -23,4 +23,5 @@ void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
     g.drawImageWithin(background, leftMargin, topMargin, getWidth() * scale, getHeight() * scale, juce::RectanglePlacement::stretchToFit);
     
     largeDial.updateLabelColor(masterColor);
+    headerComponent.repaint();
 }

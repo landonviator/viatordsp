@@ -115,7 +115,7 @@ void viator_gui::FilmStripKnob::resized()
 
 void viator_gui::FilmStripKnob::updateLabelColor(juce::Colour newColor)
 {
-    if (newColor == juce::Colours::black)
+    if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
     {
         knobLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
         knobTitle.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
@@ -123,7 +123,7 @@ void viator_gui::FilmStripKnob::updateLabelColor(juce::Colour newColor)
     
     else
     {
-        knobLabel.setColour(juce::Label::ColourIds::textColourId, newColor.withAlpha(0.6f));
-        knobTitle.setColour(juce::Label::ColourIds::textColourId, newColor.withAlpha(0.6f));
+        knobLabel.setColour(juce::Label::ColourIds::textColourId, newColor);
+        knobTitle.setColour(juce::Label::ColourIds::textColourId, newColor);
     }
 }

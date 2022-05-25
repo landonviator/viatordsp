@@ -17,6 +17,7 @@
 #include "../LookAndFeel/ColorButtonLAF.h"
 #include "../Globals.h"
 #include "SettingsComps/ToolTipSettingsComp.h"
+#include "SettingsComps/MasterColorComp.h"
 
 
 //==============================================================================
@@ -37,13 +38,9 @@ private:
     MenuSliderLAF customMenuSlider;
     
     ToolTipSettingsComp tooltipSettingsComp;
-    LabelLAF customLabelLAF;
+    MasterColorComp masterColorComp;
     
-    juce::TextButton color1Button;
-    juce::TextButton color2Button;
-    juce::TextButton color3Button;
-    juce::TextButton color4Button;
-    ColorButtonLAF customColorButtonLAF;
+    LabelLAF customLabelLAF;
     
     float rowheight;
     

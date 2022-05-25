@@ -14,6 +14,7 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
 {
     // Window
     initWindow();
+    setName("Editor");
     
     startTimerHz(30);
     

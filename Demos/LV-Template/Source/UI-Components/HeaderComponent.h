@@ -34,6 +34,8 @@ public:
         cpu = audioProcessor.getCPULoad();
         cpuLabel.setText(std::to_string(static_cast<int>(cpu)) + "%", juce::dontSendNotification);
     }
+    
+    void updateBGColor();
 
 private:
     

@@ -15,6 +15,7 @@
 HeaderComponent::HeaderComponent(LVTemplateAudioProcessor& p) : audioProcessor(p)
 {
     startTimerHz(10);
+    setName("Header Page");
     
     addAndMakeVisible(settingsButton);
     settingsButtonProps();
@@ -71,4 +72,9 @@ void HeaderComponent::resized()
 bool HeaderComponent::getSettingsButtonToggleState()
 {
     return settingsButton.getToggleState();
+}
+
+void HeaderComponent::updateBGColor()
+{
+    repaint();
 }

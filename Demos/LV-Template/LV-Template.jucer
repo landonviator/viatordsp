@@ -8,6 +8,10 @@
       <FILE id="MRVyNH" name="Globals.h" compile="0" resource="0" file="Source/Globals.h"/>
       <GROUP id="{EEF9F521-943E-42EB-BA70-78C3228C6650}" name="UI-Components">
         <GROUP id="{CC62F87B-59ED-06A7-5F30-651E19F1EAD9}" name="SettingsComps">
+          <FILE id="qcku3A" name="MasterColorComp.cpp" compile="1" resource="0"
+                file="Source/UI-Components/SettingsComps/MasterColorComp.cpp"/>
+          <FILE id="dVeSwa" name="MasterColorComp.h" compile="0" resource="0"
+                file="Source/UI-Components/SettingsComps/MasterColorComp.h"/>
           <FILE id="bqa7PB" name="ToolTipSettingsComp.cpp" compile="1" resource="0"
                 file="Source/UI-Components/SettingsComps/ToolTipSettingsComp.cpp"/>
           <FILE id="Ibgtgy" name="ToolTipSettingsComp.h" compile="0" resource="0"

@@ -81,6 +81,7 @@
 		E3AC07645446372F2D4C1751 /* SettingsPage.cpp */ = {isa = PBXBuildFile; fileRef = 845FF07C6D0160E54131658B; };
 		E72FF4A5510EFEF0B8E5984B /* include_viator_modules.cpp */ = {isa = PBXBuildFile; fileRef = 3AD35CDE644D470472E2DD51; };
 		E91529DE97779EAF79D38DBD /* include_juce_audio_plugin_client_AU.r */ = {isa = PBXBuildFile; fileRef = 57D1F928A68E69C1C814DD65; };
+		EC4BD7F9C77CC311522262CC /* MasterColorComp.cpp */ = {isa = PBXBuildFile; fileRef = D598CAE1EA333F1D80B99068; };
 		EC9BF809D48B906E6ECF9CF8 /* include_juce_audio_plugin_client_AU_1.mm */ = {isa = PBXBuildFile; fileRef = 2192E4A27B84A4A9989363AC; };
 		F64D01611FED59A71EC9B0DA /* include_juce_core.mm */ = {isa = PBXBuildFile; fileRef = 2304767CE0C52A9E76E27B12; };
 		F7674F3482CD1A32FCB37097 /* Globals.cpp */ = {isa = PBXBuildFile; fileRef = 8F7B12E0D7B08A5292A9A3EB; };
@@ -105,6 +106,7 @@
 		2304767CE0C52A9E76E27B12 /* include_juce_core.mm */ /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		231B60BF36CFFBED13970466 /* BinaryData.h */ /* BinaryData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BinaryData.h; path = ../../JuceLibraryCode/BinaryData.h; sourceTree = SOURCE_ROOT; };
 		23C22132C0BDC8FC9CF5984F /* Accelerate.framework */ /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		297FC650141DF27CD0D0B270 /* MasterColorComp.h */ /* MasterColorComp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MasterColorComp.h; path = "../../Source/UI-Components/SettingsComps/MasterColorComp.h"; sourceTree = SOURCE_ROOT; };
 		2CB2B087AEC0D865EFC99C39 /* include_juce_audio_plugin_client_VST3.cpp */ /* include_juce_audio_plugin_client_VST3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_VST3.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp; sourceTree = SOURCE_ROOT; };
 		316FF2E087B52FB5A5CA284E /* juce_graphics */ /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = /Users/landonviator/Documents/GitHub/JUCE/modules/juce_graphics; sourceTree = "<absolute>"; };
 		31A2EAE06F1E7B5B3004F826 /* BinaryData.cpp */ /* BinaryData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData.cpp; path = ../../JuceLibraryCode/BinaryData.cpp; sourceTree = SOURCE_ROOT; };
@@ -182,6 +184,7 @@
 		D31DAF4332FD8ED0EE8D56DB /* pluginBackground2.png */ /* pluginBackground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pluginBackground2.png; path = ../../../../Assets/pluginBackground2.png; sourceTree = SOURCE_ROOT; };
 		D56EAE70F11F1DECB580965E /* VST3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LV-Template.vst3"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58C80C0F0E69322D94B693D /* knob_middle.png */ /* knob_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = knob_middle.png; path = ../../../../Assets/knob_middle.png; sourceTree = SOURCE_ROOT; };
+		D598CAE1EA333F1D80B99068 /* MasterColorComp.cpp */ /* MasterColorComp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MasterColorComp.cpp; path = "../../Source/UI-Components/SettingsComps/MasterColorComp.cpp"; sourceTree = SOURCE_ROOT; };
 		D5FCE8914C1D52CD0F954B61 /* BinaryData4.cpp */ /* BinaryData4.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData4.cpp; path = ../../JuceLibraryCode/BinaryData4.cpp; sourceTree = SOURCE_ROOT; };
 		D6C1A0FD0223F7AD5C54EF2F /* CoreAudioKit.framework */ /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		D7487AD3837D91C79F82A79D /* button_middle_off.png */ /* button_middle_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_middle_off.png; path = ../../../../Assets/button_middle_off.png; sourceTree = SOURCE_ROOT; };
@@ -476,6 +479,8 @@
 		DA715822C2860523D981520E /* SettingsComps */ = {
 			isa = PBXGroup;
 			children = (
+				D598CAE1EA333F1D80B99068,
+				297FC650141DF27CD0D0B270,
 				EA161A2BAC38C6FD5B6B5548,
 				D30F17C781AAF110E667FEFD,
 			);
@@ -748,6 +753,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7674F3482CD1A32FCB37097,
+				EC4BD7F9C77CC311522262CC,
 				378FE71DFCFB4B7AF80CAA1D,
 				BDD705FBC5F669E0BA256D19,
 				E3AC07645446372F2D4C1751,

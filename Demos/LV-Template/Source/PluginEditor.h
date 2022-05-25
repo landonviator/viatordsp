@@ -15,8 +15,7 @@
 #include "./UI-Components/SettingsComps/ToolTipSettingsComp.h"
 
 //==============================================================================
-/**
-*/
+/***/
 class LVTemplateAudioProcessorEditor  : public juce::AudioProcessorEditor, private juce::Timer
 {
 public:
