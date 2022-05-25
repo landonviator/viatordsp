@@ -68,6 +68,17 @@ SettingsPage::SettingsPage()
     };
     
     color3Button.setLookAndFeel(&customColorButtonLAF);
+    
+    /** Color Button Black */
+    addAndMakeVisible(color4Button);
+    color4Button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(0, 0, 0));
+    color4Button.onClick = [this]()
+    {
+        masterColor = juce::Colour::fromRGB(0, 0, 0);
+        getParentComponent()->repaint();
+    };
+    
+    color4Button.setLookAndFeel(&customColorButtonLAF);
 }
 
 SettingsPage::~SettingsPage()
@@ -77,12 +88,13 @@ SettingsPage::~SettingsPage()
     color1Button.setLookAndFeel(nullptr);
     color2Button.setLookAndFeel(nullptr);
     color3Button.setLookAndFeel(nullptr);
+    color4Button.setLookAndFeel(nullptr);
 }
 
 void SettingsPage::paint (juce::Graphics& g)
 {
     //Background
-    g.fillAll(juce::Colours::black.brighter(0.1f));
+    g.fillAll(juce::Colour::fromRGB(45, 44, 51));
     
     //Title Text
     g.setColour(juce::Colours::whitesmoke.withAlpha(0.5f));
@@ -112,6 +124,7 @@ void SettingsPage::resized()
     color1Button.setBounds(tooltipLabel.getX() + tooltipLabel.getWidth() * buttonSpaceBetween, topMargin, colorSize, colorSize);
     color2Button.setBounds(color1Button.getX() + color1Button.getWidth() * buttonSpaceBetween, topMargin, colorSize, colorSize);
     color3Button.setBounds(color2Button.getX() + color2Button.getWidth() * buttonSpaceBetween, topMargin, colorSize, colorSize);
+    color4Button.setBounds(color3Button.getX() + color3Button.getWidth() * buttonSpaceBetween, topMargin, colorSize, colorSize);
     
     //Menu Slider 1
     menuSlider1.setBounds(leftMargin, toolTipToggle.getY() + toolTipToggle.getHeight(), sliderWidth, sliderHeight);

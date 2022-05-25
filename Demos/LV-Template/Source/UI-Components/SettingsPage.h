@@ -45,6 +45,7 @@ private:
     juce::TextButton color1Button;
     juce::TextButton color2Button;
     juce::TextButton color3Button;
+    juce::TextButton color4Button;
     ColorButtonLAF customColorButtonLAF;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsPage)

@@ -69,6 +69,7 @@
 		C7BD14A3205D87E55EE53490 /* include_juce_gui_extra.mm */ = {isa = PBXBuildFile; fileRef = AA4E9D4AFBE520FC1C05EE20; };
 		CA311FECFFFD750BFDEDA697 /* ToggleButtonLAF.cpp */ = {isa = PBXBuildFile; fileRef = DE92759BD6F465CB5C2847F3; };
 		CDC333FE46BD38DF633CE9FC /* include_juce_events.mm */ = {isa = PBXBuildFile; fileRef = 69FE3F1AEAFAC467435C04AE; };
+		CEBBF190397C13D12E27C0ED /* BinaryData5.cpp */ = {isa = PBXBuildFile; fileRef = 6EB90791461D0153C1400236; };
 		CFCAC81FA8E1C173E76ADE64 /* AudioUnit.framework */ = {isa = PBXBuildFile; fileRef = 7238C484528A0794D998042E; };
 		D0C267B8FEDA07D3F8EFE989 /* include_juce_audio_plugin_client_VST_utils.mm */ = {isa = PBXBuildFile; fileRef = FE9AE023384B9B751DFBCE78; };
 		D4C47668089FB7C5C2A9A6B0 /* BinaryData3.cpp */ = {isa = PBXBuildFile; fileRef = D8F6F4DE724D24FD90783C86; };
@@ -119,6 +120,7 @@
 		55E5DCED8DDB1E39771E0B01 /* Articulations_back.png */ /* Articulations_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_back.png; path = ../../../../Assets/Articulations_back.png; sourceTree = SOURCE_ROOT; };
 		5737872830748AE3C4128794 /* include_juce_audio_utils.mm */ /* include_juce_audio_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_utils.mm; sourceTree = SOURCE_ROOT; };
 		57D1F928A68E69C1C814DD65 /* include_juce_audio_plugin_client_AU.r */ /* include_juce_audio_plugin_client_AU.r */ = {isa = PBXFileReference; lastKnownFileType = file.r; name = include_juce_audio_plugin_client_AU.r; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU.r; sourceTree = SOURCE_ROOT; };
+		58F99DFD59D4480308295089 /* knob_big.png */ /* knob_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = knob_big.png; path = ../../../../Assets/knob_big.png; sourceTree = SOURCE_ROOT; };
 		5AABCF2C2A93C5A8C7A16C0B /* include_juce_audio_devices.mm */ /* include_juce_audio_devices.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_devices.mm; path = ../../JuceLibraryCode/include_juce_audio_devices.mm; sourceTree = SOURCE_ROOT; };
 		5BE5565B34390761D3161046 /* back_vu-meter_decore.png */ /* back_vu-meter_decore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back_vu-meter_decore.png"; path = "../../../../Assets/back_vu-meter_decore.png"; sourceTree = SOURCE_ROOT; };
 		5FAB6C0B317880E06DBC0AE1 /* button_small_off.png */ /* button_small_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_small_off.png; path = ../../../../Assets/button_small_off.png; sourceTree = SOURCE_ROOT; };
@@ -127,6 +129,7 @@
 		6989790CB4322E5D85CB35F1 /* juce_events */ /* juce_events */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_events; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_events; sourceTree = "<absolute>"; };
 		69FE3F1AEAFAC467435C04AE /* include_juce_events.mm */ /* include_juce_events.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_events.mm; path = ../../JuceLibraryCode/include_juce_events.mm; sourceTree = SOURCE_ROOT; };
 		6A4E0F85B587FD13AEEE904D /* include_juce_audio_formats.mm */ /* include_juce_audio_formats.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_formats.mm; path = ../../JuceLibraryCode/include_juce_audio_formats.mm; sourceTree = SOURCE_ROOT; };
+		6EB90791461D0153C1400236 /* BinaryData5.cpp */ /* BinaryData5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryData5.cpp; path = ../../JuceLibraryCode/BinaryData5.cpp; sourceTree = SOURCE_ROOT; };
 		7238C484528A0794D998042E /* AudioUnit.framework */ /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		73FC23092396E93BD92D243D /* Foundation.framework */ /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7528D5A6900BB2D6631AFB96 /* btclipper.png */ /* btclipper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btclipper.png; path = ../../../../Assets/btclipper.png; sourceTree = SOURCE_ROOT; };
@@ -163,6 +166,7 @@
 		AE75157DB4599D246BAA2BAC /* UI-Paint.cpp */ /* UI-Paint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "UI-Paint.cpp"; path = "../../Source/UI-Methods/UI-Paint.cpp"; sourceTree = SOURCE_ROOT; };
 		AE9F4C80BCD55F4A8B7ECA0F /* scale_knob middle.png */ /* scale_knob middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scale_knob middle.png"; path = "../../../../Assets/scale_knob middle.png"; sourceTree = SOURCE_ROOT; };
 		AF70C75990670FAB8BD1BCA2 /* Info-AU.plist */ /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-AU.plist"; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
+		AFD5FDBE6D5C34FF73C58077 /* scale_knob big.png */ /* scale_knob big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scale_knob big.png"; path = "../../../../Assets/scale_knob big.png"; sourceTree = SOURCE_ROOT; };
 		B18998F323FBD445518772A3 /* ToggleButtonLAF.h */ /* ToggleButtonLAF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ToggleButtonLAF.h; path = ../../Source/LookAndFeel/ToggleButtonLAF.h; sourceTree = SOURCE_ROOT; };
 		B3A7FC6FDDC118E6F53EBA7B /* PluginProcessor.cpp */ /* PluginProcessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginProcessor.cpp; path = ../../Source/PluginProcessor.cpp; sourceTree = SOURCE_ROOT; };
 		B66C3C4A7C3E712EAC219FA8 /* Globals.h */ /* Globals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Globals.h; path = ../../Source/Globals.h; sourceTree = SOURCE_ROOT; };
@@ -323,6 +327,7 @@
 				C098D47A37A4C9BDED91C024,
 				5FAB6C0B317880E06DBC0AE1,
 				9885806067E314B00A2E6566,
+				58F99DFD59D4480308295089,
 				D58C80C0F0E69322D94B693D,
 				10B2E3F66AA493166515CB52,
 				40060C1B12B86F2C394C4A02,
@@ -330,6 +335,7 @@
 				8B552545E94A6B888F9558AC,
 				D31DAF4332FD8ED0EE8D56DB,
 				87EF1F373FCB8EDE8E07A373,
+				AFD5FDBE6D5C34FF73C58077,
 				AE9F4C80BCD55F4A8B7ECA0F,
 				349D22BA4D0070359671F034,
 				1B12DEB9F7E916FEC1E6BCE8,
@@ -369,6 +375,7 @@
 				F2C0F2E1C90D029FC4586E61,
 				D8F6F4DE724D24FD90783C86,
 				D5FCE8914C1D52CD0F954B61,
+				6EB90791461D0153C1400236,
 				6235E1F8E4480F37B672AF73,
 				5AABCF2C2A93C5A8C7A16C0B,
 				6A4E0F85B587FD13AEEE904D,
@@ -747,6 +754,7 @@
 				2F315571215429D2C0090C4F,
 				D4C47668089FB7C5C2A9A6B0,
 				AF9438780E6A74136F292859,
+				CEBBF190397C13D12E27C0ED,
 				B90BED546F5332222481A92E,
 				2E1E5C44FE442DDC408DD8C8,
 				5ED8FAB58080B443329D4530,

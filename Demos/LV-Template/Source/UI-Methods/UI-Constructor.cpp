@@ -17,6 +17,8 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
     
     startTimerHz(30);
     
+    addAndMakeVisible(largeDial);
+    
 //    if (settingsPage.getShouldUseToolTips())
 //    {
 //        addAndMakeVisible(tooltipWindow);

@@ -13,6 +13,7 @@
 LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 , headerComponent(audioProcessor)
+, largeDial(2, " dB", "Dial")
 {
     uiConstructor();
 }

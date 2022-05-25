@@ -44,4 +44,5 @@ void LVTemplateAudioProcessorEditor::setSettingsPageBounds()
 //        settingsPageAnimator.animateComponent(&settingsPage, settingsPageOutBounds, 1.0f, 250, false, 1.0, 1.0);
 //    }
     
+    largeDial.setBounds(getLocalBounds().withSizeKeepingCentre(getWidth() * 0.25, getWidth() * 0.25));
 }

@@ -55,6 +55,7 @@
               file="../../Assets/button_small_off.png"/>
         <FILE id="N5eNMC" name="button_small_on.png" compile="0" resource="1"
               file="../../Assets/button_small_on.png"/>
+        <FILE id="WjwL9k" name="knob_big.png" compile="0" resource="1" file="../../Assets/knob_big.png"/>
         <FILE id="thYNKG" name="knob_middle.png" compile="0" resource="1" file="../../Assets/knob_middle.png"/>
         <FILE id="RY1WNN" name="knob_small.png" compile="0" resource="1" file="../../Assets/knob_small.png"/>
         <FILE id="JmnbDK" name="landon55-04.png" compile="0" resource="1" file="../../Assets/landon55-04.png"/>
@@ -63,6 +64,8 @@
         <FILE id="envYms" name="pluginBackground2.png" compile="0" resource="1"
               file="../../Assets/pluginBackground2.png"/>
         <FILE id="cVSXNq" name="projucer.png" compile="0" resource="1" file="../../Assets/projucer.png"/>
+        <FILE id="joWSyu" name="scale_knob big.png" compile="0" resource="1"
+              file="../../Assets/scale_knob big.png"/>
         <FILE id="TWG6T7" name="scale_knob middle.png" compile="0" resource="1"
               file="../../Assets/scale_knob middle.png"/>
         <FILE id="bcHHIi" name="scale_knob small_.png" compile="0" resource="1"
