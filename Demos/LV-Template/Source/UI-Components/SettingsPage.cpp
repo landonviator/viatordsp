@@ -27,7 +27,8 @@ SettingsPage::~SettingsPage()
 void SettingsPage::paint (juce::Graphics& g)
 {
     //Background
-    g.fillAll(juce::Colour::fromRGB(45, 44, 51));
+    //g.fillAll(juce::Colour::fromRGB(45, 44, 51));
+    g.fillAll(juce::Colours::black.withAlpha(0.7f));
     
     //Title Text
     g.setColour(juce::Colours::whitesmoke.withAlpha(0.5f));

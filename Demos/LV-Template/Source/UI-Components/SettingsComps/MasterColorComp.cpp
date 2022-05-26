@@ -120,7 +120,7 @@ MasterColorComp::~MasterColorComp()
 
 void MasterColorComp::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colours::black.withAlpha(0.2f));
+    g.setColour(juce::Colours::whitesmoke.withAlpha(0.15f));
     g.fillRoundedRectangle(getWidth() * 0.05, getHeight() * 0.05, getWidth() * 0.9, getHeight() * 0.9, 2.0f);
     
     g.setColour(juce::Colours::black.withAlpha(0.3f));
@@ -146,6 +146,6 @@ void MasterColorComp::resized()
     asphaltButton.setBounds(purpleButton.getX() + purpleButton.getWidth() * buttonSpaceBetween, topMargin, colorSize, colorSize);
     blackButton.setBounds(asphaltButton.getX() + asphaltButton.getWidth() * buttonSpaceBetween, topMargin, colorSize, colorSize);
     
-    colorsLabel.setBounds(blackButton.getX() + blackButton.getWidth() * 1.3f, labelTopMargin, compWidth * 2.0, compHeight);
-    colorsLabel.setFont(juce::Font ("Helvetica", getWidth() * 0.025f, juce::Font::FontStyleFlags::bold));
+    colorsLabel.setBounds(blackButton.getX() + blackButton.getWidth() * 1.3f, labelTopMargin * 1.02f, compWidth * 4.0, compHeight);
+    colorsLabel.setFont(juce::Font ("Helvetica", getWidth() * 0.04f, juce::Font::FontStyleFlags::bold));
 }

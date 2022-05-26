@@ -27,7 +27,7 @@ ToolTipSettingsComp::ToolTipSettingsComp()
     
     /** Tooltip Label */
     addAndMakeVisible(tooltipLabel);
-    tooltipLabel.setText("Show ToolTips?", juce::dontSendNotification);
+    tooltipLabel.setText("Show Tool Tips?", juce::dontSendNotification);
     tooltipLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.5f));
 }
 
@@ -38,7 +38,7 @@ ToolTipSettingsComp::~ToolTipSettingsComp()
 
 void ToolTipSettingsComp::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colours::black.withAlpha(0.2f));
+    g.setColour(juce::Colours::whitesmoke.withAlpha(0.15f));
     g.fillRoundedRectangle(getWidth() * 0.05, getHeight() * 0.05, getWidth() * 0.9, getHeight() * 0.9, 2.0f);
     
     g.setColour(juce::Colours::black.withAlpha(0.3f));
@@ -49,13 +49,13 @@ void ToolTipSettingsComp::resized()
 
 {
     auto leftMargin = getWidth() * 0.1;
-    auto topMargin = getHeight() * 0.2;
+    auto topMargin = getHeight() * 0.2f;
     auto compWidth = getWidth() * 0.1;
     auto compHeight = getHeight() * 0.6;
     
     toolTipToggle.setBounds(leftMargin, topMargin, compWidth, compHeight);
-    tooltipLabel.setBounds(toolTipToggle.getX() + toolTipToggle.getWidth() * 1.3f, topMargin, compWidth * 2.0, compHeight);
-    tooltipLabel.setFont(juce::Font ("Helvetica", getWidth() * 0.025f, juce::Font::FontStyleFlags::bold));
+    tooltipLabel.setBounds(toolTipToggle.getX() + toolTipToggle.getWidth() * 1.3f, topMargin * 1.2f, compWidth * 4.0, compHeight);
+    tooltipLabel.setFont(juce::Font ("Helvetica", getWidth() * 0.04f, juce::Font::FontStyleFlags::bold));
 }
 
 bool ToolTipSettingsComp::getShouldUseToolTips()
