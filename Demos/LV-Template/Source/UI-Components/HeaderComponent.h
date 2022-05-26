@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    HeaderComponent.h
-    Created: 21 May 2022 10:21:27pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include <JuceHeader.h>
@@ -15,9 +5,9 @@
 #include "../LookAndFeel/LabelLAF.h"
 #include "../PluginProcessor.h"
 #include "../Globals.h"
+
 //==============================================================================
-/*
-*/
+
 class HeaderComponent  : public juce::Component, private juce::Timer
 {
 public:

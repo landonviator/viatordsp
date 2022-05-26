@@ -1,13 +1,4 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #pragma once
-
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "./UI-Components/HeaderComponent.h"
@@ -15,8 +6,10 @@
 #include "./UI-Components/SettingsComps/ToolTipSettingsComp.h"
 
 //==============================================================================
-/***/
-class LVTemplateAudioProcessorEditor  : public juce::AudioProcessorEditor, private juce::Timer
+
+class LVTemplateAudioProcessorEditor  :
+public juce::AudioProcessorEditor
+, private juce::Timer
 {
 public:
     LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor&);

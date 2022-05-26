@@ -1,17 +1,8 @@
-/*
-  ==============================================================================
-
-    MasterColorComp.cpp
-    Created: 24 May 2022 11:07:02pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
 #include "MasterColorComp.h"
 
 //==============================================================================
+
 MasterColorComp::MasterColorComp()
 {
     /** Color Button Red */

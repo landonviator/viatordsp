@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    MenuSliderLAF.cpp
-    Created: 22 May 2022 12:17:09am
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include "MenuSliderLAF.h"
 
 MenuSliderLAF::MenuSliderLAF()

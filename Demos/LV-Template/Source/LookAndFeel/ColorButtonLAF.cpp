@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    ColorButtonLAF.cpp
-    Created: 22 May 2022 9:34:10pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include "ColorButtonLAF.h"
 
 ColorButtonLAF::ColorButtonLAF()

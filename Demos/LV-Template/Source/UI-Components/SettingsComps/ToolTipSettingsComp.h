@@ -1,21 +1,10 @@
-/*
-  ==============================================================================
-
-    ToolTipSettingsComp.h
-    Created: 24 May 2022 10:08:12pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include <JuceHeader.h>
 #include "../../LookAndFeel/ToggleButtonLAF.h"
 
 //==============================================================================
-/*
-*/
+
 class ToolTipSettingsComp  : public juce::Component
 {
 public:

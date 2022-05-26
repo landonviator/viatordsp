@@ -1,17 +1,8 @@
-/*
-  ==============================================================================
-
-    ToolTipSettingsComp.cpp
-    Created: 24 May 2022 10:08:12pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
 #include "ToolTipSettingsComp.h"
 
 //==============================================================================
+
 ToolTipSettingsComp::ToolTipSettingsComp()
 {
     /** Tooltip Toggle */

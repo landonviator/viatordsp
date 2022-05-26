@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    SettingsButtonLAF.cpp
-    Created: 21 May 2022 10:17:02pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include "SettingsButtonLAF.h"
 
 SettingsButtonLAF::SettingsButtonLAF()

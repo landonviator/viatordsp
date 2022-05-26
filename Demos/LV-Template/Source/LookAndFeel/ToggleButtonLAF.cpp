@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    ToggleButtonLAF.cpp
-    Created: 22 May 2022 2:44:51pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include "ToggleButtonLAF.h"
 
 ToggleButtonLAF::ToggleButtonLAF()

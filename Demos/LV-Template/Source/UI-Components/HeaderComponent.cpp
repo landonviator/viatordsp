@@ -1,17 +1,8 @@
-/*
-  ==============================================================================
-
-    HeaderComponent.cpp
-    Created: 21 May 2022 10:21:27pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include <JuceHeader.h>
 #include "HeaderComponent.h"
 
 //==============================================================================
+
 HeaderComponent::HeaderComponent(LVTemplateAudioProcessor& p) : audioProcessor(p)
 {
     startTimerHz(10);

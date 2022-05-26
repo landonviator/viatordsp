@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    SettingsButtonLogic.cpp
-    Created: 21 May 2022 11:30:54pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
 #include "../../UI-Components/HeaderComponent.h"
 
 void HeaderComponent::settingsButtonProps()
