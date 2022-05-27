@@ -1,13 +1,16 @@
 #include "FilmStripFader.h"
 
-viator_gui::FilmStripFader::FilmStripFader(int newNumFrames, const bool isThisKnobSmall, const juce::String labelSuffix, const juce::String labelText)
+viator_gui::FilmStripFader::FilmStripFader(int newNumFrames, const bool isHorizontal_)
 :
 numFrames(newNumFrames)
 {
-    setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    numFrames = newNumFrames;
+    isHorizontal = isHorizontal_;
     
-    
-        filmStrip = juce::ImageCache::getFromMemory(BinaryData::slider_vertical_png, BinaryData::slider_vertical_pngSize);
+    setTextBoxStyle(NoTextBox, 0, 0, 0);
+    setRange(0.0, 10.0, 0.01);
+    setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    filmStrip = juce::ImageCache::getFromMemory(BinaryData::slider_horizontal_png, BinaryData::slider_horizontal_pngSize);
     
 //    frameHeight = filmStrip.getHeight() / numFrames_;
 //    frameWidth = filmStrip.getWidth();
@@ -29,23 +32,51 @@ numFrames(newNumFrames)
 //    knobTitle.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.darker(1.0f));
 //    knobTitle.setJustificationType(juce::Justification::centred);
 //    knobTitle.attachToComponent(this, false);
+    if(isHorizontal_)
+    {
+        frameHeight = filmStrip.getHeight();
+        frameWidth = filmStrip.getWidth() / newNumFrames;
+    }
     
-    sideLength = filmStrip.getWidth();
-    numFrames = filmStrip.getHeight() / sideLength;
+    else
+    {
+        frameHeight = filmStrip.getHeight() / newNumFrames;
+        frameWidth = filmStrip.getWidth();
+    }
 }
 
 void viator_gui::FilmStripFader::paint(juce::Graphics &g)
 {
-    int imageNumber = static_cast<std::size_t>(0.5 + (getValue() - getMinimum()) / (getMaximum() - getMinimum()) * (numFrames - 1));
-    g.drawImage(filmStrip, 0, 0, sideLength, sideLength, 0, imageNumber * sideLength, sideLength, sideLength);
-        //auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_middle_png, BinaryData::scale_knob_middle_pngSize);
-        //g.drawImageWithin(background, getWidth() * 0.17, getHeight() * 0.125, getWidth() / 1.5, getHeight() / 1.5, juce::RectanglePlacement::centred);
+    int value = (getValue() - getMinimum()) / (getMaximum() - getMinimum()) * (numFrames - 1);
+    
+    if(isHorizontal)
+    {
+        g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(),
+                            value * frameWidth, 0, frameWidth, frameHeight);
+    }
+            
+    else
+    {
+        g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(),
+                            0, value * frameHeight, frameWidth, frameHeight);
+    }
+}
+            
+int viator_gui::FilmStripFader::getFrameWidth()
+{
+    return filmStrip.isValid() ? frameWidth  : 100;
     
 }
 
+int viator_gui::FilmStripFader::getFrameHeight()
+{
+    return filmStrip.isValid() ? frameHeight : 24;
+}
+    
+
 void viator_gui::FilmStripFader::resized()
 {
-    knobLabel.setBounds(getLocalBounds().reduced(0, getHeight() * 0.35).withY(getHeight() * 0.7));
-    knobLabel.setFont(getWidth() * 0.12);
-    knobTitle.setFont(juce::Font ("Helvetica", getHeight() * 0.12, juce::Font::FontStyleFlags::bold));
+    //knobLabel.setBounds(getLocalBounds().reduced(0, getHeight() * 0.35).withY(getHeight() * 0.7));
+    //knobLabel.setFont(getWidth() * 0.12);
+    //knobTitle.setFont(juce::Font ("Helvetica", getHeight() * 0.12, juce::Font::FontStyleFlags::bold));
 }
