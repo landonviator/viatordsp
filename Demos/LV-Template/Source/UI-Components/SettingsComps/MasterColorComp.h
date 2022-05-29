@@ -1,5 +1,4 @@
 #pragma once
-
 #include <JuceHeader.h>
 #include "../../LookAndFeel/ColorButtonLAF.h"
 #include "../../Globals.h"

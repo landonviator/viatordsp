@@ -1,5 +1,4 @@
 #pragma once
-
 #include <JuceHeader.h>
 #include "../LookAndFeel/MenuSliderLAF.h"
 #include "../LookAndFeel/ToggleButtonLAF.h"
