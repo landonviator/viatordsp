@@ -14,6 +14,7 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     bool getShouldUseToolTips();
+    
 private:
     
     juce::TextButton toolTipToggle;

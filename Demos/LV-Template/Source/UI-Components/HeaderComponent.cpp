@@ -20,7 +20,6 @@ HeaderComponent::HeaderComponent(LVTemplateAudioProcessor& p) : audioProcessor(p
 HeaderComponent::~HeaderComponent()
 {
     stopTimer();
-    
     cpuLabel.setLookAndFeel(nullptr);
 }
 
@@ -40,7 +39,6 @@ void HeaderComponent::paint (juce::Graphics& g)
                       getWidth() * 0.6f,
                       getHeight() * 0.65f,
                       juce::RectanglePlacement::centred);
-    
     
     g.setColour(juce::Colours::whitesmoke.darker(1.0f).darker(1.0f));
     g.drawLine(0, getHeight(), getWidth(), getHeight(), 2.0f);
