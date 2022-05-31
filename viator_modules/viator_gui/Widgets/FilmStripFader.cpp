@@ -7,6 +7,7 @@ numFrames(newNumFrames)
     numFrames = newNumFrames;
     isHorizontal = isHorizontal_;
     
+    /** Slider stuff*/
     setTextBoxStyle(NoTextBox, 0, 0, 0);
     setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     filmStrip = juce::ImageCache::getFromMemory(BinaryData::slider_horizontal_png, BinaryData::slider_horizontal_pngSize);
@@ -34,6 +35,12 @@ numFrames(newNumFrames)
 
 void viator_gui::FilmStripFader::paint(juce::Graphics &g)
 {
+    if (isMouseOver())
+    {
+        const juce::Colour hoverColour = juce::Colour(juce::Colours::black).withAlpha(0.1f);
+        g.fillAll(hoverColour);
+    }
+    
     // Backgroun
     auto ratio = 0.22902f;
     auto scalar = 0.82f;
@@ -53,6 +60,16 @@ void viator_gui::FilmStripFader::paint(juce::Graphics &g)
         g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(),
                             0, value * frameHeight, frameWidth, frameHeight);
     }
+    
+    //Number labels
+    g.setColour(juce::Colours::whitesmoke.withAlpha(0.5f));
+    g.setFont(juce::Font ("Helvetica", getWidth() * 0.05f, juce::Font::FontStyleFlags::bold));
+    auto x1 = scale.getBounds().getWidth() * 0.01f;
+    auto y1 = scale.getBounds().getHeight() * -0.1f;
+    g.drawFittedText("0", x1, y1, 48, 48, juce::Justification::centred, 1);
+    auto x2 = scale.getBounds().getWidth() * 0.57f;
+    auto y2 = scale.getBounds().getHeight() * -0.1f;
+    g.drawFittedText("100", x2, y2, 48, 48, juce::Justification::centred, 1);
     
 }
             

@@ -51,6 +51,12 @@ viator_gui::FilmStripKnob::FilmStripKnob(const int knobSize, const juce::String 
 
 void viator_gui::FilmStripKnob::paint(juce::Graphics &g)
 {
+    if (isMouseOver())
+    {
+        const juce::Colour hoverColour = juce::Colour(juce::Colours::black).withAlpha(0.1f);
+        g.fillAll(hoverColour);
+    }
+    
     const float sliderPos = (float) valueToProportionOfLength(getValue());
 
     int value;
