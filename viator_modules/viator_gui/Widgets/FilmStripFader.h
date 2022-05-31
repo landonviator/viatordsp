@@ -6,7 +6,7 @@ class FilmStripFader : public juce::Slider
 {
 public:
     
-    FilmStripFader(int newNumFrames, const bool isHorizontal_);
+    FilmStripFader(int newNumFrames, const bool isHorizontal_, const juce::String labelText);
     
     void paint(juce::Graphics& g) override;
     
@@ -19,7 +19,7 @@ public:
 private:
     std::size_t numFrames, sideLength;
     juce::Image filmStrip;
-    int frameWidth, frameHeight;
+    float frameWidth, frameHeight;
     
     viator_gui::Label knobLabel {true, ""};
     juce::Label knobTitle {};

@@ -62,6 +62,9 @@ namespace BinaryData
     extern const char*   projucer_png;
     const int            projucer_pngSize = 123572;
 
+    extern const char*   scale_Horizontal_slider_png;
+    const int            scale_Horizontal_slider_pngSize = 870;
+
     extern const char*   scale_knob_middle_png;
     const int            scale_knob_middle_pngSize = 1694;
 
@@ -72,7 +75,7 @@ namespace BinaryData
     const int            slider_vertical_pngSize = 2042437;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 21;
+    const int namedResourceListSize = 22;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

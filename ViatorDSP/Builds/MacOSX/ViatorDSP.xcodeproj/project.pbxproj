@@ -117,6 +117,7 @@
 		90309F7FA23DB54901614FE1 /* Info-Standalone_Plugin.plist */ /* Info-Standalone_Plugin.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-Standalone_Plugin.plist"; path = "Info-Standalone_Plugin.plist"; sourceTree = SOURCE_ROOT; };
 		90DE06584ECAAE87567EDA66 /* include_juce_audio_plugin_client_VST_utils.mm */ /* include_juce_audio_plugin_client_VST_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_VST_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm; sourceTree = SOURCE_ROOT; };
 		91188FC27B0277CFDCEF7300 /* include_juce_audio_plugin_client_Standalone.cpp */ /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_Standalone.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp; sourceTree = SOURCE_ROOT; };
+		92452BF3A956FB3F63CE8ED8 /* scale_Horizontal slider.png */ /* scale_Horizontal slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scale_Horizontal slider.png"; path = "../../../Assets/scale_Horizontal slider.png"; sourceTree = SOURCE_ROOT; };
 		938647A2B7F42A4FD183C630 /* Articulations_decore.png */ /* Articulations_decore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Articulations_decore.png; path = ../../../Assets/Articulations_decore.png; sourceTree = SOURCE_ROOT; };
 		94474E322FF1813B0086E430 /* BinaryData.h */ /* BinaryData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BinaryData.h; path = ../../JuceLibraryCode/BinaryData.h; sourceTree = SOURCE_ROOT; };
 		97A7F4C77192244FCBE6CC74 /* include_juce_audio_plugin_client_VST3.cpp */ /* include_juce_audio_plugin_client_VST3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_VST3.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp; sourceTree = SOURCE_ROOT; };
@@ -375,6 +376,7 @@
 				B753D940AEF5B38FD6968E6E,
 				56BEF19191ADDBEF91BC5408,
 				CF78862B0BB96C510CB19569,
+				92452BF3A956FB3F63CE8ED8,
 				CA9CC7046D231E00719D22D0,
 				6EC538B4C4EE52F25AFF4373,
 				BC2134AABC733456F174319B,

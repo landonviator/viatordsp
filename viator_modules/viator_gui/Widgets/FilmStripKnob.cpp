@@ -1,6 +1,6 @@
 #include "FilmStripKnob.h"
 
-viator_gui::FilmStripKnob::FilmStripKnob(const int knobSize, const juce::String labelSuffix, const juce::String labelText)
+viator_gui::FilmStripKnob::FilmStripKnob(const int knobSize, const juce::String labelSuffix, const juce::String labelText, double rangeMin, double rangeMax)
 : _knobSize(knobSize)
 {
     setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
@@ -33,11 +33,11 @@ viator_gui::FilmStripKnob::FilmStripKnob(const int knobSize, const juce::String 
     
     /** Text Box Label*/
     addAndMakeVisible(knobLabel);
-    knobLabel.setText(juce::String (getValue(), 2)  + labelSuffix, juce::dontSendNotification);
+    knobLabel.setText(juce::String (m_labelIsInt ? static_cast<int>(rangeMin) : rangeMin, m_labelIsInt ? 0 : 2)  + labelSuffix, juce::dontSendNotification);
     knobLabel.setJustificationType(juce::Justification::centred);
     onValueChange = [this, labelSuffix]()
     {
-        knobLabel.setText(juce::String (getValue(), 2) + labelSuffix, juce::dontSendNotification);
+        knobLabel.setText(juce::String (m_labelIsInt ? static_cast<int>(getValue()) : getValue(), m_labelIsInt ? 0 : 2) + labelSuffix, juce::dontSendNotification);
     };
     
     /** Title Label*/
@@ -126,4 +126,9 @@ void viator_gui::FilmStripKnob::updateLabelColor(juce::Colour newColor)
         knobLabel.setColour(juce::Label::ColourIds::textColourId, newColor);
         knobTitle.setColour(juce::Label::ColourIds::textColourId, newColor);
     }
+}
+
+void viator_gui::FilmStripKnob::setLabelAsInt(bool isLabelInt)
+{
+    m_labelIsInt = isLabelInt;
 }
