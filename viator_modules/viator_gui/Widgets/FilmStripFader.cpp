@@ -14,8 +14,8 @@ numFrames(newNumFrames)
     /** Title Label*/
     addAndMakeVisible(knobTitle);
     knobTitle.setText(labelText, juce::dontSendNotification);
-    knobTitle.setColour(0x1000280, juce::Colour::fromFloatRGBA(0, 0, 0, 0));
-    knobTitle.setColour(0x1000282, juce::Colour::fromFloatRGBA(0, 0, 0, 0));
+    knobTitle.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
+    knobTitle.setColour(juce::Label::ColourIds::outlineColourId, juce::Colours::transparentBlack);
     knobTitle.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.darker(1.0f));
     knobTitle.setJustificationType(juce::Justification::centred);
     
@@ -34,6 +34,12 @@ numFrames(newNumFrames)
 
 void viator_gui::FilmStripFader::paint(juce::Graphics &g)
 {
+    // Backgroun
+    auto ratio = 0.22902f;
+    auto scalar = 0.82f;
+    auto scale = juce::ImageCache::getFromMemory(BinaryData::scale_Horizontal_slider_png, BinaryData::scale_Horizontal_slider_pngSize);
+    g.drawImageWithin(scale, getWidth() * 0.09f, getHeight() * 0.25f, getWidth() * scalar, getWidth() * ratio * scalar, juce::RectanglePlacement::stretchToFit);
+    
     int value = (getValue() - getMinimum()) / (getMaximum() - getMinimum()) * (numFrames - 1);
     
     if(isHorizontal)
@@ -48,11 +54,6 @@ void viator_gui::FilmStripFader::paint(juce::Graphics &g)
                             0, value * frameHeight, frameWidth, frameHeight);
     }
     
-    // Backgroun
-    auto ratio = 0.22902f;
-    auto scalar = 0.82f;
-    auto scale = juce::ImageCache::getFromMemory(BinaryData::scale_Horizontal_slider_png, BinaryData::scale_Horizontal_slider_pngSize);
-    g.drawImageWithin(scale, getWidth() * 0.09f, getHeight() * 0.25f, getWidth() * scalar, getWidth() * ratio * scalar, juce::RectanglePlacement::stretchToFit);
 }
             
 int viator_gui::FilmStripFader::getFrameWidth()
@@ -71,6 +72,7 @@ void viator_gui::FilmStripFader::resized()
 {
     juce::Slider::resized();
     
-    knobTitle.setBounds(getLocalBounds().withY(getHeight() * -0.4f));
+    auto size = getWidth() * 0.17f;
+    knobTitle.setBounds(getLocalBounds().withSizeKeepingCentre(size, size).withY(getHeight() * -0.12f));
     knobTitle.setFont(juce::Font ("Helvetica", getWidth() * 0.08f, juce::Font::FontStyleFlags::bold));
 }
