@@ -62,15 +62,15 @@ void viator_gui::FilmStripFader::paint(juce::Graphics &g)
     }
     
     //Number labels
-    g.setColour(juce::Colours::whitesmoke.withAlpha(0.5f));
+    g.setColour(accentColor);
     g.setFont(juce::Font ("Helvetica", getWidth() * 0.05f, juce::Font::FontStyleFlags::bold));
-    auto x1 = scale.getBounds().getWidth() * 0.01f;
-    auto y1 = scale.getBounds().getHeight() * -0.1f;
-    g.drawFittedText("0", x1, y1, 48, 48, juce::Justification::centred, 1);
-    auto x2 = scale.getBounds().getWidth() * 0.57f;
-    auto y2 = scale.getBounds().getHeight() * -0.1f;
-    g.drawFittedText("100", x2, y2, 48, 48, juce::Justification::centred, 1);
-    
+    auto size = getWidth() * 0.16f;
+    auto x1 = getWidth() * 0.017f;
+    auto y1 = getHeight() * -0.05f;
+    g.drawFittedText("0", x1, y1, size, size, juce::Justification::centred, 1);
+    auto x2 = getWidth() * 0.83f;
+    auto y2 = getHeight() * -0.05f;
+    g.drawFittedText("100", x2, y2, size, size, juce::Justification::centred, 1);
 }
             
 int viator_gui::FilmStripFader::getFrameWidth()
@@ -92,4 +92,23 @@ void viator_gui::FilmStripFader::resized()
     auto size = getWidth() * 0.17f;
     knobTitle.setBounds(getLocalBounds().withSizeKeepingCentre(size, size).withY(getHeight() * -0.12f));
     knobTitle.setFont(juce::Font ("Helvetica", getWidth() * 0.08f, juce::Font::FontStyleFlags::bold));
+}
+
+void viator_gui::FilmStripFader::updateLabelColor(juce::Colour newColor)
+{
+    if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
+    {
+        knobLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
+        knobTitle.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
+        accentColor = juce::Colours::whitesmoke.withAlpha(0.6f);
+    }
+    
+    else
+    {
+        knobLabel.setColour(juce::Label::ColourIds::textColourId, newColor);
+        knobTitle.setColour(juce::Label::ColourIds::textColourId, newColor);
+        accentColor = newColor;
+    }
+    
+    repaint();
 }
