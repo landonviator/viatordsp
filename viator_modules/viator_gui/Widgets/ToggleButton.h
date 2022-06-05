@@ -14,15 +14,14 @@ public:
     }
     
     void paint(juce::Graphics& g) override;
-    
     void resized() override;
-    
     void setWidth(float newWidth);
+    void updateLabelColor(juce::Colour newColor);
     
 private:
     
     viator_gui::Label label {true, ""};
-    
+    juce::Colour accentColor = juce::Colours::whitesmoke;
 };
 }
 

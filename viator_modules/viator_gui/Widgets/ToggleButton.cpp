@@ -29,3 +29,20 @@ void viator_gui::ToggleButton::resized()
 {
     label.setFont(getWidth() * 0.15);
 }
+
+void viator_gui::ToggleButton::updateLabelColor(juce::Colour newColor)
+{
+    if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
+    {
+        label.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
+        accentColor = juce::Colours::whitesmoke.withAlpha(0.6f);
+    }
+    
+    else
+    {
+        label.setColour(juce::Label::ColourIds::textColourId, newColor);
+        accentColor = newColor;
+    }
+    
+    repaint();
+}

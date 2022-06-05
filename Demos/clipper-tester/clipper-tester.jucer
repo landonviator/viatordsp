@@ -4,6 +4,47 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP">
   <MAINGROUP id="RvFLEQ" name="clipper-tester">
     <GROUP id="{8187462A-F528-4CA0-E759-7D7D67E159B4}" name="Source">
+      <GROUP id="{5304131E-E05B-7C41-9A69-5B2C565D8889}" name="Assets">
+        <FILE id="MIc928" name="Articulations_back.png" compile="0" resource="1"
+              file="Source/Assets/Articulations_back.png"/>
+        <FILE id="G76tJO" name="Articulations_decore.png" compile="0" resource="1"
+              file="Source/Assets/Articulations_decore.png"/>
+        <FILE id="G1YJjy" name="Articulations_line_1.png" compile="0" resource="1"
+              file="Source/Assets/Articulations_line_1.png"/>
+        <FILE id="bwPOVF" name="Articulations_line_2.png" compile="0" resource="1"
+              file="Source/Assets/Articulations_line_2.png"/>
+        <FILE id="bUHWfi" name="back_vu-meter_decore.png" compile="0" resource="1"
+              file="Source/Assets/back_vu-meter_decore.png"/>
+        <FILE id="rBqGjW" name="background.png" compile="0" resource="1" file="Source/Assets/background.png"/>
+        <FILE id="JXVewD" name="btclipper.png" compile="0" resource="1" file="Source/Assets/btclipper.png"/>
+        <FILE id="ouAPqz" name="button_middle_off.png" compile="0" resource="1"
+              file="Source/Assets/button_middle_off.png"/>
+        <FILE id="J5piMi" name="button_middle_on.png" compile="0" resource="1"
+              file="Source/Assets/button_middle_on.png"/>
+        <FILE id="LJ9xq7" name="button_small_off.png" compile="0" resource="1"
+              file="Source/Assets/button_small_off.png"/>
+        <FILE id="l6j8S8" name="button_small_on.png" compile="0" resource="1"
+              file="Source/Assets/button_small_on.png"/>
+        <FILE id="AFuoxg" name="knob_big.png" compile="0" resource="1" file="Source/Assets/knob_big.png"/>
+        <FILE id="AxaDED" name="knob_middle.png" compile="0" resource="1" file="Source/Assets/knob_middle.png"/>
+        <FILE id="VycOsv" name="knob_small.png" compile="0" resource="1" file="Source/Assets/knob_small.png"/>
+        <FILE id="GWszI1" name="landon55-04.png" compile="0" resource="1" file="Source/Assets/landon55-04.png"/>
+        <FILE id="cJTR8k" name="led_off.png" compile="0" resource="1" file="Source/Assets/led_off.png"/>
+        <FILE id="lfH3uK" name="led_on.png" compile="0" resource="1" file="Source/Assets/led_on.png"/>
+        <FILE id="T2UZKD" name="pluginBackground2.png" compile="0" resource="1"
+              file="Source/Assets/pluginBackground2.png"/>
+        <FILE id="THQMkv" name="projucer.png" compile="0" resource="1" file="Source/Assets/projucer.png"/>
+        <FILE id="Q3WqZS" name="scale_Horizontal slider.png" compile="0" resource="1"
+              file="Source/Assets/scale_Horizontal slider.png"/>
+        <FILE id="F5BlRE" name="scale_knob big.png" compile="0" resource="1"
+              file="Source/Assets/scale_knob big.png"/>
+        <FILE id="xBlbqa" name="scale_knob middle.png" compile="0" resource="1"
+              file="Source/Assets/scale_knob middle.png"/>
+        <FILE id="sDDw1X" name="scale_knob small_.png" compile="0" resource="1"
+              file="Source/Assets/scale_knob small_.png"/>
+        <FILE id="WT4x0v" name="slider_vertical.png" compile="0" resource="1"
+              file="Source/Assets/slider_vertical.png"/>
+      </GROUP>
       <FILE id="ddVLoO" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="rB8Kjz" name="PluginProcessor.h" compile="0" resource="0"

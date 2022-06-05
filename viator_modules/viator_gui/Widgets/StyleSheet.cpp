@@ -198,24 +198,20 @@ void juce::FullDialLAF::drawRotarySlider
     auto dialBounds = juce::Rectangle<int> (x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
     auto fullRadius = juce::jmin (dialBounds.getWidth() / 1.95f, dialBounds.getHeight() / 1.95f);
-
     
     sliderWidth = width;
     
     /** Dot color*/
     g.setColour (fillColor);
-
     centre = dialBounds.getCentre();
 
     /** Draw dots */
     /** How many dots to draw, works well as num dial intervals + 1 for small ranges, e.g. [0 - 10]*/
-    
     for (int i = 0; i < 11; ++i)
     {
         auto dotSize = width * 0.025;
         
         /** IF you change the number of dots, do i / (num dots - 1) */
-        
         const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
         const auto point = centre.getPointOnCircumference (fullRadius - width * 0.045, angle);
             

@@ -35,12 +35,6 @@ numFrames(newNumFrames)
 
 void viator_gui::FilmStripFader::paint(juce::Graphics &g)
 {
-    if (isMouseOver())
-    {
-        const juce::Colour hoverColour = juce::Colour(juce::Colours::black).withAlpha(0.1f);
-        g.fillAll(hoverColour);
-    }
-    
     // Backgroun
     auto ratio = 0.22902f;
     auto scalar = 0.82f;
