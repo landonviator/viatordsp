@@ -106,6 +106,10 @@ public:
     
     void drawLabel (Graphics& g, Label& label) override;
     float sliderWidth;
+    
+private:
+    juce::DropShadow shadowProperties;
+    juce::DropShadowEffect dialShadow;
 
 };
 

@@ -65,6 +65,8 @@ public:
      * myDial.forceShadow();
     */
     void forceShadow();
+    
+    void updateLabelColor(juce::Colour newColor);
 
 private:
     
@@ -93,8 +95,7 @@ private:
     juce::DropShadow shadowProperties;
     juce::DropShadowEffect dialShadow;
     
-    /** Label */
-    Label dialLabel {true, ""};
+    juce::Colour accentColor = juce::Colours::whitesmoke;
     
 }; // class
 }// namespace viator_gui

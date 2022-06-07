@@ -49,6 +49,8 @@ namespace viator_gui
             }
         }
         
+        void updateLabelColor(juce::Colour newColor);
+        
         void mouseDoubleClick (const juce::MouseEvent &event) override
         {
             if (isMidiSelectable)
@@ -240,5 +242,7 @@ namespace viator_gui
         bool isMacroMapToBeDeleted = false;
         
         double faderReturnValue;
+        
+        juce::Colour accentColor = juce::Colours::whitesmoke;
     };
 }

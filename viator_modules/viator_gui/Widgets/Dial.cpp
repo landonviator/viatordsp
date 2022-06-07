@@ -60,13 +60,14 @@ void viator_gui::Dial::initProps(juce::String suffix,
                double returnValue)
 {
     setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
-    setTextBoxStyle(juce::Slider::TextBoxBelow, false, 96, 32);
-    setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::whitesmoke.darker(1.5f));
+    setTextBoxStyle(juce::Slider::TextBoxBelow, false, 128, 32);
+    setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0f));
     setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::black.brighter(0.1));
     setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::whitesmoke.darker(1.5f));
     setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black.withAlpha(0.0f));
     setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.darker(1.5f));
     setColour(juce::Slider::ColourIds::thumbColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0f));
+    setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::whitesmoke.darker(1.5f));
     setRange(rangeStart, rangeEnd, intervalValue);
     setDoubleClickReturnValue(true, returnValue);
     setTextValueSuffix(suffix);
@@ -78,6 +79,23 @@ void viator_gui::Dial::initShadows()
 {
     shadowProperties.radius = 24;
     shadowProperties.offset = juce::Point<int> (-1, 4);
-    shadowProperties.colour = juce::Colours::black.withAlpha(0.25f);
+    shadowProperties.colour = juce::Colours::black.withAlpha(0.5f);
     dialShadow.setShadowProperties (shadowProperties);
+}
+
+void viator_gui::Dial::updateLabelColor(juce::Colour newColor)
+{
+    if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
+    {
+        setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.withAlpha(0.4f));
+        accentColor = juce::Colours::whitesmoke.withAlpha(0.4f);
+    }
+    
+    else
+    {
+        setColour(juce::Slider::ColourIds::textBoxTextColourId, newColor);
+        accentColor = newColor;
+    }
+    
+    repaint();
 }

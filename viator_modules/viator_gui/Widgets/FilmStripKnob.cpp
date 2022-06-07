@@ -9,21 +9,21 @@ viator_gui::FilmStripKnob::FilmStripKnob(const int knobSize, const juce::String 
     {
         case 0:
         {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::knob_small_png, BinaryData::knob_small_pngSize);
+            //filmStrip = juce::ImageCache::getFromMemory(BinaryData::knob_small_png, BinaryData::knob_small_pngSize);
             frameHeight = filmStrip.getHeight() / 129;
             break;
         }
             
         case 1:
         {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::knob_middle_png, BinaryData::knob_middle_pngSize);
+            //filmStrip = juce::ImageCache::getFromMemory(BinaryData::knob_middle_png, BinaryData::knob_middle_pngSize);
             frameHeight = filmStrip.getHeight() / 129;
             break;
         }
             
         case 2:
         {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::knob_big_png, BinaryData::knob_big_pngSize);
+            //filmStrip = juce::ImageCache::getFromMemory(BinaryData::knob_big_png, BinaryData::knob_big_pngSize);
             frameHeight = filmStrip.getHeight() / 257;
             break;
         }
@@ -60,18 +60,18 @@ void viator_gui::FilmStripKnob::paint(juce::Graphics &g)
         case 0:
         {
             value = sliderPos * (129 - 1);
-            g.drawImage(filmStrip, 0, 0, getWidth(), getHeight() * 0.9, 0, value * frameHeight, frameWidth, frameHeight);
-            auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_small__png, BinaryData::scale_knob_small__pngSize);
-            g.drawImageWithin(background, getWidth() * 0.17, getHeight() * 0.05, getWidth() / 1.5, getHeight() / 1.5, juce::RectanglePlacement::centred);
+            //g.drawImage(filmStrip, 0, 0, getWidth(), getHeight() * 0.9, 0, value * frameHeight, frameWidth, frameHeight);
+            //auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_small__png, BinaryData::scale_knob_small__pngSize);
+            //g.drawImageWithin(background, getWidth() * 0.17, getHeight() * 0.05, getWidth() / 1.5, getHeight() / 1.5, juce::RectanglePlacement::centred);
             break;
         }
             
         case 1:
         {
             value = sliderPos * (129 - 1);
-            g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(), 0, value * frameHeight, frameWidth, frameHeight);
-            auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_middle_png, BinaryData::scale_knob_middle_pngSize);
-            g.drawImageWithin(background, getWidth() * 0.17, getHeight() * 0.125, getWidth() / 1.5, getHeight() / 1.5, juce::RectanglePlacement::centred);
+            //g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(), 0, value * frameHeight, frameWidth, frameHeight);
+            //auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_middle_png, BinaryData::scale_knob_middle_pngSize);
+            //g.drawImageWithin(background, getWidth() * 0.17, getHeight() * 0.125, getWidth() / 1.5, getHeight() / 1.5, juce::RectanglePlacement::centred);
             break;
         }
             
@@ -82,14 +82,13 @@ void viator_gui::FilmStripKnob::paint(juce::Graphics &g)
             auto y = -0.025;
             
             value = sliderPos * (257 - 1);
-            g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(), 0, value * frameHeight, frameWidth, frameHeight);
-            auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_big_png, BinaryData::scale_knob_big_pngSize);
-            g.drawImageWithin(background,
-                              getWidth() * x,
-                              getHeight() * y,
-                              getWidth() / size,
-                              getHeight() / size,
-                              juce::RectanglePlacement::centred);
+            //g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(), 0, value * frameHeight, frameWidth, frameHeight);
+            //auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_big_png, BinaryData::scale_knob_big_pngSize);
+            //                  getWidth() * x,
+                             // getHeight() * y,
+                             //getWidth() / size,
+                              //getHeight() / size,
+                              //juce::RectanglePlacement::centred);
             break;
         }
     }

@@ -25,13 +25,12 @@ public:
     }
     
     void paint(juce::Graphics& g) override;
-    
     void resized() override;
+    void updateLabelColor(juce::Colour newColor);
     
 private:
     
     bool labelIsTransparent = false;
-    bool autoResize = false;
-    
+    bool autoResize = true;
 };
 }

@@ -192,8 +192,9 @@ void juce::FullDialLAF::drawRotarySlider
     const auto outlineColor  = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     const auto fillColor     = slider.findColour(Slider::rotarySliderFillColourId);
     const auto mainColor     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
-    const auto brighterColor = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.15);
+    const auto brighterColor = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.4f);
     const auto trackColor    = slider.findColour(juce::Slider::ColourIds::trackColourId);
+    const auto dialOutlineColor = slider.findColour (juce::Slider::backgroundColourId);
 
     auto dialBounds = juce::Rectangle<int> (x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
@@ -202,7 +203,7 @@ void juce::FullDialLAF::drawRotarySlider
     sliderWidth = width;
     
     /** Dot color*/
-    g.setColour (fillColor);
+    g.setColour (juce::Colours::whitesmoke.withAlpha(0.5f));
     centre = dialBounds.getCentre();
 
     /** Draw dots */
@@ -213,7 +214,9 @@ void juce::FullDialLAF::drawRotarySlider
         
         /** IF you change the number of dots, do i / (num dots - 1) */
         const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
-        const auto point = centre.getPointOnCircumference (fullRadius - width * 0.045, angle);
+        
+        /** Dot distance from slider center */
+        const auto point = centre.getPointOnCircumference (fullRadius - width * 0.06f, angle);
             
         /** Dot thickness*/
         g.fillEllipse (point.getX() - 3, point.getY() - 3, dotSize, dotSize);
@@ -245,7 +248,7 @@ void juce::FullDialLAF::drawRotarySlider
     g.setColour (outlineColor);
     g.strokePath (backgroundArc, juce::PathStrokeType (lineWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
 
-    auto dialRadius = std:: max (fullRadius - 3.0f * lineWidth, 10.0f);
+    auto dialRadius = std:: max (fullRadius - 4.0f * lineWidth, 10.0f);
     {
         juce::Graphics::ScopedSaveState saved (g);
         if (slider.isEnabled())
@@ -253,7 +256,7 @@ void juce::FullDialLAF::drawRotarySlider
             juce::ColourGradient fillGradient
             (
                 brighterColor,
-                centre.getX() + lineWidth * 2.0f,
+                centre.getX() + lineWidth * 0.9f,
                 centre.getY() - lineWidth * 4.0f,
                 mainColor,
                 centre.getX() + dialRadius,
@@ -268,13 +271,15 @@ void juce::FullDialLAF::drawRotarySlider
         g.fillEllipse (centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * 2.0f, dialRadius * 2.0f);
     }
     
-    dialRadius = std:: max (dialRadius - 4.0f, 10.0f);
+    //dialRadius = std:: max (dialRadius - 4.0f, 10.0f);
     
     /** Dial outline color*/
-    g.setColour (outlineColor.brighter());
+    g.setColour (dialOutlineColor);
+    
+    auto scale = 2.0f;
     
     /** Dial outline thickness*/
-    g.drawEllipse (centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * 2.0f, dialRadius * 2.0f, 4.0f);
+    g.drawEllipse (centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * scale, dialRadius * scale, 4.5f);
             
     /** Fill Math*/
     juce::Path dialValueTrack;
@@ -295,7 +300,7 @@ void juce::FullDialLAF::drawRotarySlider
     g.strokePath (dialValueTrack, juce::PathStrokeType (lineWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
     
     /** Dial tick color*/
-    g.setColour (trackColor);
+    g.setColour (dialOutlineColor);
     juce::Path dialTick;
     dialTick.startNewSubPath (centre.getPointOnCircumference (dialRadius - lineWidth, toAngle));
     
@@ -304,6 +309,13 @@ void juce::FullDialLAF::drawRotarySlider
     
     /** Dial tick thickness*/
     g.strokePath (dialTick, juce::PathStrokeType (lineWidth * 0.75, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
+    
+    shadowProperties.radius = 24;
+    shadowProperties.offset = juce::Point<int> (-1, 4);
+    shadowProperties.colour = juce::Colours::black.withAlpha(0.5f);
+    dialShadow.setShadowProperties (shadowProperties);
+    
+    slider.setComponentEffect(&dialShadow);
 }
 
 void juce::FullDialLAF::drawLabel (Graphics& g, Label& label)
@@ -639,7 +651,10 @@ void juce::FaderLAF::drawLinearSlider
         {
             if (i < 13)
             {
-                g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), width * 0.005);
+                if (slider.isVertical())
+                {
+                    g.drawLine(startX, slider.getPositionOfValue(static_cast<double>(i)), endX, slider.getPositionOfValue(static_cast<double>(i)), width * 0.005);
+                }
             }
         }
     }
@@ -674,7 +689,18 @@ void juce::FaderLAF::drawLinearSlider
 
     /** Thumb */
     Rectangle<float> thumbRec;
-    thumbRec.setSize(static_cast<float> (width * 0.75), static_cast<float> (width * 0.25));
+    
+    if (slider.isHorizontal())
+    {
+        thumbRec.setSize(static_cast<float> (width * 0.25f),
+                         static_cast<float> (height));
+    }
+    
+    else
+    {
+        thumbRec.setSize(static_cast<float> (width * 0.75), static_cast<float> (width * 0.25));
+    }
+    
     g.setGradientFill(juce::ColourGradient::horizontal(brighterColor, thumbRec.getWidth() * 0.25, mainColor, thumbRec.getWidth() * 0.75));
     g.fillRoundedRectangle(thumbRec.withCentre(maxPoint), 6.0f);
 }

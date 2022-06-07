@@ -47,3 +47,20 @@ void viator_gui::Fader::initShadows()
     sliderShadowProperties.colour = juce::Colours::black.withAlpha(1.0f);
     sliderShadow.setShadowProperties (sliderShadowProperties);
 }
+
+void viator_gui::Fader::updateLabelColor(juce::Colour newColor)
+{
+    if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
+    {
+        trimLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
+        accentColor = juce::Colours::whitesmoke.withAlpha(0.6f);
+    }
+    
+    else
+    {
+        trimLabel.setColour(juce::Label::ColourIds::textColourId, newColor);
+        accentColor = newColor;
+    }
+    
+    repaint();
+}

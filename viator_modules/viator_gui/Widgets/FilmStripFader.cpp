@@ -10,7 +10,7 @@ numFrames(newNumFrames)
     /** Slider stuff*/
     setTextBoxStyle(NoTextBox, 0, 0, 0);
     setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
-    filmStrip = juce::ImageCache::getFromMemory(BinaryData::slider_horizontal_png, BinaryData::slider_horizontal_pngSize);
+    //filmStrip = juce::ImageCache::getFromMemory(BinaryData::slider_horizontal_png, BinaryData::slider_horizontal_pngSize);
     
     /** Title Label*/
     addAndMakeVisible(knobTitle);
@@ -36,35 +36,35 @@ numFrames(newNumFrames)
 void viator_gui::FilmStripFader::paint(juce::Graphics &g)
 {
     // Backgroun
-    auto ratio = 0.22902f;
-    auto scalar = 0.82f;
-    auto scale = juce::ImageCache::getFromMemory(BinaryData::scale_Horizontal_slider_png, BinaryData::scale_Horizontal_slider_pngSize);
-    g.drawImageWithin(scale, getWidth() * 0.09f, getHeight() * 0.25f, getWidth() * scalar, getWidth() * ratio * scalar, juce::RectanglePlacement::stretchToFit);
-    
-    int value = (getValue() - getMinimum()) / (getMaximum() - getMinimum()) * (numFrames - 1);
-    
-    if(isHorizontal)
-    {
-        g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(),
-                            value * frameWidth, 0, frameWidth, frameHeight);
-    }
-            
-    else
-    {
-        g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(),
-                            0, value * frameHeight, frameWidth, frameHeight);
-    }
-    
-    //Number labels
-    g.setColour(accentColor);
-    g.setFont(juce::Font ("Helvetica", getWidth() * 0.05f, juce::Font::FontStyleFlags::bold));
-    auto size = getWidth() * 0.16f;
-    auto x1 = getWidth() * 0.017f;
-    auto y1 = getHeight() * -0.05f;
-    g.drawFittedText("0", x1, y1, size, size, juce::Justification::centred, 1);
-    auto x2 = getWidth() * 0.83f;
-    auto y2 = getHeight() * -0.05f;
-    g.drawFittedText("100", x2, y2, size, size, juce::Justification::centred, 1);
+//    auto ratio = 0.22902f;
+//    auto scalar = 0.82f;
+//    auto scale = juce::ImageCache::getFromMemory(BinaryData::scale_Horizontal_slider_png, BinaryData::scale_Horizontal_slider_pngSize);
+//    g.drawImageWithin(scale, getWidth() * 0.09f, getHeight() * 0.25f, getWidth() * scalar, getWidth() * ratio * scalar, juce::RectanglePlacement::stretchToFit);
+//    
+//    int value = (getValue() - getMinimum()) / (getMaximum() - getMinimum()) * (numFrames - 1);
+//    
+//    if(isHorizontal)
+//    {
+//        g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(),
+//                            value * frameWidth, 0, frameWidth, frameHeight);
+//    }
+//            
+//    else
+//    {
+//        g.drawImage(filmStrip, 0, 0, getWidth(), getHeight(),
+//                            0, value * frameHeight, frameWidth, frameHeight);
+//    }
+//    
+//    //Number labels
+//    g.setColour(accentColor);
+//    g.setFont(juce::Font ("Helvetica", getWidth() * 0.05f, juce::Font::FontStyleFlags::bold));
+//    auto size = getWidth() * 0.16f;
+//    auto x1 = getWidth() * 0.017f;
+//    auto y1 = getHeight() * -0.05f;
+//    g.drawFittedText("0", x1, y1, size, size, juce::Justification::centred, 1);
+//    auto x2 = getWidth() * 0.83f;
+//    auto y2 = getHeight() * -0.05f;
+//    g.drawFittedText("100", x2, y2, size, size, juce::Justification::centred, 1);
 }
             
 int viator_gui::FilmStripFader::getFrameWidth()
