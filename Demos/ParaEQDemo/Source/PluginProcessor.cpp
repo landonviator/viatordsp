@@ -10,7 +10,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-MixDemoAudioProcessor::MixDemoAudioProcessor()
+ParaEQDemoAudioProcessor::ParaEQDemoAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -23,42 +23,49 @@ MixDemoAudioProcessor::MixDemoAudioProcessor()
 treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    treeState.addParameterListener("input", this);
-    treeState.addParameterListener("mix", this);
+    treeState.addParameterListener("band1Gain", this);
+    treeState.addParameterListener("band1Cutoff", this);
+    treeState.addParameterListener("band1Q", this);
 }
 
-MixDemoAudioProcessor::~MixDemoAudioProcessor()
+ParaEQDemoAudioProcessor::~ParaEQDemoAudioProcessor()
 {
-    treeState.removeParameterListener("input", this);
-    treeState.removeParameterListener("mix", this);
+    treeState.removeParameterListener("band1Gain", this);
+    treeState.removeParameterListener("band1Cutoff", this);
+    treeState.removeParameterListener("band1Q", this);
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout MixDemoAudioProcessor::createParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout ParaEQDemoAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
-    auto pInput = std::make_unique<juce::AudioParameterFloat>("input", "Input", -24.0f, 24.0f, 0.0f);
-    auto pWet = std::make_unique<juce::AudioParameterFloat>("mix", "Mix", 0.0f, 100.0f, 0.0f);
+    auto pBand1Gain = std::make_unique<juce::AudioParameterFloat>("band1Gain", "Band1Gain", -15.0f, 15.0f, 0.0f);
+    auto pBand1Cutoff = std::make_unique<juce::AudioParameterFloat>("band1Cutoff", "Band1Cutoff", 20.0f, 250.0f, 100.0f);
+    auto pBand1Q = std::make_unique<juce::AudioParameterFloat>("band1Q", "Band1Q", 0.36f, 0.8f, 0.5f);
     
-    params.push_back(std::move(pInput));
-    params.push_back(std::move(pWet));
+    params.push_back(std::move(pBand1Gain));
+    params.push_back(std::move(pBand1Cutoff));
+    params.push_back(std::move(pBand1Q));
     
     return { params.begin(), params.end() };
+    
 }
 
-void MixDemoAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+void ParaEQDemoAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
-    drive = juce::Decibels::decibelsToGain(treeState.getRawParameterValue("input")->load());
-    mix = juce::jmap(treeState.getRawParameterValue("mix")->load(), 0.0f, 100.0f, 0.0f, 1.0f);
+    if (parameterID == "band1Gain" || parameterID == "band1Cutoff" || parameterID == "band1Q")
+    {
+        updateBand1(treeState.getRawParameterValue("band1Gain")->load(), treeState.getRawParameterValue("band1Cutoff")->load(), treeState.getRawParameterValue("band1Q")->load());
+    }
 }
 
 //==============================================================================
-const juce::String MixDemoAudioProcessor::getName() const
+const juce::String ParaEQDemoAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool MixDemoAudioProcessor::acceptsMidi() const
+bool ParaEQDemoAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -67,7 +74,7 @@ bool MixDemoAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool MixDemoAudioProcessor::producesMidi() const
+bool ParaEQDemoAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -76,7 +83,7 @@ bool MixDemoAudioProcessor::producesMidi() const
    #endif
 }
 
-bool MixDemoAudioProcessor::isMidiEffect() const
+bool ParaEQDemoAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -85,50 +92,56 @@ bool MixDemoAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double MixDemoAudioProcessor::getTailLengthSeconds() const
+double ParaEQDemoAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int MixDemoAudioProcessor::getNumPrograms()
+int ParaEQDemoAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int MixDemoAudioProcessor::getCurrentProgram()
+int ParaEQDemoAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void MixDemoAudioProcessor::setCurrentProgram (int index)
+void ParaEQDemoAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const juce::String MixDemoAudioProcessor::getProgramName (int index)
+const juce::String ParaEQDemoAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void MixDemoAudioProcessor::changeProgramName (int index, const juce::String& newName)
+void ParaEQDemoAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
 }
 
 //==============================================================================
-void MixDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void ParaEQDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    drive = juce::Decibels::decibelsToGain(treeState.getRawParameterValue("input")->load());
-    mix = juce::jmap(treeState.getRawParameterValue("mix")->load(), 0.0f, 100.0f, 0.0f, 1.0f);
+    // Initialize spec for dsp modules
+    juce::dsp::ProcessSpec spec;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.sampleRate = sampleRate;
+    spec.numChannels = getTotalNumOutputChannels();
+    
+    band1.prepare(spec);
+    updateBand1(treeState.getRawParameterValue("band1Gain")->load(), treeState.getRawParameterValue("band1Cutoff")->load(), treeState.getRawParameterValue("band1Q")->load());
 }
 
-void MixDemoAudioProcessor::releaseResources()
+void ParaEQDemoAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool MixDemoAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool ParaEQDemoAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
@@ -153,81 +166,42 @@ bool MixDemoAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) 
 }
 #endif
 
-void MixDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void ParaEQDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
-    
     juce::dsp::AudioBlock<float> audioBlock {buffer};
-    
-    for (auto channel = 0; channel < audioBlock.getNumChannels(); channel++)
-    {
-        auto* data = audioBlock.getChannelPointer(channel);
-        
-        for (auto sample = 0; sample < audioBlock.getNumSamples(); sample++)
-        {
-            auto input = data[sample] * drive;
-            float output;
-            
-            if (input <= thresh)
-            {
-                output = input;
-            }
-            
-            else if (input > thresh)
-            {
-                output = thresh + (input - thresh) / (1.0 + std::pow((( input - thresh ) / (1.0 - thresh)), 2.0));
-            }
-            
-            else if (input > 1.0)
-            {
-                output = (thresh + 1.0) * 0.5;
-            }
-            
-            if (input < -0.8)
-            {
-                output = -0.8;
-            }
-            
-            // Mix affected input with dry input
-            data[sample] = (1.0 - mix) * output + data[sample] * mix;
-        }
-    }
-    
-//    x < a:
-//      f(x) = x
-//    x > a:
-//      f(x) = a + (x-a)/(1+((x-a)/(1-a))^2)
-//    x > 1:
-//      f(x) = (a+1)/2
-    
+    band1.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+}
+
+void ParaEQDemoAudioProcessor::updateBand1(float gain, float cutoff, float q)
+{
+    *band1.state = *juce::dsp::IIR::Coefficients<float>::makeLowShelf(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
 }
 
 //==============================================================================
-bool MixDemoAudioProcessor::hasEditor() const
+bool ParaEQDemoAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* MixDemoAudioProcessor::createEditor()
+juce::AudioProcessorEditor* ParaEQDemoAudioProcessor::createEditor()
 {
-    //return new MixDemoAudioProcessorEditor (*this);
+    //return new ParaEQDemoAudioProcessorEditor (*this);
     return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================
-void MixDemoAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
+void ParaEQDemoAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void MixDemoAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void ParaEQDemoAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -237,5 +211,5 @@ void MixDemoAudioProcessor::setStateInformation (const void* data, int sizeInByt
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new MixDemoAudioProcessor();
+    return new ParaEQDemoAudioProcessor();
 }
