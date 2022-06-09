@@ -29,10 +29,10 @@ private:
     // access the processor object that created it.
     ViatorguidemoAudioProcessor& audioProcessor;
     
-    viator_gui::Dial dial;
-    viator_gui::Border border;
-    float low {0.25};
-    float high {0.75};
-
+    juce::Slider slider1;
+    juce::Slider slider2;
+    juce::Slider slider3;
+    void setSliderProps(juce::Slider& slider);
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ViatorguidemoAudioProcessorEditor)
 };
