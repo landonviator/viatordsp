@@ -71,8 +71,8 @@ public:
 private:
     
     /** Methods */
-    void mouseEnter (const juce::MouseEvent& event) override;
-    void mouseExit (const juce::MouseEvent& event) override;
+    //void mouseEnter (const juce::MouseEvent& event) override;
+    //void mouseExit (const juce::MouseEvent& event) override;
     
     void initProps(juce::String suffix,
                    double rangeStart,
