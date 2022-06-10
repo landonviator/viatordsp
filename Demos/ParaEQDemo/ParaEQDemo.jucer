@@ -4,6 +4,16 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP">
   <MAINGROUP id="FQbtTs" name="ParaEQDemo">
     <GROUP id="{03FF6CC1-5A67-B526-7641-6EA59CD6709A}" name="Source">
+      <GROUP id="{A972AE21-EBB7-0B65-7C24-4804A4BF16EF}" name="GUI">
+        <GROUP id="{495F9C0C-A618-2E99-C584-B7CE56B58459}" name="Display">
+          <FILE id="pDYfpF" name="Display.cpp" compile="1" resource="0" file="Source/GUI/Display/Display.cpp"/>
+        </GROUP>
+        <GROUP id="{C2F45BC5-EC9D-6A0A-3F8F-DDD29C507E4A}" name="LookAndFeel"/>
+        <GROUP id="{12FB5976-66EB-20D3-8F7A-7A9E351FBB9C}" name="Sliders">
+          <FILE id="bLtdAz" name="SlidersCommon.cpp" compile="1" resource="0"
+                file="Source/GUI/Sliders/SlidersCommon.cpp"/>
+        </GROUP>
+      </GROUP>
       <FILE id="nd4U9G" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="T3kRcn" name="PluginProcessor.h" compile="0" resource="0"

@@ -23,29 +23,153 @@ ParaEQDemoAudioProcessor::ParaEQDemoAudioProcessor()
 treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
+    /** Band 1*/
     treeState.addParameterListener("band1Gain", this);
     treeState.addParameterListener("band1Cutoff", this);
     treeState.addParameterListener("band1Q", this);
+    
+    /** Band 2*/
+    treeState.addParameterListener("band2Gain", this);
+    treeState.addParameterListener("band2Cutoff", this);
+    treeState.addParameterListener("band2Q", this);
+    
+    /** Band 3*/
+    treeState.addParameterListener("band3Gain", this);
+    treeState.addParameterListener("band3Cutoff", this);
+    treeState.addParameterListener("band3Q", this);
+    
+    /** Band 4*/
+    treeState.addParameterListener("band4Gain", this);
+    treeState.addParameterListener("band4Cutoff", this);
+    treeState.addParameterListener("band4Q", this);
+    
+    /** Band 5*/
+    treeState.addParameterListener("band5Gain", this);
+    treeState.addParameterListener("band5Cutoff", this);
+    treeState.addParameterListener("band5Q", this);
+    
+    /** Band 6*/
+    treeState.addParameterListener("band6Gain", this);
+    treeState.addParameterListener("band6Cutoff", this);
+    treeState.addParameterListener("band6Q", this);
+    
+    /** Band 7*/
+    treeState.addParameterListener("band7Gain", this);
+    treeState.addParameterListener("band7Cutoff", this);
+    treeState.addParameterListener("band7Q", this);
 }
 
 ParaEQDemoAudioProcessor::~ParaEQDemoAudioProcessor()
 {
+    /** Band 1 */
     treeState.removeParameterListener("band1Gain", this);
     treeState.removeParameterListener("band1Cutoff", this);
     treeState.removeParameterListener("band1Q", this);
+    
+    /** Band 2 */
+    treeState.removeParameterListener("band2Gain", this);
+    treeState.removeParameterListener("band2Cutoff", this);
+    treeState.removeParameterListener("band2Q", this);
+    
+    /** Band 3 */
+    treeState.removeParameterListener("band3Gain", this);
+    treeState.removeParameterListener("band3Cutoff", this);
+    treeState.removeParameterListener("band3Q", this);
+    
+    /** Band 4 */
+    treeState.removeParameterListener("band4Gain", this);
+    treeState.removeParameterListener("band4Cutoff", this);
+    treeState.removeParameterListener("band4Q", this);
+    
+    /** Band 5 */
+    treeState.removeParameterListener("band5Gain", this);
+    treeState.removeParameterListener("band5Cutoff", this);
+    treeState.removeParameterListener("band5Q", this);
+    
+    /** Band 6 */
+    treeState.removeParameterListener("band6Gain", this);
+    treeState.removeParameterListener("band6Cutoff", this);
+    treeState.removeParameterListener("band6Q", this);
+    
+    /** Band 7 */
+    treeState.removeParameterListener("band7Gain", this);
+    treeState.removeParameterListener("band7Cutoff", this);
+    treeState.removeParameterListener("band7Q", this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout ParaEQDemoAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
+    /** Band 1 */
     auto pBand1Gain = std::make_unique<juce::AudioParameterFloat>("band1Gain", "Band1Gain", -15.0f, 15.0f, 0.0f);
     auto pBand1Cutoff = std::make_unique<juce::AudioParameterFloat>("band1Cutoff", "Band1Cutoff", 20.0f, 250.0f, 100.0f);
     auto pBand1Q = std::make_unique<juce::AudioParameterFloat>("band1Q", "Band1Q", 0.36f, 0.8f, 0.5f);
     
+    /** Band 2 */
+    auto pBand2Gain = std::make_unique<juce::AudioParameterFloat>("band2Gain", "Band2Gain", -15.0f, 15.0f, 0.0f);
+    auto pBand2Cutoff = std::make_unique<juce::AudioParameterFloat>("band2Cutoff", "Band2Cutoff", juce::NormalisableRange<float>(20.0f, 20000.0f, 1.0f, 0.2f), 250.0f);
+    auto pBand2Q = std::make_unique<juce::AudioParameterFloat>("band2Q", "Band2Q", juce::NormalisableRange<float>(0.15f, 10.0f, 0.01f, 0.25f), 0.5f);
+    
+    /** Band 3 */
+    auto pBand3Gain = std::make_unique<juce::AudioParameterFloat>("band3Gain", "Band3Gain", -15.0f, 15.0f, 0.0f);
+    auto pBand3Cutoff = std::make_unique<juce::AudioParameterFloat>("band3Cutoff", "Band3Cutoff", juce::NormalisableRange<float>(20.0f, 20000.0f, 1.0f, 0.2f), 500.0f);
+    auto pBand3Q = std::make_unique<juce::AudioParameterFloat>("band3Q", "Band3Q", juce::NormalisableRange<float>(0.15f, 10.0f, 0.01f, 0.25f), 0.5f);
+    
+    /** Band 4 */
+    auto pBand4Gain = std::make_unique<juce::AudioParameterFloat>("band4Gain", "Band4Gain", -15.0f, 15.0f, 0.0f);
+    auto pBand4Cutoff = std::make_unique<juce::AudioParameterFloat>("band4Cutoff", "Band4Cutoff", juce::NormalisableRange<float>(20.0f, 20000.0f, 1.0f, 0.2f), 1000.0f);
+    auto pBand4Q = std::make_unique<juce::AudioParameterFloat>("band4Q", "Band4Q", juce::NormalisableRange<float>(0.15f, 10.0f, 0.01f, 0.25f), 0.5f);
+    
+    /** Band 5 */
+    auto pBand5Gain = std::make_unique<juce::AudioParameterFloat>("band5Gain", "Band5Gain", -15.0f, 15.0f, 0.0f);
+    auto pBand5Cutoff = std::make_unique<juce::AudioParameterFloat>("band5Cutoff", "Band5Cutoff", juce::NormalisableRange<float>(20.0f, 20000.0f, 1.0f, 0.2f), 4000.0f);
+    auto pBand5Q = std::make_unique<juce::AudioParameterFloat>("band5Q", "Band5Q", juce::NormalisableRange<float>(0.15f, 10.0f, 0.01f, 0.25f), 0.5f);
+    
+    /** Band 6 */
+    auto pBand6Gain = std::make_unique<juce::AudioParameterFloat>("band6Gain", "Band6Gain", -15.0f, 15.0f, 0.0f);
+    auto pBand6Cutoff = std::make_unique<juce::AudioParameterFloat>("band6Cutoff", "Band6Cutoff", juce::NormalisableRange<float>(20.0f, 20000.0f, 1.0f, 0.2f), 8000.0f);
+    auto pBand6Q = std::make_unique<juce::AudioParameterFloat>("band6Q", "Band6Q", juce::NormalisableRange<float>(0.15f, 10.0f, 0.01f, 0.25f), 0.5f);
+    
+    /** Band 7 */
+    auto pBand7Gain = std::make_unique<juce::AudioParameterFloat>("band7Gain", "Band7Gain", -15.0f, 15.0f, 0.0f);
+    auto pBand7Cutoff = std::make_unique<juce::AudioParameterFloat>("band7Cutoff", "Band7Cutoff", 5000.0f, 20000.0f, 5000.0f);
+    auto pBand7Q = std::make_unique<juce::AudioParameterFloat>("band7Q", "Band7Q", 0.36f, 0.8f, 0.5f);
+    
+    /** Band 1 */
     params.push_back(std::move(pBand1Gain));
     params.push_back(std::move(pBand1Cutoff));
     params.push_back(std::move(pBand1Q));
+    
+    /** Band 2 */
+    params.push_back(std::move(pBand2Gain));
+    params.push_back(std::move(pBand2Cutoff));
+    params.push_back(std::move(pBand2Q));
+    
+    /** Band 3 */
+    params.push_back(std::move(pBand3Gain));
+    params.push_back(std::move(pBand3Cutoff));
+    params.push_back(std::move(pBand3Q));
+    
+    /** Band 4 */
+    params.push_back(std::move(pBand4Gain));
+    params.push_back(std::move(pBand4Cutoff));
+    params.push_back(std::move(pBand4Q));
+    
+    /** Band 5 */
+    params.push_back(std::move(pBand5Gain));
+    params.push_back(std::move(pBand5Cutoff));
+    params.push_back(std::move(pBand5Q));
+    
+    /** Band 6 */
+    params.push_back(std::move(pBand6Gain));
+    params.push_back(std::move(pBand6Cutoff));
+    params.push_back(std::move(pBand6Q));
+    
+    /** Band 7 */
+    params.push_back(std::move(pBand7Gain));
+    params.push_back(std::move(pBand7Cutoff));
+    params.push_back(std::move(pBand7Q));
     
     return { params.begin(), params.end() };
     
@@ -53,10 +177,18 @@ juce::AudioProcessorValueTreeState::ParameterLayout ParaEQDemoAudioProcessor::cr
 
 void ParaEQDemoAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
-    if (parameterID == "band1Gain" || parameterID == "band1Cutoff" || parameterID == "band1Q")
-    {
-        updateBand1(treeState.getRawParameterValue("band1Gain")->load(), treeState.getRawParameterValue("band1Cutoff")->load(), treeState.getRawParameterValue("band1Q")->load());
-    }
+    updateParameters();
+}
+
+void ParaEQDemoAudioProcessor::updateParameters()
+{
+    updateBand1(treeState.getRawParameterValue("band1Gain")->load(), treeState.getRawParameterValue("band1Cutoff")->load(), treeState.getRawParameterValue("band1Q")->load());
+    updateBand2(treeState.getRawParameterValue("band2Gain")->load(), treeState.getRawParameterValue("band2Cutoff")->load(), treeState.getRawParameterValue("band2Q")->load());
+    updateBand3(treeState.getRawParameterValue("band3Gain")->load(), treeState.getRawParameterValue("band3Cutoff")->load(), treeState.getRawParameterValue("band3Q")->load());
+    updateBand4(treeState.getRawParameterValue("band4Gain")->load(), treeState.getRawParameterValue("band4Cutoff")->load(), treeState.getRawParameterValue("band4Q")->load());
+    updateBand5(treeState.getRawParameterValue("band5Gain")->load(), treeState.getRawParameterValue("band5Cutoff")->load(), treeState.getRawParameterValue("band5Q")->load());
+    updateBand6(treeState.getRawParameterValue("band6Gain")->load(), treeState.getRawParameterValue("band6Cutoff")->load(), treeState.getRawParameterValue("band6Q")->load());
+    updateBand7(treeState.getRawParameterValue("band7Gain")->load(), treeState.getRawParameterValue("band7Cutoff")->load(), treeState.getRawParameterValue("band7Q")->load());
 }
 
 //==============================================================================
@@ -130,8 +262,15 @@ void ParaEQDemoAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumOutputChannels();
     
+    /** Prepare */
     band1.prepare(spec);
-    updateBand1(treeState.getRawParameterValue("band1Gain")->load(), treeState.getRawParameterValue("band1Cutoff")->load(), treeState.getRawParameterValue("band1Q")->load());
+    band2.prepare(spec);
+    band3.prepare(spec);
+    band4.prepare(spec);
+    band5.prepare(spec);
+    band6.prepare(spec);
+    band7.prepare(spec);
+    updateParameters();
 }
 
 void ParaEQDemoAudioProcessor::releaseResources()
@@ -174,11 +313,47 @@ void ParaEQDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     juce::dsp::AudioBlock<float> audioBlock {buffer};
     band1.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    band2.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    band3.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    band4.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    band5.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    band6.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    band7.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
 void ParaEQDemoAudioProcessor::updateBand1(float gain, float cutoff, float q)
 {
     *band1.state = *juce::dsp::IIR::Coefficients<float>::makeLowShelf(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
+}
+
+void ParaEQDemoAudioProcessor::updateBand2(float gain, float cutoff, float q)
+{
+    *band2.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
+}
+
+void ParaEQDemoAudioProcessor::updateBand3(float gain, float cutoff, float q)
+{
+    *band3.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
+}
+
+void ParaEQDemoAudioProcessor::updateBand4(float gain, float cutoff, float q)
+{
+    *band4.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
+}
+
+void ParaEQDemoAudioProcessor::updateBand5(float gain, float cutoff, float q)
+{
+    *band5.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
+}
+
+void ParaEQDemoAudioProcessor::updateBand6(float gain, float cutoff, float q)
+{
+    *band6.state = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
+}
+
+void ParaEQDemoAudioProcessor::updateBand7(float gain, float cutoff, float q)
+{
+    *band7.state = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
 }
 
 //==============================================================================
@@ -189,8 +364,8 @@ bool ParaEQDemoAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* ParaEQDemoAudioProcessor::createEditor()
 {
-    //return new ParaEQDemoAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor (*this);
+    return new ParaEQDemoAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

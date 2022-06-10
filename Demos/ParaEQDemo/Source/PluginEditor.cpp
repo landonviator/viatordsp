@@ -13,9 +13,11 @@
 ParaEQDemoAudioProcessorEditor::ParaEQDemoAudioProcessorEditor (ParaEQDemoAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    initWindowSize();
+    
+    setSliderProps(band1GainDial);
+    setSliderProps(band1CutoffDial);
+    setSliderProps(band1QDial);
 }
 
 ParaEQDemoAudioProcessorEditor::~ParaEQDemoAudioProcessorEditor()
@@ -25,16 +27,16 @@ ParaEQDemoAudioProcessorEditor::~ParaEQDemoAudioProcessorEditor()
 //==============================================================================
 void ParaEQDemoAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setColour (juce::Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.fillAll(juce::Colour::fromRGB(40, 42, 54));
 }
 
 void ParaEQDemoAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    const auto leftMargin = getWidth() * 0.1;
+    const auto topMargin = getHeight() * 0.4;
+    const auto dialSize = getWidth() * 0.1;
+    
+    band1GainDial.setBounds(leftMargin, topMargin, dialSize, dialSize);
+    band1CutoffDial.setBounds(leftMargin, band1GainDial.getY() + band1GainDial.getHeight(), dialSize, dialSize);
+    band1QDial.setBounds(leftMargin, band1CutoffDial.getY() + band1CutoffDial.getHeight(), dialSize, dialSize);
 }
