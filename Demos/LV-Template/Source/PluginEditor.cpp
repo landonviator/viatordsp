@@ -4,15 +4,13 @@
 //==============================================================================
 LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
-, headerComponent(audioProcessor)
-, largeDial(2, " dB", "Dial")
 {
     uiConstructor();
 }
 
 LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
 {
-    stopTimer();
+    panel.setLookAndFeel(nullptr);
 }
 
 //==============================================================================
@@ -26,9 +24,4 @@ void LVTemplateAudioProcessorEditor::resized()
     uiResized();
 }
 
-void LVTemplateAudioProcessorEditor::showToolTip(bool shouldShowTips)
-{
-    tooltipWindow.setEnabled(shouldShowTips);
-    tooltipWindow.setVisible(shouldShowTips);
-}
 

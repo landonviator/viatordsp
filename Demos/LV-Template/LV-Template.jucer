@@ -4,98 +4,38 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP">
   <MAINGROUP id="CSr7ch" name="LV-Template">
     <GROUP id="{EC06E44D-19CB-06C9-A06E-F6C274FE6E89}" name="Source">
-      <FILE id="ro4MAl" name="Globals.cpp" compile="1" resource="0" file="Source/Globals.cpp"/>
-      <FILE id="MRVyNH" name="Globals.h" compile="0" resource="0" file="Source/Globals.h"/>
-      <GROUP id="{EEF9F521-943E-42EB-BA70-78C3228C6650}" name="UI-Components">
-        <GROUP id="{CC62F87B-59ED-06A7-5F30-651E19F1EAD9}" name="SettingsComps">
-          <FILE id="qcku3A" name="MasterColorComp.cpp" compile="1" resource="0"
-                file="Source/UI-Components/SettingsComps/MasterColorComp.cpp"/>
-          <FILE id="dVeSwa" name="MasterColorComp.h" compile="0" resource="0"
-                file="Source/UI-Components/SettingsComps/MasterColorComp.h"/>
-          <FILE id="bqa7PB" name="ToolTipSettingsComp.cpp" compile="1" resource="0"
-                file="Source/UI-Components/SettingsComps/ToolTipSettingsComp.cpp"/>
-          <FILE id="Ibgtgy" name="ToolTipSettingsComp.h" compile="0" resource="0"
-                file="Source/UI-Components/SettingsComps/ToolTipSettingsComp.h"/>
+      <GROUP id="{95036B43-F511-CBC4-B805-8B1F59DC38BB}" name="GUI">
+        <GROUP id="{D3DCF002-2805-61D5-2A77-824C1E1F37A0}" name="Common-GUI">
+          <GROUP id="{E48A3982-275B-FFD3-731E-802354359E67}" name="Buttons">
+            <FILE id="TViMA8" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Buttons/ButtonProps.cpp"/>
+          </GROUP>
         </GROUP>
-        <FILE id="veNFwy" name="HeaderComponent.cpp" compile="1" resource="0"
-              file="Source/UI-Components/HeaderComponent.cpp"/>
-        <FILE id="YeuglT" name="HeaderComponent.h" compile="0" resource="0"
-              file="Source/UI-Components/HeaderComponent.h"/>
-        <FILE id="v0lav0" name="SettingsPage.cpp" compile="1" resource="0"
-              file="Source/UI-Components/SettingsPage.cpp"/>
-        <FILE id="Jf2Nz0" name="SettingsPage.h" compile="0" resource="0" file="Source/UI-Components/SettingsPage.h"/>
-      </GROUP>
-      <GROUP id="{61BDD98C-0416-BA35-7B23-AEB9F101A16B}" name="LookAndFeel">
-        <FILE id="j7SDm5" name="ColorButtonLAF.cpp" compile="1" resource="0"
-              file="Source/LookAndFeel/ColorButtonLAF.cpp"/>
-        <FILE id="SGudQ4" name="ColorButtonLAF.h" compile="0" resource="0"
-              file="Source/LookAndFeel/ColorButtonLAF.h"/>
-        <FILE id="TB26a9" name="LabelLAF.cpp" compile="1" resource="0" file="Source/LookAndFeel/LabelLAF.cpp"/>
-        <FILE id="sFS4qE" name="LabelLAF.h" compile="0" resource="0" file="Source/LookAndFeel/LabelLAF.h"/>
-        <FILE id="qpcBHQ" name="MenuSliderLAF.cpp" compile="1" resource="0"
-              file="Source/LookAndFeel/MenuSliderLAF.cpp"/>
-        <FILE id="GsUy3f" name="MenuSliderLAF.h" compile="0" resource="0" file="Source/LookAndFeel/MenuSliderLAF.h"/>
-        <FILE id="PplmfW" name="SettingsButtonLAF.cpp" compile="1" resource="0"
-              file="Source/LookAndFeel/SettingsButtonLAF.cpp"/>
-        <FILE id="nv1b6K" name="SettingsButtonLAF.h" compile="0" resource="0"
-              file="Source/LookAndFeel/SettingsButtonLAF.h"/>
-        <FILE id="fyAFa1" name="ToggleButtonLAF.cpp" compile="1" resource="0"
-              file="Source/LookAndFeel/ToggleButtonLAF.cpp"/>
-        <FILE id="GniJHH" name="ToggleButtonLAF.h" compile="0" resource="0"
-              file="Source/LookAndFeel/ToggleButtonLAF.h"/>
-      </GROUP>
-      <GROUP id="{E8B42584-1533-AE2C-6378-BB30791BF034}" name="Assets">
-        <FILE id="F3Uv2K" name="Articulations_back.png" compile="0" resource="1"
-              file="../../Assets/Articulations_back.png"/>
-        <FILE id="TKdDYD" name="Articulations_decore.png" compile="0" resource="1"
-              file="../../Assets/Articulations_decore.png"/>
-        <FILE id="FbbAj0" name="Articulations_line_1.png" compile="0" resource="1"
-              file="../../Assets/Articulations_line_1.png"/>
-        <FILE id="JXtW4N" name="Articulations_line_2.png" compile="0" resource="1"
-              file="../../Assets/Articulations_line_2.png"/>
-        <FILE id="GsLjix" name="back_vu-meter_decore.png" compile="0" resource="1"
-              file="../../Assets/back_vu-meter_decore.png"/>
-        <FILE id="Xt7cE7" name="background.png" compile="0" resource="1" file="../../Assets/background.png"/>
-        <FILE id="d0JkkN" name="btclipper.png" compile="0" resource="1" file="../../Assets/btclipper.png"/>
-        <FILE id="k5XoOq" name="button_middle_off.png" compile="0" resource="1"
-              file="../../Assets/button_middle_off.png"/>
-        <FILE id="klpHQ5" name="button_middle_on.png" compile="0" resource="1"
-              file="../../Assets/button_middle_on.png"/>
-        <FILE id="uT70wf" name="button_small_off.png" compile="0" resource="1"
-              file="../../Assets/button_small_off.png"/>
-        <FILE id="N5eNMC" name="button_small_on.png" compile="0" resource="1"
-              file="../../Assets/button_small_on.png"/>
-        <FILE id="WjwL9k" name="knob_big.png" compile="0" resource="1" file="../../Assets/knob_big.png"/>
-        <FILE id="thYNKG" name="knob_middle.png" compile="0" resource="1" file="../../Assets/knob_middle.png"/>
-        <FILE id="RY1WNN" name="knob_small.png" compile="0" resource="1" file="../../Assets/knob_small.png"/>
-        <FILE id="JmnbDK" name="landon55-04.png" compile="0" resource="1" file="../../Assets/landon55-04.png"/>
-        <FILE id="kFICRr" name="led_off.png" compile="0" resource="1" file="../../Assets/led_off.png"/>
-        <FILE id="tStvQz" name="led_on.png" compile="0" resource="1" file="../../Assets/led_on.png"/>
-        <FILE id="envYms" name="pluginBackground2.png" compile="0" resource="1"
-              file="../../Assets/pluginBackground2.png"/>
-        <FILE id="cVSXNq" name="projucer.png" compile="0" resource="1" file="../../Assets/projucer.png"/>
-        <FILE id="joWSyu" name="scale_knob big.png" compile="0" resource="1"
-              file="../../Assets/scale_knob big.png"/>
-        <FILE id="TWG6T7" name="scale_knob middle.png" compile="0" resource="1"
-              file="../../Assets/scale_knob middle.png"/>
-        <FILE id="bcHHIi" name="scale_knob small_.png" compile="0" resource="1"
-              file="../../Assets/scale_knob small_.png"/>
-        <FILE id="MP1FlP" name="slider_vertical.png" compile="0" resource="1"
-              file="../../Assets/slider_vertical.png"/>
-      </GROUP>
-      <GROUP id="{F4670234-58EA-43AD-2527-A5FAB576779C}" name="UI-Methods">
-        <GROUP id="{DEBF9946-5D28-B26B-0BC4-379C8B6EDBA2}" name="Buttons">
-          <FILE id="YfKqR8" name="SettingsButtonLogic.cpp" compile="1" resource="0"
-                file="Source/UI-Methods/Buttons/SettingsButtonLogic.cpp"/>
+        <GROUP id="{46EC7113-6972-95D5-6D5F-ED35EA8C589B}" name="Components"/>
+        <GROUP id="{A708EF2C-CC61-3490-6034-BB4034B096FB}" name="Custom-GUI">
+          <GROUP id="{2C2C0B47-3215-0B77-3E71-E7BEA99E15F0}" name="Buttons">
+            <FILE id="pd5SoB" name="SettingsButton.cpp" compile="1" resource="0"
+                  file="Source/GUI/Custom-GUI/Buttons/SettingsButton.cpp"/>
+          </GROUP>
         </GROUP>
-        <FILE id="f9QeNt" name="UI-Constructor.cpp" compile="1" resource="0"
-              file="Source/UI-Methods/UI-Constructor.cpp"/>
-        <FILE id="HHalwW" name="UI-InitWindow.cpp" compile="1" resource="0"
-              file="Source/UI-Methods/UI-InitWindow.cpp"/>
-        <FILE id="lYMTNU" name="UI-Paint.cpp" compile="1" resource="0" file="Source/UI-Methods/UI-Paint.cpp"/>
-        <FILE id="NXCC03" name="UI-Resized.cpp" compile="1" resource="0" file="Source/UI-Methods/UI-Resized.cpp"/>
-        <FILE id="JsQbVm" name="UI-SaveWindow.cpp" compile="1" resource="0"
-              file="Source/UI-Methods/UI-SaveWindow.cpp"/>
+        <GROUP id="{E249C130-98BC-B077-9CC4-C641C025ED6E}" name="LookAndFeel">
+          <FILE id="UPobfE" name="PanelLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.cpp"/>
+          <FILE id="LBBlbw" name="PanelLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.h"/>
+        </GROUP>
+        <GROUP id="{6D482DE5-A32C-407C-AF9E-EDB6456C6BE9}" name="UI-Methods">
+          <FILE id="JG9lAs" name="UI-Constructor.cpp" compile="1" resource="0"
+                file="Source/GUI/UI-Methods/UI-Constructor.cpp"/>
+          <FILE id="egp1cz" name="UI-InitWindow.cpp" compile="1" resource="0"
+                file="Source/GUI/UI-Methods/UI-InitWindow.cpp"/>
+          <FILE id="DPAXmy" name="UI-Paint.cpp" compile="1" resource="0" file="Source/GUI/UI-Methods/UI-Paint.cpp"/>
+          <FILE id="fDkpT4" name="UI-Resized.cpp" compile="1" resource="0" file="Source/GUI/UI-Methods/UI-Resized.cpp"/>
+          <FILE id="J6dNDi" name="UI-SaveWindow.cpp" compile="1" resource="0"
+                file="Source/GUI/UI-Methods/UI-SaveWindow.cpp"/>
+        </GROUP>
+        <GROUP id="{C8494F11-0C79-0E21-669D-846A80A6946E}" name="Widgets"/>
+      </GROUP>
+      <GROUP id="{E146364F-5A75-2A08-31A1-47B1B5C7C870}" name="Parameters">
+        <FILE id="uYJB9Z" name="Globals.cpp" compile="1" resource="0" file="Source/Parameters/Globals.cpp"/>
+        <FILE id="lvfUan" name="Globals.h" compile="0" resource="0" file="Source/Parameters/Globals.h"/>
       </GROUP>
       <FILE id="vr96Dm" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -127,7 +67,6 @@
         <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
-        <MODULEPATH id="viator_modules" path="../../../viatordsp"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -146,6 +85,5 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="viator_modules" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
 </JUCERPROJECT>

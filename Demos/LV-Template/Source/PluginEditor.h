@@ -1,15 +1,12 @@
 #pragma once
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "./UI-Components/HeaderComponent.h"
-#include "./UI-Components/SettingsPage.h"
-#include "./UI-Components/SettingsComps/ToolTipSettingsComp.h"
+#include "./GUI/LookAndFeel/PanelLAF.h"
 
 //==============================================================================
 
 class LVTemplateAudioProcessorEditor  :
 public juce::AudioProcessorEditor
-, private juce::Timer
 {
 public:
     LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor&);
@@ -18,11 +15,6 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    
-    void timerCallback() override
-    {
-        showToolTip(settingsPage.getShouldUseToolTips());
-    }
     
 private:
 
@@ -36,20 +28,22 @@ private:
     void saveWindowSize();
     bool constructorFinished = false;
     
-    float topMargin;
+    juce::GroupComponent panel;
+    CustomPanel customPanelLAF;
+    juce::GlowEffect glow;
     
-    //Header
-    HeaderComponent headerComponent;
+    void setTextButtonProps(juce::TextButton& button);
     
-    //Settings Page
-    SettingsPage settingsPage;
-    void setSettingsPageBounds();
-    juce::ComponentAnimator settingsPageAnimator;
+    /** Header */
+    juce::Rectangle<float> m_headerRectangle;
+    juce::TextButton m_settingsButton;
+    void setSettingsButtonProps();
+    juce::Rectangle<float> m_settingsPage;
     
-    juce::TooltipWindow tooltipWindow{nullptr, 500};
-    void showToolTip(bool shouldShowTips);
-    
-    viator_gui::FilmStripKnob largeDial;
+    juce::Colour m_bgColor = juce::Colour::fromRGB(40, 42, 53);
+    juce::Colour m_bgLighterColor = juce::Colour::fromRGB(53, 55, 70);
+    juce::Colour m_textAccentColor = juce::Colour::fromRGB(96, 110, 157);
+    juce::Colour m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessorEditor)
 };
