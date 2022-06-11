@@ -43,6 +43,4 @@ void viator_gui::ToggleButton::updateLabelColor(juce::Colour newColor)
         label.setColour(juce::Label::ColourIds::textColourId, newColor);
         accentColor = newColor;
     }
-    
-    repaint();
 }

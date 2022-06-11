@@ -309,13 +309,6 @@ void juce::FullDialLAF::drawRotarySlider
     
     /** Dial tick thickness*/
     g.strokePath (dialTick, juce::PathStrokeType (lineWidth * 0.75, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
-    
-    shadowProperties.radius = 24;
-    shadowProperties.offset = juce::Point<int> (-1, 4);
-    shadowProperties.colour = juce::Colours::black.withAlpha(0.5f);
-    dialShadow.setShadowProperties (shadowProperties);
-    
-    slider.setComponentEffect(&dialShadow);
 }
 
 void juce::FullDialLAF::drawLabel (Graphics& g, Label& label)
