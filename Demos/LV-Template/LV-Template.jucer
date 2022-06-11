@@ -9,6 +9,9 @@
           <GROUP id="{E48A3982-275B-FFD3-731E-802354359E67}" name="Buttons">
             <FILE id="TViMA8" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Buttons/ButtonProps.cpp"/>
           </GROUP>
+          <GROUP id="{3C03ECDA-3BCD-2DC1-BA62-0D0D8CE771AF}" name="Menus">
+            <FILE id="SrVFmq" name="Menus.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Menus/Menus.cpp"/>
+          </GROUP>
         </GROUP>
         <GROUP id="{46EC7113-6972-95D5-6D5F-ED35EA8C589B}" name="Components"/>
         <GROUP id="{A708EF2C-CC61-3490-6034-BB4034B096FB}" name="Custom-GUI">
@@ -16,10 +19,14 @@
             <FILE id="pd5SoB" name="SettingsButton.cpp" compile="1" resource="0"
                   file="Source/GUI/Custom-GUI/Buttons/SettingsButton.cpp"/>
           </GROUP>
+          <GROUP id="{D1AAD451-C4FC-0101-EE98-4D2296ED0BF0}" name="Menus">
+            <FILE id="rHiQog" name="ThemeMenu.cpp" compile="1" resource="0" file="Source/GUI/Custom-GUI/Menus/ThemeMenu.cpp"/>
+          </GROUP>
         </GROUP>
         <GROUP id="{E249C130-98BC-B077-9CC4-C641C025ED6E}" name="LookAndFeel">
           <FILE id="UPobfE" name="PanelLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.cpp"/>
           <FILE id="LBBlbw" name="PanelLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.h"/>
+          <FILE id="mahRGz" name="Themes.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Themes.cpp"/>
         </GROUP>
         <GROUP id="{6D482DE5-A32C-407C-AF9E-EDB6456C6BE9}" name="UI-Methods">
           <FILE id="JG9lAs" name="UI-Constructor.cpp" compile="1" resource="0"

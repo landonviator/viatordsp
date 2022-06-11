@@ -39,11 +39,33 @@ private:
     juce::TextButton m_settingsButton;
     void setSettingsButtonProps();
     juce::Rectangle<float> m_settingsPage;
+    juce::ComboBox m_themeMenu;
+    void setMenuProps(juce::ComboBox& menu);
+    void setThemeMenuProps();
     
-    juce::Colour m_bgColor = juce::Colour::fromRGB(40, 42, 53);
-    juce::Colour m_bgLighterColor = juce::Colour::fromRGB(53, 55, 70);
-    juce::Colour m_textAccentColor = juce::Colour::fromRGB(96, 110, 157);
-    juce::Colour m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
+    /** Theme */
+    juce::Colour m_bgColor;
+    juce::Colour m_bgLighterColor;
+    juce::Colour m_textAccentColor;
+    juce::Colour m_bgTransparent;
+    
+    enum class Theme
+    {
+        kDracula,
+        kPrimeDark,
+        kPrimeLight,
+        kTokyoLofi,
+        kTokyoLight,
+        kWinter,
+        kFoxy,
+        kMaterialLight,
+        kPurp,
+        kDull
+    };
+    
+    Theme m_pluginTheme = Theme::kDull;
+    
+    void setPluginTheme(Theme newTheme);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessorEditor)
 };
