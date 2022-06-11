@@ -60,6 +60,4 @@ void viator_gui::Label::updateLabelColor(juce::Colour newColor)
     {
         setColour(juce::Label::ColourIds::textColourId, newColor);
     }
-    
-    repaint();
 }

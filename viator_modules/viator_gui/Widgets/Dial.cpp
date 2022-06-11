@@ -91,7 +91,6 @@ void viator_gui::Dial::updateLabelColor(juce::Colour newColor)
         setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.withAlpha(0.4f));
         setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0f));
         setColour(juce::Slider::ColourIds::thumbColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0f));
-        accentColor = juce::Colours::whitesmoke.withAlpha(0.4f);
     }
     
     else
@@ -100,8 +99,8 @@ void viator_gui::Dial::updateLabelColor(juce::Colour newColor)
         setColour(juce::Slider::ColourIds::rotarySliderFillColourId, newColor.withAlpha(0.6f));
         setColour(juce::Slider::ColourIds::thumbColourId, newColor.withAlpha(0.6f));
         setColour(juce::Slider::ColourIds::textBoxTextColourId, newColor.withAlpha(0.6f));
-        accentColor = newColor;
     }
-    
-    repaint();
+
+    forceShadow();
 }
+

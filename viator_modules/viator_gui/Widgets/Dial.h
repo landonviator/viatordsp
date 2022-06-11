@@ -95,7 +95,5 @@ private:
     juce::DropShadow shadowProperties;
     juce::DropShadowEffect dialShadow;
     
-    juce::Colour accentColor = juce::Colours::whitesmoke;
-    
 }; // class
 }// namespace viator_gui
