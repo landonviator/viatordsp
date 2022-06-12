@@ -17,16 +17,10 @@ void LVTemplateAudioProcessorEditor::uiResized()
     m_settingsButton.setBounds(rightMargin - buttonWidth, headerTopMargin, buttonWidth, buttonHeight);
     
     /** Settings Page */
-    setSettingsButtonProps();
+    setThemePageResized();
     
-    const auto settingsPageX = getWidth() * 0.6f;
-    const auto settingsPageWidth = getWidth() * 0.4f;
-    
-    m_themeMenu.setEnabled(m_settingsButton.getToggleState());
-    m_themeMenu.setVisible(m_settingsButton.getToggleState());
-    m_settingsPage.setBounds(settingsPageX, headerBottomMargin, settingsPageWidth, getHeight());
-    m_themeMenu.setBounds(m_settingsPage.withSizeKeepingCentre(m_settingsPage.getWidth() * 0.5, m_settingsPage.getHeight() * 0.05).withY(m_settingsPage.getY() + 24).toNearestInt());
-    m_settingsButton.getToggleState() ? m_settingsPage.setX(settingsPageX) : m_settingsPage.setX(getWidth());
+    /** Test Widgets */
+    testDial.setBounds(200, 200, 200, 200);
     
     // Save plugin size in the tree
     saveWindowSize();

@@ -11,6 +11,10 @@ LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioP
 LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
 {
     panel.setLookAndFeel(nullptr);
+    testDial.setLookAndFeel(nullptr);
+    
+    buttons.clear();
+    buttons.shrink_to_fit();
 }
 
 //==============================================================================

@@ -7,8 +7,15 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
     
     setPluginTheme(m_pluginTheme);
     
-    setTextButtonProps(m_settingsButton);
+    /** Buttons */
+    for (auto& button : buttons)
+    {
+        setTextButtonProps(*button);
+    }
+    
+    setSliderProps(testDial);
     setMenuProps(m_themeMenu);
+    setGroupProps(m_themeGroup);
     setThemeMenuProps();
     
     addAndMakeVisible(panel);

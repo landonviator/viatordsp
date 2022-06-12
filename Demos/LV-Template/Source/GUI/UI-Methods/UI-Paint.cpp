@@ -3,7 +3,17 @@
 void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
 {
     // Background
-    g.fillAll(m_bgColor);
+    if (m_gradientToggle.getToggleState())
+    {
+        g.setGradientFill(juce::ColourGradient::vertical(m_bgColor, getHeight(), m_bgColor.darker(0.25), getHeight() * 0.3));
+        g.fillRect(getLocalBounds());
+    }
+    
+    else
+    {
+        g.fillAll(m_bgColor);
+    }
+    
     
     // Header
     g.setColour(m_bgLighterColor);
@@ -19,9 +29,10 @@ void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
     g.drawText("Hello", getWidth() * 0.03, getHeight() * 0.03, 120, getHeight() * 0.03, juce::Justification::centred);
     
     // Settings page
-    g.setColour(m_bgTransparent);
+    g.setColour(juce::Colours::black.brighter(0.1));
     g.fillRect(m_settingsPage);
     
     // Update component colors
     setTextButtonProps(m_settingsButton);
+    setSliderProps(testDial);
 }

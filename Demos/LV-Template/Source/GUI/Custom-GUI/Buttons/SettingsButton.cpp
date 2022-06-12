@@ -14,6 +14,7 @@ void LVTemplateAudioProcessorEditor::setSettingsButtonProps()
 {
     m_settingsButton.setButtonText("Settings");
     m_settingsButton.changeWidthToFitText();
+    m_settingsButton.setComponentID("settings");
     m_settingsButton.onClick = [this]()
     {
         resized();
