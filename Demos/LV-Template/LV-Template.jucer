@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="RUVWIq" name="LV-Template" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP"
+              pluginFormats="buildAAX,buildAU,buildVST3">
   <MAINGROUP id="vHkpxJ" name="LV-Template">
     <GROUP id="{C8650847-B61E-21F5-1BCC-AD5FEB3BF9C6}" name="Source">
       <GROUP id="{1292BB3A-D88D-FC12-52AC-B06994A71EF5}" name="GUI">
@@ -120,7 +121,7 @@
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" aaxFolder="../../../../aax-sdk-2-4-0">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="LV-Template"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="LV-Template"/>

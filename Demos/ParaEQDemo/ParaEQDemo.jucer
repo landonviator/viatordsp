@@ -8,6 +8,10 @@
         <GROUP id="{495F9C0C-A618-2E99-C584-B7CE56B58459}" name="Display">
           <FILE id="pDYfpF" name="Display.cpp" compile="1" resource="0" file="Source/GUI/Display/Display.cpp"/>
         </GROUP>
+        <GROUP id="{B0FAB733-AA5D-055B-709C-0C74FAA19CE3}" name="Labels">
+          <FILE id="ojpPiP" name="LabelsCommon.cpp" compile="1" resource="0"
+                file="Source/GUI/Labels/LabelsCommon.cpp"/>
+        </GROUP>
         <GROUP id="{C2F45BC5-EC9D-6A0A-3F8F-DDD29C507E4A}" name="LookAndFeel"/>
         <GROUP id="{12FB5976-66EB-20D3-8F7A-7A9E351FBB9C}" name="Sliders">
           <FILE id="bLtdAz" name="SlidersCommon.cpp" compile="1" resource="0"

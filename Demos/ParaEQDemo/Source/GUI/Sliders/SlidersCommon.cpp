@@ -14,7 +14,7 @@ void ParaEQDemoAudioProcessorEditor::setSliderProps(juce::Slider &slider)
 {
     addAndMakeVisible(slider);
     slider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
-    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 72, 36);
+    slider.setTextBoxStyle(juce::Slider::NoTextBox, true, 0, 0);
     slider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
     slider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colour::fromRGB(53, 55, 70).withAlpha(0.6f));
     slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colour::fromRGB(98, 114, 163).withAlpha(0.9f));
