@@ -25,9 +25,13 @@ void LVTemplateAudioProcessorEditor::uiResized()
     testDial4.setBounds(testDial3.getX() + testDial3.getWidth(), topMargin, dialSize, dialSize);
     
     /** Settings Page */
-    m_settingsPage.setBounds(getWidth() * 0.6f, getHeight() * 0.06f, getWidth() * 0.4f, getHeight());
-    m_settingsPage.setEnabled(m_settingsButton.getToggleState());
     m_settingsPage.setVisible(m_settingsButton.getToggleState());
+    m_settingsPage.setEnabled(m_settingsButton.getToggleState());
+    
+    if (m_settingsButton.getToggleState())
+    {
+        m_settingsPage.setBounds(getWidth() * 0.6f, getHeight() * 0.06f, getWidth() * 0.4f, getHeight());
+    }
     
     /** Save Plugin Window Size */
     saveWindowSize();

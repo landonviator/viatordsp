@@ -21,4 +21,6 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
     {
         setSliderProps(*slider);
     }
+    
+    driveAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, driveID, testDial1);
 }

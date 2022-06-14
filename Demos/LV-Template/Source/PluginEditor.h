@@ -89,6 +89,8 @@ private:
         &testDial1, &testDial2, &testDial3, &testDial4
     };
     
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveAttach;
+    
     /** Shadow */
     juce::DropShadow shadowProperties;
     juce::DropShadowEffect dialShadow;

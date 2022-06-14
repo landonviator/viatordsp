@@ -3,72 +3,72 @@
 <JUCERPROJECT id="RUVWIq" name="LV-Template" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP">
   <MAINGROUP id="vHkpxJ" name="LV-Template">
-    <GROUP id="{1292BB3A-D88D-FC12-52AC-B06994A71EF5}" name="GUI">
-      <GROUP id="{56483EA2-4768-01AF-8CAC-265995DBE0B5}" name="Common-GUI">
-        <GROUP id="{06974D93-6998-910B-61DD-12D2343EC3AC}" name="Buttons">
-          <FILE id="rJXh9c" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Buttons/ButtonProps.cpp"/>
-        </GROUP>
-        <GROUP id="{7EC9FB03-8467-073A-F9B2-C033A2C179C6}" name="Groups">
-          <FILE id="AqCMsS" name="Groups.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Groups/Groups.cpp"/>
-        </GROUP>
-        <GROUP id="{A92A554F-65B1-7E2F-7911-92CE91DB353A}" name="Menus"/>
-        <GROUP id="{1EA4128F-46B9-AA61-4A97-14F0030DB0F7}" name="Sliders">
-          <FILE id="EGR6jb" name="SliderProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Sliders/SliderProps.cpp"/>
-        </GROUP>
-      </GROUP>
-      <GROUP id="{B3B3BDA7-F7BD-A6A3-DE54-BA7FCE68A2C0}" name="Components">
-        <GROUP id="{15FEEB46-ED62-479B-E065-9ED5532D6407}" name="SettingsPage">
-          <FILE id="kNNuZW" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/ButtonProps.cpp"/>
-          <FILE id="SJSGGp" name="DiscordBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/DiscordBtn.cpp"/>
-          <FILE id="yqmAns" name="GlowButtonProps.cpp" compile="1" resource="0"
-                file="Source/GUI/Components/SettingsPage/GlowButtonProps.cpp"/>
-          <FILE id="paFB8M" name="GradientToggle.cpp" compile="1" resource="0"
-                file="Source/GUI/Components/SettingsPage/GradientToggle.cpp"/>
-          <FILE id="Nm4KuF" name="GroupProps.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/GroupProps.cpp"/>
-          <FILE id="Dl55Bl" name="Menus.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/Menus.cpp"/>
-          <FILE id="xFusKC" name="PatreonBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/PatreonBtn.cpp"/>
-          <FILE id="gUt684" name="SettingsPage.cpp" compile="1" resource="0"
-                file="Source/GUI/Components/SettingsPage/SettingsPage.cpp"/>
-          <FILE id="P8yss0" name="SettingsPage.h" compile="0" resource="0" file="Source/GUI/Components/SettingsPage/SettingsPage.h"/>
-          <FILE id="Y6kdI0" name="ThemeMenu.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/ThemeMenu.cpp"/>
-          <FILE id="UfZlk2" name="TwitchBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/TwitchBtn.cpp"/>
-        </GROUP>
-      </GROUP>
-      <GROUP id="{29FF4607-B156-5C98-381A-19ABE4C3A369}" name="Custom-GUI">
-        <GROUP id="{F7DB2C9F-ABD8-D072-9E24-C3B65C195F54}" name="Buttons">
-          <FILE id="ta9zTn" name="SettingsButton.cpp" compile="1" resource="0"
-                file="Source/GUI/Custom-GUI/Buttons/SettingsButton.cpp"/>
-        </GROUP>
-        <GROUP id="{BB314378-2C88-7CBC-DA05-245070944E72}" name="Groups">
-          <FILE id="YWsQMK" name="ThemeGroup.cpp" compile="1" resource="0" file="Source/GUI/Custom-GUI/Groups/ThemeGroup.cpp"/>
-        </GROUP>
-        <GROUP id="{9A0B6897-C898-3E31-A2E4-E4CA31155E1B}" name="Menus"/>
-      </GROUP>
-      <GROUP id="{AFA3E426-00CB-8DCE-090F-7A0D2449FB82}" name="LookAndFeel">
-        <FILE id="iexM8J" name="FullDial.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/FullDial.cpp"/>
-        <FILE id="B5Tr2y" name="FullDial.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/FullDial.h"/>
-        <FILE id="MH3Pw9" name="PanelLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.cpp"/>
-        <FILE id="yENF3B" name="PanelLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.h"/>
-        <FILE id="tH8QdE" name="Themes.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Themes.cpp"/>
-      </GROUP>
-      <GROUP id="{A3663E08-FE3E-8EDB-3B2C-53EC2342A1BC}" name="UI-Methods">
-        <GROUP id="{C76A9BD2-0D81-6DA3-DCEC-0C23893943B9}" name="Buttons"/>
-        <FILE id="r2VKrD" name="UI-Constructor.cpp" compile="1" resource="0"
-              file="Source/GUI/UI-Methods/UI-Constructor.cpp"/>
-        <FILE id="b3T0pN" name="UI-InitWindow.cpp" compile="1" resource="0"
-              file="Source/GUI/UI-Methods/UI-InitWindow.cpp"/>
-        <FILE id="eqIV6O" name="UI-Paint.cpp" compile="1" resource="0" file="Source/GUI/UI-Methods/UI-Paint.cpp"/>
-        <FILE id="SZsDgi" name="UI-Resized.cpp" compile="1" resource="0" file="Source/GUI/UI-Methods/UI-Resized.cpp"/>
-        <FILE id="XgCVgz" name="UI-SaveWindow.cpp" compile="1" resource="0"
-              file="Source/GUI/UI-Methods/UI-SaveWindow.cpp"/>
-      </GROUP>
-      <GROUP id="{CD90B62F-311B-FAD8-79E7-43E01F2D9B36}" name="Widgets"/>
-    </GROUP>
-    <GROUP id="{30FCB3FE-65B1-9199-62E5-153B0F9B3813}" name="Parameters">
-      <FILE id="Wn1Ut3" name="Globals.cpp" compile="1" resource="0" file="Source/Parameters/Globals.cpp"/>
-      <FILE id="QYOvQD" name="Globals.h" compile="0" resource="0" file="Source/Parameters/Globals.h"/>
-    </GROUP>
     <GROUP id="{C8650847-B61E-21F5-1BCC-AD5FEB3BF9C6}" name="Source">
+      <GROUP id="{1292BB3A-D88D-FC12-52AC-B06994A71EF5}" name="GUI">
+        <GROUP id="{56483EA2-4768-01AF-8CAC-265995DBE0B5}" name="Common-GUI">
+          <GROUP id="{06974D93-6998-910B-61DD-12D2343EC3AC}" name="Buttons">
+            <FILE id="rJXh9c" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Buttons/ButtonProps.cpp"/>
+          </GROUP>
+          <GROUP id="{7EC9FB03-8467-073A-F9B2-C033A2C179C6}" name="Groups">
+            <FILE id="AqCMsS" name="Groups.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Groups/Groups.cpp"/>
+          </GROUP>
+          <GROUP id="{A92A554F-65B1-7E2F-7911-92CE91DB353A}" name="Menus"/>
+          <GROUP id="{1EA4128F-46B9-AA61-4A97-14F0030DB0F7}" name="Sliders">
+            <FILE id="EGR6jb" name="SliderProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Sliders/SliderProps.cpp"/>
+          </GROUP>
+        </GROUP>
+        <GROUP id="{B3B3BDA7-F7BD-A6A3-DE54-BA7FCE68A2C0}" name="Components">
+          <GROUP id="{15FEEB46-ED62-479B-E065-9ED5532D6407}" name="SettingsPage">
+            <FILE id="kNNuZW" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/ButtonProps.cpp"/>
+            <FILE id="SJSGGp" name="DiscordBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/DiscordBtn.cpp"/>
+            <FILE id="yqmAns" name="GlowButtonProps.cpp" compile="1" resource="0"
+                  file="Source/GUI/Components/SettingsPage/GlowButtonProps.cpp"/>
+            <FILE id="paFB8M" name="GradientToggle.cpp" compile="1" resource="0"
+                  file="Source/GUI/Components/SettingsPage/GradientToggle.cpp"/>
+            <FILE id="Nm4KuF" name="GroupProps.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/GroupProps.cpp"/>
+            <FILE id="Dl55Bl" name="Menus.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/Menus.cpp"/>
+            <FILE id="xFusKC" name="PatreonBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/PatreonBtn.cpp"/>
+            <FILE id="gUt684" name="SettingsPage.cpp" compile="1" resource="0"
+                  file="Source/GUI/Components/SettingsPage/SettingsPage.cpp"/>
+            <FILE id="P8yss0" name="SettingsPage.h" compile="0" resource="0" file="Source/GUI/Components/SettingsPage/SettingsPage.h"/>
+            <FILE id="Y6kdI0" name="ThemeMenu.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/ThemeMenu.cpp"/>
+            <FILE id="UfZlk2" name="TwitchBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/TwitchBtn.cpp"/>
+          </GROUP>
+        </GROUP>
+        <GROUP id="{29FF4607-B156-5C98-381A-19ABE4C3A369}" name="Custom-GUI">
+          <GROUP id="{F7DB2C9F-ABD8-D072-9E24-C3B65C195F54}" name="Buttons">
+            <FILE id="ta9zTn" name="SettingsButton.cpp" compile="1" resource="0"
+                  file="Source/GUI/Custom-GUI/Buttons/SettingsButton.cpp"/>
+          </GROUP>
+          <GROUP id="{BB314378-2C88-7CBC-DA05-245070944E72}" name="Groups">
+            <FILE id="YWsQMK" name="ThemeGroup.cpp" compile="1" resource="0" file="Source/GUI/Custom-GUI/Groups/ThemeGroup.cpp"/>
+          </GROUP>
+          <GROUP id="{9A0B6897-C898-3E31-A2E4-E4CA31155E1B}" name="Menus"/>
+        </GROUP>
+        <GROUP id="{AFA3E426-00CB-8DCE-090F-7A0D2449FB82}" name="LookAndFeel">
+          <FILE id="iexM8J" name="FullDial.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/FullDial.cpp"/>
+          <FILE id="B5Tr2y" name="FullDial.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/FullDial.h"/>
+          <FILE id="MH3Pw9" name="PanelLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.cpp"/>
+          <FILE id="yENF3B" name="PanelLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.h"/>
+          <FILE id="tH8QdE" name="Themes.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Themes.cpp"/>
+        </GROUP>
+        <GROUP id="{A3663E08-FE3E-8EDB-3B2C-53EC2342A1BC}" name="UI-Methods">
+          <GROUP id="{C76A9BD2-0D81-6DA3-DCEC-0C23893943B9}" name="Buttons"/>
+          <FILE id="r2VKrD" name="UI-Constructor.cpp" compile="1" resource="0"
+                file="Source/GUI/UI-Methods/UI-Constructor.cpp"/>
+          <FILE id="b3T0pN" name="UI-InitWindow.cpp" compile="1" resource="0"
+                file="Source/GUI/UI-Methods/UI-InitWindow.cpp"/>
+          <FILE id="eqIV6O" name="UI-Paint.cpp" compile="1" resource="0" file="Source/GUI/UI-Methods/UI-Paint.cpp"/>
+          <FILE id="SZsDgi" name="UI-Resized.cpp" compile="1" resource="0" file="Source/GUI/UI-Methods/UI-Resized.cpp"/>
+          <FILE id="XgCVgz" name="UI-SaveWindow.cpp" compile="1" resource="0"
+                file="Source/GUI/UI-Methods/UI-SaveWindow.cpp"/>
+        </GROUP>
+        <GROUP id="{CD90B62F-311B-FAD8-79E7-43E01F2D9B36}" name="Widgets"/>
+      </GROUP>
+      <GROUP id="{30FCB3FE-65B1-9199-62E5-153B0F9B3813}" name="Parameters">
+        <FILE id="Wn1Ut3" name="Globals.cpp" compile="1" resource="0" file="Source/Parameters/Globals.cpp"/>
+        <FILE id="QYOvQD" name="Globals.h" compile="0" resource="0" file="Source/Parameters/Globals.h"/>
+      </GROUP>
       <GROUP id="{D3227A82-BC39-5EAA-2C1E-DB8E49AE96D3}" name="Assets">
         <FILE id="cjDY8F" name="Articulations_back.png" compile="0" resource="1"
               file="../../Assets/Articulations_back.png"/>

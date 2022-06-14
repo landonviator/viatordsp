@@ -1,5 +1,6 @@
 #pragma once
 #include <JuceHeader.h>
+#include "Parameters/Globals.h"
 
 //==============================================================================
 /**
@@ -63,10 +64,15 @@ public:
     juce::AudioProcessorValueTreeState m_treeState;
     
 private:
+    /** JUCE Boilerplate */
     juce::dsp::ProcessSpec spec;
-    
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void parameterChanged (const juce::String& parameterID, float newValue) override;
+    
+    /** DSP */
+    viator_dsp::Distortion<float> m_DistortionModule;
+    
+    void updateParameters();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessor)
 };

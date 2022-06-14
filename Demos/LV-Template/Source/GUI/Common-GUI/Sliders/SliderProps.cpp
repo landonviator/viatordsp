@@ -22,7 +22,7 @@ void LVTemplateAudioProcessorEditor::setSliderProps(juce::Slider &slider)
     slider.setColour(juce::Slider::ColourIds::textBoxTextColourId, m_textAccentColor);
     slider.setColour(juce::Slider::ColourIds::thumbColourId, m_mainCompColor);
     slider.setColour(juce::Slider::ColourIds::backgroundColourId, m_bgTransparent);
-    slider.setRange(0.0, 10.0, 0.1);
+    slider.setRange(0.0, 20.0, 0.1);
     slider.setDoubleClickReturnValue(true, 0.0);
     slider.setTextValueSuffix(" dB");
     slider.setLookAndFeel(&customDialLAF);

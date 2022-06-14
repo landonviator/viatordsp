@@ -15,17 +15,19 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 , m_treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
+    m_treeState.addParameterListener(driveID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
+    m_treeState.removeParameterListener(driveID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
-    auto pDrive = std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 0.0f, 24.0f, 0.0f);
+    auto pDrive = std::make_unique<juce::AudioParameterFloat>(driveID, driveName, 0.0f, 20.0f, 0.0f);
     
     params.push_back(std::move(pDrive));
     
@@ -35,7 +37,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
 
 void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
-    
+    updateParameters();
+}
+
+void LVTemplateAudioProcessor::updateParameters()
+{
+    m_DistortionModule.setDrive(m_treeState.getRawParameterValue(driveID)->load());
 }
 
 //==============================================================================
@@ -108,6 +115,8 @@ void LVTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumOutputChannels();
     
+    m_DistortionModule.prepare(spec);
+    updateParameters();
 }
 
 void LVTemplateAudioProcessor::releaseResources()
@@ -148,7 +157,8 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    
+    juce::dsp::AudioBlock<float> audioBlock {buffer};
+    m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
 //==============================================================================

@@ -57,21 +57,28 @@ public:
             case ClipType::kHard: return hardClipData(input, _thresh.getNextValue()); break;
             case ClipType::kSoft: return softClipData(input); break;
             case ClipType::kDiode: return diodeClipper(input); break;
+            case ClipType::kFuzz: return processFuzz(input); break;
         }
     }
     
     /** Hard clip data */
     SampleType hardClipData(SampleType dataToClip, SampleType thresh = 1.0)
     {
-        dataToClip *= viator_utils::utils::dbToGain(_rawGain.getNextValue());
-        return std::copysign(thresh, dataToClip);
+        dataToClip *= _rawGain.getNextValue();
+        
+        if (std::abs(dataToClip) >= 1.0)
+        {
+            dataToClip *= 1.0 / std::abs(dataToClip);
+        }
+        
+        return dataToClip;
     }
 
     /** Soft Clip */
     SampleType softClipData(SampleType dataToClip)
     {
         /** Soft Clipping algorithim*/
-        dataToClip *= viator_utils::utils::dbToGain(_rawGain.getNextValue());
+        dataToClip *= _rawGain.getNextValue();
         return _piDivisor * std::atan(dataToClip);
     }
 
@@ -79,8 +86,19 @@ public:
     SampleType diodeClipper(SampleType dataToClip)
     {
         /** Diode Clipping algorithim*/
-        dataToClip *= viator_utils::utils::dbToGain(_rawGain.getNextValue());
+        dataToClip *= _rawGain.getNextValue();
         return softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (_diodeTerm)) - 1.0));
+    }
+    
+    /** Fuzz Clip */
+    SampleType processFuzz(SampleType dataToClip)
+    {
+        /** Fuzz algorithim*/
+        auto input = dataToClip;
+        
+        auto fuzz = input / std::abs(input) * (1.0 - std::pow(juce::MathConstants<float>::euler, (_rawGain.getNextValue() * (input * input)) / std::abs(input)));
+        
+        return dataToClip * 0.5 + softClipData(fuzz) * 0.5;
     }
     
     /** The parameters of this module. */
@@ -97,9 +115,9 @@ public:
         kHard,
         kSoft,
         kDiode,
-        kTube,
-        kFuzz,
-        kSaturation
+        kFuzz
+        //kTube,
+        //kSaturation
     };
         
     /** One method to change any parameter. */

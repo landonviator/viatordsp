@@ -2,7 +2,7 @@
 
 template <typename SampleType>
 viator_dsp::Distortion<SampleType>::Distortion() :
-_globalEnabled(true), _thresh(1.0f), m_clipType(viator_dsp::Distortion<SampleType>::ClipType::kHard)
+_globalEnabled(true), _thresh(1.0f), m_clipType(viator_dsp::Distortion<SampleType>::ClipType::kFuzz)
 {
 }
 
@@ -30,8 +30,8 @@ void viator_dsp::Distortion<SampleType>::reset() noexcept
 template <typename SampleType>
 void viator_dsp::Distortion<SampleType>::setDrive(SampleType newDrive)
 {
-    _rawGain.setTargetValue(newDrive);
-    _gainDB.setTargetValue(viator_utils::utils::dbToGain(newDrive));
+    _gainDB.setTargetValue(newDrive);
+    _rawGain.setTargetValue(juce::Decibels::decibelsToGain(newDrive));
 }
 
 template <typename SampleType>
@@ -54,6 +54,7 @@ void viator_dsp::Distortion<SampleType>::setClipperType(ClipType clipType)
         case ClipType::kHard: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kHard; break;
         case ClipType::kSoft: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kSoft; break;
         case ClipType::kDiode: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kDiode; break;
+        case ClipType::kFuzz: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kFuzz; break;
     }
 }
 
