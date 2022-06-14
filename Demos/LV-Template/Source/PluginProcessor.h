@@ -4,7 +4,7 @@
 //==============================================================================
 /**
 */
-class LVTemplateAudioProcessor  : public juce::AudioProcessor
+class LVTemplateAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
@@ -60,12 +60,13 @@ public:
     float windowWidth {0.0f};
     float windowHeight {0.0f};
     
-    float getCPULoad();
+    juce::AudioProcessorValueTreeState m_treeState;
     
 private:
     juce::dsp::ProcessSpec spec;
-    juce::AudioProcessLoadMeasurer cpuMeasureModule;
-    std::atomic<float> cpuLoad;
+    
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    void parameterChanged (const juce::String& parameterID, float newValue) override;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessor)
 };

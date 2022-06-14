@@ -12,12 +12,30 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        )
+, m_treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
+{
+    std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
+        
+    auto pDrive = std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 0.0f, 24.0f, 0.0f);
+    
+    params.push_back(std::move(pDrive));
+    
+    return { params.begin(), params.end() };
+    
+}
+
+void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+{
+    
 }
 
 //==============================================================================
@@ -90,7 +108,6 @@ void LVTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumOutputChannels();
     
-    cpuMeasureModule.reset(spec.sampleRate, samplesPerBlock);
 }
 
 void LVTemplateAudioProcessor::releaseResources()
@@ -131,15 +148,7 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    juce::AudioProcessLoadMeasurer::ScopedTimer s(cpuMeasureModule);
     
-    
-    cpuLoad.store(cpuMeasureModule.getLoadAsPercentage());
-}
-
-float LVTemplateAudioProcessor::getCPULoad()
-{
-    return cpuLoad.load();
 }
 
 //==============================================================================

@@ -20,10 +20,8 @@
 #include <juce_events/juce_events.h>
 
 /** Viator DSP Headers*/
-#include "viator_dsp/Clipper.h"
+#include "viator_dsp/Distortion.h"
 #include "viator_dsp/svfilter.h"
-#include "viator_dsp/WaveShaper.h"
-#include "viator_dsp/Saturation.h"
 #include "viator_dsp/LFOGenerator.h"
 
 /** Viator GUI Headers*/

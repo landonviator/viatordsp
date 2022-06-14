@@ -17,6 +17,8 @@ SettingsPage::SettingsPage()
     setMenuProps(m_themeMenu);
     setThemeMenuProps();
     
+    m_themeGroup.setText("Plugin Color Themes");
+    
     /** Buttons */
     for (auto& button : buttons)
     {

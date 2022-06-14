@@ -13,5 +13,6 @@
 void SettingsPage::setGroupProps(juce::GroupComponent &group)
 {
     addAndMakeVisible(group);
-    group.setColour(juce::GroupComponent::ColourIds::outlineColourId, juce::Colours::whitesmoke.withAlpha(0.1f));
+    group.setColour(juce::GroupComponent::ColourIds::outlineColourId, juce::Colours::whitesmoke.withAlpha(0.2f));
+    group.setColour(juce::GroupComponent::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.2f));
 }
