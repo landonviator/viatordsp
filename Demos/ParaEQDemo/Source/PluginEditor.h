@@ -14,7 +14,7 @@
 //==============================================================================
 /**
 */
-class ParaEQDemoAudioProcessorEditor  : public juce::AudioProcessorEditor
+class ParaEQDemoAudioProcessorEditor  : public juce::AudioProcessorEditor, private juce::Timer
 {
 public:
     ParaEQDemoAudioProcessorEditor (ParaEQDemoAudioProcessor&);
@@ -23,6 +23,16 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void timerCallback() override
+    {
+        if (audioProcessor.nextFFTBlockReady)
+        {
+            audioProcessor.drawNextFrameOfSpectrum();
+            audioProcessor.nextFFTBlockReady = false;
+            repaint();
+        }
+    }
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -142,6 +152,7 @@ private:
     };
     
     juce::Rectangle<float> m_analyzerBounds;
+    void drawFrame (juce::Graphics& g);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ParaEQDemoAudioProcessorEditor)
 };

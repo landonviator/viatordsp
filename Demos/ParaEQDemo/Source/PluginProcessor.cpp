@@ -20,7 +20,9 @@ ParaEQDemoAudioProcessor::ParaEQDemoAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        ),
-treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
+treeState(*this, nullptr, "PARAMETERS", createParameterLayout()),
+forwardFFT (fftOrder),
+window (fftSize, juce::dsp::WindowingFunction<float>::hann, true)
 #endif
 {
     /** Band 1*/
@@ -319,6 +321,16 @@ void ParaEQDemoAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     band5.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     band6.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     band7.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    
+    if (buffer.getNumChannels() > 0)
+    {
+        auto* channelData = buffer.getWritePointer(0);
+     
+        for (auto i = 0; i < buffer.getNumSamples(); ++i)
+        {
+            pushNextSampleIntoFifo (channelData[i]);
+        }
+    }
 }
 
 void ParaEQDemoAudioProcessor::updateBand1(float gain, float cutoff, float q)
@@ -354,6 +366,48 @@ void ParaEQDemoAudioProcessor::updateBand6(float gain, float cutoff, float q)
 void ParaEQDemoAudioProcessor::updateBand7(float gain, float cutoff, float q)
 {
     *band7.state = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(getSampleRate(), cutoff, q, juce::Decibels::decibelsToGain(gain));
+}
+
+void ParaEQDemoAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
+{
+    // if the fifo contains enough data, set a flag to say
+    // that the next frame should now be rendered..
+    if (fifoIndex == fftSize)               // [11]
+    {
+        if (! nextFFTBlockReady)            // [12]
+        {
+            juce::zeromem (fftData, sizeof (fftData));
+            memcpy (fftData, fifo, sizeof (fifo));
+            nextFFTBlockReady = true;
+        }
+
+        fifoIndex = 0;
+    }
+
+    fifo[fifoIndex++] = sample;             // [12]
+}
+
+void ParaEQDemoAudioProcessor::drawNextFrameOfSpectrum()
+{
+    // first apply a windowing function to our data
+    window.multiplyWithWindowingTable (fftData, fftSize);       // [1]
+
+    // then render our FFT data..
+    forwardFFT.performFrequencyOnlyForwardTransform (fftData);  // [2]
+
+    auto mindB = -100.0f;
+    auto maxdB =    0.0f;
+
+    for (int i = 0; i < scopeSize; ++i)                         // [3]
+    {
+        auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - (float) i / (float) scopeSize) * 0.2f);
+        auto fftDataIndex = juce::jlimit (0, fftSize / 2, (int) (skewedProportionX * (float) fftSize * 0.5f));
+        auto level = juce::jmap (juce::jlimit (mindB, maxdB, juce::Decibels::gainToDecibels (fftData[fftDataIndex])
+                                                           - juce::Decibels::gainToDecibels ((float) fftSize)),
+                                 mindB, maxdB, 0.0f, 1.0f);
+
+        scopeData[i] = level;                                   // [4]
+    }
 }
 
 //==============================================================================

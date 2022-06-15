@@ -55,6 +55,17 @@ public:
 
     juce::AudioProcessorValueTreeState treeState;
     
+    enum
+    {
+        fftOrder  = 11,             // [1]
+        fftSize   = 1 << fftOrder,  // [2]
+        scopeSize = 512             // [3]
+    };
+    
+    void drawNextFrameOfSpectrum();
+    bool nextFFTBlockReady = false;                 // [9]
+    float scopeData [scopeSize];                    // [10]
+    
 private:
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
@@ -77,6 +88,15 @@ private:
     juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> band6;
     void updateBand7(float gain, float cutoff, float q);
     juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> band7;
+    
+    /** Analyzer */
+    juce::dsp::FFT forwardFFT;                      // [4]
+    juce::dsp::WindowingFunction<float> window;     // [5]
+ 
+    float fifo [fftSize];                           // [6]
+    float fftData [2 * fftSize];                    // [7]
+    int fifoIndex = 0;                              // [8]
+    void pushNextSampleIntoFifo (float sample) noexcept;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ParaEQDemoAudioProcessor)
 };

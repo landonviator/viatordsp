@@ -15,6 +15,8 @@ ParaEQDemoAudioProcessorEditor::ParaEQDemoAudioProcessorEditor (ParaEQDemoAudioP
 {
     initWindowSize();
     
+    startTimerHz(30);
+    
     // Dial props
     for (auto& dial : dials)
     {
@@ -65,6 +67,35 @@ ParaEQDemoAudioProcessorEditor::ParaEQDemoAudioProcessorEditor (ParaEQDemoAudioP
 
 ParaEQDemoAudioProcessorEditor::~ParaEQDemoAudioProcessorEditor()
 {
+    band1GainDialAttach.reset();
+    band1CutoffDialAttach.reset();
+    band1QDialAttach.reset();
+    
+    band2GainDialAttach.reset();
+    band2CutoffDialAttach.reset();
+    band2QDialAttach.reset();
+    
+    band3GainDialAttach.reset();
+    band3CutoffDialAttach.reset();
+    band3QDialAttach.reset();
+    
+    band4GainDialAttach.reset();
+    band4CutoffDialAttach.reset();
+    band4QDialAttach.reset();
+    
+    band5GainDialAttach.reset();
+    band5CutoffDialAttach.reset();
+    band5QDialAttach.reset();
+    
+    band6GainDialAttach.reset();
+    band6CutoffDialAttach.reset();
+    band6QDialAttach.reset();
+    
+    band7GainDialAttach.reset();
+    band7CutoffDialAttach.reset();
+    band7QDialAttach.reset();
+    
+    stopTimer();
 }
 
 //==============================================================================
@@ -74,6 +105,9 @@ void ParaEQDemoAudioProcessorEditor::paint (juce::Graphics& g)
     
     g.setColour(juce::Colours::black);
     g.fillRect(m_analyzerBounds);
+    m_analyzerBounds.setBounds(0, 0, getWidth(), getHeight() * 0.5);
+    
+    drawFrame(g);
 }
 
 void ParaEQDemoAudioProcessorEditor::resized()
@@ -119,4 +153,19 @@ void ParaEQDemoAudioProcessorEditor::resized()
     band7GainDial.setBounds(leftMargin * groupSpace, topMargin, dialSize, dialSize);
     band7CutoffDial.setBounds(band7GainDial.getX() - band1GainDial.getWidth() * 0.5, band1GainDial.getY() + band1GainDial.getHeight() * spaceBetween, dialSize, dialSize);
     band7QDial.setBounds(band7CutoffDial.getX() + band7CutoffDial.getWidth(), band7CutoffDial.getY(), dialSize, dialSize);
+}
+
+void ParaEQDemoAudioProcessorEditor::drawFrame (juce::Graphics& g)
+{
+    for (int i = 1; i < audioProcessor.scopeSize; ++i)
+    {
+        auto width  = m_analyzerBounds.toNearestInt().getWidth();
+        auto height = m_analyzerBounds.toNearestInt().getHeight();
+
+        g.setColour(juce::Colours::green);
+        g.drawLine ({ (float) juce::jmap (i - 1, 0, audioProcessor.scopeSize - 1, 0, width),
+                              juce::jmap (audioProcessor.scopeData[i - 1], 0.0f, 1.0f, (float) height, 0.0f),
+                      (float) juce::jmap (i,     0, audioProcessor.scopeSize - 1, 0, width),
+                              juce::jmap (audioProcessor.scopeData[i],     0.0f, 1.0f, (float) height, 0.0f) });
+    }
 }
