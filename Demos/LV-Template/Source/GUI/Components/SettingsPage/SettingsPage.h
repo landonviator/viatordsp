@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "../../../PluginProcessor.h"
 
 //==============================================================================
 /*
@@ -18,7 +19,7 @@
 class SettingsPage  : public juce::Component
 {
 public:
-    SettingsPage();
+    SettingsPage(LVTemplateAudioProcessor&);
     ~SettingsPage() override;
 
     void paint (juce::Graphics&) override;
@@ -39,8 +40,11 @@ public:
     Theme getPluginTheme();
     bool getGlowState();
     bool getGradientState();
+    float getCurrentGlowValue();
 
 private:
+    
+    LVTemplateAudioProcessor& audioProcessor;
     
     /** Menus */
     juce::ComboBox m_themeMenu;
@@ -56,6 +60,9 @@ private:
     //Glow
     juce::TextButton m_glowToggle;
     void setGlowButtonProps();
+    juce::Slider m_glowSlider;
+    void setGlowSliderProps();
+    float _currentGlowValue = 1.0;
     
     //Gradient
     juce::TextButton m_gradientToggle;

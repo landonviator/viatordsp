@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="RUVWIq" name="LV-Template" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP"
-              pluginFormats="buildAAX,buildAU,buildVST3">
+              pluginFormats="buildAAX,buildAU,buildStandalone,buildVST3">
   <MAINGROUP id="vHkpxJ" name="LV-Template">
     <GROUP id="{C8650847-B61E-21F5-1BCC-AD5FEB3BF9C6}" name="Source">
       <GROUP id="{1292BB3A-D88D-FC12-52AC-B06994A71EF5}" name="GUI">
@@ -24,6 +24,7 @@
             <FILE id="SJSGGp" name="DiscordBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/DiscordBtn.cpp"/>
             <FILE id="yqmAns" name="GlowButtonProps.cpp" compile="1" resource="0"
                   file="Source/GUI/Components/SettingsPage/GlowButtonProps.cpp"/>
+            <FILE id="WHqpc9" name="GlowSlider.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/GlowSlider.cpp"/>
             <FILE id="paFB8M" name="GradientToggle.cpp" compile="1" resource="0"
                   file="Source/GUI/Components/SettingsPage/GradientToggle.cpp"/>
             <FILE id="Nm4KuF" name="GroupProps.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/GroupProps.cpp"/>

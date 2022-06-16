@@ -12,10 +12,11 @@
 #include "SettingsPage.h"
 
 //==============================================================================
-SettingsPage::SettingsPage()
+SettingsPage::SettingsPage(LVTemplateAudioProcessor& p) : audioProcessor(p)
 {
     setMenuProps(m_themeMenu);
     setThemeMenuProps();
+    setGlowSliderProps();
     
     m_themeGroup.setText("Plugin Color Themes");
     
@@ -47,14 +48,15 @@ void SettingsPage::resized()
     const auto contentX = getWidth() * 0.1;
     const auto contentY = getHeight() * 0.06;
     m_glowToggle.setBounds(contentX * 1.47, contentY * 1.6, getWidth() * 0.2, getHeight() * 0.05);
+    m_glowSlider.setBounds(m_glowToggle.getX() + m_glowToggle.getWidth() * 1.34, m_glowToggle.getY(), m_glowToggle.getWidth() * 2.3, m_glowToggle.getHeight());
     
     /** Theme Menu and Gradient Toggle */
     const auto buttonX = m_glowToggle.getX();
     const auto buttonY = m_glowToggle.getY();
     const auto buttonWidth = m_glowToggle.getWidth();
     const auto buttonHeight = m_glowToggle.getHeight();
-    m_themeMenu.setBounds(m_glowToggle.getX() + m_glowToggle.getWidth() * 1.55, m_glowToggle.getY(), m_glowToggle.getWidth() * 2.0, m_glowToggle.getHeight());
     m_gradientToggle.setBounds(buttonX, buttonY + buttonHeight * 1.5, buttonWidth, buttonHeight);
+    m_themeMenu.setBounds(m_glowToggle.getX() + m_glowToggle.getWidth() * 1.55, m_gradientToggle.getY(), m_glowToggle.getWidth() * 2.0, m_glowToggle.getHeight());
     
     /** Social Toggles */
     m_discord.setBounds(buttonX, buttonY * 9.0, buttonWidth, buttonHeight);
@@ -76,4 +78,9 @@ bool SettingsPage::getGlowState()
 bool SettingsPage::getGradientState()
 {
     return m_gradientToggle.getToggleState();
+}
+
+float SettingsPage::getCurrentGlowValue()
+{
+    return _currentGlowValue;
 }

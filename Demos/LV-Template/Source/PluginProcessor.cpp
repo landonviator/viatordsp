@@ -163,8 +163,8 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    juce::dsp::AudioBlock<float> audioBlock {buffer};
-    m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    //juce::dsp::AudioBlock<float> audioBlock {buffer};
+    //m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
 //==============================================================================
@@ -181,13 +181,26 @@ juce::AudioProcessorEditor* LVTemplateAudioProcessor::createEditor()
 //==============================================================================
 void LVTemplateAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-
+    // Save params
+    m_treeState.state.appendChild(variableTree, nullptr);
+    juce::MemoryOutputStream stream(destData, false);
+    m_treeState.state.writeToStream (stream);
 }
 
 void LVTemplateAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    // Recall params
+    auto tree = juce::ValueTree::readFromData (data, size_t(sizeInBytes));
+    variableTree = tree.getChildWithName("Variables");
+    
+    if (tree.isValid())
+    {
+        m_treeState.state = tree;
+        
+        // Window Size
+        windowWidth = variableTree.getProperty("width");
+        windowHeight = variableTree.getProperty("height");
+    }
 }
 
 //==============================================================================

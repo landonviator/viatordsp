@@ -52,6 +52,7 @@ public:
             {
                 { "Parameter", {{ "id", "width" }, { "value", 0.0 }}},
                 { "Parameter", {{ "id", "height" }, { "value", 0.0 }}},
+                { "Parameter", {{ "id", "glowslider" }, { "value", 1.0 }}}
             }
         }
         }

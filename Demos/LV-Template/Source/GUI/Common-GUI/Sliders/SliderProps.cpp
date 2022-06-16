@@ -31,7 +31,7 @@ void LVTemplateAudioProcessorEditor::setSliderProps(juce::Slider &slider)
     
     if (m_settingsPage.getGlowState())
     {
-        shadowProperties.colour = m_mainCompColor;
+        shadowProperties.colour = m_mainCompColor.withAlpha(m_settingsPage.getCurrentGlowValue());
     }
     
     else
