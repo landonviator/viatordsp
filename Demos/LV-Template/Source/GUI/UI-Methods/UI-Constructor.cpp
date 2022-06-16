@@ -22,6 +22,14 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
         setSliderProps(*slider);
     }
     
+    /** Groups */
+    for (auto& group : groups)
+    {
+        setGroupProps(*group);
+    }
+    
+    m_mainBorder.setText("LV-Template");
+    
     testDial1.setRange(0.0, 20.0, 0.01);
     testDial2.setRange(0.1, 1.0, 0.01);
     driveAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, driveID, testDial1);

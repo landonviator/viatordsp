@@ -30,7 +30,13 @@ private:
     void saveWindowSize();
     bool constructorFinished = false;
     
-    juce::GroupComponent panel;
+    juce::GroupComponent m_mainBorder;
+    void setGroupProps(juce::GroupComponent& group);
+    std::vector<juce::GroupComponent*> groups =
+    {
+        &m_mainBorder
+    };
+    
     CustomPanel customPanelLAF;
     juce::GlowEffect glow;
     

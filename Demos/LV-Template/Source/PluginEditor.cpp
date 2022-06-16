@@ -10,16 +10,20 @@ LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioP
 
 LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
 {
-    panel.setLookAndFeel(nullptr);
-    
     /** Sliders */
     for (auto& slider : sliders)
     {
         slider->setLookAndFeel(nullptr);
     }
     
+    sliders.clear();
+    sliders.shrink_to_fit();
+    
     buttons.clear();
     buttons.shrink_to_fit();
+    
+    groups.clear();
+    groups.shrink_to_fit();
 }
 
 //==============================================================================
