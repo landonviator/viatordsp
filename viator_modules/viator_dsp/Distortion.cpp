@@ -2,7 +2,7 @@
 
 template <typename SampleType>
 viator_dsp::Distortion<SampleType>::Distortion() :
-_globalEnabled(true), _thresh(1.0f), m_clipType(viator_dsp::Distortion<SampleType>::ClipType::kHard)
+_globalEnabled(true), _thresh(1.0f), m_clipType(viator_dsp::Distortion<SampleType>::ClipType::kFuzz)
 {
 }
 
@@ -10,6 +10,14 @@ template <typename SampleType>
 void viator_dsp::Distortion<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcept
 {
     _currentSampleRate = spec.sampleRate;
+    
+    m_fuzzFilter.prepare(spec);
+    m_fuzzFilter.setStereoType(viator_dsp::SVFilter<float>::StereoId::kStereo);
+    m_fuzzFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowShelf);
+    m_fuzzFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQType, viator_dsp::SVFilter<float>::QType::kParametric);
+    m_fuzzFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, 2000.0);
+    m_fuzzFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, 9.0);
+    
     reset();
 }
 

@@ -46,6 +46,7 @@ void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID,
 
 void LVTemplateAudioProcessor::updateParameters()
 {
+    m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kFuzz);
     m_DistortionModule.setDrive(m_treeState.getRawParameterValue(driveID)->load());
     m_DistortionModule.setCeiling(m_treeState.getRawParameterValue(ceilingID)->load());
 }

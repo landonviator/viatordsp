@@ -2,6 +2,7 @@
 #define Clipper_h
 
 #include "../Common/Common.h"
+#include "svfilter.h"
 
 namespace viator_dsp
 {
@@ -35,8 +36,7 @@ public:
 
         auto len         = inBlock.getNumSamples();
         auto numChannels = inBlock.getNumChannels();
-
-
+        
         for (size_t channel = 0; channel < numChannels; ++channel)
         {
             for (size_t sample = 0; sample < len; ++sample)
@@ -44,20 +44,20 @@ public:
                 auto* input = inBlock.getChannelPointer (channel);
                 auto* output = outBlock.getChannelPointer (channel);
                 
-                output[sample] = processSample(input[sample]);
+                output[sample] = processSample(input[sample], channel);
             }
         }
     }
     
     /** Process an individual sample */
-    SampleType processSample(SampleType input) noexcept
+    SampleType processSample(SampleType input, int ch) noexcept
     {
         switch(m_clipType)
         {
             case ClipType::kHard: return hardClipData(input); break;
             case ClipType::kSoft: return softClipData(input); break;
             case ClipType::kDiode: return processDiode(input); break;
-            case ClipType::kFuzz: return processFuzz(input); break;
+            case ClipType::kFuzz: return processFuzz(input, ch); break;
             case ClipType::kTube: return processTube(input); break;
             case ClipType::kSaturation: return processSaturation(input); break;
         }
@@ -94,17 +94,6 @@ public:
         return softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (_diodeTerm)) - 1.0));
     }
     
-    /** Fuzz */
-    SampleType processFuzz(SampleType dataToClip)
-    {
-        /** Fuzz algorithim*/
-        auto input = dataToClip;
-        
-        auto fuzz = input / std::abs(input) * (1.0 - std::pow(juce::MathConstants<float>::euler, (_rawGain.getNextValue() * (input * input)) / std::abs(input)));
-        
-        return dataToClip * 0.5 + softClipData(fuzz) * 0.5;
-    }
-    
     /** Tube */
     SampleType processTube(SampleType dataToClip)
     {
@@ -123,6 +112,18 @@ public:
         
         return dataToClip;
     }
+    
+    /** Fuzz */
+    SampleType processFuzz(SampleType dataToClip, int channel)
+    {
+        /** Fuzz algorithim*/
+        auto input = m_fuzzFilter.processSample(dataToClip, channel);
+        
+        auto fuzz = input / std::abs(input) * (1.0 - std::pow(juce::MathConstants<float>::euler, (_rawGain.getNextValue() * (input * input)) / std::abs(input)));
+        
+        return processTube(fuzz);
+    }
+    
     
     /** Saturation */
     SampleType processSaturation(SampleType dataToClip)
@@ -181,6 +182,8 @@ private:
     static constexpr float _piDivisor = 2.0 / juce::MathConstants<float>::pi;
     
     ClipType m_clipType;
+    
+    viator_dsp::SVFilter<float> m_fuzzFilter;
 };
 } // namespace viator_dsp
 
