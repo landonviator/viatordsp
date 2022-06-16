@@ -16,11 +16,13 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 #endif
 {
     m_treeState.addParameterListener(driveID, this);
+    m_treeState.addParameterListener(ceilingID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
     m_treeState.removeParameterListener(driveID, this);
+    m_treeState.removeParameterListener(ceilingID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
@@ -28,8 +30,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
     auto pDrive = std::make_unique<juce::AudioParameterFloat>(driveID, driveName, 0.0f, 20.0f, 0.0f);
-    
+    auto pThresh = std::make_unique<juce::AudioParameterFloat>(ceilingID, ceilingName, 0.1f, 1.0f, 1.0f);
+
     params.push_back(std::move(pDrive));
+    params.push_back(std::move(pThresh));
     
     return { params.begin(), params.end() };
     
@@ -43,6 +47,7 @@ void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID,
 void LVTemplateAudioProcessor::updateParameters()
 {
     m_DistortionModule.setDrive(m_treeState.getRawParameterValue(driveID)->load());
+    m_DistortionModule.setCeiling(m_treeState.getRawParameterValue(ceilingID)->load());
 }
 
 //==============================================================================

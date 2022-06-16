@@ -54,21 +54,25 @@ public:
     {
         switch(m_clipType)
         {
-            case ClipType::kHard: return hardClipData(input, _thresh.getNextValue()); break;
+            case ClipType::kHard: return hardClipData(input); break;
             case ClipType::kSoft: return softClipData(input); break;
-            case ClipType::kDiode: return diodeClipper(input); break;
+            case ClipType::kDiode: return processDiode(input); break;
             case ClipType::kFuzz: return processFuzz(input); break;
+            case ClipType::kTube: return processTube(input); break;
+            case ClipType::kSaturation: return processSaturation(input); break;
         }
     }
     
     /** Hard clip data */
-    SampleType hardClipData(SampleType dataToClip, SampleType thresh = 1.0)
+    SampleType hardClipData(SampleType dataToClip)
     {
         dataToClip *= _rawGain.getNextValue();
+        auto ceiling = _ceiling.getNextValue();
         
-        if (std::abs(dataToClip) >= 1.0)
+        /** Hard algorithim*/
+        if (std::abs(dataToClip) >= ceiling)
         {
-            dataToClip *= 1.0 / std::abs(dataToClip);
+            dataToClip *= ceiling / std::abs(dataToClip);
         }
         
         return dataToClip;
@@ -77,20 +81,20 @@ public:
     /** Soft Clip */
     SampleType softClipData(SampleType dataToClip)
     {
-        /** Soft Clipping algorithim*/
+        /** Soft algorithim*/
         dataToClip *= _rawGain.getNextValue();
         return _piDivisor * std::atan(dataToClip);
     }
 
-    /** Diode Clip */
-    SampleType diodeClipper(SampleType dataToClip)
+    /** Diode */
+    SampleType processDiode(SampleType dataToClip)
     {
-        /** Diode Clipping algorithim*/
+        /** Diode algorithim*/
         dataToClip *= _rawGain.getNextValue();
         return softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (_diodeTerm)) - 1.0));
     }
     
-    /** Fuzz Clip */
+    /** Fuzz */
     SampleType processFuzz(SampleType dataToClip)
     {
         /** Fuzz algorithim*/
@@ -101,11 +105,46 @@ public:
         return dataToClip * 0.5 + softClipData(fuzz) * 0.5;
     }
     
+    /** Tube */
+    SampleType processTube(SampleType dataToClip)
+    {
+        /** Tube algorithim*/
+        dataToClip *= _rawGain.getNextValue();
+        
+        if (dataToClip >= 0.0)
+        {
+            dataToClip = hardClipData(dataToClip);
+        }
+        
+        else
+        {
+            dataToClip = softClipData(dataToClip);
+        }
+        
+        return dataToClip;
+    }
+    
+    /** Saturation */
+    SampleType processSaturation(SampleType dataToClip)
+    {
+        dataToClip *= _rawGain.getNextValue();
+        auto thresh = _thresh.getNextValue();
+        
+        /** Saturation algorithim*/
+        if (dataToClip > thresh)
+        {
+            dataToClip = thresh + (dataToClip - thresh) / (1.0 + std::pow((( dataToClip - 0.5 ) / thresh), 2.0));
+        }
+        
+        return softClipData(dataToClip);
+    }
+    
     /** The parameters of this module. */
     enum class ParameterId
     {
         kPreamp,
         kThresh,
+        kCeiling,
         kBypass
     };
     
@@ -115,14 +154,15 @@ public:
         kHard,
         kSoft,
         kDiode,
-        kFuzz
-        //kTube,
-        //kSaturation
+        kFuzz,
+        kTube,
+        kSaturation
     };
         
     /** One method to change any parameter. */
     void setDrive(SampleType newDrive);
     void setThresh(SampleType newThresh);
+    void setCeiling(SampleType newCeiling);
     void setEnabled(SampleType isEnabled);
     void setClipperType(ClipType clipType);
     
@@ -133,6 +173,7 @@ private:
     juce::SmoothedValue<float> _rawGain;
     juce::SmoothedValue<float> _gainDB;
     juce::SmoothedValue<float> _thresh;
+    juce::SmoothedValue<float> _ceiling;
     float _currentSampleRate;
     
     // Expressions
@@ -143,4 +184,4 @@ private:
 };
 } // namespace viator_dsp
 
-#endif /* Clipper_h */
+#endif /* Distortion_h */

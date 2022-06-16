@@ -7,3 +7,7 @@ extern juce::Colour masterColor;
 // Drive
 extern const juce::String driveID;
 extern const juce::String driveName;
+
+// Thresh
+extern const juce::String ceilingID;
+extern const juce::String ceilingName;

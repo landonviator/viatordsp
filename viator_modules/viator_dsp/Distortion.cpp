@@ -2,7 +2,7 @@
 
 template <typename SampleType>
 viator_dsp::Distortion<SampleType>::Distortion() :
-_globalEnabled(true), _thresh(1.0f), m_clipType(viator_dsp::Distortion<SampleType>::ClipType::kFuzz)
+_globalEnabled(true), _thresh(1.0f), m_clipType(viator_dsp::Distortion<SampleType>::ClipType::kHard)
 {
 }
 
@@ -24,6 +24,8 @@ void viator_dsp::Distortion<SampleType>::reset() noexcept
         _gainDB.setTargetValue(0.0);
         _thresh.reset(_currentSampleRate, 0.02);
         _thresh.setTargetValue(1.0);
+        _ceiling.reset(_currentSampleRate, 0.02);
+        _ceiling.setTargetValue(1.0);
     }
 }
 
@@ -41,6 +43,12 @@ void viator_dsp::Distortion<SampleType>::setThresh(SampleType newThresh)
 }
 
 template <typename SampleType>
+void viator_dsp::Distortion<SampleType>::setCeiling(SampleType newCeiling)
+{
+    _ceiling.setTargetValue(newCeiling);
+}
+
+template <typename SampleType>
 void viator_dsp::Distortion<SampleType>::setEnabled(SampleType isEnabled)
 {
     _globalEnabled = isEnabled;
@@ -55,6 +63,8 @@ void viator_dsp::Distortion<SampleType>::setClipperType(ClipType clipType)
         case ClipType::kSoft: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kSoft; break;
         case ClipType::kDiode: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kDiode; break;
         case ClipType::kFuzz: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kFuzz; break;
+        case ClipType::kTube: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kTube; break;
+        case ClipType::kSaturation: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kSaturation; break;
     }
 }
 

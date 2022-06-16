@@ -90,6 +90,7 @@ private:
     };
     
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> threshAttach;
     
     /** Shadow */
     juce::DropShadow shadowProperties;
