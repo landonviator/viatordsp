@@ -400,8 +400,9 @@ void ParaEQDemoAudioProcessor::drawNextFrameOfSpectrum()
 
     for (int i = 0; i < scopeSize; ++i)                         // [3]
     {
-        auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - (float) i / (float) scopeSize) * 0.2f);
-        auto fftDataIndex = juce::jlimit (0, fftSize / 2, (int) (skewedProportionX * (float) fftSize * 0.5f));
+        auto skewedProportionX = 0.99 - std::exp (std::log2 (1.0f - (float) i /
+                                                             (float) scopeSize) * 0.15);
+        auto fftDataIndex = juce::jlimit (0, fftSize / 2, (int) (skewedProportionX * (float) fftSize * 0.5));
         auto level = juce::jmap (juce::jlimit (mindB, maxdB, juce::Decibels::gainToDecibels (fftData[fftDataIndex])
                                                            - juce::Decibels::gainToDecibels ((float) fftSize)),
                                  mindB, maxdB, 0.0f, 1.0f);

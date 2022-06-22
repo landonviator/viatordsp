@@ -29,6 +29,12 @@ ParaEQDemoAudioProcessorEditor::ParaEQDemoAudioProcessorEditor (ParaEQDemoAudioP
         setLabelProps(*label);
     }
     
+    // Graph Label props
+    for (auto& label : graphLabels)
+    {
+        setLabelProps(*label);
+    }
+    
     // Attach labels
     for (int i = 0; i < labels.size(); ++i)
     {
@@ -153,6 +159,34 @@ void ParaEQDemoAudioProcessorEditor::resized()
     band7GainDial.setBounds(leftMargin * groupSpace, topMargin, dialSize, dialSize);
     band7CutoffDial.setBounds(band7GainDial.getX() - band1GainDial.getWidth() * 0.5, band1GainDial.getY() + band1GainDial.getHeight() * spaceBetween, dialSize, dialSize);
     band7QDial.setBounds(band7CutoffDial.getX() + band7CutoffDial.getWidth(), band7CutoffDial.getY(), dialSize, dialSize);
+    
+    const auto labelX = getWidth() * 0.018;
+    const auto labelY = getHeight() * 0.43;
+    const auto labelW = getWidth() * 0.1;
+    const auto labelH = labelW * 0.5;
+    
+    graphLabel100.setBounds(labelX, labelY, labelW, labelH);
+    auto space1 = graphLabel100.getX() * 2.68;
+    
+    graphLabel250.setBounds(space1, labelY, labelW, labelH);
+    auto space2 = graphLabel100.getX() * 5.28;
+    
+    graphLabel500.setBounds(space2, labelY, labelW, labelH);
+    auto space3 = graphLabel100.getX() * 10.27;
+    
+    graphLabel1000.setBounds(space3, labelY, labelW, labelH);
+    auto space4 = graphLabel1000.getX() * 1.84;
+    
+    graphLabel2000.setBounds(space4, labelY, labelW, labelH);
+    auto space5 = graphLabel2000.getX() * 1.7;
+    
+    graphLabel4000.setBounds(space5, labelY, labelW, labelH);
+    auto space6 = graphLabel4000.getX() * 1.453;
+    
+    graphLabel8000.setBounds(space6, labelY, labelW, labelH);
+    auto space7 = graphLabel8000.getX() * 1.123;
+    
+    graphLabel14000.setBounds(space7, labelY, labelW, labelH);
 }
 
 void ParaEQDemoAudioProcessorEditor::drawFrame (juce::Graphics& g)
@@ -167,5 +201,6 @@ void ParaEQDemoAudioProcessorEditor::drawFrame (juce::Graphics& g)
                               juce::jmap (audioProcessor.scopeData[i - 1], 0.0f, 1.0f, (float) height, 0.0f),
                       (float) juce::jmap (i,     0, audioProcessor.scopeSize - 1, 0, width),
                               juce::jmap (audioProcessor.scopeData[i],     0.0f, 1.0f, (float) height, 0.0f) });
+        DBG(audioProcessor.scopeData[i]);
     }
 }
