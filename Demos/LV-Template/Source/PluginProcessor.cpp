@@ -16,13 +16,13 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 #endif
 {
     m_treeState.addParameterListener(driveID, this);
-    m_treeState.addParameterListener(ceilingID, this);
+    m_treeState.addParameterListener(mixID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
     m_treeState.removeParameterListener(driveID, this);
-    m_treeState.removeParameterListener(ceilingID, this);
+    m_treeState.removeParameterListener(mixID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
@@ -30,10 +30,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
     auto pDrive = std::make_unique<juce::AudioParameterFloat>(driveID, driveName, 0.0f, 20.0f, 0.0f);
-    auto pThresh = std::make_unique<juce::AudioParameterFloat>(ceilingID, ceilingName, 0.1f, 1.0f, 1.0f);
+    auto pMix = std::make_unique<juce::AudioParameterFloat>(mixID, mixName, 0.0f, 1.0f, 1.0f);
 
     params.push_back(std::move(pDrive));
-    params.push_back(std::move(pThresh));
+    params.push_back(std::move(pMix));
     
     return { params.begin(), params.end() };
     
@@ -46,9 +46,8 @@ void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID,
 
 void LVTemplateAudioProcessor::updateParameters()
 {
-    m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kFuzz);
     m_DistortionModule.setDrive(m_treeState.getRawParameterValue(driveID)->load());
-    m_DistortionModule.setCeiling(m_treeState.getRawParameterValue(ceilingID)->load());
+    m_DistortionModule.setMix(m_treeState.getRawParameterValue(mixID)->load());
 }
 
 //==============================================================================
@@ -122,6 +121,7 @@ void LVTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     spec.numChannels = getTotalNumOutputChannels();
     
     m_DistortionModule.prepare(spec);
+    m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kLofi);
     updateParameters();
 }
 
@@ -163,8 +163,8 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    //juce::dsp::AudioBlock<float> audioBlock {buffer};
-    //m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    juce::dsp::AudioBlock<float> audioBlock {buffer};
+    m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
 //==============================================================================
@@ -175,7 +175,8 @@ bool LVTemplateAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* LVTemplateAudioProcessor::createEditor()
 {
-    return new LVTemplateAudioProcessorEditor (*this);
+    //return new LVTemplateAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

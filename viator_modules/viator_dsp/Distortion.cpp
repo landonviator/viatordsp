@@ -18,6 +18,12 @@ void viator_dsp::Distortion<SampleType>::prepare(const juce::dsp::ProcessSpec& s
     m_fuzzFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, 2000.0);
     m_fuzzFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kGain, 9.0);
     
+    m_lofiFilter.prepare(spec);
+    m_lofiFilter.setStereoType(viator_dsp::SVFilter<float>::StereoId::kStereo);
+    m_lofiFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kType, viator_dsp::SVFilter<float>::FilterType::kLowPass);
+    m_lofiFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQType, viator_dsp::SVFilter<float>::QType::kParametric);
+    m_lofiFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, 20000.0);
+    
     reset();
 }
 
@@ -34,6 +40,8 @@ void viator_dsp::Distortion<SampleType>::reset() noexcept
         _thresh.setTargetValue(1.0);
         _ceiling.reset(_currentSampleRate, 0.02);
         _ceiling.setTargetValue(1.0);
+        _mix.reset(_currentSampleRate, 0.02);
+        _mix.setTargetValue(1.0);
     }
 }
 
@@ -42,6 +50,10 @@ void viator_dsp::Distortion<SampleType>::setDrive(SampleType newDrive)
 {
     _gainDB.setTargetValue(newDrive);
     _rawGain.setTargetValue(juce::Decibels::decibelsToGain(newDrive));
+    
+    // Change high cut cutoff when drive changes
+    auto cutoff = juce::jmap(static_cast<float>(newDrive), 0.0f, 20.0f, 20000.0f, 3000.0f);
+    m_lofiFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, cutoff);
 }
 
 template <typename SampleType>
@@ -54,6 +66,12 @@ template <typename SampleType>
 void viator_dsp::Distortion<SampleType>::setCeiling(SampleType newCeiling)
 {
     _ceiling.setTargetValue(newCeiling);
+}
+
+template <typename SampleType>
+void viator_dsp::Distortion<SampleType>::setMix(SampleType newMix)
+{
+    _mix.setTargetValue(newMix);
 }
 
 template <typename SampleType>
@@ -73,6 +91,7 @@ void viator_dsp::Distortion<SampleType>::setClipperType(ClipType clipType)
         case ClipType::kFuzz: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kFuzz; break;
         case ClipType::kTube: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kTube; break;
         case ClipType::kSaturation: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kSaturation; break;
+        case ClipType::kLofi: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kLofi; break;
     }
 }
 

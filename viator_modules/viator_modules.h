@@ -21,7 +21,7 @@
 
 /** Viator DSP Headers*/
 #include "viator_dsp/Distortion.h"
-#include "viator_dsp/svfilter.h"
+#include "viator_dsp/SVFilter.h"
 #include "viator_dsp/LFOGenerator.h"
 
 /** Viator GUI Headers*/

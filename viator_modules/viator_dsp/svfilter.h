@@ -1,15 +1,5 @@
-/*
-  ==============================================================================
-
-    LV_EQ.h
-    Created: 25 May 2021 5:40:30pm
-    Author:  Landon Viator
-
-  ==============================================================================
-*/
-
-#ifndef svfilter_h
-#define svfilter_h
+#ifndef SVFilter_h
+#define SVFilter_h
 
 namespace viator_dsp
 {
@@ -225,4 +215,4 @@ private:
 };
 }
 
-#endif /* svfilter_h */
+#endif /* SVFilter_h */

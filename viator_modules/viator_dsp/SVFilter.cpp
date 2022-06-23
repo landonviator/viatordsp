@@ -1,4 +1,4 @@
-#include "svfilter.h"
+#include "SVFilter.h"
 template <typename SampleType>
 viator_dsp::SVFilter<SampleType>::SVFilter()
 : mCurrentSampleRate (44100.0f), mQ (0.1f), mCutoff (1000.0f), mRawGain (0.0f), twoPi (juce::MathConstants<float>::twoPi)
