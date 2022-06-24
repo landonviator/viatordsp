@@ -175,8 +175,8 @@ bool LVTemplateAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* LVTemplateAudioProcessor::createEditor()
 {
-    //return new LVTemplateAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor (*this);
+    return new LVTemplateAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================
