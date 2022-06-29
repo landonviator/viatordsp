@@ -56,6 +56,7 @@
 		65A105A127BD6D79297112FB /* include_juce_audio_plugin_client_AU.r */ = {isa = PBXBuildFile; fileRef = 8EE6EABBECDAC31C110F3932; };
 		6975CCB32E5A536A31645B5B /* GradientToggle.cpp */ = {isa = PBXBuildFile; fileRef = C9CDC6D831BDEFB1F0275B81; };
 		6A14D0442FD04AAD11B51006 /* include_juce_audio_plugin_client_Standalone.cpp */ = {isa = PBXBuildFile; fileRef = 3FFEC30E3A472192D35E7483; };
+		6A48B984DC9DE5B36EE4DA24 /* Buttons.cpp */ = {isa = PBXBuildFile; fileRef = 60C003E771E9B878B9941751; };
 		6AF181B7E8E748231CCAEE0F /* SettingsButton.cpp */ = {isa = PBXBuildFile; fileRef = 5EB8A2C15921CA1160EE4FA6; };
 		702C777F601455D995EF769F /* ButtonProps.cpp */ = {isa = PBXBuildFile; fileRef = 16816DFDE9749B35B89C5382; };
 		737FF1C86F7378A9A898B062 /* include_juce_audio_plugin_client_RTAS_3.cpp */ = {isa = PBXBuildFile; fileRef = A1028CD7ADAEAE580417C100; };
@@ -156,6 +157,7 @@
 		5A781430A9AA4155FBE3D811 /* GlowButtonProps.cpp */ /* GlowButtonProps.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GlowButtonProps.cpp; path = ../../Source/GUI/Components/SettingsPage/GlowButtonProps.cpp; sourceTree = SOURCE_ROOT; };
 		5B5320FE48EA72133E5F9A59 /* juce_dsp */ /* juce_dsp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_dsp; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_dsp; sourceTree = "<absolute>"; };
 		5EB8A2C15921CA1160EE4FA6 /* SettingsButton.cpp */ /* SettingsButton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SettingsButton.cpp; path = "../../Source/GUI/Custom-GUI/Buttons/SettingsButton.cpp"; sourceTree = SOURCE_ROOT; };
+		60C003E771E9B878B9941751 /* Buttons.cpp */ /* Buttons.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Buttons.cpp; path = ../../Source/GUI/LookAndFeel/Buttons.cpp; sourceTree = SOURCE_ROOT; };
 		62A646C6072BA2EF989C7BD0 /* button_middle_off.png */ /* button_middle_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_middle_off.png; path = ../../../../Assets/button_middle_off.png; sourceTree = SOURCE_ROOT; };
 		63A65D0A7C4DA1EF2AFC7829 /* Foundation.framework */ /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		64E64A6460E79905DD7D1EF9 /* CoreMIDI.framework */ /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
@@ -225,6 +227,7 @@
 		E6E49CFA3344C2BA01F840AA /* SliderProps.cpp */ /* SliderProps.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SliderProps.cpp; path = "../../Source/GUI/Common-GUI/Sliders/SliderProps.cpp"; sourceTree = SOURCE_ROOT; };
 		EA42B9674F392BD998DB1DE3 /* juce_audio_devices */ /* juce_audio_devices */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_audio_devices; path = /Users/land00m/Documents/GitHub/JUCE/modules/juce_audio_devices; sourceTree = "<absolute>"; };
 		EED2979F5BB48066DB0A7863 /* CoreAudioKit.framework */ /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		EFEF6EC3DE9E29A9FBEFE9E3 /* Buttons.h */ /* Buttons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Buttons.h; path = ../../Source/GUI/LookAndFeel/Buttons.h; sourceTree = SOURCE_ROOT; };
 		F0CE47692D2CEEFDE50EE494 /* include_juce_graphics.mm */ /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
 		F15751337484013242FA8E8D /* Themes.cpp */ /* Themes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Themes.cpp; path = ../../Source/GUI/LookAndFeel/Themes.cpp; sourceTree = SOURCE_ROOT; };
 		F2A9D961CF0714A846FD494C /* Info-VST3.plist */ /* Info-VST3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-VST3.plist"; path = "Info-VST3.plist"; sourceTree = SOURCE_ROOT; };
@@ -317,6 +320,8 @@
 		0956EB53305583E5B3B2CF39 /* LookAndFeel */ = {
 			isa = PBXGroup;
 			children = (
+				60C003E771E9B878B9941751,
+				EFEF6EC3DE9E29A9FBEFE9E3,
 				B8E2183C3EF3907696AE4B77,
 				8A43EA28D87EE5F52AD3FD63,
 				6B63AE89CA799104238BF2FF,
@@ -937,6 +942,7 @@
 				15FD126C05AB53C253C91C6A,
 				6AF181B7E8E748231CCAEE0F,
 				58A3B77C7D45E3065C199045,
+				6A48B984DC9DE5B36EE4DA24,
 				11376BB42E1831FC12D8FCD6,
 				376F98251CC467955BD9AEF7,
 				36C53FC38D22A1235D36DD8E,

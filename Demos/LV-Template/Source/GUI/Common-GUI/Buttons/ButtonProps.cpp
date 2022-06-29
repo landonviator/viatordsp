@@ -20,8 +20,9 @@ void LVTemplateAudioProcessorEditor::setTextButtonProps(juce::TextButton &button
         button.setColour(juce::ComboBox::outlineColourId, m_textAccentColor);
         button.setColour(juce::TextButton::ColourIds::textColourOnId, m_textAccentColor);
         button.setColour(juce::TextButton::ColourIds::textColourOffId, m_textAccentColor);
-        button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::transparentBlack);
-        button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::transparentBlack);
+        button.setColour(juce::TextButton::ColourIds::buttonColourId, m_mainCompFillColor);
+        button.setColour(juce::TextButton::ColourIds::buttonOnColourId, m_mainCompFillColor);
+        button.setLookAndFeel(&customButtonLAF);
     }
     
     else
@@ -32,7 +33,6 @@ void LVTemplateAudioProcessorEditor::setTextButtonProps(juce::TextButton &button
         button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(53, 55, 70));
         button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(53, 55, 70).brighter(0.1));
     }
-    
     
     /** Individual Button Props */
     setSettingsButtonProps();

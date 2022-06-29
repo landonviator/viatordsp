@@ -24,6 +24,8 @@ LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
     
     groups.clear();
     groups.shrink_to_fit();
+    
+    m_settingsButton.setLookAndFeel(nullptr);
 }
 
 //==============================================================================

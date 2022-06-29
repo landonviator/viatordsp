@@ -3,6 +3,7 @@
 #include "PluginProcessor.h"
 #include "./GUI/LookAndFeel/PanelLAF.h"
 #include "./GUI/LookAndFeel/FullDial.h"
+#include "./GUI/LookAndFeel/Buttons.h"
 #include "./GUI/Components/SettingsPage/SettingsPage.h"
 
 //==============================================================================
@@ -89,6 +90,9 @@ private:
     juce::Slider testDial4;
     void setSliderProps(juce::Slider& slider);
     FullDialLAF customDialLAF;
+    
+    juce::TextButton testButton;
+    ButtonStyle customButtonLAF;
     
     std::vector<juce::Slider*> sliders =
     {

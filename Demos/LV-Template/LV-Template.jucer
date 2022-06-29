@@ -48,6 +48,8 @@
           <GROUP id="{9A0B6897-C898-3E31-A2E4-E4CA31155E1B}" name="Menus"/>
         </GROUP>
         <GROUP id="{AFA3E426-00CB-8DCE-090F-7A0D2449FB82}" name="LookAndFeel">
+          <FILE id="yhjDK9" name="Buttons.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Buttons.cpp"/>
+          <FILE id="X1tHJk" name="Buttons.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/Buttons.h"/>
           <FILE id="iexM8J" name="FullDial.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/FullDial.cpp"/>
           <FILE id="B5Tr2y" name="FullDial.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/FullDial.h"/>
           <FILE id="MH3Pw9" name="PanelLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.cpp"/>

@@ -22,6 +22,16 @@ void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
     g.fillRect(0, 0, getWidth(), getHeight() * 0.08);
     g.setColour(juce::Colours::black.withAlpha(0.1f));
     g.drawLine(0, getHeight() * 0.08, getWidth(), getHeight() * 0.08, 1.0);
+    g.setColour(juce::Colours::black);
+    
+    // Logo layer
+    auto headerLogo = juce::ImageCache::getFromMemory(BinaryData::landon5504_png, BinaryData::landon5504_pngSize);
+    g.drawImageWithin(headerLogo,
+                      getWidth() * 0.02,
+                      0,
+                      getWidth() * 0.17,
+                      getHeight() * 0.08,
+                      juce::RectanglePlacement::centred);
     
     /** Update Component Colors*/
     for (auto& button : buttons)
