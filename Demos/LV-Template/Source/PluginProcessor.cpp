@@ -17,6 +17,10 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 {
     m_treeState.addParameterListener(driveID, this);
     m_treeState.addParameterListener(mixID, this);
+    
+    variableTree.setProperty("glowslider", 1.0, nullptr);
+    variableTree.setProperty("glowtoggle", 0.0, nullptr);
+    variableTree.setProperty("gradienttoggle", 1.0, nullptr);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
