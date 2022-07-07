@@ -13,8 +13,11 @@
 void SettingsPage::setGradientToggleProps()
 {
     m_gradientToggle.setButtonText("Gradient");
+    m_gradientToggle.setToggleState(audioProcessor.variableTree.getProperty("gradienttoggle"), juce::dontSendNotification);
     m_gradientToggle.onClick = [this]()
     {
+        audioProcessor.variableTree.setProperty("gradienttoggle",
+                                                m_gradientToggle.getToggleState(), nullptr);
         getParentComponent()->repaint();
     };
 }

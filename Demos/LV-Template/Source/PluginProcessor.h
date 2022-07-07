@@ -45,6 +45,7 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    juce::AudioProcessorValueTreeState m_treeState;
     juce::ValueTree variableTree
     { "Variables", {},
         {
@@ -52,7 +53,9 @@ public:
             {
                 { "Parameter", {{ "id", "width" }, { "value", 0.0 }}},
                 { "Parameter", {{ "id", "height" }, { "value", 0.0 }}},
-                { "Parameter", {{ "id", "glowslider" }, { "value", 1.0 }}}
+                { "Parameter", {{ "id", "glowslider" }, { "value", 1.0 }}},
+                { "Parameter", {{ "id", "glowtoggle" }, { "value", 0.0 }}},
+                { "Parameter", {{ "id", "gradienttoggle" }, { "value", 1.0 }}}
             }
         }
         }
@@ -61,8 +64,6 @@ public:
     /** Window Vars =====================================================*/
     float windowWidth {0.0f};
     float windowHeight {0.0f};
-    
-    juce::AudioProcessorValueTreeState m_treeState;
     
 private:
     /** JUCE Boilerplate */

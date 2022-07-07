@@ -20,12 +20,12 @@ void LVTemplateAudioProcessorEditor::initWindow()
         width = x * 0.4f;
     }
     
-    auto height = width * 0.7;
+    auto height = width * 0.6;
     
     //Making the window resizable by aspect ratio and setting size
     AudioProcessorEditor::setResizable(true, true);
     AudioProcessorEditor::setResizeLimits(width * 0.5, height * 0.5, width * 1.25, height * 1.25);
-    AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(1.42857);
+    AudioProcessorEditor::getConstrainer()->setFixedAspectRatio(1.666666);
     
     if (audioProcessor.windowWidth != 0.0)
     {
