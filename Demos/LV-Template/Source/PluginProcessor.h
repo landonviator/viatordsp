@@ -72,7 +72,15 @@ private:
     
     /** DSP */
     viator_dsp::Distortion<float> m_DistortionModule;
+    juce::dsp::Reverb m_ReverbModule;
+    juce::dsp::Reverb::Parameters reverbParams;
     
+    viator_dsp::SVFilter<float> m_LowShelfModule;
+    viator_dsp::SVFilter<float> m_HighShelfModule;
+    viator_dsp::SVFilter<float> highToneModule;
+    using filterParam = viator_dsp::SVFilter<float>::ParameterId;
+    using filterType = viator_dsp::SVFilter<float>::FilterType;
+    using qType = viator_dsp::SVFilter<float>::QType;
     void updateParameters();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessor)

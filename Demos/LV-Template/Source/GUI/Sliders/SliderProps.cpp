@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "../../../PluginEditor.h"
+#include "../../PluginEditor.h"
 
 void LVTemplateAudioProcessorEditor::setSliderProps(juce::Slider &slider)
 {

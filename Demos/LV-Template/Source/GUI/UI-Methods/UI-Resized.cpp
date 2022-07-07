@@ -19,10 +19,8 @@ void LVTemplateAudioProcessorEditor::uiResized()
     const auto leftMargin = getWidth() * 0.1;
     const auto topMargin = getHeight() * 0.4;
     const auto dialSize = getWidth() * 0.2;
-    testDial1.setBounds(leftMargin, topMargin, dialSize, dialSize);
-    testDial2.setBounds(testDial1.getX() + testDial1.getWidth(), topMargin, dialSize, dialSize);
-    testDial3.setBounds(testDial2.getX() + testDial2.getWidth(), topMargin, dialSize, dialSize);
-    testDial4.setBounds(testDial3.getX() + testDial3.getWidth(), topMargin, dialSize, dialSize);
+    driveDial.setBounds(leftMargin, topMargin, dialSize, dialSize);
+    mixDial.setBounds(driveDial.getX() + driveDial.getWidth(), topMargin, dialSize, dialSize);
     
     /** Settings Page */
     m_settingsPage.setVisible(m_settingsButton.getToggleState());

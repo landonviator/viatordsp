@@ -6,17 +6,8 @@
   <MAINGROUP id="vHkpxJ" name="LV-Template">
     <GROUP id="{C8650847-B61E-21F5-1BCC-AD5FEB3BF9C6}" name="Source">
       <GROUP id="{1292BB3A-D88D-FC12-52AC-B06994A71EF5}" name="GUI">
-        <GROUP id="{56483EA2-4768-01AF-8CAC-265995DBE0B5}" name="Common-GUI">
-          <GROUP id="{06974D93-6998-910B-61DD-12D2343EC3AC}" name="Buttons">
-            <FILE id="rJXh9c" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Buttons/ButtonProps.cpp"/>
-          </GROUP>
-          <GROUP id="{7EC9FB03-8467-073A-F9B2-C033A2C179C6}" name="Groups">
-            <FILE id="AqCMsS" name="Groups.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Groups/Groups.cpp"/>
-          </GROUP>
-          <GROUP id="{A92A554F-65B1-7E2F-7911-92CE91DB353A}" name="Menus"/>
-          <GROUP id="{1EA4128F-46B9-AA61-4A97-14F0030DB0F7}" name="Sliders">
-            <FILE id="EGR6jb" name="SliderProps.cpp" compile="1" resource="0" file="Source/GUI/Common-GUI/Sliders/SliderProps.cpp"/>
-          </GROUP>
+        <GROUP id="{F62364FD-C475-35AD-0F8A-4F59961835C5}" name="Buttons">
+          <FILE id="kSqbO0" name="ButtonProps.cpp" compile="1" resource="0" file="Source/GUI/Buttons/ButtonProps.cpp"/>
         </GROUP>
         <GROUP id="{B3B3BDA7-F7BD-A6A3-DE54-BA7FCE68A2C0}" name="Components">
           <GROUP id="{15FEEB46-ED62-479B-E065-9ED5532D6407}" name="SettingsPage">
@@ -37,15 +28,8 @@
             <FILE id="UfZlk2" name="TwitchBtn.cpp" compile="1" resource="0" file="Source/GUI/Components/SettingsPage/TwitchBtn.cpp"/>
           </GROUP>
         </GROUP>
-        <GROUP id="{29FF4607-B156-5C98-381A-19ABE4C3A369}" name="Custom-GUI">
-          <GROUP id="{F7DB2C9F-ABD8-D072-9E24-C3B65C195F54}" name="Buttons">
-            <FILE id="ta9zTn" name="SettingsButton.cpp" compile="1" resource="0"
-                  file="Source/GUI/Custom-GUI/Buttons/SettingsButton.cpp"/>
-          </GROUP>
-          <GROUP id="{BB314378-2C88-7CBC-DA05-245070944E72}" name="Groups">
-            <FILE id="YWsQMK" name="ThemeGroup.cpp" compile="1" resource="0" file="Source/GUI/Custom-GUI/Groups/ThemeGroup.cpp"/>
-          </GROUP>
-          <GROUP id="{9A0B6897-C898-3E31-A2E4-E4CA31155E1B}" name="Menus"/>
+        <GROUP id="{A1A9B480-D1EE-AB6C-12AF-EE34E498FEF3}" name="Groups">
+          <FILE id="lgjjgg" name="Groups.cpp" compile="1" resource="0" file="Source/GUI/Groups/Groups.cpp"/>
         </GROUP>
         <GROUP id="{AFA3E426-00CB-8DCE-090F-7A0D2449FB82}" name="LookAndFeel">
           <FILE id="yhjDK9" name="Buttons.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Buttons.cpp"/>
@@ -55,6 +39,10 @@
           <FILE id="MH3Pw9" name="PanelLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.cpp"/>
           <FILE id="yENF3B" name="PanelLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.h"/>
           <FILE id="tH8QdE" name="Themes.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Themes.cpp"/>
+        </GROUP>
+        <GROUP id="{A1295D91-2A18-9942-986E-9169E8E7E64F}" name="Menus"/>
+        <GROUP id="{085ADFEA-A3E5-6E35-5FA2-DF0FBF42304C}" name="Sliders">
+          <FILE id="K8kxC9" name="SliderProps.cpp" compile="1" resource="0" file="Source/GUI/Sliders/SliderProps.cpp"/>
         </GROUP>
         <GROUP id="{A3663E08-FE3E-8EDB-3B2C-53EC2342A1BC}" name="UI-Methods">
           <GROUP id="{C76A9BD2-0D81-6DA3-DCEC-0C23893943B9}" name="Buttons"/>

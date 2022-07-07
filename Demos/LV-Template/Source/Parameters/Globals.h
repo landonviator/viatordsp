@@ -3,15 +3,28 @@
 
 extern juce::Colour masterColor;
 
-/** Audio Parameters*/
-// Drive
+/** ========= Audio Parameters ========= */
+
+// Distortion
 extern const juce::String driveID;
 extern const juce::String driveName;
 
-// Thresh
-extern const juce::String ceilingID;
-extern const juce::String ceilingName;
-
-// Mix
 extern const juce::String mixID;
 extern const juce::String mixName;
+
+// Reverb
+extern const juce::String roomSizeID;
+extern const juce::String roomSizeName;
+
+extern const juce::String dampingID;
+extern const juce::String dampingName;
+
+extern const juce::String widthID;
+extern const juce::String widthName;
+
+extern const juce::String reverbMixID;
+extern const juce::String reverbMixName;
+
+// Tilt EQ
+extern const juce::String tiltGainID;
+extern const juce::String tiltGainName;

@@ -150,7 +150,8 @@ public:
     SampleType processLofi(SampleType dataToClip, int channel)
     {
         // Bias
-        auto wetSignal = dataToClip += 0.05;
+        auto bias = 0.05;
+        auto wetSignal = dataToClip += bias;
         
         // Lofi algorithim
         if (wetSignal < 0)
@@ -164,14 +165,14 @@ public:
         // Volume compensation
         wetSignal *= 15.0 * juce::Decibels::decibelsToGain(-_gainDB.getNextValue() * 1.5);
         
-        // Bias
-        wetSignal -= 0.05;
-        
         // Over 0 protection
-        wetSignal = hardClipData(wetSignal, false);
+        wetSignal = hardClipData(m_lofiFilter.processSample(wetSignal, channel), false);
+        
+        // Bias
+        wetSignal -= bias;
         
         // Mix dry with wet
-        return (1.0 - _mix.getNextValue()) * dataToClip + m_lofiFilter.processSample(wetSignal, channel) * _mix.getNextValue();
+        return (1.0 - _mix.getNextValue()) * dataToClip + wetSignal * _mix.getNextValue();
     }
     
     /** The parameters of this module. */

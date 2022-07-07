@@ -15,28 +15,67 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 , m_treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
+    // Distortion
     m_treeState.addParameterListener(driveID, this);
     m_treeState.addParameterListener(mixID, this);
+    
+    // Reverb
+    m_treeState.addParameterListener(roomSizeID, this);
+    m_treeState.addParameterListener(dampingID, this);
+    m_treeState.addParameterListener(widthID, this);
+    m_treeState.addParameterListener(reverbMixID, this);
+    
+    // Tilt EQ
+    m_treeState.addParameterListener(tiltGainID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
+    // Distortion
     m_treeState.removeParameterListener(driveID, this);
     m_treeState.removeParameterListener(mixID, this);
+    
+    // Reverb
+    m_treeState.removeParameterListener(roomSizeID, this);
+    m_treeState.removeParameterListener(dampingID, this);
+    m_treeState.removeParameterListener(widthID, this);
+    m_treeState.removeParameterListener(reverbMixID, this);
+    
+    // Tilt EQ
+    m_treeState.removeParameterListener(tiltGainID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
+    // Distortion
     auto pDrive = std::make_unique<juce::AudioParameterFloat>(driveID, driveName, 0.0f, 20.0f, 0.0f);
     auto pMix = std::make_unique<juce::AudioParameterFloat>(mixID, mixName, 0.0f, 1.0f, 1.0f);
-
+    
+    // Reverb
+    auto pRoomSize = std::make_unique<juce::AudioParameterFloat>(roomSizeID, roomSizeName, 0.0f, 1.0f, 0.5f);
+    auto pDamping = std::make_unique<juce::AudioParameterFloat>(dampingID, dampingName, 0.0f, 1.0f, 0.5f);
+    auto pWidth = std::make_unique<juce::AudioParameterFloat>(widthID, widthName, 0.0f, 1.0f, 0.5f);
+    auto pReverbMix = std::make_unique<juce::AudioParameterFloat>(reverbMixID, reverbMixName, 0.0f, 1.0f, 0.5f);
+    
+    // Tilt EQ
+    auto pTiltGain = std::make_unique<juce::AudioParameterFloat>(tiltGainID, tiltGainName, -15.0f, 15.0f, 0.0f);
+    
+    // Distortion
     params.push_back(std::move(pDrive));
     params.push_back(std::move(pMix));
     
-    return { params.begin(), params.end() };
+    // Reverb
+    params.push_back(std::move(pRoomSize));
+    params.push_back(std::move(pDamping));
+    params.push_back(std::move(pWidth));
+    params.push_back(std::move(pReverbMix));
     
+    // Tilt EQ
+    params.push_back(std::move(pTiltGain));
+    
+    return { params.begin(), params.end() };
 }
 
 void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
@@ -46,8 +85,22 @@ void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID,
 
 void LVTemplateAudioProcessor::updateParameters()
 {
+    // Distortion
     m_DistortionModule.setDrive(m_treeState.getRawParameterValue(driveID)->load());
     m_DistortionModule.setMix(m_treeState.getRawParameterValue(mixID)->load());
+    
+    // Reverb
+    reverbParams.roomSize = m_treeState.getRawParameterValue(roomSizeID)->load();
+    reverbParams.damping = m_treeState.getRawParameterValue(dampingID)->load();
+    reverbParams.width = m_treeState.getRawParameterValue(widthID)->load();
+    reverbParams.dryLevel = juce::jmap(m_treeState.getRawParameterValue(reverbMixID)->load(),
+                                       0.0f, 1.0f, 1.0f, 0.0f);
+    reverbParams.wetLevel = m_treeState.getRawParameterValue(reverbMixID)->load();
+    m_ReverbModule.setParameters(reverbParams);
+    
+    // Tilt EQ
+    m_LowShelfModule.setParameter(filterParam::kGain, m_treeState.getRawParameterValue(tiltGainID)->load() * -1.0);
+    m_HighShelfModule.setParameter(filterParam::kGain, m_treeState.getRawParameterValue(tiltGainID)->load());
 }
 
 //==============================================================================
@@ -122,6 +175,24 @@ void LVTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     
     m_DistortionModule.prepare(spec);
     m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kLofi);
+    
+    m_ReverbModule.prepare(spec);
+    m_ReverbModule.setParameters(reverbParams);
+    
+    m_LowShelfModule.prepare(spec);
+    m_LowShelfModule.setParameter(filterParam::kType, filterType::kLowShelf);
+    m_LowShelfModule.setParameter(filterParam::kCutoff, 1000.0);
+    m_LowShelfModule.setParameter(filterParam::kQType, qType::kProportional);
+    m_LowShelfModule.setParameter(filterParam::kQ, 0.3);
+    m_LowShelfModule.setParameter(filterParam::kGain, 0.0);
+    
+    m_HighShelfModule.prepare(spec);
+    m_HighShelfModule.setParameter(filterParam::kType, filterType::kHighShelf);
+    m_HighShelfModule.setParameter(filterParam::kCutoff, 1000.0);
+    m_HighShelfModule.setParameter(filterParam::kQType, qType::kProportional);
+    m_HighShelfModule.setParameter(filterParam::kQ, 0.3);
+    m_HighShelfModule.setParameter(filterParam::kGain, 0.0);
+    
     updateParameters();
 }
 
@@ -165,6 +236,9 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     juce::dsp::AudioBlock<float> audioBlock {buffer};
     m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    m_LowShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    m_HighShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    m_ReverbModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
 //==============================================================================
@@ -175,8 +249,8 @@ bool LVTemplateAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* LVTemplateAudioProcessor::createEditor()
 {
-    return new LVTemplateAudioProcessorEditor (*this);
-    //return new juce::GenericAudioProcessorEditor (*this);
+    //return new LVTemplateAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

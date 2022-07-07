@@ -84,10 +84,8 @@ private:
     };
     
     /** Test Widgets */
-    juce::Slider testDial1;
-    juce::Slider testDial2;
-    juce::Slider testDial3;
-    juce::Slider testDial4;
+    juce::Slider driveDial;
+    juce::Slider mixDial;
     void setSliderProps(juce::Slider& slider);
     FullDialLAF customDialLAF;
     
@@ -96,11 +94,11 @@ private:
     
     std::vector<juce::Slider*> sliders =
     {
-        &testDial1, &testDial2, &testDial3, &testDial4
+        &driveDial, &mixDial
     };
     
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveAttach;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> threshAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveMixAttach;
     
     /** Shadow */
     juce::DropShadow shadowProperties;
