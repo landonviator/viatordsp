@@ -78,7 +78,7 @@ private:
     
     viator_dsp::SVFilter<float> m_LowShelfModule;
     viator_dsp::SVFilter<float> m_HighShelfModule;
-    viator_dsp::SVFilter<float> highToneModule;
+    viator_dsp::SVFilter<float> m_MidToneModule;
     using filterParam = viator_dsp::SVFilter<float>::ParameterId;
     using filterType = viator_dsp::SVFilter<float>::FilterType;
     using qType = viator_dsp::SVFilter<float>::QType;

@@ -28,3 +28,16 @@ extern const juce::String reverbMixName;
 // Tilt EQ
 extern const juce::String tiltGainID;
 extern const juce::String tiltGainName;
+
+// Mid Tone
+extern const juce::String midGainID;
+extern const juce::String midGainName;
+
+extern const juce::String midCutoffID;
+extern const juce::String midCutoffName;
+
+extern const juce::String midQID;
+extern const juce::String midQName;
+
+extern const juce::String midPreID;
+extern const juce::String midPreName;

@@ -27,6 +27,12 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
     
     // Tilt EQ
     m_treeState.addParameterListener(tiltGainID, this);
+    
+    // Mid Gain
+    m_treeState.addParameterListener(midGainID, this);
+    m_treeState.addParameterListener(midCutoffID, this);
+    m_treeState.addParameterListener(midQID, this);
+    m_treeState.addParameterListener(midPreID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
@@ -43,6 +49,12 @@ LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
     
     // Tilt EQ
     m_treeState.removeParameterListener(tiltGainID, this);
+    
+    // Mid Gain
+    m_treeState.removeParameterListener(midGainID, this);
+    m_treeState.removeParameterListener(midCutoffID, this);
+    m_treeState.removeParameterListener(midQID, this);
+    m_treeState.removeParameterListener(midPreID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
@@ -62,6 +74,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     // Tilt EQ
     auto pTiltGain = std::make_unique<juce::AudioParameterFloat>(tiltGainID, tiltGainName, -15.0f, 15.0f, 0.0f);
     
+    // Mid Gain
+    auto cutoffRange = juce::NormalisableRange<float>(200.0f, 5000.0f, 1.0f);
+    cutoffRange.setSkewForCentre(1000.0f);
+    
+    auto pMidGain = std::make_unique<juce::AudioParameterFloat>(midGainID, midGainName, -15.0f, 15.0f, 0.0f);
+    auto pMidCutoff = std::make_unique<juce::AudioParameterFloat>(midCutoffID, midCutoffName, cutoffRange, 0.0f);
+    auto pMidQ = std::make_unique<juce::AudioParameterFloat>(midQID, midQName, 0.05f, 0.85f, 0.3f);
+    auto pMidPre = std::make_unique<juce::AudioParameterBool>(midPreID, midPreName, false);
+    
     // Distortion
     params.push_back(std::move(pDrive));
     params.push_back(std::move(pMix));
@@ -74,6 +95,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     
     // Tilt EQ
     params.push_back(std::move(pTiltGain));
+    
+    // Mid Gain
+    params.push_back(std::move(pMidGain));
+    params.push_back(std::move(pMidCutoff));
+    params.push_back(std::move(pMidQ));
+    params.push_back(std::move(pMidPre));
     
     return { params.begin(), params.end() };
 }
@@ -101,6 +128,11 @@ void LVTemplateAudioProcessor::updateParameters()
     // Tilt EQ
     m_LowShelfModule.setParameter(filterParam::kGain, m_treeState.getRawParameterValue(tiltGainID)->load() * -1.0);
     m_HighShelfModule.setParameter(filterParam::kGain, m_treeState.getRawParameterValue(tiltGainID)->load());
+    
+    // Mid Gain
+    m_MidToneModule.setParameter(filterParam::kGain, m_treeState.getRawParameterValue(midGainID)->load());
+    m_MidToneModule.setParameter(filterParam::kCutoff, m_treeState.getRawParameterValue(midCutoffID)->load());
+    m_MidToneModule.setParameter(filterParam::kQ, m_treeState.getRawParameterValue(midQID)->load());
 }
 
 //==============================================================================
@@ -193,6 +225,13 @@ void LVTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     m_HighShelfModule.setParameter(filterParam::kQ, 0.3);
     m_HighShelfModule.setParameter(filterParam::kGain, 0.0);
     
+    m_MidToneModule.prepare(spec);
+    m_MidToneModule.setParameter(filterParam::kType, filterType::kBandShelf);
+    m_MidToneModule.setParameter(filterParam::kCutoff, 1000.0);
+    m_MidToneModule.setParameter(filterParam::kQType, qType::kParametric);
+    m_MidToneModule.setParameter(filterParam::kQ, 0.3);
+    m_MidToneModule.setParameter(filterParam::kGain, 0.0);
+    
     updateParameters();
 }
 
@@ -235,9 +274,24 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
     juce::dsp::AudioBlock<float> audioBlock {buffer};
-    m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    m_LowShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    m_HighShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    
+    if (m_treeState.getRawParameterValue(midPreID)->load())
+    {
+        m_MidToneModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        m_LowShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        m_HighShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    }
+    
+    else
+    {
+        m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        m_MidToneModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        m_LowShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        m_HighShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    }
+    
+
     m_ReverbModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
