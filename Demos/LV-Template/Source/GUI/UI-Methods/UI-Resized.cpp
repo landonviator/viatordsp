@@ -8,9 +8,9 @@ void LVTemplateAudioProcessorEditor::uiResized()
     
     float rightMargin = getWidth() * 0.95f;
     float headerTopMargin = m_headerRectangle.getHeight() * 0.125f;
-    float buttonWidth = getWidth() * 0.05f;
+    float buttonWidth = getWidth() * 0.04;
     float buttonHeight = m_headerRectangle.getHeight() * 0.75f;
-    m_settingsButton.setBounds(rightMargin - buttonWidth * 1.07, headerTopMargin, buttonWidth, buttonHeight);
+    m_settingsButton.setBounds(rightMargin, headerTopMargin, buttonWidth, buttonHeight);
     
     /** Settings Page */
     setSettingsButtonProps();
@@ -18,6 +18,7 @@ void LVTemplateAudioProcessorEditor::uiResized()
     /** Panels */
     setPanelLayout();
     setDistortionGroupLayout();
+    setToneGroupLayout();
     
     /** Settings Page */
     m_settingsPage.setVisible(m_settingsButton.getToggleState());
@@ -25,7 +26,7 @@ void LVTemplateAudioProcessorEditor::uiResized()
     
     if (m_settingsButton.getToggleState())
     {
-        m_settingsPage.setBounds(getWidth() * 0.6f, getHeight() * 0.08f, getWidth() * 0.4f, getHeight());
+        m_settingsPage.setBounds(getWidth() * 0.7f, getHeight() * 0.08f, getWidth() * 0.3f, getHeight());
     }
     
     /** Save Plugin Window Size */

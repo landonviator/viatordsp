@@ -35,6 +35,9 @@ const juce::String tiltGainID             = "tiltGain";
 const juce::String tiltGainName           = "Tilt Gain";
 
 // Mid Tone
+const juce::String toneEnableID           = "toneEnable";
+const juce::String toneEnableName         = "Tone Toggle";
+
 extern const juce::String midGainID       = "midGain";
 extern const juce::String midGainName     = "Mid Gain";
 

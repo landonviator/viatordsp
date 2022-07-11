@@ -1,6 +1,7 @@
 #pragma once
 #include <JuceHeader.h>
 
+
 extern juce::Colour masterColor;
 
 /** ========= Audio Parameters ========= */
@@ -36,6 +37,9 @@ extern const juce::String tiltGainID;
 extern const juce::String tiltGainName;
 
 // Mid Tone
+extern const juce::String toneEnableID;
+extern const juce::String toneEnableName;
+
 extern const juce::String midGainID;
 extern const juce::String midGainName;
 

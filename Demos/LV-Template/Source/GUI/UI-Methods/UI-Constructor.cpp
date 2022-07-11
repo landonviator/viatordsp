@@ -17,6 +17,7 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
     }
     
     driveToggleAttach = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.m_treeState, driveEnableID, m_distortionToggle);
+    toneToggleAttach = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.m_treeState, toneEnableID, m_toneToggle);
     
     /** Sliders */
     for (auto& slider : disSliders)
@@ -24,7 +25,13 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
         setSliderProps(*slider);
     }
     
+    for (auto& slider : toneSliders)
+    {
+        setSliderProps(*slider);
+    }
+    
     setDisSliderProps();
+    setToneSliderProps();
     
     /** Groups */
     for (auto& group : groups)
@@ -37,6 +44,8 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
     {
         setModuleToggleProps(*toggle);
     }
+    
+    setPrePostProps();
     
     /** Module Labels */
     for (auto& label : moduleLabels)

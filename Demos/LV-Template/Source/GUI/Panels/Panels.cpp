@@ -20,9 +20,8 @@ void LVTemplateAudioProcessorEditor::setPanelLayout()
     auto panelSpaceBetween = panelWidth * 0.085;
     
     m_distortionBorder.setBounds(leftMargin, topMargin, panelWidth, panelHeight);
-    m_crusherBorder.setBounds(m_distortionBorder.getX() + m_distortionBorder.getWidth() + panelSpaceBetween, topMargin, panelWidth, panelHeight);
-    m_toneBorder.setBounds(m_crusherBorder.getX() + m_crusherBorder.getWidth() + panelSpaceBetween, topMargin, panelWidth, panelHeight);
-    m_reverbBorder.setBounds(m_toneBorder.getX() + m_toneBorder.getWidth() + panelSpaceBetween, topMargin, panelWidth, panelHeight);
+    m_toneBorder.setBounds(m_distortionBorder.getX() + m_distortionBorder.getWidth() + panelSpaceBetween, topMargin, panelWidth, panelHeight);
+    m_reverbBorder.setBounds(m_toneBorder.getX() + m_toneBorder.getWidth() + panelSpaceBetween, topMargin, panelWidth * 2.0, panelHeight);
 }
 
 void LVTemplateAudioProcessorEditor::setDistortionGroupLayout()
@@ -46,4 +45,28 @@ void LVTemplateAudioProcessorEditor::setDistortionGroupLayout()
     m_distortionMenu.setBounds(menuX, menuY, menuWidth, menuHeight);
     m_driveDial.setBounds(dialX, dialY, dialSize, dialSize);
     m_mixDial.setBounds(dialX, m_driveDial.getY() + m_driveDial.getHeight(), dialSize, dialSize);
+}
+
+void LVTemplateAudioProcessorEditor::setToneGroupLayout()
+{
+    const auto titleSize = 0.1;
+    const auto toggleTop = 1.08;
+    const auto toggleSize = getWidth() * 0.04;
+    const auto labelWidth = getWidth() * 0.12;
+    const auto labelHeight = getHeight() * 0.05;
+    const auto dialX = m_toneBorder.getX() * 1.158;
+    const auto dialY = m_toneBorder.getY() * 2.0;
+    const auto dialSize = m_toneBorder.getWidth() * 0.59;
+    const auto buttonX = m_toneBorder.getX() * 1.56;
+    const auto buttonY = m_toneBorder.getY() * 1.27;
+    const auto buttonWidth = m_toneBorder.getWidth() * 0.22;
+    const auto buttonHeight = buttonWidth * 0.5;
+    
+    m_toneTitle.setBounds(m_toneBorder.getX(), m_toneBorder.getY(), m_toneBorder.getWidth(), m_toneBorder.getHeight() * titleSize);
+    m_toneToggle.setBounds(m_toneBorder.getX(), m_toneBorder.getY() * toggleTop, toggleSize, toggleSize);
+    m_toneLabel.setBounds(m_toneToggle.getX() + m_toneToggle.getWidth() * 1.17, m_toneToggle.getY() * 1.17, labelWidth, labelHeight);
+    m_prepostButton.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+    m_tiltSlider.setBounds(dialX, dialY, dialSize, dialSize);
+    m_toneDial.setBounds(dialX, m_tiltSlider.getY() + m_tiltSlider.getHeight(), dialSize, dialSize);
+    m_cutoffDial.setBounds(dialX, m_toneDial.getY() + m_toneDial.getHeight(), dialSize, dialSize);
 }

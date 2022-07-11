@@ -51,6 +51,7 @@ private:
     void setGroupProps(juce::GroupComponent& group);
     void setPanelLayout();
     void setDistortionGroupLayout();
+    void setToneGroupLayout();
     
     CustomPanel customPanelLAF;
     juce::GlowEffect glow;
@@ -101,6 +102,9 @@ private:
     /** ============================== Module Widgets ============================== */
     juce::Slider m_driveDial;
     juce::Slider m_mixDial;
+    juce::Slider m_toneDial;
+    juce::Slider m_cutoffDial;
+    juce::Slider m_tiltSlider;
     viator_gui::Label m_driveLabel;
     viator_gui::Label m_driveMixLabel;
     
@@ -115,23 +119,37 @@ private:
         &m_driveLabel, &m_driveMixLabel
     };
     
+    void setDisLabelProps(viator_gui::Label& label);
+    
     std::vector<juce::Slider*> disSliders =
     {
         &m_driveDial, &m_mixDial
     };
     
-    void setDisLabelProps(viator_gui::Label& label);
+    std::vector<juce::Slider*> toneSliders =
+    {
+        &m_toneDial, &m_cutoffDial, &m_tiltSlider
+    };
+    
+    void setToneSliderProps();
     
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> driveToggleAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> prepostToggleAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> toneToggleAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> driveMenuAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveMixAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> toneAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> tiltAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttach;
     
     /** ============================== Module Toggles ==============================*/
     viator_gui::Toggle m_distortionToggle;
     viator_gui::Toggle m_crusherToggle;
     viator_gui::Toggle m_toneToggle;
     viator_gui::Toggle m_reverbToggle;
+    viator_gui::PushButton m_prepostButton;
+    void setPrePostProps();
     
     std::vector<viator_gui::Toggle*> toggles =
     {

@@ -59,3 +59,21 @@ void LVTemplateAudioProcessorEditor::setModuleToggleProps(viator_gui::Toggle &to
     toggle.setToggleStyle(viator_gui::Toggle::ToggleStyle::kPower);
     toggle.setColour(juce::ToggleButton::ColourIds::tickColourId, m_mainCompColor);
 }
+
+void LVTemplateAudioProcessorEditor::setPrePostProps()
+{
+
+    addAndMakeVisible(m_prepostButton);
+    prepostToggleAttach = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.m_treeState, midPreID, m_prepostButton);
+    m_prepostButton.getToggleState() ? m_prepostButton.setButtonText("Post") : m_prepostButton.setButtonText("Pre");
+    m_prepostButton.onClick = [this]()
+    {
+        m_prepostButton.getToggleState() ? m_prepostButton.setButtonText("Post") : m_prepostButton.setButtonText("Pre");
+    };
+    
+    m_prepostButton.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::transparentBlack);
+    m_prepostButton.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::transparentBlack);
+    m_prepostButton.setColour(juce::TextButton::ColourIds::textColourOffId, findColour(juce::ToggleButton::tickDisabledColourId));
+    m_prepostButton.setColour(juce::TextButton::ColourIds::textColourOnId, m_mainCompColor);
+    m_prepostButton.setColour(juce::ComboBox::ColourIds::outlineColourId, juce::Colours::transparentBlack);
+}

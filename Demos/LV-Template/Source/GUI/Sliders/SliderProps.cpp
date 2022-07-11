@@ -53,3 +53,18 @@ void LVTemplateAudioProcessorEditor::setDisSliderProps()
     m_mixDial.setRange(0.0, 1.0, 0.01);
     driveMixAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, mixID, m_mixDial);
 }
+
+void LVTemplateAudioProcessorEditor::setToneSliderProps()
+{
+    m_tiltSlider.setTextValueSuffix(" Tilt");
+    m_tiltSlider.setRange(-15.0, 15.0, 0.01);
+    tiltAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, tiltGainID, m_tiltSlider);
+    
+    m_toneDial.setTextValueSuffix(" Tone");
+    m_toneDial.setRange(-15.0, 15.0, 0.01);
+    toneAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, midGainID, m_toneDial);
+    
+    m_cutoffDial.setTextValueSuffix(" Freq");
+    m_cutoffDial.setRange(200.0, 5000.0, 0.01);
+    cutoffAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, midCutoffID, m_cutoffDial);
+}
