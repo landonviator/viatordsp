@@ -6,6 +6,12 @@ extern juce::Colour masterColor;
 /** ========= Audio Parameters ========= */
 
 // Distortion
+extern const juce::String driveEnableID;
+extern const juce::String driveEnableName;
+
+extern const juce::String driveMenuID;
+extern const juce::String driveMenuName;
+
 extern const juce::String driveID;
 extern const juce::String driveName;
 

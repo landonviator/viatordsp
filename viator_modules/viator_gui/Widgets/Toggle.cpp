@@ -1,16 +1,12 @@
 #include "Toggle.h"
 
 
-viator_gui::Toggle::Toggle(juce::String labelText)
+viator_gui::Toggle::Toggle()
 {
     setClickingTogglesState(true);
     setColour(juce::ToggleButton::tickDisabledColourId, juce::Colours::dimgrey.withAlpha(0.5f));
     setColour(juce::ToggleButton::tickColourId, juce::Colours::springgreen.withAlpha(0.5f));
     setLookAndFeel(&powerToggle);
-    
-    toggleLabel.setText(labelText, juce::dontSendNotification);
-    toggleLabel.attachToComponent(this, true);
-    //toggleLabel.setJustificationType(juce::Justification::centred);
 }
 
 viator_gui::Toggle::~Toggle()

@@ -9,7 +9,7 @@ namespace viator_gui
         
     public:
     
-        Toggle(juce::String labelText);
+        Toggle();
         
         ~Toggle() override;
         
@@ -31,6 +31,6 @@ namespace viator_gui
         juce::PhaseToggleLAF phaseToggle;
         
         /** Label */
-        Label toggleLabel {true, ""};
+        Label toggleLabel {""};
     };
 }

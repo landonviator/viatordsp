@@ -16,6 +16,8 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 #endif
 {
     // Distortion
+    m_treeState.addParameterListener(driveEnableID, this);
+    m_treeState.addParameterListener(driveMenuID, this);
     m_treeState.addParameterListener(driveID, this);
     m_treeState.addParameterListener(mixID, this);
     
@@ -38,6 +40,8 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
     // Distortion
+    m_treeState.removeParameterListener(driveEnableID, this);
+    m_treeState.removeParameterListener(driveMenuID, this);
     m_treeState.removeParameterListener(driveID, this);
     m_treeState.removeParameterListener(mixID, this);
     
@@ -62,6 +66,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
         
     // Distortion
+    auto pDriveEnable = std::make_unique<juce::AudioParameterBool>(driveEnableID, driveEnableID, true);
+    auto pDriveMenu = std::make_unique<juce::AudioParameterInt>(driveMenuID, driveMenuName, 0, 6, 0);
     auto pDrive = std::make_unique<juce::AudioParameterFloat>(driveID, driveName, 0.0f, 20.0f, 0.0f);
     auto pMix = std::make_unique<juce::AudioParameterFloat>(mixID, mixName, 0.0f, 1.0f, 1.0f);
     
@@ -84,6 +90,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     auto pMidPre = std::make_unique<juce::AudioParameterBool>(midPreID, midPreName, false);
     
     // Distortion
+    params.push_back(std::move(pDriveEnable));
+    params.push_back(std::move(pDriveMenu));
     params.push_back(std::move(pDrive));
     params.push_back(std::move(pMix));
     
@@ -113,6 +121,17 @@ void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID,
 void LVTemplateAudioProcessor::updateParameters()
 {
     // Distortion
+    switch (static_cast<int>(m_treeState.getRawParameterValue(driveMenuID)->load()))
+    {
+        case 0: m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kLofi); break;
+        case 1: m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kHard); break;
+        case 2: m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kSoft); break;
+        case 3: m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kDiode); break;
+        case 4: m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kFuzz); break;
+        case 5: m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kTube); break;
+        case 6: m_DistortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kSaturation); break;
+    }
+    
     m_DistortionModule.setDrive(m_treeState.getRawParameterValue(driveID)->load());
     m_DistortionModule.setMix(m_treeState.getRawParameterValue(mixID)->load());
     
@@ -280,19 +299,27 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         m_MidToneModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
         m_LowShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
         m_HighShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-        m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        
+        if (m_treeState.getRawParameterValue(driveEnableID)->load())
+        {
+            m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        }
     }
     
     else
     {
-        m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        if (m_treeState.getRawParameterValue(driveEnableID)->load())
+        {
+            m_DistortionModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+        }
+        
         m_MidToneModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
         m_LowShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
         m_HighShelfModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     }
     
 
-    m_ReverbModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    //m_ReverbModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
 //==============================================================================
@@ -303,8 +330,8 @@ bool LVTemplateAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* LVTemplateAudioProcessor::createEditor()
 {
-    //return new LVTemplateAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor (*this);
+    return new LVTemplateAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

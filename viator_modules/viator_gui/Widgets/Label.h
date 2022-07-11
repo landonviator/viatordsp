@@ -18,7 +18,7 @@ class Label : public juce::Label
 public:
     
     Label();
-    Label(bool isTransparent, juce::String text);
+    Label(juce::String text);
     
     ~Label() override
     {
@@ -26,11 +26,9 @@ public:
     
     void paint(juce::Graphics& g) override;
     void resized() override;
-    void updateLabelColor(juce::Colour newColor);
     
 private:
     
-    bool labelIsTransparent = false;
     bool autoResize = true;
 };
 }

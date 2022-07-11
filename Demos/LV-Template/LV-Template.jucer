@@ -31,6 +31,9 @@
         <GROUP id="{A1A9B480-D1EE-AB6C-12AF-EE34E498FEF3}" name="Groups">
           <FILE id="lgjjgg" name="Groups.cpp" compile="1" resource="0" file="Source/GUI/Groups/Groups.cpp"/>
         </GROUP>
+        <GROUP id="{697875B2-A9FD-6FBD-FC09-79410386CEB6}" name="Labels">
+          <FILE id="gsEncV" name="Labels.cpp" compile="1" resource="0" file="Source/GUI/Labels/Labels.cpp"/>
+        </GROUP>
         <GROUP id="{AFA3E426-00CB-8DCE-090F-7A0D2449FB82}" name="LookAndFeel">
           <FILE id="yhjDK9" name="Buttons.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Buttons.cpp"/>
           <FILE id="X1tHJk" name="Buttons.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/Buttons.h"/>
@@ -40,7 +43,12 @@
           <FILE id="yENF3B" name="PanelLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.h"/>
           <FILE id="tH8QdE" name="Themes.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Themes.cpp"/>
         </GROUP>
-        <GROUP id="{A1295D91-2A18-9942-986E-9169E8E7E64F}" name="Menus"/>
+        <GROUP id="{A1295D91-2A18-9942-986E-9169E8E7E64F}" name="Menus">
+          <FILE id="JmtgHK" name="Menus.cpp" compile="1" resource="0" file="Source/GUI/Menus/Menus.cpp"/>
+        </GROUP>
+        <GROUP id="{BF607B16-7756-43EA-18C9-2B91D70D58B5}" name="Panels">
+          <FILE id="QJ0tBU" name="Panels.cpp" compile="1" resource="0" file="Source/GUI/Panels/Panels.cpp"/>
+        </GROUP>
         <GROUP id="{085ADFEA-A3E5-6E35-5FA2-DF0FBF42304C}" name="Sliders">
           <FILE id="K8kxC9" name="SliderProps.cpp" compile="1" resource="0" file="Source/GUI/Sliders/SliderProps.cpp"/>
         </GROUP>

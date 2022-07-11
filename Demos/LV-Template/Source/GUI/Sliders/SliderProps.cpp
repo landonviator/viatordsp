@@ -23,7 +23,6 @@ void LVTemplateAudioProcessorEditor::setSliderProps(juce::Slider &slider)
     slider.setColour(juce::Slider::ColourIds::thumbColourId, m_mainCompColor);
     slider.setColour(juce::Slider::ColourIds::backgroundColourId, m_bgTransparent);
     slider.setDoubleClickReturnValue(true, 0.0);
-    slider.setTextValueSuffix(" dB");
     slider.setLookAndFeel(&customDialLAF);
     
     shadowProperties.radius = 8;
@@ -42,4 +41,15 @@ void LVTemplateAudioProcessorEditor::setSliderProps(juce::Slider &slider)
     dialShadow.setShadowProperties (shadowProperties);
     
     slider.setComponentEffect(&dialShadow);
+}
+
+void LVTemplateAudioProcessorEditor::setDisSliderProps()
+{
+    m_driveDial.setTextValueSuffix(" Drive");
+    m_driveDial.setRange(0.0, 20.0, 0.01);
+    driveAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, driveID, m_driveDial);
+    
+    m_mixDial.setTextValueSuffix(" Mix");
+    m_mixDial.setRange(0.0, 1.0, 0.01);
+    driveMixAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, mixID, m_mixDial);
 }

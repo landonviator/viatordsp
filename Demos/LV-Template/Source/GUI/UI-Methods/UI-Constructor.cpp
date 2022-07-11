@@ -16,11 +16,15 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
         setTextButtonProps(*button);
     }
     
+    driveToggleAttach = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.m_treeState, driveEnableID, m_distortionToggle);
+    
     /** Sliders */
-    for (auto& slider : sliders)
+    for (auto& slider : disSliders)
     {
         setSliderProps(*slider);
     }
+    
+    setDisSliderProps();
     
     /** Groups */
     for (auto& group : groups)
@@ -28,11 +32,25 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
         setGroupProps(*group);
     }
     
+    /** Module Toggles */
+    for (auto& toggle : toggles)
+    {
+        setModuleToggleProps(*toggle);
+    }
+    
+    /** Module Labels */
+    for (auto& label : moduleLabels)
+    {
+        setModuleLabelProps(*label);
+    }
+    
+    /** Module Menus */
+    for (auto& menu : menus)
+    {
+        setMenuProps(*menu);
+    }
+    
+    setDistortionMenuProps();
+    
     m_mainBorder.setText("LV-Template");
-    
-    driveDial.setRange(0.0, 20.0, 0.01);
-    mixDial.setRange(0.0, 100.0, 0.01);
-    driveAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, driveID, driveDial);
-    driveMixAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, mixID, mixDial);
-    
 }

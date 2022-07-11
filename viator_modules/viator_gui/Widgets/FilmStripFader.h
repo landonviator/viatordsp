@@ -17,7 +17,7 @@ private:
     std::size_t numFrames, sideLength;
     juce::Image filmStrip;
     float frameWidth, frameHeight;
-    viator_gui::Label knobLabel {true, ""};
+    viator_gui::Label knobLabel {""};
     juce::Label knobTitle {};
     bool isHorizontal = true;
     juce::Colour accentColor = juce::Colours::whitesmoke;

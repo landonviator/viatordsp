@@ -4,6 +4,10 @@
 //==============================================================================
 LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), m_settingsPage(audioProcessor)
+, m_distortionLabel("Distortion")
+, m_crusherLabel("Distortion")
+, m_toneLabel("Distortion")
+, m_reverbLabel("Distortion")
 {
     uiConstructor();
 }
@@ -11,13 +15,13 @@ LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioP
 LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
 {
     /** Sliders */
-    for (auto& slider : sliders)
+    for (auto& slider : disSliders)
     {
         slider->setLookAndFeel(nullptr);
     }
     
-    sliders.clear();
-    sliders.shrink_to_fit();
+    disSliders.clear();
+    disSliders.shrink_to_fit();
     
     buttons.clear();
     buttons.shrink_to_fit();

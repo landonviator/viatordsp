@@ -15,12 +15,9 @@ void LVTemplateAudioProcessorEditor::uiResized()
     /** Settings Page */
     setSettingsButtonProps();
     
-    /** Test Widgets */
-    const auto leftMargin = getWidth() * 0.1;
-    const auto topMargin = getHeight() * 0.4;
-    const auto dialSize = getWidth() * 0.2;
-    driveDial.setBounds(leftMargin, topMargin, dialSize, dialSize);
-    mixDial.setBounds(driveDial.getX() + driveDial.getWidth(), topMargin, dialSize, dialSize);
+    /** Panels */
+    setPanelLayout();
+    setDistortionGroupLayout();
     
     /** Settings Page */
     m_settingsPage.setVisible(m_settingsButton.getToggleState());
@@ -30,9 +27,6 @@ void LVTemplateAudioProcessorEditor::uiResized()
     {
         m_settingsPage.setBounds(getWidth() * 0.6f, getHeight() * 0.08f, getWidth() * 0.4f, getHeight());
     }
-    
-    /** Groups */
-    m_mainBorder.setBounds(getWidth() * 0.025, getHeight() * 0.1, getWidth() * 0.95, getHeight() * 0.85);
     
     /** Save Plugin Window Size */
     saveWindowSize();

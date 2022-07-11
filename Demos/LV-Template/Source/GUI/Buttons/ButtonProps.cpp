@@ -52,3 +52,10 @@ void LVTemplateAudioProcessorEditor::setSettingsButtonProps()
         m_settingsPage.setVisible(m_settingsButton.getToggleState());
     };
 }
+
+void LVTemplateAudioProcessorEditor::setModuleToggleProps(viator_gui::Toggle &toggle)
+{
+    addAndMakeVisible(toggle);
+    toggle.setToggleStyle(viator_gui::Toggle::ToggleStyle::kPower);
+    toggle.setColour(juce::ToggleButton::ColourIds::tickColourId, m_mainCompColor);
+}

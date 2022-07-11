@@ -227,7 +227,7 @@ namespace viator_gui
         juce::DropShadowEffect sliderShadow;
         
         /** Label */
-        Label trimLabel {true, ""};
+        Label trimLabel {""};
         
         /** Midi Map*/
         bool isMidiSelectable = false;

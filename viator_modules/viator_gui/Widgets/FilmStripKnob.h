@@ -21,7 +21,7 @@ private:
     juce::Image filmStrip;
     int frameWidth, frameHeight;
     
-    viator_gui::Label knobLabel {true, ""};
+    viator_gui::Label knobLabel {""};
     juce::Label knobTitle {};
     
     bool m_labelIsInt = true;

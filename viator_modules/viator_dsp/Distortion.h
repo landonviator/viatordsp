@@ -67,83 +67,93 @@ public:
     /** Hard clip data */
     SampleType hardClipData(SampleType dataToClip, bool useDrive)
     {
+        auto wetSignal = dataToClip;
+        
         if (useDrive)
         {
-            dataToClip *= _rawGain.getNextValue();
+            wetSignal *= _rawGain.getNextValue();
         }
         
         auto ceiling = _ceiling.getNextValue();
         
         // Hard algorithim
-        if (std::abs(dataToClip) >= ceiling)
+        if (std::abs(wetSignal) >= ceiling)
         {
-            dataToClip *= ceiling / std::abs(dataToClip);
+            wetSignal *= ceiling / std::abs(wetSignal);
         }
         
-        return dataToClip;
+        return (1.0 - _mix.getNextValue()) * dataToClip + wetSignal * _mix.getNextValue();
     }
 
     /** Soft Clip */
     SampleType softClipData(SampleType dataToClip)
     {
         // Soft algorithim
-        dataToClip *= _rawGain.getNextValue();
-        return _piDivisor * std::atan(dataToClip);
+        auto wetSignal = dataToClip;
+        wetSignal *= _rawGain.getNextValue();
+        wetSignal = _piDivisor * std::atan(wetSignal);
+        return (1.0 - _mix.getNextValue()) * dataToClip + hardClipData(wetSignal, false) * _mix.getNextValue();
     }
 
     /** Diode */
     SampleType processDiode(SampleType dataToClip)
     {
         // Diode algorithim
-        dataToClip *= _rawGain.getNextValue();
-        return softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (_diodeTerm)) - 1.0));
+        auto wetSignal = dataToClip;
+        wetSignal *= _rawGain.getNextValue();
+        wetSignal = softClipData(0.315 * (juce::dsp::FastMathApproximations::exp(0.1 * dataToClip / (_diodeTerm)) - 1.0));
+        return (1.0 - _mix.getNextValue()) * dataToClip + hardClipData(wetSignal, false) * _mix.getNextValue();
     }
     
     /** Tube */
     SampleType processTube(SampleType dataToClip)
     {
         // Tube algorithim
-        dataToClip *= _rawGain.getNextValue();
+        auto wetSignal = dataToClip;
         
-        if (dataToClip >= 0.0)
+        wetSignal *= _rawGain.getNextValue();
+        
+        if (wetSignal >= 0.0)
         {
-            dataToClip = hardClipData(dataToClip, false);
+            wetSignal = hardClipData(wetSignal, false);
         }
         
         else
         {
-            dataToClip = softClipData(dataToClip);
+            wetSignal = softClipData(wetSignal);
         }
         
-        return dataToClip;
+        return (1.0 - _mix.getNextValue()) * dataToClip + hardClipData(wetSignal, false) * _mix.getNextValue();
     }
     
     /** Fuzz */
     SampleType processFuzz(SampleType dataToClip, int channel)
     {
         // Fuzz algorithim
-        auto input = m_fuzzFilter.processSample(dataToClip, channel);
-        
-        auto fuzz = input / std::abs(input) * (1.0 - std::pow(juce::MathConstants<float>::euler, (_rawGain.getNextValue() * (input * input)) / std::abs(input)));
-        
-        return processTube(fuzz);
+        auto wetSignal = dataToClip;
+        auto fuzz = processTube(wetSignal);
+        wetSignal = softClipData(m_fuzzFilter.processSample(fuzz, channel));
+        return (1.0 - _mix.getNextValue()) * dataToClip + hardClipData(wetSignal, false) * _mix.getNextValue();
     }
     
     
     /** Saturation */
     SampleType processSaturation(SampleType dataToClip, bool light)
     {
-        light ? dataToClip *= _rawGain.getNextValue() * 0.1 : dataToClip *= _rawGain.getNextValue();
+        auto wetSignal = dataToClip;
+        
+        light ? wetSignal *= _rawGain.getNextValue() * 0.1 : wetSignal *= _rawGain.getNextValue();
         
         auto thresh = _thresh.getNextValue();
         
         // Saturation algorithim
-        if (dataToClip > thresh)
+        if (wetSignal > thresh)
         {
-            dataToClip = thresh + (dataToClip - thresh) / (1.0 + std::pow((( dataToClip - 0.5 ) / thresh), 2.0));
+            wetSignal = thresh + (wetSignal - thresh) / (1.0 + std::pow((( wetSignal - 0.5 ) / thresh), 2.0));
         }
         
-        return softClipData(dataToClip);
+        // Mix dry with wet
+        return (1.0 - _mix.getNextValue()) * dataToClip + softClipData(wetSignal) * _mix.getNextValue();
     }
     
     /** Lofi Distortion */

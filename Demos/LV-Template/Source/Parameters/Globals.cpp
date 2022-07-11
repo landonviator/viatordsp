@@ -5,6 +5,12 @@ juce::Colour masterColor = juce::Colours::black;
 /** ============== Audio Parameters ============== */
 
 // Distortion
+const juce::String driveEnableID          = "driveEnable";
+const juce::String driveEnableName        = "Drive Toggle";
+
+const juce::String driveMenuID            = "driveMenu";
+const juce::String driveMenuName          = "Drive Type";
+
 const juce::String driveID                = "drive";
 const juce::String driveName              = "Drive";
 

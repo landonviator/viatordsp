@@ -20,7 +20,7 @@ public:
     
 private:
     
-    viator_gui::Label label {true, ""};
+    viator_gui::Label label {""};
     juce::Colour accentColor = juce::Colours::whitesmoke;
 };
 }

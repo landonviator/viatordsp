@@ -39,8 +39,28 @@ void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
         setTextButtonProps(*button);
     }
     
-    for (auto& slider : sliders)
+    for (auto& slider : disSliders)
     {
         setSliderProps(*slider);
+    }
+    
+    for (auto& group : groups)
+    {
+        setGroupProps(*group);
+    }
+    
+    for (auto& toggle : toggles)
+    {
+        setModuleToggleProps(*toggle);
+    }
+    
+    for (auto& label : moduleLabels)
+    {
+        setModuleLabelProps(*label);
+    }
+    
+    for (auto& menu : menus)
+    {
+        setMenuProps(*menu);
     }
 }
