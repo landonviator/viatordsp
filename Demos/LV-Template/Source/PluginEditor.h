@@ -52,6 +52,7 @@ private:
     void setPanelLayout();
     void setDistortionGroupLayout();
     void setToneGroupLayout();
+    void setReverbGroupLayout();
     
     CustomPanel customPanelLAF;
     juce::GlowEffect glow;
@@ -77,12 +78,9 @@ private:
     {
         kDracula,
         kPrimeDark,
-        kPrimeLight,
         kTokyoLofi,
-        kTokyoLight,
         kWinter,
         kFoxy,
-        kMaterialLight,
         kPurp,
         kDull
     };
@@ -107,6 +105,10 @@ private:
     juce::Slider m_tiltSlider;
     viator_gui::Label m_driveLabel;
     viator_gui::Label m_driveMixLabel;
+    juce::Slider m_sizeDial;
+    juce::Slider m_widthDial;
+    juce::Slider m_dampDial;
+    juce::Slider m_blendDial;
     
     void setSliderProps(juce::Slider& slider);
     void setDisSliderProps();
@@ -133,15 +135,29 @@ private:
     
     void setToneSliderProps();
     
+    std::vector<juce::Slider*> verbSliders =
+    {
+        &m_sizeDial, &m_widthDial, &m_dampDial, &m_blendDial
+    };
+    
+    void setVerbDialProps();
+    
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> driveToggleAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> prepostToggleAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> toneToggleAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> reverbToggleAttach;
+    
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> driveMenuAttach;
+    
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> driveMixAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> toneAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> tiltAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> roomAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> widthAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> dampAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> verbBlendAttach;
     
     /** ============================== Module Toggles ==============================*/
     viator_gui::Toggle m_distortionToggle;

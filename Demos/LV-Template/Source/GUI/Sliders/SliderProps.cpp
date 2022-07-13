@@ -68,3 +68,23 @@ void LVTemplateAudioProcessorEditor::setToneSliderProps()
     m_cutoffDial.setRange(200.0, 5000.0, 0.01);
     cutoffAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, midCutoffID, m_cutoffDial);
 }
+
+void LVTemplateAudioProcessorEditor::setVerbDialProps()
+{
+    m_sizeDial.setTextValueSuffix(" Size");
+    m_sizeDial.setRange(0.0, 1.0, 0.01);
+    roomAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, roomSizeID, m_sizeDial);
+
+    m_widthDial.setTextValueSuffix(" Width");
+    m_widthDial.setRange(0.0, 1.0, 0.01);
+    widthAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, widthID, m_widthDial);
+
+    m_dampDial.setTextValueSuffix(" Damp");
+    m_dampDial.setRange(0.0, 1.0, 0.01);
+    dampAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, dampingID, m_dampDial);
+
+    m_blendDial.setTextValueSuffix(" Blend");
+    m_blendDial.setRange(0.0, 1.0, 0.01);
+    verbBlendAttach = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.m_treeState, reverbMixID, m_blendDial);
+
+}

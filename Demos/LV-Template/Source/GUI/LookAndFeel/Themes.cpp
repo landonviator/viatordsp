@@ -44,32 +44,14 @@ void LVTemplateAudioProcessorEditor::setPluginTheme(Theme newTheme)
             break;
         }
             
-        case Theme::kPrimeLight:
-        {
-            m_bgColor = juce::Colour::fromRGB(170, 171, 172);
-            m_bgLighterColor = juce::Colour::fromRGB(245, 245, 245);
-            m_textAccentColor = juce::Colour::fromRGB(105, 143, 213);
-            m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
-            break;
-        }
-            
         case Theme::kTokyoLofi:
         {
             m_bgColor = juce::Colour::fromRGB(30, 35, 54);
             m_bgLighterColor = juce::Colour::fromRGB(35, 40, 61);
-            m_textAccentColor = juce::Colour::fromRGB(107, 208, 234);
+            m_textAccentColor = juce::Colour::fromRGB(107, 208, 234).darker(1.0);
             m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
             m_mainCompColor = juce::Colour::fromRGB(12, 164, 190);
             m_mainCompFillColor = juce::Colour::fromRGB(96, 138, 212).withAlpha(0.6f);
-            break;
-        }
-            
-        case Theme::kTokyoLight:
-        {
-            m_bgColor = juce::Colour::fromRGB(203, 204, 210);
-            m_bgLighterColor = juce::Colour::fromRGB(213, 213, 217);
-            m_textAccentColor = juce::Colour::fromRGB(169, 78, 70);
-            m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
             break;
         }
             
@@ -77,7 +59,7 @@ void LVTemplateAudioProcessorEditor::setPluginTheme(Theme newTheme)
         {
             m_bgColor = juce::Colour::fromRGB(0, 22, 41);
             m_bgLighterColor = juce::Colour::fromRGB(51, 97, 125);
-            m_textAccentColor = juce::Colour::fromRGB(203, 237, 248);
+            m_textAccentColor = juce::Colour::fromRGB(203, 237, 248).darker(1.0);
             m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
             m_mainCompColor = juce::Colour::fromRGB(210, 220, 234);
             m_mainCompFillColor = juce::Colour::fromRGB(210, 220, 234).withAlpha(0.6f);
@@ -87,7 +69,7 @@ void LVTemplateAudioProcessorEditor::setPluginTheme(Theme newTheme)
         case Theme::kFoxy:
         {
             m_bgColor = juce::Colour::fromRGB(43, 43, 47);
-            m_bgLighterColor = juce::Colour::fromRGB(28, 27, 29);
+            m_bgLighterColor = juce::Colour::fromRGB(28, 27, 29).brighter(0.1);
             m_textAccentColor = juce::Colour::fromRGB(121, 97, 160);
             m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
             m_mainCompColor = juce::Colour::fromRGB(145, 82, 136);
@@ -95,19 +77,10 @@ void LVTemplateAudioProcessorEditor::setPluginTheme(Theme newTheme)
             break;
         }
             
-        case Theme::kMaterialLight:
-        {
-            m_bgColor = juce::Colour::fromRGB(231, 233, 235);
-            m_bgLighterColor = juce::Colour::fromRGB(45, 44, 44);
-            m_textAccentColor = juce::Colour::fromRGB(170, 170, 171);
-            m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
-            break;
-        }
-            
         case Theme::kPurp:
         {
-            m_bgColor = juce::Colour::fromRGB(24, 14, 42);
-            m_bgLighterColor = juce::Colour::fromRGB(35, 26, 52);
+            m_bgColor = juce::Colour::fromRGB(24, 14, 42).brighter(0.1);
+            m_bgLighterColor = juce::Colour::fromRGB(35, 26, 52).brighter(0.05);
             m_textAccentColor = juce::Colour::fromRGB(165, 88, 129);
             m_bgTransparent = juce::Colours::black.withAlpha(0.5f);
             m_mainCompColor = juce::Colour::fromRGB(170, 130, 255);

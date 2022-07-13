@@ -20,6 +20,9 @@ extern const juce::String mixID;
 extern const juce::String mixName;
 
 // Reverb
+extern const juce::String reverbEnableID;
+extern const juce::String reverbEnableName;
+
 extern const juce::String roomSizeID;
 extern const juce::String roomSizeName;
 
@@ -51,3 +54,7 @@ extern const juce::String midQName;
 
 extern const juce::String midPreID;
 extern const juce::String midPreName;
+
+// Color Menu
+extern const juce::String colorID;
+extern const juce::String colorName;

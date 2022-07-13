@@ -15,6 +15,12 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
 , m_treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
+    
+    variableTree.setProperty("glowslider", 1, nullptr);
+    variableTree.setProperty("gradienttoggle", 1, nullptr);
+    variableTree.setProperty("glowtoggle", 0, nullptr);
+    variableTree.setProperty("gradienttoggle", 1, nullptr);
+    
     // Distortion
     m_treeState.addParameterListener(driveEnableID, this);
     m_treeState.addParameterListener(driveMenuID, this);
@@ -22,6 +28,7 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
     m_treeState.addParameterListener(mixID, this);
     
     // Reverb
+    m_treeState.addParameterListener(reverbEnableID, this);
     m_treeState.addParameterListener(roomSizeID, this);
     m_treeState.addParameterListener(dampingID, this);
     m_treeState.addParameterListener(widthID, this);
@@ -36,6 +43,9 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
     m_treeState.addParameterListener(midCutoffID, this);
     m_treeState.addParameterListener(midQID, this);
     m_treeState.addParameterListener(midPreID, this);
+    
+    // Color Menu
+    m_treeState.addParameterListener(colorID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
@@ -47,6 +57,7 @@ LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
     m_treeState.removeParameterListener(mixID, this);
     
     // Reverb
+    m_treeState.removeParameterListener(reverbEnableID, this);
     m_treeState.removeParameterListener(roomSizeID, this);
     m_treeState.removeParameterListener(dampingID, this);
     m_treeState.removeParameterListener(widthID, this);
@@ -61,6 +72,9 @@ LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
     m_treeState.removeParameterListener(midCutoffID, this);
     m_treeState.removeParameterListener(midQID, this);
     m_treeState.removeParameterListener(midPreID, this);
+    
+    // Color Menu
+    m_treeState.removeParameterListener(colorID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
@@ -74,10 +88,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     auto pMix = std::make_unique<juce::AudioParameterFloat>(mixID, mixName, 0.0f, 1.0f, 1.0f);
     
     // Reverb
+    auto pReverbEnable = std::make_unique<juce::AudioParameterBool>(reverbEnableID, reverbEnableName, true);
     auto pRoomSize = std::make_unique<juce::AudioParameterFloat>(roomSizeID, roomSizeName, 0.0f, 1.0f, 0.5f);
     auto pDamping = std::make_unique<juce::AudioParameterFloat>(dampingID, dampingName, 0.0f, 1.0f, 0.5f);
     auto pWidth = std::make_unique<juce::AudioParameterFloat>(widthID, widthName, 0.0f, 1.0f, 0.5f);
-    auto pReverbMix = std::make_unique<juce::AudioParameterFloat>(reverbMixID, reverbMixName, 0.0f, 1.0f, 0.5f);
+    auto pReverbMix = std::make_unique<juce::AudioParameterFloat>(reverbMixID, reverbMixName, 0.0f, 1.0f, 1.0f);
     
     // Tilt EQ
     auto pTiltGain = std::make_unique<juce::AudioParameterFloat>(tiltGainID, tiltGainName, -15.0f, 15.0f, 0.0f);
@@ -92,6 +107,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     auto pMidQ = std::make_unique<juce::AudioParameterFloat>(midQID, midQName, 0.05f, 0.85f, 0.3f);
     auto pMidPre = std::make_unique<juce::AudioParameterBool>(midPreID, midPreName, false);
     
+    // Color
+    auto pColorMenu = std::make_unique<juce::AudioParameterInt>(colorID, colorName, 0, 9, 0);
+    
     // Distortion
     params.push_back(std::move(pDriveEnable));
     params.push_back(std::move(pDriveMenu));
@@ -99,6 +117,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     params.push_back(std::move(pMix));
     
     // Reverb
+    params.push_back(std::move(pReverbEnable));
     params.push_back(std::move(pRoomSize));
     params.push_back(std::move(pDamping));
     params.push_back(std::move(pWidth));
@@ -113,6 +132,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::cr
     params.push_back(std::move(pMidCutoff));
     params.push_back(std::move(pMidQ));
     params.push_back(std::move(pMidPre));
+    
+    // Color
+    params.push_back(std::move(pColorMenu));
     
     return { params.begin(), params.end() };
 }
@@ -328,8 +350,10 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         }
     }
     
-
-    //m_ReverbModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    if (m_treeState.getRawParameterValue(reverbEnableID)->load())
+    {
+        m_ReverbModule.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    }
 }
 
 //==============================================================================

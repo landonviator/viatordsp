@@ -28,12 +28,9 @@ public:
     {
         kDracula,
         kPrimeDark,
-        kPrimeLight,
         kTokyoLofi,
-        kTokyoLight,
         kWinter,
         kFoxy,
-        kMaterialLight,
         kPurp,
         kDull
     };

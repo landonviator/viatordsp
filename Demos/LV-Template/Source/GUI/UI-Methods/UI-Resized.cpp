@@ -19,6 +19,7 @@ void LVTemplateAudioProcessorEditor::uiResized()
     setPanelLayout();
     setDistortionGroupLayout();
     setToneGroupLayout();
+    setReverbGroupLayout();
     
     /** Settings Page */
     m_settingsPage.setVisible(m_settingsButton.getToggleState());

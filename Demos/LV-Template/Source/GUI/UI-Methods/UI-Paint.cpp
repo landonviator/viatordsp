@@ -44,6 +44,16 @@ void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
         setSliderProps(*slider);
     }
     
+    for (auto& slider : toneSliders)
+    {
+        setSliderProps(*slider);
+    }
+    
+    for (auto& slider : verbSliders)
+    {
+        setSliderProps(*slider);
+    }
+    
     for (auto& group : groups)
     {
         setGroupProps(*group);

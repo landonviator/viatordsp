@@ -53,9 +53,10 @@ public:
             {
                 { "Parameter", {{ "id", "width" }, { "value", 0.0 }}},
                 { "Parameter", {{ "id", "height" }, { "value", 0.0 }}},
-                { "Parameter", {{ "id", "glowslider" }, { "value", 1.0 }}},
-                { "Parameter", {{ "id", "glowtoggle" }, { "value", 0.0 }}},
-                { "Parameter", {{ "id", "gradienttoggle" }, { "value", 1.0 }}}
+                { "Parameter", {{ "id", "glowslider" }, { "value", 1 }}},
+                { "Parameter", {{ "id", "glowtoggle" }, { "value", 1 }}},
+                { "Parameter", {{ "id", "gradienttoggle" }, { "value", 1 }}},
+                { "Parameter", {{ "id", "colortheme" }, { "value", 0 }}}
             }
         }
         }

@@ -22,84 +22,67 @@ void SettingsPage::setThemeMenuProps()
     m_themeMenu.addItem("Foxy", 5);
     m_themeMenu.addItem("Purp", 6);
     m_themeMenu.addItem("Dull", 7);
-    m_themeMenu.addSectionHeading("Light");
-    m_themeMenu.addItem("Prime Light", 8);
-    m_themeMenu.addItem("Tokyo Light", 9);
-    m_themeMenu.addItem("Material Light", 10);
-    
     m_themeMenu.onChange = [this]()
     {
-        switch (m_themeMenu.getSelectedId())
+        switch (m_themeMenu.getSelectedItemIndex())
         {
-            case 1:
+            case 0:
             {
                 setPluginTheme(Theme::kDracula);
                 getParentComponent()->repaint();
+                audioProcessor.variableTree.setProperty("colortheme", 0, nullptr);
+                break;
+            }
+                
+            case 1:
+            {
+                setPluginTheme(Theme::kPrimeDark);
+                getParentComponent()->repaint();
+                audioProcessor.variableTree.setProperty("colortheme", 1, nullptr);
                 break;
             }
                 
             case 2:
             {
-                setPluginTheme(Theme::kPrimeDark);
+                setPluginTheme(Theme::kTokyoLofi);
                 getParentComponent()->repaint();
+                audioProcessor.variableTree.setProperty("colortheme", 2, nullptr);
                 break;
             }
                 
             case 3:
             {
-                setPluginTheme(Theme::kTokyoLofi);
+                setPluginTheme(Theme::kWinter);
                 getParentComponent()->repaint();
+                audioProcessor.variableTree.setProperty("colortheme", 3, nullptr);
                 break;
             }
                 
             case 4:
             {
-                setPluginTheme(Theme::kWinter);
+                setPluginTheme(Theme::kFoxy);
                 getParentComponent()->repaint();
+                audioProcessor.variableTree.setProperty("colortheme", 4, nullptr);
                 break;
             }
                 
             case 5:
             {
-                setPluginTheme(Theme::kFoxy);
+                setPluginTheme(Theme::kPurp);
                 getParentComponent()->repaint();
+                audioProcessor.variableTree.setProperty("colortheme", 5, nullptr);
                 break;
             }
                 
             case 6:
             {
-                setPluginTheme(Theme::kPurp);
-                getParentComponent()->repaint();
-                break;
-            }
-                
-            case 7:
-            {
                 setPluginTheme(Theme::kDull);
                 getParentComponent()->repaint();
-                break;
-            }
-                
-            case 8:
-            {
-                setPluginTheme(Theme::kPrimeLight);
-                getParentComponent()->repaint();
-                break;
-            }
-                
-            case 9:
-            {
-                setPluginTheme(Theme::kTokyoLight);
-                getParentComponent()->repaint();
-                break;
-            }
-                
-            case 10:
-            {
-                setPluginTheme(Theme::kMaterialLight);
-                getParentComponent()->repaint();
+                audioProcessor.variableTree.setProperty("colortheme", 6, nullptr);
                 break;
             }
         }
     };
+    
+    m_themeMenu.setSelectedItemIndex(static_cast<int>(audioProcessor.variableTree.getProperty("colortheme")));
 }

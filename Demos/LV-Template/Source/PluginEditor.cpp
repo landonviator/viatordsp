@@ -7,7 +7,7 @@ LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioP
 , m_distortionLabel("Distortion")
 , m_crusherLabel("Distortion")
 , m_toneLabel("Tone")
-, m_reverbLabel("Distortion")
+, m_reverbLabel("Reverb")
 {
     uiConstructor();
 }
@@ -21,6 +21,11 @@ LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
     }
     
     for (auto& slider : toneSliders)
+    {
+        slider->setLookAndFeel(nullptr);
+    }
+    
+    for (auto& slider : verbSliders)
     {
         slider->setLookAndFeel(nullptr);
     }

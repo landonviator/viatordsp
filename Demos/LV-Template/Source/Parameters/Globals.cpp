@@ -18,6 +18,9 @@ const juce::String mixID                  = "mix";
 const juce::String mixName                = "Drive Mix";
 
 // Reverb
+const juce::String reverbEnableID         = "reverbEnable";
+const juce::String reverbEnableName       = "Reverb Toggle";
+
 const juce::String roomSizeID             = "roomSize";
 const juce::String roomSizeName           = "Reverb Size";
 
@@ -47,5 +50,9 @@ extern const juce::String midCutoffName   = "Mid Cutoff";
 extern const juce::String midQID          = "midQ";
 extern const juce::String midQName        = "Mid Q";
 
-extern const juce::String midPreID          = "midPre";
-extern const juce::String midPreName        = "Mid Order";
+extern const juce::String midPreID        = "midPre";
+extern const juce::String midPreName      = "Mid Order";
+
+// Color Menu
+const juce::String colorID                = "colorMenu";
+const juce::String colorName              = "Color Theme";

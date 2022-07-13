@@ -66,7 +66,29 @@ void LVTemplateAudioProcessorEditor::setToneGroupLayout()
     m_toneToggle.setBounds(m_toneBorder.getX(), m_toneBorder.getY() * toggleTop, toggleSize, toggleSize);
     m_toneLabel.setBounds(m_toneToggle.getX() + m_toneToggle.getWidth() * 1.17, m_toneToggle.getY() * 1.17, labelWidth, labelHeight);
     m_prepostButton.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+    
     m_tiltSlider.setBounds(dialX, dialY, dialSize, dialSize);
     m_toneDial.setBounds(dialX, m_tiltSlider.getY() + m_tiltSlider.getHeight(), dialSize, dialSize);
     m_cutoffDial.setBounds(dialX, m_toneDial.getY() + m_toneDial.getHeight(), dialSize, dialSize);
+}
+
+void LVTemplateAudioProcessorEditor::setReverbGroupLayout()
+{
+    const auto titleSize = 0.1;
+    const auto toggleTop = 1.08;
+    const auto toggleSize = getWidth() * 0.04;
+    const auto labelWidth = getWidth() * 0.12;
+    const auto labelHeight = getHeight() * 0.05;
+    const auto dialX = m_reverbBorder.getX() * 1.12;
+    const auto dialY = m_reverbBorder.getY() * 2.55;
+    const auto dialSize = m_reverbBorder.getWidth() * 0.36;
+    
+    m_reverbTitle.setBounds(m_reverbBorder.getX(), m_reverbBorder.getY(), m_reverbBorder.getWidth(), m_reverbBorder.getHeight() * titleSize);
+    m_reverbToggle.setBounds(m_reverbBorder.getX(), m_reverbBorder.getY() * toggleTop, toggleSize, toggleSize);
+    m_reverbLabel.setBounds(m_reverbToggle.getX() + m_reverbToggle.getWidth() * 3.75, m_reverbToggle.getY() * 1.17, labelWidth, labelHeight);
+    
+    m_sizeDial.setBounds(dialX, dialY, dialSize, dialSize);
+    m_widthDial.setBounds(dialX, m_sizeDial.getY() + m_sizeDial.getHeight(), dialSize, dialSize);
+    m_dampDial.setBounds(m_sizeDial.getX() + m_sizeDial.getWidth(), m_sizeDial.getY(), dialSize, dialSize);
+    m_blendDial.setBounds(m_dampDial.getX(), m_dampDial.getY() + m_dampDial.getHeight(), dialSize, dialSize);
 }
