@@ -16,6 +16,9 @@ void viator_dsp::SVFilter<SampleType>::prepare(const juce::dsp::ProcessSpec& spe
     mCurrentSampleRate = spec.sampleRate;
     setSampleRates();
     
+    _output.reset(mCurrentSampleRate, 0.02);
+    _output.setTargetValue(0.0);
+    
     mZ1.assign(spec.numChannels, 0.0);
     mZ2.assign(spec.numChannels, 0.0);
 }
@@ -121,6 +124,12 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         // Filter Bypass
         case ParameterId::kBypass: mGlobalBypass = static_cast<bool>(parameterValue); break;
     }
+}
+
+template <typename SampleType>
+void viator_dsp::SVFilter<SampleType>::setOutput(SampleType newOutput)
+{
+    _output.setTargetValue(newOutput);
 }
 
 template <typename SampleType>

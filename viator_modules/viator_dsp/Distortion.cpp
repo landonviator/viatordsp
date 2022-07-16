@@ -42,6 +42,8 @@ void viator_dsp::Distortion<SampleType>::reset() noexcept
         _ceiling.setTargetValue(1.0);
         _mix.reset(_currentSampleRate, 0.02);
         _mix.setTargetValue(1.0);
+        _output.reset(_currentSampleRate, 0.02);
+        _output.setTargetValue(0.0);
     }
 }
 
@@ -75,6 +77,12 @@ void viator_dsp::Distortion<SampleType>::setMix(SampleType newMix)
 }
 
 template <typename SampleType>
+void viator_dsp::Distortion<SampleType>::setOutput(SampleType newOutput)
+{
+    _output.setTargetValue(newOutput);
+}
+
+template <typename SampleType>
 void viator_dsp::Distortion<SampleType>::setEnabled(SampleType isEnabled)
 {
     _globalEnabled = isEnabled;
@@ -87,7 +95,6 @@ void viator_dsp::Distortion<SampleType>::setClipperType(ClipType clipType)
     {
         case ClipType::kHard: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kHard; break;
         case ClipType::kSoft: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kSoft; break;
-        case ClipType::kDiode: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kDiode; break;
         case ClipType::kFuzz: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kFuzz; break;
         case ClipType::kTube: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kTube; break;
         case ClipType::kSaturation: m_clipType = viator_dsp::Distortion<SampleType>::ClipType::kSaturation; break;

@@ -125,7 +125,7 @@ public:
         mZ1[ch] = mGCoeff * HP + BP;
         mZ2[ch] = mGCoeff * BP + LP;
 
-        return input;
+        return input * juce::Decibels::decibelsToGain(_output.getNextValue());
     }
     
     
@@ -167,6 +167,7 @@ public:
     
     /** One method to change any parameter. */
     void setParameter(ParameterId parameter, SampleType parameterValue);
+    void setOutput(SampleType newOutput);
     void setStereoType(StereoId newStereoType);
     
 private:
@@ -202,6 +203,8 @@ private:
     float hsLevel = 0.0;
     float lpLevel = 0.0;
     float hpLevel = 0.0;
+    
+    juce::SmoothedValue<float> _output;
     
     double sampleRate2X;
     double halfSampleDuration;
