@@ -67,12 +67,12 @@ public:
     {
         switch(m_clipType)
         {
-            case ClipType::kHard: return hardClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
-            case ClipType::kSoft: return softClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
-            case ClipType::kFuzz: return processFuzz(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
-            case ClipType::kTube: return processTube(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
-            case ClipType::kSaturation: return processSaturation(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
-            case ClipType::kLofi: return processLofi(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kHard: return hardClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output); break;
+            case ClipType::kSoft: return softClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output); break;
+            case ClipType::kFuzz: return processFuzz(input, ch) * juce::Decibels::decibelsToGain(_output); break;
+            case ClipType::kTube: return processTube(input, ch) * juce::Decibels::decibelsToGain(_output); break;
+            case ClipType::kSaturation: return processSaturation(input, ch) * juce::Decibels::decibelsToGain(_output); break;
+            case ClipType::kLofi: return processLofi(input, ch) * juce::Decibels::decibelsToGain(_output); break;
         }
     }
     
@@ -178,7 +178,7 @@ public:
         wetSignal *= 0.5;
         
         // Mix dry with wet
-        auto mix = (1.0 - _mix.getNextValue()) * dataToClip + hardClipData(wetSignal, false, channel) * _mix.getNextValue();
+        auto mix = (1.0 - _mix.getNextValue()) * dataToClip + wetSignal * _mix.getNextValue();
         
         return mix;
     }
@@ -215,9 +215,7 @@ public:
     SampleType processLofi(SampleType dataToClip, int channel)
     {
         // Bias
-        auto bias = 0.1;
-        
-        auto wetSignal = dataToClip + bias;
+        auto wetSignal = dataToClip;
         
         // Lofi algorithim
         if (wetSignal < 0)
@@ -235,7 +233,7 @@ public:
         wetSignal = hardClipData(m_lofiFilter.processSample(wetSignal, channel), false, channel);
         
         // Mix dry with wet
-        auto mix = (1.0 - _mix.getNextValue()) * dataToClip + wetSignal - bias * _mix.getNextValue();
+        auto mix = (1.0 - _mix.getNextValue()) * dataToClip + wetSignal * _mix.getNextValue();
         
         return mix;
     }
@@ -280,7 +278,7 @@ private:
     juce::SmoothedValue<float> _thresh;
     juce::SmoothedValue<float> _ceiling;
     juce::SmoothedValue<float> _mix;
-    juce::SmoothedValue<float> _output;
+    float _output;
     float _currentSampleRate;
     
     // Expressions

@@ -42,8 +42,8 @@ void viator_dsp::Distortion<SampleType>::reset() noexcept
         _ceiling.setTargetValue(1.0);
         _mix.reset(_currentSampleRate, 0.02);
         _mix.setTargetValue(1.0);
-        _output.reset(_currentSampleRate, 0.02);
-        _output.setTargetValue(0.0);
+        //_output.reset(_currentSampleRate, 0.02);
+        //_output.setTargetValue(0.0);
     }
 }
 
@@ -79,7 +79,8 @@ void viator_dsp::Distortion<SampleType>::setMix(SampleType newMix)
 template <typename SampleType>
 void viator_dsp::Distortion<SampleType>::setOutput(SampleType newOutput)
 {
-    _output.setTargetValue(newOutput);
+   //_output.setTargetValue(newOutput);
+    _output = newOutput;
 }
 
 template <typename SampleType>
