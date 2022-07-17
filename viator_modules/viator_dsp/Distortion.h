@@ -47,21 +47,17 @@ public:
                 output[sample] = processSample(input[sample], channel);
             }
         }
-        
     }
     
     void processBuffer(juce::AudioBuffer<float>& buffer)
     {
-        auto channelBuffers = buffer.getArrayOfWritePointers();
-
-        for (auto sample {0}; sample < buffer.getNumSamples(); sample++)
+        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         {
-            
-            for (auto channel {0}; channel < buffer.getNumChannels(); channel++)
+            float* data = buffer.getWritePointer(ch);
+                    
+            for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
             {
-                auto x = channelBuffers[channel][sample];
-                
-                channelBuffers[channel][sample] = processSample(x, channel);
+                data[sample] = processSample(data[sample], ch);
             }
         }
     }
@@ -71,12 +67,12 @@ public:
     {
         switch(m_clipType)
         {
-            case ClipType::kHard: return hardClipData(input, true, ch); break;
-            case ClipType::kSoft: return softClipData(input, true, ch); break;
-            case ClipType::kFuzz: return processFuzz(input, ch); break;
-            case ClipType::kTube: return processTube(input, ch); break;
-            case ClipType::kSaturation: return processSaturation(input, ch); break;
-            case ClipType::kLofi: return processLofi(input, ch); break;
+            case ClipType::kHard: return hardClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kSoft: return softClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kFuzz: return processFuzz(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kTube: return processTube(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kSaturation: return processSaturation(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kLofi: return processLofi(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
         }
     }
     
@@ -104,7 +100,7 @@ public:
         // Mix dry with wet
         auto mix = (1.0 - _mix.getNextValue()) * dataToClip + wetSignal * _mix.getNextValue();
         
-        return mix * juce::Decibels::decibelsToGain(_output.getNextValue());
+        return mix;
     }
 
     /** Soft Clip */
@@ -130,7 +126,7 @@ public:
         // Mix dry with wet
         auto mix = (1.0 - _mix.getNextValue()) * dataToClip + wetSignal * _mix.getNextValue();
         
-        return mix * juce::Decibels::decibelsToGain(_output.getNextValue());
+        return mix;
     }
 
     /** Diode */
@@ -166,7 +162,7 @@ public:
         // Mix dry with wet
         auto mix = (1.0 - _mix.getNextValue()) * dataToClip + wetSignal * _mix.getNextValue();
         
-        return mix * juce::Decibels::decibelsToGain(_output.getNextValue());
+        return mix;
     }
     
     /** Fuzz */
@@ -184,7 +180,7 @@ public:
         // Mix dry with wet
         auto mix = (1.0 - _mix.getNextValue()) * dataToClip + hardClipData(wetSignal, false, channel) * _mix.getNextValue();
         
-        return mix * juce::Decibels::decibelsToGain(_output.getNextValue());
+        return mix;
     }
     
     
@@ -212,7 +208,7 @@ public:
         // Mix dry with wet
         auto mix = (1.0 - _mix.getNextValue()) * dataToClip + softClipData(wetSignal - bias, false, channel) * _mix.getNextValue();
         
-        return mix * juce::Decibels::decibelsToGain(_output.getNextValue());
+        return mix;
     }
     
     /** Lofi Distortion */
@@ -241,7 +237,7 @@ public:
         // Mix dry with wet
         auto mix = (1.0 - _mix.getNextValue()) * dataToClip + wetSignal - bias * _mix.getNextValue();
         
-        return mix * juce::Decibels::decibelsToGain(_output.getNextValue());
+        return mix;
     }
     
     /** The parameters of this module. */
