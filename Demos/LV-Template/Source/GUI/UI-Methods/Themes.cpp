@@ -2,19 +2,13 @@
   ==============================================================================
 
     Themes.cpp
-    Created: 10 Jun 2022 11:34:28pm
+    Created: 17 Jul 2022 12:56:01am
     Author:  Landon Viator
 
   ==============================================================================
 */
 
-#include "../Components/SettingsPage/SettingsPage.h"
 #include "../../PluginEditor.h"
-
-void SettingsPage::setPluginTheme(Theme newTheme)
-{
-    m_pluginTheme = newTheme;
-}
 
 void LVTemplateAudioProcessorEditor::setPluginTheme(Theme newTheme)
 {
