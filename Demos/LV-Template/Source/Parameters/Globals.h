@@ -1,9 +1,6 @@
 #pragma once
 #include <JuceHeader.h>
 
-
-extern juce::Colour masterColor;
-
 /** Theme */
 extern juce::Colour m_bgColor;
 extern juce::Colour m_bgLighterColor;

@@ -12,7 +12,7 @@
 
 void LVTemplateAudioProcessorEditor::setPluginTheme(Theme newTheme)
 {
-    m_pluginTheme = newTheme;
+    _pluginTheme = newTheme;
     
     switch (newTheme)
     {

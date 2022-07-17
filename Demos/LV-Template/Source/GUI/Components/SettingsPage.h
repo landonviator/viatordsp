@@ -11,8 +11,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "../../../PluginProcessor.h"
-#include "../../../Parameters/Globals.h"
+#include "../../PluginProcessor.h"
+#include "../../Parameters/Globals.h"
 
 //==============================================================================
 /*

@@ -7,11 +7,11 @@
     <GROUP id="{C8650847-B61E-21F5-1BCC-AD5FEB3BF9C6}" name="Source">
       <GROUP id="{72FC66F5-E054-98AA-EE87-A7171F3E8654}" name="GUI">
         <GROUP id="{28AB9F4A-3E77-F815-30ED-29AFF737A1FB}" name="Components">
-          <GROUP id="{A1C3F67C-F151-4C54-BD81-859900719E87}" name="SettingsPage">
-            <FILE id="u2psKX" name="SettingsPage.cpp" compile="1" resource="0"
-                  file="Source/GUI/Components/SettingsPage/SettingsPage.cpp"/>
-            <FILE id="wM3HAW" name="SettingsPage.h" compile="0" resource="0" file="Source/GUI/Components/SettingsPage/SettingsPage.h"/>
-          </GROUP>
+          <FILE id="nWWoGO" name="Header.cpp" compile="1" resource="0" file="Source/GUI/Components/Header.cpp"/>
+          <FILE id="RYDj30" name="Header.h" compile="0" resource="0" file="Source/GUI/Components/Header.h"/>
+          <FILE id="QSKtNE" name="SettingsPage.cpp" compile="1" resource="0"
+                file="Source/GUI/Components/SettingsPage.cpp"/>
+          <FILE id="tyM67C" name="SettingsPage.h" compile="0" resource="0" file="Source/GUI/Components/SettingsPage.h"/>
         </GROUP>
         <GROUP id="{1A3B5935-8147-1A78-E70D-34E5B6E5A50E}" name="LookAndFeel">
           <FILE id="kVuCmp" name="Buttons.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/Buttons.cpp"/>

@@ -3,8 +3,8 @@
 #include "PluginProcessor.h"
 #include "./GUI/LookAndFeel/PanelLAF.h"
 #include "./GUI/LookAndFeel/FullDial.h"
-#include "./GUI/LookAndFeel/Buttons.h"
-#include "./GUI/Components/SettingsPage/SettingsPage.h"
+#include "./GUI/Components/SettingsPage.h"
+#include "./GUI/Components/Header.h"
 
 //==============================================================================
 
@@ -18,7 +18,6 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    void getBGColor();
     
 private:
 
@@ -32,16 +31,9 @@ private:
     void saveWindowSize();
     bool constructorFinished = false;
     
-    juce::GlowEffect glow;
-    
-    void setTextButtonProps(juce::TextButton& button);
-    ButtonStyle customButtonLAF;
-    
-    /** Header */
-    juce::Rectangle<float> m_headerRectangle;
-    juce::TextButton m_settingsButton;
-    void setSettingsButtonProps();
-    juce::ComboBox m_themeMenu;
+    /** Components */
+    Header _headerComp;
+    SettingsPage _settingsPage;
     
     enum class Theme
     {
@@ -54,19 +46,12 @@ private:
         kDull
     };
     
-    Theme m_pluginTheme = Theme::kDracula;
+    Theme _pluginTheme = Theme::kDracula;
     
     void setPluginTheme(Theme newTheme);
     
-    /** Settings Page */
-    SettingsPage m_settingsPage;
-    
-    std::vector<juce::TextButton*> buttons =
-    {
-        &m_settingsButton
-    };
-    
-    /** ============================== Shadow ============================== */
+    /** ============================== Effects ============================== */
+    juce::GlowEffect glow;
     juce::DropShadow shadowProperties;
     juce::DropShadowEffect dialShadow;
     

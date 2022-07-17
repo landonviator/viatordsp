@@ -3,14 +3,14 @@
 
 //==============================================================================
 LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), m_settingsPage(audioProcessor)
+    : AudioProcessorEditor (&p), audioProcessor (p), _settingsPage(audioProcessor)
 {
     uiConstructor();
 }
 
 LVTemplateAudioProcessorEditor::~LVTemplateAudioProcessorEditor()
 {
-    m_settingsButton.setLookAndFeel(nullptr);
+    
 }
 
 //==============================================================================

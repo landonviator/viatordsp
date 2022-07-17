@@ -1,7 +1,5 @@
 #include "Globals.h"
 
-juce::Colour masterColor = juce::Colours::black;
-
 juce::Colour m_bgColor;
 juce::Colour m_bgLighterColor;
 juce::Colour m_textAccentColor;
@@ -12,9 +10,10 @@ juce::Colour m_textColor = juce::Colours::whitesmoke;
 
 /** ============== Audio Parameters ============== */
 
-const juce::String driveID                = "drive";
-const juce::String driveName              = "Drive";
+// Distortion
+const juce::String driveID   = "drive";
+const juce::String driveName = "Drive";
 
 // Color Menu
-const juce::String colorID                = "colorMenu";
-const juce::String colorName              = "Color Theme";
+const juce::String colorID   = "colorMenu";
+const juce::String colorName = "Color Theme";
