@@ -12,7 +12,7 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        )
-, m_treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
+, _treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
     
@@ -21,23 +21,29 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
     variableTree.setProperty("glowtoggle", 0, nullptr);
     variableTree.setProperty("gradienttoggle", 1, nullptr);
     
-    // Color Menu
-    m_treeState.addParameterListener(colorID, this);
+    _treeState.addParameterListener(colorID, this);
+    _treeState.addParameterListener(driveID, this);
+    _treeState.addParameterListener(driveModelID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
-    // Color Menu
-    m_treeState.removeParameterListener(colorID, this);
+    _treeState.removeParameterListener(colorID, this);
+    _treeState.removeParameterListener(driveID, this);
+    _treeState.removeParameterListener(driveModelID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
+    
+    juce::StringArray driveChoices {"Hard", "Soft", "Fuzz", "Tube", "Saturation", "Lofi"};
         
+    auto pDriveModel = std::make_unique<juce::AudioParameterChoice>(driveModelID, driveModelName, driveChoices, 0);
     auto pDrive = std::make_unique<juce::AudioParameterFloat>(driveID, driveName, 0.0f, 20.0f, 0.0f);
     auto pColorMenu = std::make_unique<juce::AudioParameterInt>(colorID, colorName, 0, 9, 0);
     
+    params.push_back(std::move(pDriveModel));
     params.push_back(std::move(pDrive));
     params.push_back(std::move(pColorMenu));
     
@@ -51,6 +57,17 @@ void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID,
 
 void LVTemplateAudioProcessor::updateParameters()
 {
+    _distortionModule.setDrive(_treeState.getRawParameterValue(driveID)->load());
+    
+    switch (static_cast<int>(_treeState.getRawParameterValue(driveModelID)->load()))
+    {
+        case 0: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kHard); break;
+        case 1: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kSoft); break;
+        case 2: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kFuzz); break;
+        case 3: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kTube); break;
+        case 4: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kSaturation); break;
+        case 5: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kLofi); break;
+    }
 }
 
 //==============================================================================
@@ -123,6 +140,8 @@ void LVTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumOutputChannels();
     
+    _distortionModule.prepare(spec);
+    
     updateParameters();
 }
 
@@ -164,6 +183,7 @@ void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    _distortionModule.processBuffer(buffer);
 }
 
 //==============================================================================
@@ -174,17 +194,17 @@ bool LVTemplateAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* LVTemplateAudioProcessor::createEditor()
 {
-    return new LVTemplateAudioProcessorEditor (*this);
-    //return new juce::GenericAudioProcessorEditor (*this);
+    //return new LVTemplateAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================
 void LVTemplateAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // Save params
-    m_treeState.state.appendChild(variableTree, nullptr);
+    _treeState.state.appendChild(variableTree, nullptr);
     juce::MemoryOutputStream stream(destData, false);
-    m_treeState.state.writeToStream (stream);
+    _treeState.state.writeToStream (stream);
 }
 
 void LVTemplateAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -195,7 +215,7 @@ void LVTemplateAudioProcessor::setStateInformation (const void* data, int sizeIn
     
     if (tree.isValid())
     {
-        m_treeState.state = tree;
+        _treeState.state = tree;
         
         // Window Size
         windowWidth = variableTree.getProperty("width");

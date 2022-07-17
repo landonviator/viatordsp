@@ -24,6 +24,10 @@ void viator_dsp::Distortion<SampleType>::prepare(const juce::dsp::ProcessSpec& s
     m_lofiFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kQType, viator_dsp::SVFilter<float>::QType::kParametric);
     m_lofiFilter.setParameter(viator_dsp::SVFilter<float>::ParameterId::kCutoff, 20000.0);
     
+    _dcFilter.prepare(spec);
+    _dcFilter.setType(juce::dsp::LinkwitzRileyFilter<float>::Type::highpass);
+    _dcFilter.setCutoffFrequency(10.0);
+    
     reset();
 }
 
@@ -42,8 +46,8 @@ void viator_dsp::Distortion<SampleType>::reset() noexcept
         _ceiling.setTargetValue(1.0);
         _mix.reset(_currentSampleRate, 0.02);
         _mix.setTargetValue(1.0);
-        //_output.reset(_currentSampleRate, 0.02);
-        //_output.setTargetValue(0.0);
+        _output.reset(_currentSampleRate, 0.02);
+        _output.setTargetValue(0.0);
     }
 }
 
@@ -79,8 +83,7 @@ void viator_dsp::Distortion<SampleType>::setMix(SampleType newMix)
 template <typename SampleType>
 void viator_dsp::Distortion<SampleType>::setOutput(SampleType newOutput)
 {
-   //_output.setTargetValue(newOutput);
-    _output = newOutput;
+   _output.setTargetValue(newOutput);
 }
 
 template <typename SampleType>

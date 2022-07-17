@@ -51,13 +51,16 @@ public:
     
     void processBuffer(juce::AudioBuffer<float>& buffer)
     {
-        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        auto data = buffer.getArrayOfWritePointers();
+                
+        for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
         {
-            float* data = buffer.getWritePointer(ch);
-                    
-            for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
+            for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
             {
-                data[sample] = processSample(data[sample], ch);
+                {
+                    data[ch][sample] = processSample(data[ch][sample], ch);
+                    data[ch][sample] = _dcFilter.processSample(ch, data[ch][sample]);
+                }
             }
         }
     }
@@ -67,12 +70,12 @@ public:
     {
         switch(m_clipType)
         {
-            case ClipType::kHard: return hardClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output); break;
-            case ClipType::kSoft: return softClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output); break;
-            case ClipType::kFuzz: return processFuzz(input, ch) * juce::Decibels::decibelsToGain(_output); break;
-            case ClipType::kTube: return processTube(input, ch) * juce::Decibels::decibelsToGain(_output); break;
-            case ClipType::kSaturation: return processSaturation(input, ch) * juce::Decibels::decibelsToGain(_output); break;
-            case ClipType::kLofi: return processLofi(input, ch) * juce::Decibels::decibelsToGain(_output); break;
+            case ClipType::kHard: return hardClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kSoft: return softClipData(input, true, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kFuzz: return processFuzz(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kTube: return processTube(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kSaturation: return processSaturation(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
+            case ClipType::kLofi: return processLofi(input, ch) * juce::Decibels::decibelsToGain(_output.getNextValue()); break;
         }
     }
     
@@ -260,7 +263,6 @@ public:
         kLofi
     };
         
-    /** One method to change any parameter. */
     void setDrive(SampleType newDrive);
     void setThresh(SampleType newThresh);
     void setCeiling(SampleType newCeiling);
@@ -278,7 +280,7 @@ private:
     juce::SmoothedValue<float> _thresh;
     juce::SmoothedValue<float> _ceiling;
     juce::SmoothedValue<float> _mix;
-    float _output;
+    juce::SmoothedValue<float> _output;
     float _currentSampleRate;
     
     // Expressions
@@ -289,6 +291,7 @@ private:
     
     viator_dsp::SVFilter<float> m_fuzzFilter;
     viator_dsp::SVFilter<float> m_lofiFilter;
+    juce::dsp::LinkwitzRileyFilter<float> _dcFilter;
 };
 } // namespace viator_dsp
 

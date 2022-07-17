@@ -45,7 +45,7 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    juce::AudioProcessorValueTreeState m_treeState;
+    juce::AudioProcessorValueTreeState _treeState;
     juce::ValueTree variableTree
     { "Variables", {},
         {
@@ -73,7 +73,7 @@ private:
     void parameterChanged (const juce::String& parameterID, float newValue) override;
     
     /** DSP */
-    viator_dsp::Distortion<float> m_DistortionModule;
+    viator_dsp::Distortion<float> _distortionModule;
     juce::dsp::Reverb m_ReverbModule;
     juce::dsp::Reverb::Parameters reverbParams;
     

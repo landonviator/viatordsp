@@ -11,8 +11,14 @@ juce::Colour m_textColor = juce::Colours::whitesmoke;
 /** ============== Audio Parameters ============== */
 
 // Distortion
+const juce::String driveModelID = "Drive Model";
+const juce::String driveModelName = "driveModel";
+
 const juce::String driveID   = "drive";
 const juce::String driveName = "Drive";
+
+const juce::String biasID    = "bias";
+const juce::String biasName  = "Bias";
 
 // Color Menu
 const juce::String colorID   = "colorMenu";
