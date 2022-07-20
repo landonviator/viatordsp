@@ -53,6 +53,27 @@ void viator_gui::FilmStripKnob::paint(juce::Graphics &g)
                 getHeight() * 0.08,
                 getWidth() * 0.8,
                 getHeight() * 0.8, 0, value * frameHeight, frameWidth, frameHeight);
+    
+    /** Dot color*/
+    g.setColour (juce::Colours::whitesmoke.withAlpha(0.5f));
+    auto centre = getLocalBounds().getCentre();
+
+    /** Draw dots */
+    /** How many dots to draw, works well as num dial intervals + 1 for small ranges, e.g. [0 - 10]*/
+    for (int i = 0; i < 11; ++i)
+    {
+        auto dotSize = getWidth() * 0.025;
+        
+        /** IF you change the number of dots, do i / (num dots - 1) */
+        float mult = 1.04;
+        const auto angle = juce::jmap (i / 11.0f, getRotaryParameters().startAngleRadians * mult, getRotaryParameters().endAngleRadians * mult);
+        
+        /** Dot distance from slider center */
+        const auto point = centre.getPointOnCircumference (getWidth() * 0.38, angle);
+            
+        /** Dot thickness*/
+        g.fillEllipse (point.getX() - 3, point.getY() - 3 * getHeight() * 0.026, dotSize, dotSize);
+    }
 }
 
 void viator_gui::FilmStripKnob::resized()

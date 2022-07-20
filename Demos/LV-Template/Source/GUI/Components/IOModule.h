@@ -36,12 +36,15 @@ private:
     viator_gui::FilmStripKnob _outputDial;
     viator_gui::Label _inputLabel {"Input"};
     viator_gui::Label _outputLabel {"Output"};
-    void activateSkeuDials(bool shouldBeOn);
+    viator_gui::ToggleButton _skeuPhaseToggle;
+    void activateSkeuComps(bool shouldBeOn);
+    void updateFlatColors();
     
     /** Flat */
     viator_gui::Dial _flatInputDial;
     viator_gui::Dial _flatOutputDial;
-    void activateFlatDials(bool shouldBeOn);
+    viator_gui::PushButton _flatPhaseToggle;
+    void activateFlatComps(bool shouldBeOn);
     
     void updateSliderColors(viator_gui::Dial& slider);
     

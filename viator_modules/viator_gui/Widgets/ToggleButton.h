@@ -7,7 +7,7 @@ class ToggleButton : public juce::ImageButton
 {
 public:
     
-    ToggleButton(bool isLargeButton, juce::String labelText);
+    ToggleButton(juce::String labelText);
     
     ~ToggleButton() override
     {

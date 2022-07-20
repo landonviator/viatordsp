@@ -40,10 +40,10 @@
         <FILE id="UjSPmX" name="Globals.h" compile="0" resource="0" file="Source/Parameters/Globals.h"/>
       </GROUP>
       <GROUP id="{D3227A82-BC39-5EAA-2C1E-DB8E49AE96D3}" name="Assets">
-        <FILE id="NQu6Ff" name="button_small_off.png" compile="0" resource="1"
-              file="../../Assets/button_small_off.png"/>
-        <FILE id="iM3xkY" name="button_small_on.png" compile="0" resource="1"
-              file="../../Assets/button_small_on.png"/>
+        <FILE id="t4CIkk" name="button_middle_off.png" compile="0" resource="1"
+              file="../../Assets/button_middle_off.png"/>
+        <FILE id="G7DNXm" name="button_middle_on.png" compile="0" resource="1"
+              file="../../Assets/button_middle_on.png"/>
         <FILE id="sdScjy" name="Knob_01.png" compile="0" resource="1" file="../../Assets/Knob_01.png"/>
         <FILE id="AyKD0l" name="Knob_03.png" compile="0" resource="1" file="../../Assets/Knob_03.png"/>
         <FILE id="dXc3YF" name="Knob_04.png" compile="0" resource="1" file="../../Assets/Knob_04.png"/>

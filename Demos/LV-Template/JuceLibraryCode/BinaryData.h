@@ -8,11 +8,11 @@
 
 namespace BinaryData
 {
-    extern const char*   button_small_off_png;
-    const int            button_small_off_pngSize = 27080;
+    extern const char*   button_middle_off_png;
+    const int            button_middle_off_pngSize = 36978;
 
-    extern const char*   button_small_on_png;
-    const int            button_small_on_pngSize = 12514;
+    extern const char*   button_middle_on_png;
+    const int            button_middle_on_pngSize = 20554;
 
     extern const char*   Knob_01_png;
     const int            Knob_01_pngSize = 7945718;
