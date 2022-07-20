@@ -13,8 +13,8 @@
 
 //==============================================================================
 IOModule::IOModule(LVTemplateAudioProcessor& p, SettingsPage& s) : audioProcessor(p), _settingsPage(s)
-, _inputDial(3, " dB", -24.0, 24.0)
-, _outputDial(3, " dB", -24.0, 24.0)
+, _inputDial(0, " dB", -24.0, 24.0)
+, _outputDial(0, " dB", -24.0, 24.0)
 , _flatInputDial(" dB", "Input", -24.0, 24.0, 0.01, 0.0)
 , _flatOutputDial(" dB", "Output", -24.0, 24.0, 0.01, 0.0)
 {

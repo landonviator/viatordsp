@@ -10,70 +10,21 @@ viator_gui::FilmStripKnob::FilmStripKnob(int knobType, const juce::String labelS
     {
         case 0:
         {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_01_png, BinaryData::Knob_01_pngSize);
+            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_04_png, BinaryData::Knob_04_pngSize);
             frameHeight = filmStrip.getHeight() / 257;
             break;
         }
             
         case 1:
         {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_02_png, BinaryData::Knob_02_pngSize);
+            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_03_png, BinaryData::Knob_03_pngSize);
             frameHeight = filmStrip.getHeight() / 257;
             break;
         }
             
         case 2:
         {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_03_png, BinaryData::Knob_03_pngSize);
-            frameHeight = filmStrip.getHeight() / 257;
-            break;
-        }
-            
-        case 3:
-        {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_04_png, BinaryData::Knob_04_pngSize);
-            frameHeight = filmStrip.getHeight() / 257;
-            break;
-        }
-            
-        case 4:
-        {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_05_png, BinaryData::Knob_05_pngSize);
-            frameHeight = filmStrip.getHeight() / 257;
-            break;
-        }
-            
-        case 5:
-        {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_06_png, BinaryData::Knob_06_pngSize);
-            frameHeight = filmStrip.getHeight() / 257;
-            break;
-        }
-            
-        case 6:
-        {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_07_png, BinaryData::Knob_07_pngSize);
-            frameHeight = filmStrip.getHeight() / 257;
-            break;
-        }
-            
-        case 7:
-        {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_08_png, BinaryData::Knob_08_pngSize);
-            frameHeight = filmStrip.getHeight() / 257;
-            break;
-        }
-            
-        case 8:
-        {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_09_png, BinaryData::Knob_09_pngSize);
-            frameHeight = filmStrip.getHeight() / 257;
-            break;
-        }
-            
-        case 9:
-        {
-            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_10_png, BinaryData::Knob_10_pngSize);
+            filmStrip = juce::ImageCache::getFromMemory(BinaryData::Knob_01_png, BinaryData::Knob_01_pngSize);
             frameHeight = filmStrip.getHeight() / 257;
             break;
         }
