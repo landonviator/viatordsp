@@ -8,33 +8,6 @@
 
 namespace BinaryData
 {
-    extern const char*   Articulations_back_png;
-    const int            Articulations_back_pngSize = 2194;
-
-    extern const char*   Articulations_decore_png;
-    const int            Articulations_decore_pngSize = 182598;
-
-    extern const char*   Articulations_line_1_png;
-    const int            Articulations_line_1_pngSize = 304;
-
-    extern const char*   Articulations_line_2_png;
-    const int            Articulations_line_2_pngSize = 304;
-
-    extern const char*   back_vumeter_decore_png;
-    const int            back_vumeter_decore_pngSize = 54425;
-
-    extern const char*   background_png;
-    const int            background_pngSize = 2682319;
-
-    extern const char*   btclipper_png;
-    const int            btclipper_pngSize = 724068;
-
-    extern const char*   button_middle_off_png;
-    const int            button_middle_off_pngSize = 36978;
-
-    extern const char*   button_middle_on_png;
-    const int            button_middle_on_pngSize = 20554;
-
     extern const char*   button_small_off_png;
     const int            button_small_off_pngSize = 27080;
 
@@ -44,38 +17,11 @@ namespace BinaryData
     extern const char*   Knob_01_png;
     const int            Knob_01_pngSize = 7945718;
 
-    extern const char*   Knob_02_png;
-    const int            Knob_02_pngSize = 12764970;
-
     extern const char*   Knob_03_png;
     const int            Knob_03_pngSize = 14673193;
 
     extern const char*   Knob_04_png;
     const int            Knob_04_pngSize = 11818784;
-
-    extern const char*   Knob_05_png;
-    const int            Knob_05_pngSize = 15306271;
-
-    extern const char*   Knob_06_png;
-    const int            Knob_06_pngSize = 11904560;
-
-    extern const char*   Knob_07_png;
-    const int            Knob_07_pngSize = 10682115;
-
-    extern const char*   Knob_08_png;
-    const int            Knob_08_pngSize = 12407419;
-
-    extern const char*   Knob_09_png;
-    const int            Knob_09_pngSize = 11458765;
-
-    extern const char*   Knob_10_png;
-    const int            Knob_10_pngSize = 13444232;
-
-    extern const char*   knob_middle_png;
-    const int            knob_middle_pngSize = 6154768;
-
-    extern const char*   knob_small_png;
-    const int            knob_small_pngSize = 2667859;
 
     extern const char*   landon5504_png;
     const int            landon5504_pngSize = 26270;
@@ -86,29 +32,8 @@ namespace BinaryData
     extern const char*   led_on_png;
     const int            led_on_pngSize = 11268;
 
-    extern const char*   pluginBackground2_png;
-    const int            pluginBackground2_pngSize = 2893608;
-
-    extern const char*   projucer_png;
-    const int            projucer_pngSize = 123572;
-
-    extern const char*   scale_Horizontal_slider_png;
-    const int            scale_Horizontal_slider_pngSize = 870;
-
-    extern const char*   scale_knob_big_png;
-    const int            scale_knob_big_pngSize = 4086;
-
-    extern const char*   scale_knob_middle_png;
-    const int            scale_knob_middle_pngSize = 1694;
-
-    extern const char*   scale_knob_small__png;
-    const int            scale_knob_small__pngSize = 1449;
-
-    extern const char*   slider_vertical_png;
-    const int            slider_vertical_pngSize = 2042437;
-
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 33;
+    const int namedResourceListSize = 8;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

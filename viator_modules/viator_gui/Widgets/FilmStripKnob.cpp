@@ -53,7 +53,6 @@ void viator_gui::FilmStripKnob::paint(juce::Graphics &g)
                 getHeight() * 0.08,
                 getWidth() * 0.8,
                 getHeight() * 0.8, 0, value * frameHeight, frameWidth, frameHeight);
-    auto background = juce::ImageCache::getFromMemory(BinaryData::scale_knob_small__png, BinaryData::scale_knob_small__pngSize);
 }
 
 void viator_gui::FilmStripKnob::resized()
