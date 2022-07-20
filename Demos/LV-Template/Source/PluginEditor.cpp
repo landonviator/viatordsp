@@ -3,7 +3,9 @@
 
 //==============================================================================
 LVTemplateAudioProcessorEditor::LVTemplateAudioProcessorEditor (LVTemplateAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), _settingsPage(audioProcessor)
+    : AudioProcessorEditor (&p), audioProcessor (p)
+, _settingsPage(audioProcessor)
+, _ioComp(audioProcessor, _settingsPage)
 {
     uiConstructor();
 }

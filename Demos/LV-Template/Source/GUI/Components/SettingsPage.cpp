@@ -19,6 +19,7 @@ SettingsPage::SettingsPage(LVTemplateAudioProcessor& p) : audioProcessor(p)
     setGlowSliderProps();
     
     m_themeGroup.setText("Plugin Color Themes");
+    _uiTypeGroup.setText("GUI Style");
     
     /** Buttons */
     for (auto& button : buttons)
@@ -26,11 +27,28 @@ SettingsPage::SettingsPage(LVTemplateAudioProcessor& p) : audioProcessor(p)
         setTextButtonProps(*button);
     }
     
+    _skueomorphic.setToggleState(true, juce::dontSendNotification);
+    _skueomorphic.onStateChange = [this]()
+    {
+        getParentComponent()->resized();
+    };
+    
+//    _flat.onStateChange = [this]()
+//    {
+//        getParentComponent()->resized();
+//    };
+    
     /** Groups */
     for (auto& group : groups)
     {
         setGroupProps(*group);
     }
+    
+    _skueomorphic.setButtonText("Real");
+    _skueomorphic.setRadioGroupId(1);
+    
+    _flat.setButtonText("Flat");
+    _flat.setRadioGroupId(1);
 }
 
 SettingsPage::~SettingsPage()
@@ -39,7 +57,13 @@ SettingsPage::~SettingsPage()
 
 void SettingsPage::paint (juce::Graphics& g)
 {
-    g.fillAll(juce::Colours::black.brighter(0.1));
+    g.fillAll(juce::Colours::black.withAlpha(0.5f));
+    
+    /** Buttons */
+    for (auto& button : buttons)
+    {
+        setTextButtonProps(*button);
+    }
 }
 
 void SettingsPage::resized()
@@ -57,12 +81,21 @@ void SettingsPage::resized()
     const auto buttonHeight = m_glowToggle.getHeight();
     m_gradientToggle.setBounds(buttonX, buttonY + buttonHeight * 1.5, buttonWidth, buttonHeight);
     m_themeMenu.setBounds(m_glowToggle.getX() + m_glowToggle.getWidth() * 1.55, m_gradientToggle.getY(), m_glowToggle.getWidth() * 2.0, m_glowToggle.getHeight());
+    m_themeGroup.setBounds(m_glowToggle.getX() * 0.57, m_glowToggle.getY() * 0.65, m_themeMenu.getX() + m_themeMenu.getWidth(), m_gradientToggle.getY() + m_gradientToggle.getHeight() * 0.38);
+    
+    /** UI Type */
+    _uiTypeGroup.setBounds(m_themeGroup.getX(),
+                           m_themeGroup.getY() + m_themeGroup.getHeight() + buttonHeight,
+                           m_themeGroup.getWidth() * 0.68,
+                           m_themeGroup.getHeight() * 0.75);
+    
+    _skueomorphic.setBounds(m_glowToggle.getX(), _uiTypeGroup.getY() + _uiTypeGroup.getHeight() * 0.36, buttonWidth, buttonHeight);
+    _flat.setBounds(_skueomorphic.getX() + _skueomorphic.getWidth() * 1.28, _skueomorphic.getY(), buttonWidth, buttonHeight);
     
     /** Social Toggles */
     m_discord.setBounds(buttonX, buttonY * 9.0, buttonWidth, buttonHeight);
     m_patreon.setBounds(m_discord.getX() + m_discord.getWidth() * 1.5, m_discord.getY(), buttonWidth, buttonHeight);
     m_twitch.setBounds(m_patreon.getX() + m_patreon.getWidth() * 1.5, m_discord.getY(), buttonWidth, buttonHeight);
-    m_themeGroup.setBounds(m_glowToggle.getX() * 0.57, m_glowToggle.getY() * 0.65, m_themeMenu.getX() + m_themeMenu.getWidth(), m_gradientToggle.getY() + m_gradientToggle.getHeight() * 0.38);
 }
 
 SettingsPage::Theme SettingsPage::getPluginTheme()
@@ -85,6 +118,11 @@ bool SettingsPage::getGradientState()
     return m_gradientToggle.getToggleState();
 }
 
+bool SettingsPage::getUIType()
+{
+    return _skueomorphic.getToggleState();
+}
+
 float SettingsPage::getCurrentGlowValue()
 {
     return _currentGlowValue;
@@ -98,7 +136,7 @@ void SettingsPage::setTextButtonProps(juce::TextButton &button)
     button.setColour(juce::TextButton::ColourIds::textColourOnId, juce::Colours::whitesmoke);
     button.setColour(juce::TextButton::ColourIds::textColourOffId, juce::Colours::whitesmoke.withAlpha(0.5f));
     button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(53, 55, 70));
-    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(53, 55, 70).brighter(0.1));
+    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, m_mainCompColor.withAlpha(0.5f));
     
     /** Individual Button Props */
     setGlowButtonProps();

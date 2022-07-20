@@ -43,6 +43,9 @@ public:
     {
         setLookAndFeel(nullptr);
     }
+    
+    void paint(juce::Graphics& g) override;
+    void resized() override;
 
     /** Set the dial style
      * e.g. myDial.setDialStyle(viator_gui::Dial::DialStyle::kHardDial);

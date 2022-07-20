@@ -65,7 +65,7 @@ void viator_gui::Dial::initProps(juce::String suffix,
     setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::black.brighter(0.1));
     setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::whitesmoke.darker(1.5f));
     setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black.withAlpha(0.0f));
-    setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.darker(1.5f));
+    setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.darker(0.5f));
     setColour(juce::Slider::ColourIds::thumbColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0f));
     setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::whitesmoke.darker(1.5f));
     setRange(rangeStart, rangeEnd, intervalValue);
@@ -104,3 +104,12 @@ void viator_gui::Dial::updateLabelColor(juce::Colour newColor)
     forceShadow();
 }
 
+void viator_gui::Dial::paint(juce::Graphics &g)
+{
+    juce::Slider::paint(g);
+}
+
+void viator_gui::Dial::resized()
+{
+    juce::Slider::resized();
+}

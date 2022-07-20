@@ -10,6 +10,9 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
     _settingsPage.setAlwaysOnTop(true);
     setPluginTheme(static_cast<Theme>(_settingsPage.getPluginTheme()));
     
+    // Header
     addAndMakeVisible(_headerComp);
     
+    // IO Module
+    addAndMakeVisible(_ioComp);
 }

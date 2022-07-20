@@ -2,13 +2,15 @@
 
 <JUCERPROJECT id="RUVWIq" name="LV-Template" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Viator DSP"
-              pluginFormats="buildAAX,buildAU,buildStandalone,buildVST3">
+              pluginFormats="buildAAX,buildAU,buildStandalone,buildVST3" maxBinaryFileSize="20971520">
   <MAINGROUP id="vHkpxJ" name="LV-Template">
     <GROUP id="{C8650847-B61E-21F5-1BCC-AD5FEB3BF9C6}" name="Source">
       <GROUP id="{72FC66F5-E054-98AA-EE87-A7171F3E8654}" name="GUI">
         <GROUP id="{28AB9F4A-3E77-F815-30ED-29AFF737A1FB}" name="Components">
           <FILE id="nWWoGO" name="Header.cpp" compile="1" resource="0" file="Source/GUI/Components/Header.cpp"/>
           <FILE id="RYDj30" name="Header.h" compile="0" resource="0" file="Source/GUI/Components/Header.h"/>
+          <FILE id="pBYzPa" name="IOModule.cpp" compile="1" resource="0" file="Source/GUI/Components/IOModule.cpp"/>
+          <FILE id="hbYY5s" name="IOModule.h" compile="0" resource="0" file="Source/GUI/Components/IOModule.h"/>
           <FILE id="QSKtNE" name="SettingsPage.cpp" compile="1" resource="0"
                 file="Source/GUI/Components/SettingsPage.cpp"/>
           <FILE id="tyM67C" name="SettingsPage.h" compile="0" resource="0" file="Source/GUI/Components/SettingsPage.h"/>
@@ -58,6 +60,16 @@
               file="../../Assets/button_small_off.png"/>
         <FILE id="iM3xkY" name="button_small_on.png" compile="0" resource="1"
               file="../../Assets/button_small_on.png"/>
+        <FILE id="sdScjy" name="Knob_01.png" compile="0" resource="1" file="../../Assets/Knob_01.png"/>
+        <FILE id="JgNDhX" name="Knob_02.png" compile="0" resource="1" file="../../Assets/Knob_02.png"/>
+        <FILE id="AyKD0l" name="Knob_03.png" compile="0" resource="1" file="../../Assets/Knob_03.png"/>
+        <FILE id="dXc3YF" name="Knob_04.png" compile="0" resource="1" file="../../Assets/Knob_04.png"/>
+        <FILE id="dWoQwx" name="Knob_05.png" compile="0" resource="1" file="../../Assets/Knob_05.png"/>
+        <FILE id="nmK0xa" name="Knob_06.png" compile="0" resource="1" file="../../Assets/Knob_06.png"/>
+        <FILE id="YzqbVo" name="Knob_07.png" compile="0" resource="1" file="../../Assets/Knob_07.png"/>
+        <FILE id="OqNBVI" name="Knob_08.png" compile="0" resource="1" file="../../Assets/Knob_08.png"/>
+        <FILE id="R9qgt1" name="Knob_09.png" compile="0" resource="1" file="../../Assets/Knob_09.png"/>
+        <FILE id="Kj8wkn" name="Knob_10.png" compile="0" resource="1" file="../../Assets/Knob_10.png"/>
         <FILE id="YgyL6F" name="knob_middle.png" compile="0" resource="1" file="../../Assets/knob_middle.png"/>
         <FILE id="z79QKv" name="knob_small.png" compile="0" resource="1" file="../../Assets/knob_small.png"/>
         <FILE id="xm5rLu" name="landon55-04.png" compile="0" resource="1" file="../../Assets/landon55-04.png"/>

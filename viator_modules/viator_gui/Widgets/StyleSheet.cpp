@@ -320,7 +320,7 @@ void juce::FullDialLAF::drawLabel (Graphics& g, Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const Font font (juce::Font ("Helvetica", sliderWidth * 0.1, juce::Font::FontStyleFlags::bold));
+        const Font font (juce::Font ("Helvetica", sliderWidth * 0.12, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);

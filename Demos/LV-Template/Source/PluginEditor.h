@@ -5,6 +5,7 @@
 #include "./GUI/LookAndFeel/FullDial.h"
 #include "./GUI/Components/SettingsPage.h"
 #include "./GUI/Components/Header.h"
+#include "./GUI/Components/IOModule.h"
 
 //==============================================================================
 
@@ -34,6 +35,7 @@ private:
     /** Components */
     Header _headerComp;
     SettingsPage _settingsPage;
+    IOModule _ioComp;
     
     enum class Theme
     {

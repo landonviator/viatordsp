@@ -4,7 +4,7 @@ juce::Colour m_bgColor;
 juce::Colour m_bgLighterColor;
 juce::Colour m_textAccentColor;
 juce::Colour m_bgTransparent;
-juce::Colour m_mainCompColor;
+juce::Colour m_mainCompColor = juce::Colour::fromRGB(168, 132, 222);
 juce::Colour m_mainCompFillColor;
 juce::Colour m_textColor = juce::Colours::whitesmoke;
 

@@ -29,6 +29,5 @@ public:
     
 private:
     
-    bool autoResize = true;
 };
 }
