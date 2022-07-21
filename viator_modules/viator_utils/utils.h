@@ -77,6 +77,73 @@ namespace viator_utils
                 }
             }
         }
+
+
+        /**
+         * @brief Bias a value, best used on values between 0 and 1.
+         * 
+         * @authors Noah Stiltner, and the math came from Signalsmith's Desmos formula:
+         * https://www.desmos.com/calculator/97t87kp8cq
+         * 
+         * @param valueToBias the value going to be biased
+         * @param bias the amount of bias to apply
+         * @return float - biased value
+         */
+        static float unitBiasNormal(float valueToBias, float bias)
+        {
+            /*
+             * Let's make sure that the bias is inclusively
+             * between 0 and 1 to avoid any malfunctions. If
+             * you tripped this jassert, make sure that the 
+             * bias parameter is in the range [0, 1].
+             */
+            juce::jassert(bias >= 0.f && bias <= 1.f);
+
+            // Let's cover the easy options to avoid processing
+            if(bias == 0.5f)
+                return valueToBias;
+            if(bias == 0.f)
+                return 0.f;
+            if(bias == 1.f)
+                return 1.f;
+            
+            return bias * valueToBias / (1.f - bias - valueToBias + (2.f * valueToBias * bias));
+        }
+
+        /**
+         * @brief Bias a value using a ranged bias, where the range is 
+         * [-range, range] instead of [0, 1]. Might be useful with a centered 
+         * rotary slider.
+         * 
+         * 
+         * For a bias parameter range of [-0.5, 0.5], it could be called like
+         * so:
+         * unitBiasAdapted(valueToBias, bias, 0.5f)
+         * 
+         * or from [-1, 1]
+         * unitBiasAdapted(valueToBias, bias, 1.f)
+         * 
+         * @authors Noah Stiltner.
+         * 
+         * @param valueToBias the value to bias. Preferably between 0 and 1
+         * @param bias the bias to apply to the value. Should be between [-range, range]
+         * @param range the maximum value of the bias parameter, and the minimum will be 
+         * 
+         * @return float - the biased value
+         */
+        static float unitBiasAdapted(float valueToBias, float bias, float range)
+        {
+            // Make sure the range parameter is greater than 0
+            juce::jassert(range > 0);
+
+            // Make sure the bias parameter is between [-max, max]
+            juce::jassert(bias >= -range && bias <= range);
+
+            // this gets the bias to be between [-1, 1]
+            //T newBias = bias / max;
+            // but we want it between [0, 1], so we can divide by 2, then add 0.5
+            return unitBiasNormal(valueToBias, bias / range / 2.f + 0.5f);
+        }
     };
 
     struct FastMath
