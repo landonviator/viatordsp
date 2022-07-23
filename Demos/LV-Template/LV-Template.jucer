@@ -20,6 +20,8 @@
           <FILE id="RaaDb3" name="Buttons.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/Buttons.h"/>
           <FILE id="G1Ec13" name="FullDial.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/FullDial.cpp"/>
           <FILE id="wFxf0r" name="FullDial.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/FullDial.h"/>
+          <FILE id="vf6JjG" name="MenuLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/MenuLAF.cpp"/>
+          <FILE id="rFd7RF" name="MenuLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/MenuLAF.h"/>
           <FILE id="NiueDt" name="PanelLAF.cpp" compile="1" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.cpp"/>
           <FILE id="fuLvGH" name="PanelLAF.h" compile="0" resource="0" file="Source/GUI/LookAndFeel/PanelLAF.h"/>
         </GROUP>
@@ -64,7 +66,7 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" aaxFolder="../../../../aax-sdk-2-4-0">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="LV-Template" customXcodeFlags="JUCE_FORCE_USE_LEGACY_PARAM_IDS"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="LV-Template"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="LV-Template"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

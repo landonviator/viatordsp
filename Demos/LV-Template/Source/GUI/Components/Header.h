@@ -13,6 +13,8 @@
 #include <JuceHeader.h>
 #include "../../Parameters/Globals.h"
 #include "../../GUI/LookAndFeel/Buttons.h"
+#include "../../GUI/LookAndFeel/MenuLAF.h"
+#include "../../PluginProcessor.h"
 
 //==============================================================================
 /*
@@ -20,7 +22,7 @@
 class Header  : public juce::Component
 {
 public:
-    Header();
+    Header(LVTemplateAudioProcessor&);
     ~Header() override;
 
     void paint (juce::Graphics&) override;
@@ -29,16 +31,23 @@ public:
 
 private:
     
-    juce::TextButton m_settingsButton;
+    LVTemplateAudioProcessor& audioProcessor;
+    
+    juce::TextButton _settingsButton;
     void setTextButtonProps(juce::TextButton& button);
     void setSettingsButtonProps();
     ButtonStyle customButtonLAF;
     
     std::vector<juce::TextButton*> buttons =
     {
-        &m_settingsButton
+        &_settingsButton
     };
     
+    viator_gui::Menu _presetBrowser;
+    void setPresetBrowserProps();
+    void setPresetBrowserItems();
+    void setPreset(float input, float output);
+    juce::Custom_Menu_Boy _customMenu;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Header)
 };

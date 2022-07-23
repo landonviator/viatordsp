@@ -96,7 +96,7 @@ namespace viator_utils
              * you tripped this jassert, make sure that the 
              * bias parameter is in the range [0, 1].
              */
-            juce::jassert(bias >= 0.f && bias <= 1.f);
+            //juce::jassert(bias >= 0.f && bias <= 1.f);
 
             // Let's cover the easy options to avoid processing
             if(bias == 0.5f)
@@ -133,10 +133,10 @@ namespace viator_utils
         static float unitBiasAdapted(float valueToBias, float bias, float range)
         {
             // Make sure the range parameter is greater than 0
-            juce::jassert(range > 0);
+            //juce::jassert(range > 0);
 
             // Make sure the bias parameter is between [-max, max]
-            juce::jassert(bias >= -range && bias <= range);
+            //juce::jassert(bias >= -range && bias <= range);
 
             // this gets the bias to be between [-1, 1]
             //T newBias = bias / max;

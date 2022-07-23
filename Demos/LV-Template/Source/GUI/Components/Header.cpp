@@ -12,15 +12,19 @@
 #include "Header.h"
 
 //==============================================================================
-Header::Header()
+Header::Header(LVTemplateAudioProcessor& p) : audioProcessor(p)
 {
     // Init settings button
     setSettingsButtonProps();
+    
+    // Init preset Browser
+    setPresetBrowserItems();
 }
 
 Header::~Header()
 {
-    m_settingsButton.setLookAndFeel(nullptr);
+    _settingsButton.setLookAndFeel(nullptr);
+    _presetBrowser.setLookAndFeel(nullptr);
 }
 
 void Header::paint (juce::Graphics& g)
@@ -46,6 +50,9 @@ void Header::paint (juce::Graphics& g)
     {
         setTextButtonProps(*button);
     }
+    
+    // Menu color update
+    setPresetBrowserProps();
 }
 
 void Header::resized()
@@ -55,7 +62,12 @@ void Header::resized()
     float headerTopMargin = getHeight() * 0.125f;
     float buttonWidth = getWidth() * 0.04;
     float buttonHeight = getHeight() * 0.75f;
-    m_settingsButton.setBounds(rightMargin, headerTopMargin, buttonWidth, buttonHeight);
+    
+    _settingsButton.setBounds(rightMargin, headerTopMargin, buttonWidth, buttonHeight);
+    
+    auto presetWidth = getWidth() * 0.15;
+    auto presetHeight = getWidth() * 0.03;
+    _presetBrowser.setBounds(getLocalBounds().withSizeKeepingCentre(presetWidth, presetHeight));
 
     // Position settings page
     setSettingsButtonProps();
@@ -63,8 +75,8 @@ void Header::resized()
 
 void Header::setSettingsButtonProps()
 {
-    m_settingsButton.setComponentID("settings");
-    m_settingsButton.onClick = [this]()
+    _settingsButton.setComponentID("settings");
+    _settingsButton.onClick = [this]()
     {
         getParentComponent()->resized();
         getParentComponent()->repaint();
@@ -73,7 +85,7 @@ void Header::setSettingsButtonProps()
 
 bool Header::showSettings()
 {
-    return m_settingsButton.getToggleState();
+    return _settingsButton.getToggleState();
 }
 
 void  Header::setTextButtonProps(juce::TextButton &button)
@@ -87,4 +99,45 @@ void  Header::setTextButtonProps(juce::TextButton &button)
     button.setColour(juce::TextButton::ColourIds::buttonColourId, m_mainCompColor);
     button.setColour(juce::TextButton::ColourIds::buttonOnColourId, m_mainCompColor);
     button.setLookAndFeel(&customButtonLAF);
+}
+
+void Header::setPresetBrowserProps()
+{
+    addAndMakeVisible(_presetBrowser);
+    _presetBrowser.setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
+    _presetBrowser.setColour(juce::ComboBox::ColourIds::outlineColourId, m_mainCompColor.withAlpha(0.4f));
+    _presetBrowser.setColour(juce::ComboBox::ColourIds::focusedOutlineColourId, juce::Colours::transparentBlack);
+    _presetBrowser.setColour(juce::ComboBox::ColourIds::textColourId, m_textColor);
+    _presetBrowser.setColour(juce::ComboBox::ColourIds::arrowColourId, m_textColor);
+
+    _presetBrowser.getLookAndFeel().setColour(juce::PopupMenu::backgroundColourId, m_mainCompColor.withAlpha(0.8f));
+    _presetBrowser.getLookAndFeel().setColour(juce::PopupMenu::highlightedBackgroundColourId, m_mainCompColor);
+    _presetBrowser.getLookAndFeel().setColour(juce::PopupMenu::textColourId, m_textColor);
+    _presetBrowser.getLookAndFeel().setColour(juce::PopupMenu::highlightedTextColourId, m_bgLighterColor);
+    
+    _presetBrowser.setLookAndFeel(&_customMenu);
+}
+
+void Header::setPresetBrowserItems()
+{
+    _presetBrowser.setTextWhenNothingSelected("Presets");
+    _presetBrowser.addItem("Lofi Room", 1);
+    //presetMenuAttach = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.m_treeState, presetID, m_presetBrowser);
+
+    _presetBrowser.onChange = [this]()
+    {
+        switch (_presetBrowser.getSelectedItemIndex())
+        {
+            case 0:
+            {
+                setPreset(-12.0f, 12.0f); break;
+            }
+        }
+    };
+}
+
+void Header::setPreset(float input, float output)
+{
+    audioProcessor._treeState.getParameterAsValue(inputID) = input;
+    audioProcessor._treeState.getParameterAsValue(outputID) = output;
 }
