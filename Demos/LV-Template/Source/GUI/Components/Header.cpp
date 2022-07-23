@@ -23,6 +23,7 @@ Header::Header(LVTemplateAudioProcessor& p) : audioProcessor(p)
 
 Header::~Header()
 {
+    // Clean up memory
     _settingsButton.setLookAndFeel(nullptr);
     _presetBrowser.setLookAndFeel(nullptr);
 }
@@ -30,9 +31,11 @@ Header::~Header()
 void Header::paint (juce::Graphics& g)
 {
     // Init Header
-    g.setColour(juce::Colours::black.withAlpha(0.2f));
-    g.fillRect(0, 0, getWidth(), getHeight());
-    g.setColour(juce::Colours::black.withAlpha(0.1f));
+    g.setGradientFill(juce::ColourGradient::vertical(juce::Colours::black.brighter(0.1).withAlpha(0.5f), getHeight(), juce::Colours::black.brighter(0.15).withAlpha(0.5f), getHeight() * 0.4));
+    g.fillRect(getLocalBounds());
+    
+    // Init border
+    g.setColour(m_mainCompFillColor.withAlpha(0.25f));
     g.drawLine(0, getHeight(), getWidth(), getHeight(), 1.0);
     g.setColour(juce::Colours::black);
     
@@ -62,9 +65,9 @@ void Header::resized()
     float headerTopMargin = getHeight() * 0.125f;
     float buttonWidth = getWidth() * 0.04;
     float buttonHeight = getHeight() * 0.75f;
-    
     _settingsButton.setBounds(rightMargin, headerTopMargin, buttonWidth, buttonHeight);
     
+    // Preset browser
     auto presetWidth = getWidth() * 0.15;
     auto presetHeight = getWidth() * 0.03;
     _presetBrowser.setBounds(getLocalBounds().withSizeKeepingCentre(presetWidth, presetHeight));
@@ -121,14 +124,20 @@ void Header::setPresetBrowserProps()
 void Header::setPresetBrowserItems()
 {
     _presetBrowser.setTextWhenNothingSelected("Presets");
-    _presetBrowser.addItem("Lofi Room", 1);
-    //presetMenuAttach = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.m_treeState, presetID, m_presetBrowser);
+    _presetBrowser.addItem("Default", 1);
+    _presetBrowser.addItem("Lofi Room", 2);
+    _presetMenuAttach = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor._treeState, presetID, _presetBrowser);
 
     _presetBrowser.onChange = [this]()
     {
         switch (_presetBrowser.getSelectedItemIndex())
         {
             case 0:
+            {
+                setPreset(0.0f, 0.0f); break;
+            }
+                
+            case 1:
             {
                 setPreset(-12.0f, 12.0f); break;
             }

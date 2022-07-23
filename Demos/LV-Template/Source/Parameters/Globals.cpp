@@ -10,6 +10,9 @@ juce::Colour m_textColor = juce::Colours::whitesmoke;
 
 /** ============== Audio Parameters ============== */
 
+const juce::String presetID = "presets";
+const juce::String presetName = "Presets";
+
 // IO
 const juce::String inputID = "input";
 const juce::String inputName = "Input";

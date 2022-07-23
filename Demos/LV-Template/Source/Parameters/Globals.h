@@ -12,6 +12,9 @@ extern juce::Colour m_textColor;
 
 /** ========= Audio Parameters ========= */
 
+extern const juce::String presetID;
+extern const juce::String presetName;
+
 extern const juce::String inputID;
 extern const juce::String inputName;
 

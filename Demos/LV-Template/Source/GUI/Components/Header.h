@@ -47,6 +47,7 @@ private:
     void setPresetBrowserProps();
     void setPresetBrowserItems();
     void setPreset(float input, float output);
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> _presetMenuAttach;
     juce::Custom_Menu_Boy _customMenu;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Header)

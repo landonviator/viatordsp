@@ -26,6 +26,7 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
     _treeState.addParameterListener(outputID, this);
     _treeState.addParameterListener(phaseID, this);
     _treeState.addParameterListener(hqID, this);
+    _treeState.addParameterListener(presetID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
@@ -34,11 +35,14 @@ LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
     _treeState.removeParameterListener(outputID, this);
     _treeState.removeParameterListener(phaseID, this);
     _treeState.removeParameterListener(hqID, this);
+    _treeState.removeParameterListener(presetID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
+    
+    params.push_back (std::make_unique<juce::AudioParameterInt>(juce::ParameterID { presetID, 1 }, presetName, 0, 9, 0));
     
     params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { inputID, 1 }, inputName,
                                                                   juce::NormalisableRange<float> (-24.0f, 24.0f, 0.1f), 0.0f));
