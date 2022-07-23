@@ -7,7 +7,7 @@ class ToggleButton : public juce::ImageButton
 {
 public:
     
-    ToggleButton(juce::String labelText);
+    ToggleButton(bool useLabel, juce::String labelText, bool isPhase);
     
     ~ToggleButton() override
     {
@@ -20,8 +20,11 @@ public:
     
 private:
     
-    viator_gui::Label label {""};
     juce::Colour accentColor = juce::Colours::whitesmoke;
+    
+    bool _useLabel = false;
+    bool _isPhase = false;
+    juce::String _labelText;
 };
 }
 

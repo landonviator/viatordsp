@@ -1,38 +1,71 @@
 #include "ToggleButton.h"
 
-viator_gui::ToggleButton::ToggleButton(juce::String labelText)
+viator_gui::ToggleButton::ToggleButton(bool useLabel, juce::String labelText, bool isPhase)
 {
     setClickingTogglesState(true);
+    _useLabel = useLabel;
+    _isPhase = isPhase;
+    _labelText = labelText;
     
     setImages(false, true, true, juce::ImageCache::getFromMemory(BinaryData::button_middle_off_png, BinaryData::button_middle_off_pngSize), 1.0f, juce::Colours::transparentBlack, juce::ImageCache::getFromMemory(BinaryData::button_middle_off_png, BinaryData::button_middle_off_pngSize), 0.8f, juce::Colours::transparentBlack, juce::ImageCache::getFromMemory(BinaryData::button_middle_on_png, BinaryData::button_middle_on_pngSize), 1.0f, juce::Colours::transparentBlack);
-    
-    addAndMakeVisible(label);
-    label.setText(labelText, juce::dontSendNotification);
-    label.setJustificationType(juce::Justification::centredBottom);
-    label.attachToComponent(this, false);
 }
 
 void viator_gui::ToggleButton::paint(juce::Graphics& g)
 {
     juce::Button::paint(g);
-}
-
-void viator_gui::ToggleButton::resized()
-{
-    label.setFont(getWidth() * 0.15);
-}
-
-void viator_gui::ToggleButton::updateLabelColor(juce::Colour newColor)
-{
-    if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
+    
+    if (_isPhase && !_useLabel)
     {
-        label.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.6f));
-        accentColor = juce::Colours::whitesmoke.withAlpha(0.6f);
+        juce::Path button;
+        
+        auto bounds = getLocalBounds();
+        
+        auto mult = 7.4;
+        
+        auto size = juce::jmin(bounds.getWidth(), bounds.getHeight());
+        auto sr = bounds.withSizeKeepingCentre(size / mult, size / mult).toFloat();
+        
+        button.addEllipse(sr);
+        
+        button.startNewSubPath(sr.getX(), sr.getY() + sr.getHeight());
+        button.lineTo(sr.getX() + sr.getWidth(), sr.getY());
+        
+        juce::PathStrokeType pst(2.0f, juce::PathStrokeType::JointStyle::curved);
+        
+        auto color =
+        getToggleState() ? findColour(juce::ToggleButton::tickColourId) : findColour(juce::ToggleButton::tickDisabledColourId);
+        
+        g.setColour(color);
+        g.strokePath(button, pst);
     }
     
     else
     {
-        label.setColour(juce::Label::ColourIds::textColourId, newColor);
-        accentColor = newColor;
+        auto color =
+        getToggleState() ? findColour(juce::ToggleButton::tickColourId) : findColour(juce::ToggleButton::tickDisabledColourId);
+        
+        g.setColour(color);
+        g.setFont(juce::Font ("Helvetica", getWidth() * 0.13, juce::Font::FontStyleFlags::bold));
+        g.drawText(_labelText, getLocalBounds(), juce::Justification::centred);
+    }
+}
+
+void viator_gui::ToggleButton::resized()
+{
+}
+
+void viator_gui::ToggleButton::updateLabelColor(juce::Colour newColor)
+{
+    if (_useLabel)
+    {
+        if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
+        {
+            accentColor = juce::Colours::whitesmoke.withAlpha(0.6f);
+        }
+        
+        else
+        {
+            accentColor = newColor;
+        }
     }
 }

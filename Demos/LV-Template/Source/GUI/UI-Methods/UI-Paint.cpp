@@ -22,4 +22,8 @@ void LVTemplateAudioProcessorEditor::uiPaint(juce::Graphics &g)
     // Update IO Colors
     _ioComp.repaint();
     
+    // Title/version
+    g.setColour(m_mainCompColor.withAlpha(0.8f));
+    g.setFont(juce::Font("Helvetica", getWidth() * 0.02, juce::Font::FontStyleFlags::plain));
+    g.drawText("Plugin v0.0.1", getLocalBounds().removeFromBottom(50), juce::Justification::centred);
 }

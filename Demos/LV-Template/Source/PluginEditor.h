@@ -51,11 +51,5 @@ private:
     Theme _pluginTheme = Theme::kDracula;
     
     void setPluginTheme(Theme newTheme);
-    
-    /** ============================== Effects ============================== */
-    juce::GlowEffect glow;
-    juce::DropShadow shadowProperties;
-    juce::DropShadowEffect dialShadow;
-    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessorEditor)
 };

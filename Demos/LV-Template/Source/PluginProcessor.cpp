@@ -13,6 +13,7 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
                      #endif
                        )
 , _treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
+, _oversamplingModule(2, 2, juce::dsp::Oversampling<float>::FilterType::filterHalfBandPolyphaseIIR)
 #endif
 {
     
@@ -21,53 +22,68 @@ LVTemplateAudioProcessor::LVTemplateAudioProcessor()
     variableTree.setProperty("glowtoggle", 0, nullptr);
     variableTree.setProperty("gradienttoggle", 1, nullptr);
     
-    _treeState.addParameterListener(colorID, this);
-    _treeState.addParameterListener(driveID, this);
-    _treeState.addParameterListener(driveModelID, this);
+    _treeState.addParameterListener(inputID, this);
+    _treeState.addParameterListener(outputID, this);
+    _treeState.addParameterListener(phaseID, this);
+    _treeState.addParameterListener(hqID, this);
 }
 
 LVTemplateAudioProcessor::~LVTemplateAudioProcessor()
 {
-    _treeState.removeParameterListener(colorID, this);
-    _treeState.removeParameterListener(driveID, this);
-    _treeState.removeParameterListener(driveModelID, this);
+    _treeState.removeParameterListener(inputID, this);
+    _treeState.removeParameterListener(outputID, this);
+    _treeState.removeParameterListener(phaseID, this);
+    _treeState.removeParameterListener(hqID, this);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout LVTemplateAudioProcessor::createParameterLayout()
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
     
-    juce::StringArray driveChoices {"Hard", "Soft", "Fuzz", "Tube", "Saturation", "Lofi"};
-        
-    auto pDriveModel = std::make_unique<juce::AudioParameterChoice>(driveModelID, driveModelName, driveChoices, 0);
-    auto pDrive = std::make_unique<juce::AudioParameterFloat>(driveID, driveName, 0.0f, 20.0f, 0.0f);
-    auto pColorMenu = std::make_unique<juce::AudioParameterInt>(colorID, colorName, 0, 9, 0);
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { inputID, 1 }, inputName,
+                                                                  juce::NormalisableRange<float> (-24.0f, 24.0f, 0.1f), 0.0f));
     
-    params.push_back(std::move(pDriveModel));
-    params.push_back(std::move(pDrive));
-    params.push_back(std::move(pColorMenu));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { outputID, 1 }, outputName,
+                                                                  juce::NormalisableRange<float> (-24.0f, 24.0f, 0.1f), 0.0f));
+    
+    params.push_back (std::make_unique<juce::AudioParameterBool>(juce::ParameterID { phaseID, 1 }, phaseName, false));
+    
+    params.push_back (std::make_unique<juce::AudioParameterBool>(juce::ParameterID { hqID, 1 }, hqName, false));
+    
+    params.push_back (std::make_unique<juce::AudioParameterInt>(juce::ParameterID { colorID, 1 }, colorName, 0, 9, 0));
     
     return { params.begin(), params.end() };
 }
 
 void LVTemplateAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 {
+    if (parameterID == hqID)
+    {
+        hqToggle = static_cast<bool>(_treeState.getRawParameterValue(hqID)->load());
+            
+        // Adjust samplerate of filters when oversampling
+        if (hqToggle)
+        {
+            spec.sampleRate = getSampleRate() * _oversamplingModule.getOversamplingFactor();
+            _inputGainModule.prepare(spec);
+            _outputGainModule.prepare(spec);
+        }
+
+        else
+        {
+            spec.sampleRate = getSampleRate();
+            _inputGainModule.prepare(spec);
+            _outputGainModule.prepare(spec);
+        }
+    }
+            
     updateParameters();
 }
 
 void LVTemplateAudioProcessor::updateParameters()
 {
-    _distortionModule.setDrive(_treeState.getRawParameterValue(driveID)->load());
-    
-    switch (static_cast<int>(_treeState.getRawParameterValue(driveModelID)->load()))
-    {
-        case 0: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kHard); break;
-        case 1: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kSoft); break;
-        case 2: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kFuzz); break;
-        case 3: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kTube); break;
-        case 4: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kSaturation); break;
-        case 5: _distortionModule.setClipperType(viator_dsp::Distortion<float>::ClipType::kLofi); break;
-    }
+    _inputGainModule.setGainDecibels(_treeState.getRawParameterValue(inputID)->load());
+    _outputGainModule.setGainDecibels(_treeState.getRawParameterValue(outputID)->load());
 }
 
 //==============================================================================
@@ -136,12 +152,29 @@ void LVTemplateAudioProcessor::changeProgramName (int index, const juce::String&
 void LVTemplateAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Initialize spec for dsp modules
+    hqToggle = static_cast<bool>(_treeState.getRawParameterValue(hqID)->load());
+        
+    // Oversampling
+    _oversamplingModule.initProcessing(samplesPerBlock);
+    
+    if (hqToggle)
+    {
+        spec.sampleRate = sampleRate * _oversamplingModule.getOversamplingFactor();
+    }
+        
+    else
+    {
+        spec.sampleRate = sampleRate;
+    }
+    
     spec.maximumBlockSize = samplesPerBlock;
-    spec.sampleRate = sampleRate;
-    spec.numChannels = getTotalNumOutputChannels();
+    spec.numChannels = getTotalNumInputChannels();
     
-    _distortionModule.prepare(spec);
+    // DSP
+    _inputGainModule.prepare(spec);
+    _outputGainModule.prepare(spec);
     
+    // Init params
     updateParameters();
 }
 
@@ -180,10 +213,65 @@ bool LVTemplateAudioProcessor::isBusesLayoutSupported (const BusesLayout& layout
 void LVTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    _distortionModule.processBuffer(buffer);
+    if (hqToggle)
+    {
+        hqProcessBlock(buffer);
+    }
+    
+    else
+    {
+        normalProcessBlock(buffer);
+    }
+
+}
+
+void LVTemplateAudioProcessor::hqProcessBlock(juce::AudioBuffer<float> &buffer)
+{
+    // Blocks
+    juce::dsp::AudioBlock<float> block {buffer};
+    juce::dsp::AudioBlock<float> upSampledBlock (buffer);
+
+    // Up sample
+    upSampledBlock = _oversamplingModule.processSamplesUp(upSampledBlock);
+    
+    // Input
+    _inputGainModule.process(juce::dsp::ProcessContextReplacing<float>(upSampledBlock));
+    
+    // Output
+    _outputGainModule.process(juce::dsp::ProcessContextReplacing<float>(upSampledBlock));
+    
+    // Apply phase invert
+    if (_treeState.getRawParameterValue(phaseID)->load())
+    {
+        viator_utils::utils::invertBlock(upSampledBlock);
+    }
+    
+    _oversamplingModule.processSamplesDown(block);
+    
+    // Clip output
+    viator_utils::utils::hardClipBlock(block);
+}
+
+void LVTemplateAudioProcessor::normalProcessBlock(juce::AudioBuffer<float> &buffer)
+{
+    // Block
+    juce::dsp::AudioBlock<float> block {buffer};
+
+    // Input
+    _inputGainModule.process(juce::dsp::ProcessContextReplacing<float>(block));
+    
+    // Output
+    _outputGainModule.process(juce::dsp::ProcessContextReplacing<float>(block));
+    
+    // Apply phase invert
+    if (_treeState.getRawParameterValue(phaseID)->load())
+    {
+        viator_utils::utils::invertBlock(block);
+    }
+    
+    // Clip output
+    viator_utils::utils::hardClipBlock(block);
 }
 
 //==============================================================================

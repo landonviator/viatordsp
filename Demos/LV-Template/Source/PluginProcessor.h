@@ -73,16 +73,12 @@ private:
     void parameterChanged (const juce::String& parameterID, float newValue) override;
     
     /** DSP */
-    viator_dsp::Distortion<float> _distortionModule;
-    juce::dsp::Reverb m_ReverbModule;
-    juce::dsp::Reverb::Parameters reverbParams;
-    
-    viator_dsp::SVFilter<float> m_LowShelfModule;
-    viator_dsp::SVFilter<float> m_HighShelfModule;
-    viator_dsp::SVFilter<float> m_MidToneModule;
-    using filterParam = viator_dsp::SVFilter<float>::ParameterId;
-    using filterType = viator_dsp::SVFilter<float>::FilterType;
-    using qType = viator_dsp::SVFilter<float>::QType;
+    juce::dsp::Gain<float> _inputGainModule;
+    juce::dsp::Gain<float> _outputGainModule;
+    juce::dsp::Oversampling<float> _oversamplingModule;
+    void hqProcessBlock(juce::AudioBuffer<float>& buffer);
+    void normalProcessBlock(juce::AudioBuffer<float>& buffer);
+    bool hqToggle;
     void updateParameters();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LVTemplateAudioProcessor)

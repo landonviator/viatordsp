@@ -41,13 +41,6 @@ void Header::paint (juce::Graphics& g)
                       getHeight(),
                       juce::RectanglePlacement::centred);
     
-    // Title/version
-    g.setColour(m_mainCompColor.withAlpha(0.8f));
-    g.setFont(juce::Font("Helvetica", getWidth() * 0.02, juce::Font::FontStyleFlags::bold));
-    g.drawText("Plugin v0.0.1",
-               getLocalBounds(),
-               juce::Justification::centred);
-    
     // Init buttons with colors for color change update
     for (auto& button : buttons)
     {

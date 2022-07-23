@@ -70,6 +70,7 @@ public:
     void forceShadow();
     
     void updateLabelColor(juce::Colour newColor);
+    void updateShadowColor(juce::Colour newColor, float newAlpha);
 
 private:
     

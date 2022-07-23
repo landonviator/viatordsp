@@ -64,7 +64,7 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" aaxFolder="../../../../aax-sdk-2-4-0">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="LV-Template"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="LV-Template" customXcodeFlags="JUCE_FORCE_USE_LEGACY_PARAM_IDS"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="LV-Template"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

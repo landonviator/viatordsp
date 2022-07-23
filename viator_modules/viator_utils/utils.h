@@ -5,6 +5,8 @@ namespace viator_utils
 {
     struct utils
     {
+        static constexpr float _piDivisor = 2.0 / juce::MathConstants<float>::pi;
+        
         /** Cool way to go from db to gain by default, or adjust the scalar for quicker/slower log ramp!*/
         template <typename T>
         static T dbToGain(T input, T scalar = 0.05)
@@ -30,7 +32,7 @@ namespace viator_utils
                 {
                     if (std::abs(data[sample]) >= 1.0)
                     {
-                        data[sample] *= 1.0 / std::abs(data[sample]);
+                        data[sample] = std::copysign(1.0, data[sample]);
                     }
                 }
             }
@@ -44,10 +46,7 @@ namespace viator_utils
                 
                 for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
-                    if (std::abs(data[sample]) >= 1.0)
-                    {
-                        data[sample] *= std::atan(std::abs(data[sample]));
-                    }
+                    data[sample] = std::tanh(data[sample]);
                 }
             }
         }

@@ -16,3 +16,4 @@ void LVTemplateAudioProcessorEditor::uiConstructor()
     // IO Module
     addAndMakeVisible(_ioComp);
 }
+

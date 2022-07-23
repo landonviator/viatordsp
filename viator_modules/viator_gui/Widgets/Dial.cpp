@@ -104,6 +104,14 @@ void viator_gui::Dial::updateLabelColor(juce::Colour newColor)
     forceShadow();
 }
 
+void viator_gui::Dial::updateShadowColor(juce::Colour newColor, float newAlpha)
+{
+    shadowProperties.colour = newColor.withAlpha(newAlpha);
+    dialShadow.setShadowProperties (shadowProperties);
+    setComponentEffect(&dialShadow);
+    forceShadow();
+}
+
 void viator_gui::Dial::paint(juce::Graphics &g)
 {
     juce::Slider::paint(g);

@@ -12,14 +12,18 @@ extern juce::Colour m_textColor;
 
 /** ========= Audio Parameters ========= */
 
-extern const juce::String driveModelID;
-extern const juce::String driveModelName;
+extern const juce::String inputID;
+extern const juce::String inputName;
 
-extern const juce::String driveID;
-extern const juce::String driveName;
+extern const juce::String outputID;
+extern const juce::String outputName;
 
-extern const juce::String biasID;
-extern const juce::String biasName;
+extern const juce::String phaseID;
+extern const juce::String phaseName;
+
+extern const juce::String hqID;
+extern const juce::String hqName;
 
 extern const juce::String colorID;
 extern const juce::String colorName;
+
