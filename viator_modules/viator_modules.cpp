@@ -13,6 +13,7 @@
 #include "viator_dsp/Distortion.cpp"
 #include "viator_dsp/SVFilter.cpp"
 #include "viator_dsp/LFOGenerator.cpp"
+#include "viator_dsp/MultiBandProcessor.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
