@@ -24,6 +24,7 @@
 #include "viator_dsp/SVFilter.h"
 #include "viator_dsp/LFOGenerator.h"
 #include "viator_dsp/MultiBandProcessor.h"
+#include "viator_dsp/BitCrusher.h"
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/Toggle.h"

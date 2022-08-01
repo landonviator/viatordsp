@@ -14,6 +14,7 @@
 #include "viator_dsp/SVFilter.cpp"
 #include "viator_dsp/LFOGenerator.cpp"
 #include "viator_dsp/MultiBandProcessor.cpp"
+#include "viator_dsp/BitCrusher.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
