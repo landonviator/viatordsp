@@ -15,10 +15,6 @@ public:
     
     void processSample(SampleType input, int ch)
     {
-        _lowBandsFilter.setCutoffFrequency(_cutoff1.getNextValue());
-        _midBandsFilter.setCutoffFrequency(_cutoff2.getNextValue());
-        _highBandsFilter.setCutoffFrequency(_cutoff3.getNextValue());
-        
         _lowBandsFilter.processSample(ch, input, _lowBand, _lowMidBand);
         _midBandsFilter.processSample(ch, _lowMidBand, _lowMidBand, _midBand);
         _highBandsFilter.processSample(ch, _midBand, _midBand, _highBand);
@@ -56,9 +52,9 @@ public:
 private:
     
     // Member variables
-    juce::SmoothedValue<float> _cutoff1;
-    juce::SmoothedValue<float> _cutoff2;
-    juce::SmoothedValue<float> _cutoff3;
+    float _cutoff1;
+    float _cutoff2;
+    float _cutoff3;
     float _currentSampleRate;
     bool _band1 = true;
     bool _band2 = true;

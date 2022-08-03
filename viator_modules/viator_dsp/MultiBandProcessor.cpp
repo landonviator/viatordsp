@@ -27,12 +27,6 @@ void viator_dsp::MultiBandProcessor<SampleType>::reset() noexcept
 {
     if (_currentSampleRate > 0)
     {
-        _cutoff1.reset(_currentSampleRate, 0.02);
-        _cutoff1.setTargetValue(100.0);
-        _cutoff2.reset(_currentSampleRate, 0.02);
-        _cutoff2.setTargetValue(500.0);
-        _cutoff3.reset(_currentSampleRate, 0.02);
-        _cutoff3.setTargetValue(5000.0);
     }
 }
 
@@ -63,19 +57,22 @@ void viator_dsp::MultiBandProcessor<SampleType>::toggleBand4(bool bandOn)
 template <typename SampleType>
 void viator_dsp::MultiBandProcessor<SampleType>::setLowCutoff(SampleType newCutoff)
 {
-    _cutoff1.setTargetValue(newCutoff);
+    _cutoff1 = newCutoff;
+    _lowBandsFilter.setCutoffFrequency(_cutoff1);
 }
 
 template <typename SampleType>
 void viator_dsp::MultiBandProcessor<SampleType>::setMidCutoff(SampleType newCutoff)
 {
-    _cutoff2.setTargetValue(newCutoff);
+    _cutoff2 = newCutoff;
+    _midBandsFilter.setCutoffFrequency(_cutoff2);
 }
 
 template <typename SampleType>
 void viator_dsp::MultiBandProcessor<SampleType>::setHighCutoff(SampleType newCutoff)
 {
-    _cutoff3.setTargetValue(newCutoff);
+    _cutoff3 = newCutoff;
+    _highBandsFilter.setCutoffFrequency(_cutoff3);
 }
 
 template class viator_dsp::MultiBandProcessor<float>;

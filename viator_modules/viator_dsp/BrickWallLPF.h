@@ -41,9 +41,6 @@ public:
     
     SampleType processSample(SampleType input, int channel)
     {
-        _lpfSignalLeftCoefficientsArray = juce::dsp::FilterDesign<float>::designIIRLowpassHighOrderButterworthMethod (_cutoff.getNextValue(), _sampleRate, 6);
-        _lpfSignalRightCoefficientsArray = juce::dsp::FilterDesign<float>::designIIRLowpassHighOrderButterworthMethod (_cutoff.getNextValue(), _sampleRate, 6);
-        
         if (channel == 0)
         {
             float leftSignal;
@@ -82,8 +79,6 @@ private:
     juce::ReferenceCountedArray<juce::dsp::IIR::Coefficients<float>> _lpfSignalLeftCoefficientsArray;
     juce::ReferenceCountedArray<juce::dsp::IIR::Coefficients<float>> _lpfSignalRightCoefficientsArray;
     float _cutoffMult = 0.45;
-    
-    juce::SmoothedValue<float> _cutoff;
 };
 }
 

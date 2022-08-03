@@ -9,7 +9,6 @@ template <typename SampleType>
 void viator_dsp::BrickWallLPF<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcept
 {
     _sampleRate = spec.sampleRate;
-    _cutoff.setTargetValue(_sampleRate * _cutoffMult);
     
     // Aliasing filters
     //each L/R pair is 12dB/oct
@@ -43,7 +42,8 @@ void viator_dsp::BrickWallLPF<SampleType>::prepare(const juce::dsp::ProcessSpec&
 template <typename SampleType>
 void viator_dsp::BrickWallLPF<SampleType>::setCutoff(SampleType cutoff)
 {
-    _cutoff.setTargetValue(cutoff);
+    _lpfSignalLeftCoefficientsArray = juce::dsp::FilterDesign<float>::designIIRLowpassHighOrderButterworthMethod (cutoff, _sampleRate, 6);
+    _lpfSignalRightCoefficientsArray = juce::dsp::FilterDesign<float>::designIIRLowpassHighOrderButterworthMethod (cutoff, _sampleRate, 6);
 }
 
 template class viator_dsp::BrickWallLPF<float>;
