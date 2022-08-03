@@ -1,5 +1,5 @@
-#ifndef BitCrusher_hpp
-#define BitCrusher_hpp
+#ifndef BitCrusher_h
+#define BitCrusher_h
 
 #include "../Common/Common.h"
 
