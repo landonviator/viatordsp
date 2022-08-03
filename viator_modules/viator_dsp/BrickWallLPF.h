@@ -5,7 +5,6 @@
 
 namespace viator_dsp
 {
-template <typename SampleType>
 class BrickWallLPF
 {
 public:
@@ -14,71 +13,74 @@ public:
     
     void prepare(const juce::dsp::ProcessSpec& spec) noexcept;
     
-    void processBuffer(juce::AudioBuffer<float>& buffer)
+    template <typename SampleType>
+    auto prepareChannelPointers (const juce::dsp::AudioBlock<SampleType>& block)
     {
-        auto channelBuffers = buffer.getArrayOfWritePointers();
-            
-        for (auto sample {0}; sample < buffer.getNumSamples(); sample++)
-        {
-            for (auto channel {0}; channel < buffer.getNumChannels(); channel++)
-            {
-                if (channel == 0)
-                {
-                    channelBuffers[channel][sample] = _lpfSignalLeft1.processSample(channelBuffers[channel][sample]);
-                    channelBuffers[channel][sample] = _lpfSignalLeft2.processSample(channelBuffers[channel][sample]);
-                    channelBuffers[channel][sample] = _lpfSignalLeft3.processSample(channelBuffers[channel][sample]);
-                }
-
-                if (channel == 1)
-                {
-                    channelBuffers[channel][sample] = _lpfSignalRight1.processSample(channelBuffers[channel][sample]);
-                    channelBuffers[channel][sample] = _lpfSignalRight2.processSample(channelBuffers[channel][sample]);
-                    channelBuffers[channel][sample] = _lpfSignalRight3.processSample(channelBuffers[channel][sample]);
-                }
-            }
-        }
-    }
-    
-    SampleType processSample(SampleType input, int channel)
-    {
-        if (channel == 0)
-        {
-            float leftSignal;
-            leftSignal = _lpfSignalLeft1.processSample(input);
-            leftSignal = _lpfSignalLeft2.processSample(leftSignal);
-            leftSignal = _lpfSignalLeft3.processSample(leftSignal);
-            return leftSignal;
-        }
-
-        else if (channel == 1)
-        {
-            float rightSignal;
-            rightSignal = _lpfSignalRight1.processSample(input);
-            rightSignal = _lpfSignalRight2.processSample(rightSignal);
-            rightSignal = _lpfSignalRight3.processSample(rightSignal);
-            return rightSignal;
-        }
+        std::array<SampleType*, registerSize> result {};
         
-        else
-        {
-            return input;
-        }
+        for (size_t ch = 0; ch < result.size(); ++ch)
+            result[ch] = (ch < block.getNumChannels() ? block.getChannelPointer (ch) : zero.getChannelPointer (ch));
+        
+        return result;
     }
     
-    void setCutoff(SampleType cutoff);
+    void process(const juce::dsp::ProcessContextReplacing<float> &context)
+    {
+        jassert (context.getInputBlock().getNumSamples()  == context.getOutputBlock().getNumSamples());
+        jassert (context.getInputBlock().getNumChannels() == context.getOutputBlock().getNumChannels());
+         
+        const auto& input  = context.getInputBlock(); // [9]
+        const auto numSamples = (int) input.getNumSamples();
+         
+        auto inChannels = prepareChannelPointers (input); // [10]
+         
+        using Format = juce::AudioData::Format<juce::AudioData::Float32, juce::AudioData::NativeEndian>;
+         
+        juce::AudioData::interleaveSamples (juce::AudioData::NonInterleavedSource<Format> { inChannels.data(),                                 registerSize, },
+                                            juce::AudioData::InterleavedDest<Format>      { toBasePointer (interleaved.getChannelPointer (0)), registerSize },
+                                              numSamples); // [11]
+         
+        _lpfSignalLeft1->process (juce::dsp::ProcessContextReplacing<juce::dsp::SIMDRegister<float>> (interleaved));
+        _lpfSignalLeft2->process (juce::dsp::ProcessContextReplacing<juce::dsp::SIMDRegister<float>> (interleaved));
+        _lpfSignalLeft3->process (juce::dsp::ProcessContextReplacing<juce::dsp::SIMDRegister<float>> (interleaved));
+        _lpfSignalRight1->process (juce::dsp::ProcessContextReplacing<juce::dsp::SIMDRegister<float>> (interleaved));
+        _lpfSignalRight2->process (juce::dsp::ProcessContextReplacing<juce::dsp::SIMDRegister<float>> (interleaved));
+        _lpfSignalRight3->process (juce::dsp::ProcessContextReplacing<juce::dsp::SIMDRegister<float>> (interleaved));
+         
+        auto outChannels = prepareChannelPointers (context.getOutputBlock()); // [13]
+         
+        juce::AudioData::deinterleaveSamples (juce::AudioData::InterleavedSource<Format>  { toBasePointer (interleaved.getChannelPointer (0)), registerSize },
+                                              juce::AudioData::NonInterleavedDest<Format> { outChannels.data(),                                registerSize },
+                                                numSamples); // [14]
+    }
+    
+    
+    void setCutoff(float cutoff);
     
 private:
     double _lpfCutoffFrequency;
     float _sampleRate;
-    juce::dsp::IIR::Filter<float> _lpfSignalLeft1;
-    juce::dsp::IIR::Filter<float> _lpfSignalLeft2;
-    juce::dsp::IIR::Filter<float> _lpfSignalLeft3;
-    juce::dsp::IIR::Filter<float> _lpfSignalRight1;
-    juce::dsp::IIR::Filter<float> _lpfSignalRight2;
-    juce::dsp::IIR::Filter<float> _lpfSignalRight3;
-    juce::ReferenceCountedArray<juce::dsp::IIR::Coefficients<float>> _lpfSignalLeftCoefficientsArray;
-    juce::ReferenceCountedArray<juce::dsp::IIR::Coefficients<float>> _lpfSignalRightCoefficientsArray;
+    std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>> _lpfSignalLeft1;
+    std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>> _lpfSignalLeft2;
+    std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>> _lpfSignalLeft3;
+    std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>> _lpfSignalRight1;
+    std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>> _lpfSignalRight2;
+    std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>> _lpfSignalRight3;
+    juce::dsp::IIR::Coefficients<float>::Ptr _lpfSignalLeftCoefficientsArray;
+    juce::dsp::IIR::Coefficients<float>::Ptr _lpfSignalRightCoefficientsArray;
     float _cutoffMult = 0.45;
+    
+    juce::dsp::AudioBlock<juce::dsp::SIMDRegister<float>> interleaved;
+    juce::dsp::AudioBlock<float> zero;
+    juce::HeapBlock<char> interleavedBlockData, zeroData;
+    
+    template <typename T>
+    static T* toBasePointer (juce::dsp::SIMDRegister<T>* r) noexcept
+    {
+        return reinterpret_cast<T*> (r);
+    }
+    
+    static const auto registerSize = juce::dsp::SIMDRegister<float>::size();
 };
 }
 
