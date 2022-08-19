@@ -8,6 +8,8 @@ viator_gui::ToggleButton::ToggleButton(bool useLabel, juce::String labelText, bo
     _labelText = labelText;
     
     setImages(false, true, true, juce::ImageCache::getFromMemory(BinaryData::button_middle_off_png, BinaryData::button_middle_off_pngSize), 1.0f, juce::Colours::transparentBlack, juce::ImageCache::getFromMemory(BinaryData::button_middle_off_png, BinaryData::button_middle_off_pngSize), 0.8f, juce::Colours::transparentBlack, juce::ImageCache::getFromMemory(BinaryData::button_middle_on_png, BinaryData::button_middle_on_pngSize), 1.0f, juce::Colours::transparentBlack);
+    
+    setColour(juce::ToggleButton::ColourIds::tickDisabledColourId, juce::Colours::black);
 }
 
 void viator_gui::ToggleButton::paint(juce::Graphics& g)

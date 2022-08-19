@@ -37,8 +37,3 @@ void viator_dsp::BrickWallLPF::prepare(const juce::dsp::ProcessSpec& spec) noexc
     _lpfSignalRight3->prepare(monoSpec);
 }
 
-void viator_dsp::BrickWallLPF::setCutoff(float cutoff)
-{
-    _lpfSignalLeftCoefficientsArray = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, cutoff);
-    _lpfSignalRightCoefficientsArray = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, cutoff);
-}

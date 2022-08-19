@@ -1,10 +1,11 @@
 #include "FilmStripKnob.h"
 
-viator_gui::FilmStripKnob::FilmStripKnob(int knobType, const juce::String labelSuffix, double rangeMin, double rangeMax)
+viator_gui::FilmStripKnob::FilmStripKnob(int knobType, const juce::String labelSuffix, double rangeMin, double rangeMax, bool isInt)
 : _knobType(knobType)
 {
     setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     setRange(rangeMin, rangeMax, 0.01);
+    _isInt = isInt;
     
     switch (_knobType)
     {
@@ -34,10 +35,10 @@ viator_gui::FilmStripKnob::FilmStripKnob(int knobType, const juce::String labelS
     
     /** Text Box Label*/
     addAndMakeVisible(knobLabel);
-    knobLabel.setText(juce::String (getValue(), 2) + labelSuffix, juce::dontSendNotification);
+    knobLabel.setText(juce::String (getValue(), _isInt ? 0 : 2) + labelSuffix, juce::dontSendNotification);
     onValueChange = [this, labelSuffix]()
     {
-        knobLabel.setText(juce::String (getValue(), 2) + labelSuffix, juce::dontSendNotification);
+        knobLabel.setText(juce::String (getValue(), _isInt ? 0 : 2) + labelSuffix, juce::dontSendNotification);
     };
 }
 
