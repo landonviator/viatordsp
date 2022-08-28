@@ -10,13 +10,9 @@ The gui namespace contains stylized versions of JUCE's built-in widgets (like sl
 ## DISCLAIMER
 I unfortunately cannot give you permission to use the gui objects that have images attached to them per the license of the images. You can however copy the logic and apply your own images to them!
 
-<br>Here is a plugin using those stylized components.<br><br>
-![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/btclipper.png)
-
 ## Installation
 Clone the [repo](https://github.com/landonviator/viatordsp) viatordsp or download it as a zip. Cloning it would be better, since when there is an update, you simply pull the changes without needing to download another version of the zip file.  
-<br>Just include the viator_modules folder in the Projucer's module window like the inamge below and you're all set! <br><br>
-![Pic](https://github.com/landonviator/viatordsp/blob/main/Assets/projucer.png)
+<br>Just include the viator_modules folder in the Projucer's module window.
 
 ## Use
 To use viatordsp, there are three namespaces: 
@@ -45,7 +41,7 @@ viatordsp is licensed under the GNU General Public License (GPLv3) agreement.
 If you like my work and would like to support me creating more audio applications, check out my [Patreon](https://www.patreon.com/ViatorDSP) where you can donate and download all of my current plugins!
 
 ## Online Presence:
-- I stream JUCE development on [Twitch](https://www.twitch.tv/dr_bruisin) & [YouTube](https://www.youtube.com/channel/UCwEc_CsAk3ky7sX_yg6bSSg) Monday, Wednesday, and Friday at 5:30 CST!
+- I stream JUCE development on [Twitch](https://www.twitch.tv/dr_bruisin) & [YouTube](https://www.youtube.com/channel/UCwEc_CsAk3ky7sX_yg6bSSg) Tuesdays and Thursdays!
 - [Patreon](https://www.patreon.com/ViatorDSP) <br>
 - [Instagram](https://www.instagram.com/viatordsp/) <br>
 - [Facebook](https://www.facebook.com/Dr-Bruisin-109544051551604)<br>
