@@ -16,10 +16,8 @@ SettingsPage::SettingsPage(LVTemplateAudioProcessor& p) : audioProcessor(p)
 {
     setMenuProps(m_themeMenu);
     setThemeMenuProps();
-    setGlowSliderProps();
     
     m_themeGroup.setText("Plugin Color Themes");
-    _uiTypeGroup.setText("GUI Style");
     
     /** Buttons */
     for (auto& button : buttons)
@@ -27,28 +25,11 @@ SettingsPage::SettingsPage(LVTemplateAudioProcessor& p) : audioProcessor(p)
         setTextButtonProps(*button);
     }
     
-    _skueomorphic.setToggleState(true, juce::dontSendNotification);
-    _skueomorphic.onStateChange = [this]()
-    {
-        getParentComponent()->resized();
-    };
-    
-//    _flat.onStateChange = [this]()
-//    {
-//        getParentComponent()->resized();
-//    };
-    
     /** Groups */
     for (auto& group : groups)
     {
         setGroupProps(*group);
     }
-    
-    _skueomorphic.setButtonText("Real");
-    _skueomorphic.setRadioGroupId(1);
-    
-    _flat.setButtonText("Flat");
-    _flat.setRadioGroupId(1);
 }
 
 SettingsPage::~SettingsPage()
@@ -71,26 +52,15 @@ void SettingsPage::resized()
     /** Glow Toggle */
     const auto contentX = getWidth() * 0.1;
     const auto contentY = getHeight() * 0.06;
-    m_glowToggle.setBounds(contentX * 1.47, contentY * 1.6, getWidth() * 0.2, getHeight() * 0.05);
-    m_glowSlider.setBounds(m_glowToggle.getX() + m_glowToggle.getWidth() * 1.34, m_glowToggle.getY(), m_glowToggle.getWidth() * 2.3, m_glowToggle.getHeight());
     
     /** Theme Menu and Gradient Toggle */
-    const auto buttonX = m_glowToggle.getX();
-    const auto buttonY = m_glowToggle.getY();
-    const auto buttonWidth = m_glowToggle.getWidth();
-    const auto buttonHeight = m_glowToggle.getHeight();
+    const auto buttonX = contentX * 1.47;
+    const auto buttonY = contentY * 1.6;
+    const auto buttonWidth = getWidth() * 0.2;
+    const auto buttonHeight = getHeight() * 0.05;
     m_gradientToggle.setBounds(buttonX, buttonY + buttonHeight * 1.5, buttonWidth, buttonHeight);
-    m_themeMenu.setBounds(m_glowToggle.getX() + m_glowToggle.getWidth() * 1.55, m_gradientToggle.getY(), m_glowToggle.getWidth() * 2.0, m_glowToggle.getHeight());
-    m_themeGroup.setBounds(m_glowToggle.getX() * 0.57, m_glowToggle.getY() * 0.65, m_themeMenu.getX() + m_themeMenu.getWidth(), m_gradientToggle.getY() + m_gradientToggle.getHeight() * 0.38);
-    
-    /** UI Type */
-    _uiTypeGroup.setBounds(m_themeGroup.getX(),
-                           m_themeGroup.getY() + m_themeGroup.getHeight() + buttonHeight,
-                           m_themeGroup.getWidth() * 0.68,
-                           m_themeGroup.getHeight() * 0.75);
-    
-    _skueomorphic.setBounds(m_glowToggle.getX(), _uiTypeGroup.getY() + _uiTypeGroup.getHeight() * 0.36, buttonWidth, buttonHeight);
-    _flat.setBounds(_skueomorphic.getX() + _skueomorphic.getWidth() * 1.28, _skueomorphic.getY(), buttonWidth, buttonHeight);
+    m_themeMenu.setBounds(buttonX + buttonWidth * 1.55, m_gradientToggle.getY(), buttonWidth * 2.0, buttonHeight);
+    m_themeGroup.setBounds(buttonX * 0.57, buttonY * 0.65, m_themeMenu.getX() + m_themeMenu.getWidth(), m_gradientToggle.getY() + m_gradientToggle.getHeight() * 0.38);
     
     /** Social Toggles */
     m_discord.setBounds(buttonX, buttonY * 9.0, buttonWidth, buttonHeight);
@@ -108,26 +78,6 @@ void SettingsPage::setPluginTheme(Theme newTheme)
     m_pluginTheme = newTheme;
 }
 
-bool SettingsPage::getGlowState()
-{
-    return m_glowToggle.getToggleState();
-}
-
-bool SettingsPage::getGradientState()
-{
-    return m_gradientToggle.getToggleState();
-}
-
-bool SettingsPage::getUIType()
-{
-    return _skueomorphic.getToggleState();
-}
-
-float SettingsPage::getCurrentGlowValue()
-{
-    return _currentGlowValue;
-}
-
 void SettingsPage::setTextButtonProps(juce::TextButton &button)
 {
     addAndMakeVisible(button);
@@ -139,11 +89,15 @@ void SettingsPage::setTextButtonProps(juce::TextButton &button)
     button.setColour(juce::TextButton::ColourIds::buttonOnColourId, m_mainCompColor.withAlpha(0.5f));
     
     /** Individual Button Props */
-    setGlowButtonProps();
     setGradientToggleProps();
     setDiscordBtnProps();
     setPatreonBtnProps();
     setTwitchBtnProps();
+}
+
+bool SettingsPage::getGradientState()
+{
+    return m_gradientToggle.getToggleState();
 }
 
 void SettingsPage::setDiscordBtnProps()
@@ -188,40 +142,6 @@ void SettingsPage::setTwitchBtnProps()
     m_twitch.onClick = [this]()
     {
         m_twitchLink.triggerClick();
-    };
-}
-
-void SettingsPage::setGlowButtonProps()
-{
-    m_glowToggle.setButtonText("Glow");
-    m_glowToggle.setToggleState(audioProcessor.variableTree.getProperty("glowtoggle"), juce::dontSendNotification);
-    m_glowToggle.onClick = [this]()
-    {
-        audioProcessor.variableTree.setProperty("glowtoggle",
-                                                m_glowToggle.getToggleState(), nullptr);
-        getParentComponent()->repaint();
-    };
-}
-
-void SettingsPage::setGlowSliderProps()
-{
-    addAndMakeVisible(m_glowSlider);
-    m_glowSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
-    m_glowSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 64, 32);
-    m_glowSlider.setColour(juce::Slider::ColourIds::trackColourId, juce::Colour::fromRGB(53, 55, 70));
-    m_glowSlider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
-    m_glowSlider.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke);
-    m_glowSlider.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colour::fromRGB(53, 55, 70));
-    m_glowSlider.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::black);
-    m_glowSlider.setDoubleClickReturnValue(true, 1.0);
-    m_glowSlider.setRange(0.0, 1.0, 0.01);
-    m_glowSlider.setValue(audioProcessor.variableTree.getProperty("glowslider"));
-    
-    m_glowSlider.onValueChange = [this]()
-    {
-        _currentGlowValue = m_glowSlider.getValue();
-        audioProcessor.variableTree.setProperty("glowslider", m_glowSlider.getValue(), nullptr);
-        getParentComponent()->repaint();
     };
 }
 

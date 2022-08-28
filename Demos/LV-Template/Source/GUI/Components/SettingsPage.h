@@ -36,10 +36,7 @@ public:
         kDull
     };
     Theme getPluginTheme();
-    bool getGlowState();
     bool getGradientState();
-    float getCurrentGlowValue();
-    bool getUIType();
 
 private:
     
@@ -55,13 +52,6 @@ private:
     void setPluginTheme(Theme newTheme);
     
     /** =============== Buttons ===============*/
-    
-    // Glow
-    juce::TextButton m_glowToggle;
-    void setGlowButtonProps();
-    juce::Slider m_glowSlider;
-    void setGlowSliderProps();
-    float _currentGlowValue = 1.0;
     
     // Gradient
     juce::TextButton m_gradientToggle;
@@ -85,26 +75,19 @@ private:
     juce::HyperlinkButton m_twitchLink;
     juce::URL m_twitchUrl {"https://www.twitch.tv/dr_bruisin"};
     
-    // UI Style
-    juce::TextButton _skueomorphic;
-    juce::TextButton _flat;
-    
     void setTextButtonProps(juce::TextButton& button);
     
     std::vector<juce::TextButton*> buttons =
     {
-        &m_glowToggle, &m_gradientToggle,
-        &m_discord, &m_patreon, &m_twitch,
-        &_skueomorphic, &_flat
+        &m_gradientToggle, &m_discord, &m_patreon, &m_twitch
     };
     
     /** Groups */
     juce::GroupComponent m_themeGroup;
-    juce::GroupComponent _uiTypeGroup;
     void setGroupProps(juce::GroupComponent& group);
     std::vector<juce::GroupComponent*> groups =
     {
-        &m_themeGroup, &_uiTypeGroup
+        &m_themeGroup
     };
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsPage)

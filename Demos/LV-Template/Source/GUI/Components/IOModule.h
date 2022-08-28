@@ -42,17 +42,7 @@ private:
     viator_gui::ToggleButton _skeuHQToggle;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> _skeuPhaseToggleAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> _skeuHQToggleAttach;
-    void activateSkeuComps(bool shouldBeOn);
     void updateFlatColors();
-    
-    /** Flat */
-    viator_gui::Dial _flatInputDial;
-    viator_gui::Dial _flatOutputDial;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _flatInputAttach;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _flatOutputAttach;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> _flatPhaseToggleAttach;
-    viator_gui::PushButton _flatPhaseToggle;
-    void activateFlatComps(bool shouldBeOn);
     
     void updateSliderColors(viator_gui::Dial& slider);
     void updateToggleColors(viator_gui::ToggleButton& button);
