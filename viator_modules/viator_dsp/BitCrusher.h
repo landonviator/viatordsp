@@ -29,9 +29,6 @@ public:
                 
                 auto rateDivide = static_cast<int> (_resample.getNextValue());
                 
-                // Dry signal
-                float _drySignal = data[ch][sample];
-                
                 // Reduce bit depth
                 float totalQLevels = std::powf(2, _bitDepth.getNextValue());
                 

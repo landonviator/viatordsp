@@ -75,10 +75,28 @@ void IOModule::resized()
     const auto skeuDialSize = getWidth() * 0.55;
     const auto toggleX = getWidth() * 0.15;
         
-    _inputDial.setBounds(dialX, dialY, skeuDialSize, skeuDialSize);
-    _outputDial.setBounds(dialX, _inputDial.getY() + _inputDial.getHeight() * ySkeuDialSpace, skeuDialSize, skeuDialSize);
-    _skeuPhaseToggle.setBounds(toggleX, _outputDial.getY() + _outputDial.getHeight() * 1.1, toggleSize, toggleSize);
-    _skeuHQToggle.setBounds(_skeuPhaseToggle.getX() + _skeuPhaseToggle.getWidth(), _skeuPhaseToggle.getY(), toggleSize, toggleSize);
+    _inputDial.setBounds(dialX,
+                         dialY,
+                         skeuDialSize,
+                         skeuDialSize);
+    const auto inputSpace = _inputDial.getY() + _inputDial.getHeight();
+    
+    _outputDial.setBounds(dialX,
+                          inputSpace * ySkeuDialSpace,
+                          skeuDialSize,
+                          skeuDialSize);
+    const auto outputSpace = _outputDial.getY() + _outputDial.getHeight();
+    
+    _skeuPhaseToggle.setBounds(toggleX,
+                               outputSpace * 1.1,
+                               toggleSize,
+                               toggleSize);
+    const auto hqSpace = _skeuPhaseToggle.getX() + _skeuPhaseToggle.getWidth();
+    
+    _skeuHQToggle.setBounds(hqSpace,
+                            _skeuPhaseToggle.getY(),
+                            toggleSize,
+                            toggleSize);
 }
 
 void IOModule::updateToggleColors(viator_gui::ToggleButton& button)
