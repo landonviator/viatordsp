@@ -15,7 +15,7 @@
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" appSandbox="1" appSandboxOptions="com.apple.security.files.user-selected.read-write">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" targetName="IRLoader-Demo"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="IRLoader-Demo"/>

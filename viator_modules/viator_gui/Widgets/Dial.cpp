@@ -63,11 +63,11 @@ void viator_gui::Dial::initProps(juce::String suffix,
     setTextBoxStyle(juce::Slider::TextBoxBelow, false, 128, 32);
     setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0f));
     setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::black.brighter(0.1));
-    setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::whitesmoke.darker(1.5f));
+    setColour(juce::Slider::ColourIds::trackColourId, juce::Colour::fromRGB(127, 127, 127));
     setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::black.withAlpha(0.0f));
     setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::whitesmoke.darker(0.5f));
     setColour(juce::Slider::ColourIds::thumbColourId, juce::Colour::fromFloatRGBA(0.392f, 0.584f, 0.929f, 1.0f).darker(1.0f));
-    setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::whitesmoke.darker(1.5f));
+    setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colour::fromRGB(181, 181, 181));
     setRange(rangeStart, rangeEnd, intervalValue);
     setDoubleClickReturnValue(true, returnValue);
     setTextValueSuffix(suffix);

@@ -191,8 +191,8 @@ void juce::FullDialLAF::drawRotarySlider
     /** Define color variables for customization. */
     const auto outlineColor  = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     const auto fillColor     = slider.findColour(Slider::rotarySliderFillColourId);
-    const auto mainColor     = slider.findColour(Slider::thumbColourId).withAlpha(0.5f);
-    const auto brighterColor = slider.findColour(Slider::thumbColourId).withAlpha(0.5f).brighter(0.4f);
+    const auto mainColor     = slider.findColour(Slider::thumbColourId);
+    const auto brighterColor = slider.findColour(Slider::thumbColourId).brighter(0.1f);
     const auto trackColor    = slider.findColour(juce::Slider::ColourIds::trackColourId);
     const auto dialOutlineColor = slider.findColour (juce::Slider::backgroundColourId);
 
@@ -274,7 +274,7 @@ void juce::FullDialLAF::drawRotarySlider
     //dialRadius = std:: max (dialRadius - 4.0f, 10.0f);
     
     /** Dial outline color*/
-    g.setColour (dialOutlineColor);
+    g.setColour (trackColor);
     
     auto scale = 2.0f;
     

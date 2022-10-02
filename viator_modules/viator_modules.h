@@ -43,6 +43,7 @@
 #include "viator_gui/Widgets/Menu_Styles.h"
 #include "viator_gui/Widgets/FilmStripKnob.h"
 #include "viator_gui/Widgets/FilmStripFader.h"
+#include "viator_gui/LAF/TextButtonLAF.h"
 
 /** Viator Utils Headers*/
 #include "viator_utils/utils.h"

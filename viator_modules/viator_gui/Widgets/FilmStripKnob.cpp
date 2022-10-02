@@ -4,7 +4,7 @@ viator_gui::FilmStripKnob::FilmStripKnob(int knobType, const juce::String labelS
 : _knobType(knobType)
 {
     setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
-    setRange(rangeMin, rangeMax, 0.01);
+    setRange(rangeMin, rangeMax, isInt ? 1.0 : 0.01);
     _isInt = isInt;
     
     switch (_knobType)

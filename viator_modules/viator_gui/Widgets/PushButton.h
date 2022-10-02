@@ -9,6 +9,7 @@
 */
 
 #pragma once
+#include "../LAF/TextButtonLAF.h"
 
 namespace viator_gui
 {
@@ -21,11 +22,11 @@ namespace viator_gui
         PushButton()
         {
             setClickingTogglesState(true);
-            setColour(0x1000100, juce::Colours::black.brighter(0.1));
-            setColour(0x1000c00, juce::Colours::whitesmoke.withAlpha(0.06f));
-            setColour(0x1000101, juce::Colours::lightgoldenrodyellow.darker(0.2f));
-            setColour(0x1000102, juce::Colours::whitesmoke.withAlpha(0.5f));
-            setColour(0x1000103, juce::Colours::black.brighter(0.1).withAlpha(0.85f));
+            setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(24, 24, 24));
+            setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(50, 50, 50));
+            setColour(juce::TextButton::ColourIds::textColourOnId, juce::Colour::fromRGB(90, 182, 223));
+            setColour(juce::TextButton::ColourIds::textColourOffId, juce::Colour::fromRGB(90, 182, 223));
+            setColour(juce::ComboBox::ColourIds::outlineColourId, juce::Colour::fromRGB(54, 54, 54));
             setLookAndFeel(&customButton);
         }
         
@@ -35,7 +36,6 @@ namespace viator_gui
         }
         
     private:
-        juce::CustomPushButton customButton;
-        
+        juce::viator_gui::CustomTextButton customButton;
     };
 }
