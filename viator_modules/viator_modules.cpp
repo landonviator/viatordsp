@@ -30,4 +30,5 @@
 #include "viator_gui/Widgets/Menu_Styles.cpp"
 #include "viator_gui/Widgets/FilmStripKnob.cpp"
 #include "viator_gui/Widgets/FilmStripFader.cpp"
+#include "viator_gui/Widgets/WindowSlider.cpp"
 #include "viator_gui/LAF/TextButtonLAF.cpp"

@@ -249,4 +249,25 @@ public:
     {
         void positionComboBoxText (ComboBox& box, Label& label) override;
     };
+
+    /** Fader Style*/
+    class WindowSliderLAF : public LookAndFeel_V4
+    {
+    public:
+        
+        void drawLinearSlider
+        (
+            Graphics& g,
+            int x,
+            int y,
+            int width,
+            int height,
+            float sliderPos,
+            float minSliderPos,
+            float maxSliderPos,
+            const Slider::SliderStyle style,
+            Slider& slider
+         ) override;
+        
+    };
 }
