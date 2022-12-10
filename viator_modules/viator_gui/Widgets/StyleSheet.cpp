@@ -963,9 +963,9 @@ void juce::WindowSliderLAF::drawLinearSlider
             if (slider.isHorizontal())
             {
                 g.setColour(juce::Colours::purple);
-                g.drawLine(minSliderPos, 0, minSliderPos, height, 4.0f);
+                g.drawLine(minSliderPos, 0, minSliderPos, height, 2.0f);
                 g.setColour(juce::Colours::blue);
-                g.drawLine(maxSliderPos, 0, maxSliderPos, height, 4.0f);
+                g.drawLine(maxSliderPos, 0, maxSliderPos, height, 2.0f);
             }
             else
             {

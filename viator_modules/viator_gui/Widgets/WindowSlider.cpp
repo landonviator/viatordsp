@@ -2,10 +2,6 @@
 
 viator_gui::WindowSlider::WindowSlider()
 {
-    setRange(20.0, 20000.0, 1.0);
-    //setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
-    //setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::transparentBlack);
-    
     _minPopup.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colours::whitesmoke.withAlpha(0.25f));
     _minPopup.setColour(juce::Label::ColourIds::textColourId, juce::Colour::fromRGB(107, 208, 234));
     _minPopup.setJustificationType(juce::Justification::centred);
