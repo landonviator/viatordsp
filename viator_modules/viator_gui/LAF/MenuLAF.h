@@ -1,15 +1,14 @@
 #pragma once
-#include <JuceHeader.h>
 
-namespace juce
+namespace viator_gui
 {
-    class CustomMenu : public LookAndFeel_V4
+    class CustomMenu : public juce::LookAndFeel_V4
     {
         public:
         CustomMenu();
         
-        void drawComboBox (Graphics& g, int width, int height, bool,
-                                           int, int, int, int, ComboBox& box);
+        void drawComboBox (juce::Graphics& g, int width, int height, bool,
+                                           int, int, int, int, juce::ComboBox& box);
     private:
     };
 }

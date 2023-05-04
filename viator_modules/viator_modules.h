@@ -28,23 +28,16 @@
 #include "viator_dsp/BrickWallLPF.h"
 
 /** Viator GUI Headers*/
-#include "viator_gui/Widgets/Toggle.h"
-#include "viator_gui/Widgets/ToggleButton.h"
 #include "viator_gui/Widgets/Dial.h"
 #include "viator_gui/Widgets/Fader.h"
-#include "viator_gui/Widgets/Border.h"
 #include "viator_gui/Widgets/Label.h"
-#include "viator_gui/Widgets/LEDButton.h"
-#include "viator_gui/Widgets/Menu.h"
-#include "viator_gui/Widgets/PushButton.h"
 #include "viator_gui/Widgets/NumberBox.h"
-#include "viator_gui/Widgets/PushButton.h"
 #include "viator_gui/Widgets/StyleSheet.h"
-#include "viator_gui/Widgets/Menu_Styles.h"
 #include "viator_gui/Widgets/FilmStripKnob.h"
-#include "viator_gui/Widgets/FilmStripFader.h"
-#include "viator_gui/Widgets/WindowSlider.h"
-#include "viator_gui/LAF/TextButtonLAF.h"
+#include "viator_gui/Widgets/Menu.h"
+
+/** Viator LAF Headers*/
+#include "viator_gui/LAF/MenuLAF.h"
 
 /** Viator Utils Headers*/
 #include "viator_utils/utils.h"
