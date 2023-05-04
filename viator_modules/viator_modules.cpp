@@ -29,3 +29,4 @@
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.cpp"
+#include "viator_gui/LAF/FaderLAF.cpp"

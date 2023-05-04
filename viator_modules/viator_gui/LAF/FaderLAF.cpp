@@ -1,38 +1,38 @@
 #include "FaderLAF.h"
 
-namespace juce
+namespace viator_gui
 {
     CustomFader::CustomFader()
     {
         
     }
 
-    void CustomFader::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
+    void CustomFader::drawLinearSlider (juce::Graphics& g, int x, int y, int width, int height,
                                            float sliderPos,
                                            float minSliderPos,
                                            float maxSliderPos,
-                                           const Slider::SliderStyle style, Slider& slider)
+                                           const juce::Slider::SliderStyle style, juce::Slider& slider)
     {
         _sliderWidth = width;
         
-        auto isThreeVal = (style == Slider::SliderStyle::ThreeValueVertical || style == Slider::SliderStyle::ThreeValueHorizontal);
+        auto isThreeVal = (style == juce::Slider::SliderStyle::ThreeValueVertical || style == juce::Slider::SliderStyle::ThreeValueHorizontal);
 
-        auto trackWidth = jmin (6.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
+        auto trackWidth = juce::jmin (6.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
 
-        Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
+        juce::Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
                                  slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
 
-        Point<float> endPoint (slider.isHorizontal() ? (float) (width + x) : startPoint.x,
+        juce::Point<float> endPoint (slider.isHorizontal() ? (float) (width + x) : startPoint.x,
                                slider.isHorizontal() ? startPoint.y : (float) y);
 
-        Path backgroundTrack;
+        juce::Path backgroundTrack;
         backgroundTrack.startNewSubPath (startPoint);
         backgroundTrack.lineTo (endPoint);
-        g.setColour (slider.findColour (Slider::backgroundColourId));
-        g.strokePath (backgroundTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
+        g.setColour (slider.findColour (juce::Slider::backgroundColourId));
+        g.strokePath (backgroundTrack, { trackWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
 
-        Path valueTrack;
-        Point<float> minPoint, maxPoint, thumbPoint;
+        juce::Path valueTrack;
+        juce::Point<float> minPoint, maxPoint, thumbPoint;
 
         auto kx = slider.isHorizontal() ? sliderPos : ((float) x + (float) width * 0.5f);
         auto ky = slider.isHorizontal() ? ((float) y + (float) height * 0.5f) : sliderPos;
@@ -44,12 +44,11 @@ namespace juce
 
         valueTrack.startNewSubPath (minPoint);
         valueTrack.lineTo (isThreeVal ? thumbPoint : maxPoint);
-        g.setColour (slider.findColour (Slider::trackColourId));
-        g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
+        g.setColour (slider.findColour (juce::Slider::trackColourId));
+        g.strokePath (valueTrack, { trackWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
 
-        g.setColour (slider.findColour (Slider::thumbColourId));
-        g.fillRoundedRectangle(Rectangle<float> (static_cast<float> (thumbWidth * 3.0), static_cast<float> (thumbWidth * 1.25)).withCentre(maxPoint), 3.0f);
-        //g.fillEllipse (Rectangle<float> (static_cast<float> (thumbWidth), static_cast<float> (thumbWidth)).withCentre (isThreeVal ? thumbPoint : maxPoint));
+        g.setColour (slider.findColour (juce::Slider::thumbColourId));
+        g.fillRoundedRectangle(juce::Rectangle<float> (static_cast<float> (thumbWidth * 3.0), static_cast<float> (thumbWidth * 1.25)).withCentre(maxPoint), 3.0f);
     }
 
     void CustomFader::drawLabel (juce::Graphics& g, juce::Label& label)

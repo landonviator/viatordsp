@@ -1,19 +1,17 @@
 #pragma once
-#include <JuceHeader.h>
-#include "../Globals/Globals.h"
 
-namespace juce
+namespace viator_gui
 {
     class CustomFader : public juce::LookAndFeel_V4
     {
         public:
         CustomFader();
         
-        void drawLinearSlider (Graphics& g, int x, int y, int width, int height,
+        void drawLinearSlider (juce::Graphics& g, int x, int y, int width, int height,
                                                float sliderPos,
                                                float minSliderPos,
                                                float maxSliderPos,
-                                            const Slider::SliderStyle style, Slider& slider) override;
+                                            const juce::Slider::SliderStyle style, juce::Slider& slider) override;
         void drawLabel (juce::Graphics& g, juce::Label& label) override;
         
         private:
