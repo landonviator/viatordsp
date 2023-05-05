@@ -39,16 +39,34 @@ namespace viator_gui
 
         minPoint = startPoint;
         maxPoint = { kx, ky };
-
-        auto thumbWidth = getSliderThumbRadius (slider);
-
+        
         valueTrack.startNewSubPath (minPoint);
         valueTrack.lineTo (isThreeVal ? thumbPoint : maxPoint);
         g.setColour (slider.findColour (juce::Slider::trackColourId));
         g.strokePath (valueTrack, { trackWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
 
-        g.setColour (slider.findColour (juce::Slider::thumbColourId));
-        g.fillRoundedRectangle(juce::Rectangle<float> (static_cast<float> (thumbWidth * 3.0), static_cast<float> (thumbWidth * 1.25)).withCentre(maxPoint), 3.0f);
+        auto thumbWidth = width * 0.45f;
+        
+        // Create a path for the thumb
+        juce::Path thumbPath;
+        thumbPath.addRoundedRectangle (-thumbWidth * 0.5f, -thumbWidth * 0.25f, thumbWidth, thumbWidth * 0.35, 2.0f);
+
+        // Calculate the bounds of the thumb
+        auto thumbBounds = thumbPath.getBounds().toFloat();
+        thumbBounds.setCentre (maxPoint);
+
+        // Fill the thumb path with a solid color
+        auto thumbColor = slider.findColour (juce::Slider::thumbColourId);
+        g.setColour (thumbColor);
+        g.fillPath (thumbPath, juce::AffineTransform::translation(maxPoint.x, maxPoint.y));
+
+        // Apply a gradient fill to the thumb path with a small height offset
+        g.setGradientFill(juce::ColourGradient::vertical(thumbColor,
+                                                         thumbBounds.getY() - 6.0f,
+                                                         thumbColor.darker(1.0),
+                                                         thumbBounds.getBottom() + 1.0f));
+        g.fillPath (thumbPath, juce::AffineTransform::translation(maxPoint.x, maxPoint.y));
+
     }
 
     void CustomFader::drawLabel (juce::Graphics& g, juce::Label& label)

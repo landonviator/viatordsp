@@ -13,9 +13,9 @@ Fader::Fader()
     setLookAndFeel(&_customFaderLAF);
     
     // Shadow
-    shadowProperties.radius = 6;
+    shadowProperties.radius = 5;
     shadowProperties.offset = juce::Point<int> (0, 0);
-    shadowProperties.colour = juce::Colours::black.withAlpha(0.5f);
+    shadowProperties.colour = juce::Colours::black.withAlpha(0.6f);
     dialShadow.setShadowProperties (shadowProperties);
 }
 
