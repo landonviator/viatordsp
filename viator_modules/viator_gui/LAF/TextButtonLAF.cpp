@@ -19,7 +19,7 @@
                                               .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f);
 
             if (shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted)
-                baseColour = baseColour.brighter (shouldDrawButtonAsDown ? 0.05f : 0.5f);
+                baseColour = baseColour.brighter (shouldDrawButtonAsDown ? 0.05f : 0.1f);
 
             g.setColour (baseColour);
             g.fillRoundedRectangle(bounds, cornerSize);
