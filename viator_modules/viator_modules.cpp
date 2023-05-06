@@ -25,6 +25,7 @@
 #include "viator_gui/Widgets/StyleSheet.cpp"
 #include "viator_gui/Widgets/FilmStripKnob.cpp"
 #include "viator_gui/Widgets/Menu.cpp"
+#include "viator_gui/Widgets/TextButton.cpp"
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.cpp"

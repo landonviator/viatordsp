@@ -1,5 +1,5 @@
 #pragma once
-#include <JuceHeader.h>
+#include "../LAF/SettingsLAF.h"
 
 namespace viator_gui
 {
@@ -14,7 +14,7 @@ namespace viator_gui
 
     private:
         const juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
-        juce::CustomTextButton _customLAF;
+        viator_gui::SettingsButton _customLAF;
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TextButton)
     };
 }

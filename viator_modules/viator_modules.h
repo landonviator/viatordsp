@@ -35,6 +35,7 @@
 #include "viator_gui/Widgets/StyleSheet.h"
 #include "viator_gui/Widgets/FilmStripKnob.h"
 #include "viator_gui/Widgets/Menu.h"
+#include "viator_gui/Widgets/TextButton.h"
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.h"
