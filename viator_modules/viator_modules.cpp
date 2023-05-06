@@ -31,3 +31,5 @@
 #include "viator_gui/LAF/FaderLAF.cpp"
 #include "viator_gui/LAF/DialLAF.cpp"
 #include "viator_gui/LAF/TextButtonLAF.cpp"
+#include "viator_gui/LAF/SettingsLAF.cpp"
+

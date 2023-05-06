@@ -1,15 +1,15 @@
 #include "TextButtonLAF.h"
 
-namespace juce
+namespace viator_gui
 {
-    CustomTextButton::CustomTextButton()
+    SettingsButton::SettingsButton()
     {
         
     }
 
-    void CustomTextButton::drawButtonBackground (Graphics& g,
-                                               Button& button,
-                                               const Colour& backgroundColour,
+    void SettingsButton::drawButtonBackground (juce::Graphics& g,
+                                               juce::Button& button,
+                                               const juce::Colour& backgroundColour,
                                                bool shouldDrawButtonAsHighlighted,
                                                bool shouldDrawButtonAsDown)
     {
@@ -18,21 +18,15 @@ namespace juce
         auto baseColour = backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
                                           .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f);
 
-        g.setColour (baseColour);
-        g.fillRoundedRectangle (bounds, cornerSize);
-
-        g.setColour (button.findColour (ComboBox::outlineColourId));
-        g.drawRoundedRectangle (bounds, cornerSize, 1.0f);
-        
         // Hover highlight
         if ((shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted))
         {
-            g.setColour (button.findColour (TextButton::textColourOnId).brighter(shouldDrawButtonAsDown ? 0.0f : 0.35f));
+            g.setColour (button.findColour (juce::TextButton::textColourOnId).brighter(shouldDrawButtonAsDown ? 0.0f : 0.35f));
         }
         
         else
         {
-            g.setColour (button.findColour (TextButton::textColourOnId));
+            g.setColour (button.findColour (juce::TextButton::textColourOnId));
         }
         
         // Wrench

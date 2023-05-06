@@ -1,15 +1,15 @@
 #pragma once
 #include <JuceHeader.h>
-namespace juce
+namespace viator_gui
 {
-    class CustomTextButton : public juce::LookAndFeel_V4
+    class SettingsButton : public juce::LookAndFeel_V4
     {
         public:
-        CustomTextButton();
+        SettingsButton();
         
-        void drawButtonBackground (Graphics& g,
-                                                   Button& button,
-                                                   const Colour& backgroundColour,
+        void drawButtonBackground (juce::Graphics& g,
+                                   juce::Button& button,
+                                                   const juce::Colour& backgroundColour,
                                                    bool shouldDrawButtonAsHighlighted,
                                    bool shouldDrawButtonAsDown) override;
         private:
