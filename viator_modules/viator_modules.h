@@ -39,6 +39,7 @@
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.h"
 #include "viator_gui/LAF/FaderLAF.h"
+#include "viator_gui/LAF/DialLAF.h"
 
 /** Viator Utils Headers*/
 #include "viator_utils/utils.h"

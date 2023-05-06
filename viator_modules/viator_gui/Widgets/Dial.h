@@ -1,5 +1,5 @@
 #pragma once
-#include "../Widgets/StyleSheet.h"
+#include "../LAF/DialLAF.h"
 #include "Label.h"
 
 namespace viator_gui
@@ -8,66 +8,24 @@ class Dial  : public juce::Slider
 {
 public:
     
-    /** Create an instance like this:
-     * viator_dsp::Dial myDial {" dB", 0.0, 10.0, 0.1, 0.0};
-     * " dB" is the text in the dial's number textbox
-     * 0.0 is the range start
-     * 10.0 is the range end
-     * 0.1 is the interval between each dial setting
-     * 0.0 is the number the dial is reset to when double clicked
-    */
     Dial ();
     ~Dial() override;
     
     void paint(juce::Graphics& g) override;
     void resized() override;
 
-    /** Set the dial style
-     * e.g. myDial.setDialStyle(viator_gui::Dial::DialStyle::kHardDial);
-    */
-    enum class DialStyle
-    {
-        kHardDial,
-        kFullDial,
-        kFullDialMirrow,
-        kAlphaDial,
-        kAbleDial
-    };
-    
-    void setDialStyle(DialStyle dialStyle);
-    
-    /** You need to call forceShadow() if you change a dial's color or style in any way, I'm not sure why but making this method fixed it
-     * e.g. 
-     * myDial.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::aliceblue);
-     * dial.setDialStyle(viator_gui::Dial::DialStyle::kFullDial);
-     * myDial.forceShadow();
-    */
-    void forceShadow();
-    
-    void updateLabelColor(juce::Colour newColor);
-    void updateShadowColor(juce::Colour newColor, float newAlpha);
-
 private:
     
-    //void mouseEnter (const juce::MouseEvent& event) override;
-    //void mouseExit (const juce::MouseEvent& event) override;
-    
-    void initProps(juce::String suffix,
-                   double rangeStart,
-                   double rangeEnd,
-                   double intervalValue,
-                   double returnValue);
+private:
     
     Slider dial;
-    juce::HardDialLAF hardDial;
-    juce::FullDialLAF fullDial;
-    juce::FullDialMirrowLAF fullDialMirrow;
-    juce::AlphaDialLAF alphaDial;
-    juce::CustomAbleDialLAF ableDial {false};
     
-    /** Shadow */
     juce::DropShadow shadowProperties;
     juce::DropShadowEffect dialShadow;
+    
+    viator_gui::CustomDial _customDial;
+    
+private:
     
 }; // class
 }// namespace viator_gui
