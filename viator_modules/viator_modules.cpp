@@ -24,10 +24,10 @@
 #include "viator_gui/Widgets/NumberBox.cpp"
 #include "viator_gui/Widgets/StyleSheet.cpp"
 #include "viator_gui/Widgets/FilmStripKnob.cpp"
-#include "viator_gui/LAF/TextButtonLAF.cpp"
 #include "viator_gui/Widgets/Menu.cpp"
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.cpp"
 #include "viator_gui/LAF/FaderLAF.cpp"
 #include "viator_gui/LAF/DialLAF.cpp"
+#include "viator_gui/LAF/TextButtonLAF.cpp"
