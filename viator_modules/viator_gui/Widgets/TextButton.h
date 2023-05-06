@@ -13,7 +13,6 @@ namespace viator_gui
         void resized() override;
 
     private:
-        const juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
         viator_gui::SettingsButton _customLAF;
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TextButton)
     };

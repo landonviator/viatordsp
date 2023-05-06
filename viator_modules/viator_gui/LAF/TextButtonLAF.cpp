@@ -19,10 +19,10 @@
                                               .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f);
 
             if (shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted)
-                baseColour = baseColour.contrasting (shouldDrawButtonAsDown ? 0.2f : 0.05f);
+                baseColour = baseColour.brighter (shouldDrawButtonAsDown ? 0.05f : 0.5f);
 
             g.setColour (baseColour);
-            g.fillRect(bounds);
+            g.fillRoundedRectangle(bounds, cornerSize);
 
             g.setColour (button.findColour (juce::ComboBox::outlineColourId));
             g.drawRoundedRectangle(bounds, cornerSize, 1.0f);

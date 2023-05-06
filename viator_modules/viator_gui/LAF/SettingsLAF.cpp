@@ -13,15 +13,12 @@ namespace viator_gui
                                                bool shouldDrawButtonAsHighlighted,
                                                bool shouldDrawButtonAsDown)
     {
-        auto cornerSize = 6.0f;
         auto bounds = button.getLocalBounds().toFloat().reduced (0.5f, 0.5f);
-        auto baseColour = backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
-                                          .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f);
 
         // Hover highlight
         if ((shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted))
         {
-            g.setColour (button.findColour (juce::TextButton::textColourOnId).brighter(shouldDrawButtonAsDown ? 0.0f : 0.35f));
+            g.setColour (button.findColour (juce::TextButton::textColourOnId).brighter(1.0f));
         }
         
         else
