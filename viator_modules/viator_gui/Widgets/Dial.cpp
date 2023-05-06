@@ -1,5 +1,27 @@
 #include "Dial.h"
 
+viator_gui::Dial::Dial()
+{
+    // Slider props
+    setRange(-15.0, 15.0, 0.1);
+    setTextBoxStyle(juce::Slider::TextBoxBelow, false, 64, 32);
+    setTextValueSuffix(" dB");
+    setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    setDoubleClickReturnValue(true, 0.0);
+    
+    // Shadow
+    shadowProperties.radius = 5;
+    shadowProperties.offset = juce::Point<int> (0, 0);
+    shadowProperties.colour = juce::Colours::black.withAlpha(0.6f);
+    dialShadow.setShadowProperties (shadowProperties);
+    //initShadows();
+}
+
+viator_gui::Dial::~Dial()
+{
+    setLookAndFeel(nullptr);
+}
+
 void viator_gui::Dial::setDialStyle(DialStyle dialStyle)
 {
     switch (dialStyle)
@@ -75,14 +97,6 @@ void viator_gui::Dial::initProps(juce::String suffix,
     setComponentEffect(&dialShadow);
 }
 
-void viator_gui::Dial::initShadows()
-{
-    shadowProperties.radius = 24;
-    shadowProperties.offset = juce::Point<int> (-1, 4);
-    shadowProperties.colour = juce::Colours::black.withAlpha(0.5f);
-    dialShadow.setShadowProperties (shadowProperties);
-}
-
 void viator_gui::Dial::updateLabelColor(juce::Colour newColor)
 {
     if (newColor == juce::Colours::black || newColor == juce::Colour::fromRGB(56, 72, 92))
@@ -114,6 +128,7 @@ void viator_gui::Dial::updateShadowColor(juce::Colour newColor, float newAlpha)
 
 void viator_gui::Dial::paint(juce::Graphics &g)
 {
+    setComponentEffect(&dialShadow);
     juce::Slider::paint(g);
 }
 

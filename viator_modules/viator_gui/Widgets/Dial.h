@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    Dial.h
-    Created: 20 Jul 2021 9:43:18pm
-    Author:  landon viator
-
-  ==============================================================================
-*/
-
 #pragma once
 #include "../Widgets/StyleSheet.h"
 #include "Label.h"
@@ -26,23 +16,8 @@ public:
      * 0.1 is the interval between each dial setting
      * 0.0 is the number the dial is reset to when double clicked
     */
-    Dial
-    (   juce::String suffix,
-        juce::String labelText,
-        double rangeStart,
-        double rangeEnd,
-        double intervalValue,
-        double returnValue
-    )
-    {
-        initShadows();
-        initProps(suffix, rangeStart, rangeEnd, intervalValue, returnValue);
-    }
-    
-    ~Dial() override
-    {
-        setLookAndFeel(nullptr);
-    }
+    Dial ();
+    ~Dial() override;
     
     void paint(juce::Graphics& g) override;
     void resized() override;
@@ -74,7 +49,6 @@ public:
 
 private:
     
-    /** Methods */
     //void mouseEnter (const juce::MouseEvent& event) override;
     //void mouseExit (const juce::MouseEvent& event) override;
     
@@ -84,10 +58,6 @@ private:
                    double intervalValue,
                    double returnValue);
     
-    /** Fader shadow */
-    void initShadows();
-    
-    /** Slider */
     Slider dial;
     juce::HardDialLAF hardDial;
     juce::FullDialLAF fullDial;
