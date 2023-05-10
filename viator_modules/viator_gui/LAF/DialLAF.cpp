@@ -25,12 +25,11 @@ void CustomDial::drawRotarySlider
     const auto fillColor     = slider.findColour(juce::Slider::rotarySliderFillColourId);
     const auto mainColor     = slider.findColour(juce::Slider::thumbColourId).withAlpha(0.5f);
     const auto brighterColor = slider.findColour(juce::Slider::thumbColourId).withAlpha(0.5f).brighter(0.4f);
-    const auto trackColor    = slider.findColour(juce::Slider::ColourIds::trackColourId);
     const auto dialOutlineColor = slider.findColour (juce::Slider::backgroundColourId);
 
     auto dialBounds = juce::Rectangle<int> (x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
-    auto fullRadius = juce::jmin (dialBounds.getWidth() / 1.95f, dialBounds.getHeight() / 1.95f);
+    auto fullRadius = juce::jmin (dialBounds.getWidth() / 2.0f, dialBounds.getHeight() / 2.0f);
     
     /** Dot color*/
     g.setColour (juce::Colours::whitesmoke.withAlpha(0.5f));
@@ -52,7 +51,7 @@ void CustomDial::drawRotarySlider
         g.fillEllipse (point.getX() - 3, point.getY() - 3, dotSize, dotSize);
     }
         
-    fullRadius -= 10.0f;
+    fullRadius -= width / 14.5;
 
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     
@@ -88,7 +87,7 @@ void CustomDial::drawRotarySlider
                 brighterColor,
                 centre.getX() + lineWidth * 0.9f,
                 centre.getY() - lineWidth * 4.0f,
-                mainColor,
+                mainColor.darker(1.0),
                 centre.getX() + dialRadius,
                 centre.getY() + dialRadius,
                 true
