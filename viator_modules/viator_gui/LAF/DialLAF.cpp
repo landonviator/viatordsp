@@ -152,7 +152,7 @@ void CustomDial::drawLabel (juce::Graphics& g, juce::Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const juce::Font font (juce::Font ("Helvetica", _sliderWidth * 0.12, juce::Font::FontStyleFlags::bold));
+        const juce::Font font (juce::Font ("Helvetica", _sliderWidth * 0.09, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
