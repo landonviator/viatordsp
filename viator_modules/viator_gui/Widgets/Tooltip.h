@@ -1,19 +1,18 @@
 #pragma once
-#include "../LAF/SettingsLAF.h"
 
 namespace viator_gui
 {
-    class TextButton  : public juce::TextButton
-    {
-    public:
-        TextButton();
-        ~TextButton() override;
 
-        void paint (juce::Graphics&) override;
-        void resized() override;
+class TooltipWindow : public juce::TooltipWindow
+{
+public:
+    TooltipWindow();
 
-    private:
-        viator_gui::SettingsButton _customLAF;
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TextButton)
-    };
-}
+    juce::String getTipFor(juce::Component& c) override;
+    void enableTooltips(const bool shouldShow);
+    
+private:
+    int _millisecondsBeforeTipAppears = 700;
+    bool _shouldShowTooltips = true;
+};
+} // namespace
