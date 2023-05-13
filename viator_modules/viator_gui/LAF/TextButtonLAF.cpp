@@ -30,6 +30,6 @@
 
     juce::Font CustomTextButton::getTextButtonFont (juce::TextButton&, int buttonHeight)
         {
-            return juce::Font ("Helvetica", static_cast<float>(buttonHeight) * 0.5f, juce::Font::FontStyleFlags::bold);
+            return juce::Font ("Helvetica", static_cast<float>(buttonHeight) * 0.25f, juce::Font::FontStyleFlags::bold);
         }
     }
