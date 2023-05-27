@@ -36,8 +36,8 @@ SampleType Expander<SampleType>::processSample (int channel, SampleType inputVal
     auto env = envelopeFilter.processSample (channel, inputValue);
 
     // VCA
-    auto gain = (env < threshold) ? static_cast<SampleType> (1.0)
-                                  : std::pow (env * thresholdInverse, ratioInverse - static_cast<SampleType> (1.0));
+    auto gain = (env < threshold) ? std::pow (env * thresholdInverse, ratioInverse - static_cast<SampleType> (1.0))
+                                  : std::pow (env * thresholdInverse, ratioInverse);
 
     // Output
     return gain * inputValue;
