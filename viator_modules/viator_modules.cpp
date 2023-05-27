@@ -16,6 +16,7 @@
 #include "viator_dsp/MultiBandProcessor.cpp"
 #include "viator_dsp/BitCrusher.cpp"
 #include "viator_dsp/BrickWallLPF.cpp"
+#include "viator_dsp/Expander.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"

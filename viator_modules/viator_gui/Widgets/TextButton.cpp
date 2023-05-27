@@ -3,24 +3,33 @@
 
 namespace viator_gui
 {
-    TextButton::TextButton()
-    {
-        setClickingTogglesState(true);
-        setLookAndFeel(&_customLAF);
-    }
 
-    TextButton::~TextButton()
-    {
-        setLookAndFeel(nullptr);
-    }
+TextButton::TextButton()
+{
+    setClickingTogglesState(true);
+    //setLookAndFeel(&_customLAF);
+}
 
-    void TextButton::paint (juce::Graphics& g)
-    {
-        juce::TextButton::paint(g);
-    }
+TextButton::TextButton(const juce::String& name)
+{
+    setButtonText(name);
+    setClickingTogglesState(true);
+    //setLookAndFeel(&_customLAF);
+}
 
-    void TextButton::resized()
-    {
-        juce::TextButton::resized();
-    }
+TextButton::~TextButton()
+{
+    setLookAndFeel(nullptr);
+}
+
+void TextButton::paint (juce::Graphics& g)
+{
+    juce::TextButton::paint(g);
+}
+
+void TextButton::resized()
+{
+    juce::TextButton::resized();
+}
+
 }

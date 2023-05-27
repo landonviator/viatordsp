@@ -7,11 +7,12 @@ namespace viator_gui
     {
     public:
         TextButton();
+        TextButton(const juce::String& name);
         ~TextButton() override;
 
         void paint (juce::Graphics&) override;
         void resized() override;
-
+        
     private:
         viator_gui::SettingsButton _customLAF;
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TextButton)
