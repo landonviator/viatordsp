@@ -13,21 +13,41 @@ namespace viator_gui
                                                bool shouldDrawButtonAsHighlighted,
                                                bool shouldDrawButtonAsDown)
     {
-        auto bounds = button.getLocalBounds().toFloat().reduced (0.5f, 0.5f);
+        const auto multiplier = 0.5;
+        auto cornerSize = 6.0f;
+        auto bounds = button.getLocalBounds().withSizeKeepingCentre(button.getWidth() * multiplier, button.getHeight() * multiplier).toFloat();
 
         // Hover highlight
-        if ((shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted))
-        {
-            g.setColour (button.findColour (juce::TextButton::textColourOnId).brighter(1.0f));
-        }
+        auto baseColour = backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
+            .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f);
         
+        if (shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted)
+            baseColour = baseColour.contrasting (shouldDrawButtonAsDown ? 0.2f : 0.05f);
+        
+        g.setColour (baseColour);
+        g.fillRoundedRectangle(button.getLocalBounds().toFloat(), cornerSize);
+        
+        g.setColour (button.findColour (juce::ComboBox::outlineColourId));
+        g.drawRoundedRectangle(bounds, cornerSize, 1.0f);
+        
+        if (shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted)
+        {
+            if (button.getToggleState())
+                g.setColour(juce::Colour::fromRGB(187, 129, 212).brighter(1.0f));
+            else
+                g.setColour(button.findColour(juce::TextButton::textColourOnId).brighter(1.0f));
+        }
         else
         {
-            g.setColour (button.findColour (juce::TextButton::textColourOnId));
+            if (button.getToggleState())
+                g.setColour(juce::Colour::fromRGB(187, 129, 212));
+            else
+                g.setColour(button.findColour(juce::TextButton::textColourOnId));
         }
         
         // Wrench
-        const auto thicc3 = 4.0f;
+        auto thicc3 = juce::jlimit(1.0f, 4.0f, juce::jmap(static_cast<float>(button.getWidth()), 15.0f, 60.0f, 1.0f, 4.0f));
+        
         const auto x = bounds.getX();
         const auto y = bounds.getY();
         const auto w = bounds.getWidth();
@@ -41,24 +61,6 @@ namespace viator_gui
         const auto angle1 = 3.14 * 0.5 + 3.14 * 0.25;
         
         {
-            const auto centreX = x;
-            const auto centreY = btm;
-
-            juce::Path path;
-            
-            path.addCentredArc
-            (
-                centreX, centreY,
-                rad, rad,
-                0.f, angle0, angle1,
-                true
-            );
-
-            g.strokePath(path, juce::PathStrokeType(4.0f));
-            
-        }
-
-        {
             const auto centreX = rght;
             const auto centreY = y;
             juce::Path path;
@@ -71,7 +73,7 @@ namespace viator_gui
                 true
             );
 
-            g.strokePath(path, juce::PathStrokeType(4.0f));
+            g.strokePath(path, juce::PathStrokeType(thicc3));
             
         }
 

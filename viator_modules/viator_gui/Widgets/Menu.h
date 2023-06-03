@@ -14,9 +14,8 @@ namespace viator_gui
         void mouseExit (const juce::MouseEvent &event) override;
         
     private:
-        const juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
         const juce::Colour _noColor = juce::Colours::transparentBlack;
-        const juce::Colour _innerBgColor = juce::Colour::fromRGB(40, 44, 52);
+        const juce::Colour _innerBgColor = juce::Colours::black.withAlpha(0.5f);
         viator_gui::CustomMenu _customLAF;
         
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Menu)

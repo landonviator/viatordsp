@@ -65,7 +65,7 @@ void Expander<SampleType>::setThreshold (SampleType newThreshold)
 template <typename SampleType>
 void Expander<SampleType>::setRatio (SampleType newRatio)
 {
-    jassert (newRatio >= static_cast<SampleType> (1.0));
+    jassert (newRatio <= static_cast<SampleType> (1.0));
 
     ratio = newRatio;
     update();

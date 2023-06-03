@@ -20,6 +20,8 @@ void CustomDial::drawRotarySlider
  juce::Slider &slider
 )
 {
+    _sliderName = slider.getName();
+    
     /** Define color variables for customization. */
     const auto outlineColor  = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     const auto fillColor     = slider.findColour(juce::Slider::rotarySliderFillColourId);
@@ -37,19 +39,19 @@ void CustomDial::drawRotarySlider
 
     /** Draw dots */
     /** How many dots to draw, works well as num dial intervals + 1 for small ranges, e.g. [0 - 10]*/
-    for (int i = 0; i < 11; ++i)
-    {
-        auto dotSize = width * 0.025;
-        
-        /** IF you change the number of dots, do i / (num dots - 1) */
-        const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
-        
-        /** Dot distance from slider center */
-        const auto point = centre.getPointOnCircumference (fullRadius - width * 0.06f, angle);
-            
-        /** Dot thickness*/
-        g.fillEllipse (point.getX() - 3, point.getY() - 3, dotSize, dotSize);
-    }
+//    for (int i = 0; i < 11; ++i)
+//    {
+//        auto dotSize = width * 0.025;
+//        
+//        /** IF you change the number of dots, do i / (num dots - 1) */
+//        const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
+//        
+//        /** Dot distance from slider center */
+//        const auto point = centre.getPointOnCircumference (fullRadius - width * 0.06f, angle);
+//            
+//        /** Dot thickness*/
+//        g.fillEllipse (point.getX() - 3, point.getY() - 3, dotSize, dotSize);
+//    }
         
     fullRadius -= width / 14.5;
 
@@ -151,14 +153,49 @@ void CustomDial::drawLabel (juce::Graphics& g, juce::Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const juce::Font font (juce::Font ("Helvetica", _sliderWidth * 0.09, juce::Font::FontStyleFlags::bold));
+        const juce::Font font (juce::Font ("Helvetica", label.getHeight() * 0.75, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
 
         auto textArea = getLabelBorderSize (label).subtractedFrom (label.getLocalBounds());
-
-        g.drawFittedText (label.getText(), textArea, label.getJustificationType(),
+        
+        juce::String labelText;
+        if (auto* parentComponent = label.getParentComponent())
+        {
+            if (auto* slider = dynamic_cast<juce::Slider*>(parentComponent))
+            {
+                // Check if the mouse is over the slider
+                bool isMouseOver = slider->isMouseOver() || slider->isMouseButtonDown();
+                
+                // Get the slider value and suffix
+                float value;
+                
+                if (_dialValueType == ValueType::kInt)
+                {
+                    value = static_cast<int>(slider->getValue());
+                }
+                
+                else
+                {
+                    value = slider->getValue();
+                }
+                
+                juce::String suffix = slider->getTextValueSuffix();
+                
+                // Determine the text to display based on the mouse over state
+                if (isMouseOver)
+                {
+                    labelText = juce::String(value) + suffix;
+                }
+                else
+                {
+                    labelText = slider->getName();
+                }
+            }
+        }
+        
+        g.drawFittedText (labelText, textArea, label.getJustificationType(),
                           juce::jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())),
                           label.getMinimumHorizontalScale());
 
