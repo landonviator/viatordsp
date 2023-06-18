@@ -27,6 +27,7 @@
 #include "viator_dsp/BitCrusher.h"
 #include "viator_dsp/BrickWallLPF.h"
 #include "viator_dsp/Expander.h"
+#include "viator_dsp/Tube.h"
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/Dial.h"

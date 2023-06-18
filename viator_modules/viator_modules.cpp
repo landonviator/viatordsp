@@ -17,6 +17,7 @@
 #include "viator_dsp/BitCrusher.cpp"
 #include "viator_dsp/BrickWallLPF.cpp"
 #include "viator_dsp/Expander.cpp"
+#include "viator_dsp/Tube.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
