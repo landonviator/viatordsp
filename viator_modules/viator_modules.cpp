@@ -18,6 +18,7 @@
 #include "viator_dsp/BrickWallLPF.cpp"
 #include "viator_dsp/Expander.cpp"
 #include "viator_dsp/Tube.cpp"
+#include "viator_dsp/Denoiser.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
