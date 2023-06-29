@@ -50,3 +50,6 @@
 
 /** Viator Utils Headers*/
 #include "viator_utils/utils.h"
+#include "viator_utils/Colors/Gradient.h"
+#include "viator_utils/Window/Window.h"
+#include "viator_utils/DSP/dsp.h"

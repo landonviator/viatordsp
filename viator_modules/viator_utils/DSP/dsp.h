@@ -3,25 +3,41 @@
 
 namespace viator_utils
 {
-    struct utils
+    struct dsp
     {
         static constexpr float _piDivisor = 2.0 / juce::MathConstants<float>::pi;
         
-        /** Cool way to go from db to gain by default, or adjust the scalar for quicker/slower log ramp!*/
+        /**
+         * @brief Applys the db to gain calculation with an optional arg to change the log scaling.
+         * dB to gain: 10^(db / 20)
+         * @author Landon Viator
+         *
+         * @param input The value in dB you're scaling, usually a drive or volume parameter.
+         * @param scalar Changes the log ramp scaling, values below the default will ramps slower and vice versa.
+         */
         template <typename T>
         static T dbToGain(T input, T scalar = 0.05)
         {
             return std::pow(10.0, input * scalar);
         }
         
-        /** Hard clip data */
+        /**
+         * @brief Hard clips an input to a threshold.
+         * @author Landon Viator
+         *
+         * @param input The value to clip.
+         * @param thresh The threshold to clip to.
+         */
         template <typename T>
         static T clipData(T input, T thresh = 1.0)
         {
             return std::copysign(thresh, input);
         }
         
-        /** Hard clip an audio block */
+        /**
+         * @brief Hard clips an audio block.
+         * @author Landon Viator
+         */
         static void hardClipBlock(juce::dsp::AudioBlock<float> &block)
         {
             for (int ch = 0; ch < block.getNumChannels(); ++ch)
@@ -38,6 +54,10 @@ namespace viator_utils
             }
         }
         
+        /**
+         * @brief Soft clips an audio block.
+         * @author Landon Viator
+         */
         static void softClipBlock(juce::dsp::AudioBlock<float> &block)
         {
             for (int ch = 0; ch < block.getNumChannels(); ++ch)
@@ -46,12 +66,15 @@ namespace viator_utils
                 
                 for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
-                    data[sample] = std::tanh(data[sample]);
+                    data[sample] = _piDivisor * std::atan(data[sample]);
                 }
             }
         }
         
-        /** Flip the phase of an audio block*/
+        /**
+         * @brief Flips the phase of an audio block.
+         * @author Landon Viator
+         */
         static void invertBlock(juce::dsp::AudioBlock<float> &block)
         {
             for (int ch = 0; ch < block.getNumChannels(); ++ch)
@@ -63,20 +86,6 @@ namespace viator_utils
                 }
             }
         }
-        
-        /** Multiply an audio block by a given value*/
-        static void multiplyBlock(juce::dsp::AudioBlock<float> &block, float multiplier)
-        {
-            for (int ch = 0; ch < block.getNumChannels(); ++ch)
-            {
-                for (int sample = 0; sample < block.getNumSamples(); ++sample)
-                {
-                    float* data = block.getChannelPointer(ch);
-                    data[sample] *= multiplier;
-                }
-            }
-        }
-
 
         /**
          * @brief Bias a value, best used on values between 0 and 1.
@@ -163,19 +172,6 @@ namespace viator_utils
             return u.d;
         }
     };
-
-namespace gui_utils
-{
-
-
-
-struct Colors
-{
-    static inline juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
-};
-
-} // gui utils
-
 }
 #endif /* utils_h */
 
