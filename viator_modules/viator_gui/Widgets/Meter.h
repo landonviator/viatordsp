@@ -1,4 +1,5 @@
 #pragma once
+#include "../LAF/MeterLAF.h"
 
 namespace viator_gui
 {
@@ -22,10 +23,15 @@ public:
     {
         meter.setValue(newMeterValue);
     }
+    
+    juce::Slider& getRootSlider(){return meter;};
 
 private:
-    
     juce::Slider meter;
+    CustomMeter meterLAF;
+    
+private:
+    void paintSliderLabelTrack(juce::Graphics& g);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Meter)
 }; // Meter

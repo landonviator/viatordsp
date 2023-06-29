@@ -6,10 +6,13 @@ namespace viator_gui
 Meter::Meter()
 {
     addAndMakeVisible(meter);
-    meter.setSliderStyle(juce::Slider::SliderStyle::LinearBarVertical);
+    meter.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     meter.setTextBoxStyle(juce::Slider::NoTextBox, true, 0, 0);
     meter.setRange(-60.0, 0.0, 0.1);
-    meter.setSkewFactorFromMidPoint(-15.0);
+    meter.setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::white.withAlpha(0.5f));
+    meter.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::black.withAlpha(0.5f));
+    meter.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::black.withAlpha(0.8f));
+    meter.setLookAndFeel(&meterLAF);
 }
 
 Meter::~Meter()
@@ -18,8 +21,18 @@ Meter::~Meter()
 
 void Meter::paint (juce::Graphics& g)
 {
+    paintSliderLabelTrack(g);
+}
+
+void Meter::resized()
+{
+    meter.setBounds(0, 0, getWidth() * 0.5, getHeight());
+}
+
+void Meter::paintSliderLabelTrack(juce::Graphics &g)
+{
     auto tickDividor = 3.0;
-    auto numTicks = (meter.getMaximum() - meter.getMinimum()) / 3.0;
+    auto numTicks = (meter.getMaximum() - meter.getMinimum()) / 3.0 + 1;
     auto currentMeterTick = 0.0;
     auto currentMeterTickY = 0.0;
     
@@ -30,24 +43,20 @@ void Meter::paint (juce::Graphics& g)
     g.setFont(getWidth() * 0.25);
     auto textSize = getWidth() * 0.4;
     
-    for (size_t tick = 0; tick < numTicks; tick++)
+    for (size_t tick = 0; tick < static_cast<int>(numTicks); tick++)
     {
-        currentMeterTick -= tickDividor;
+        if (tick > 0)
+        {
+            currentMeterTick -= tickDividor;
+        }
+        
         currentMeterTickY = meter.getPositionOfValue(currentMeterTick);
         
         g.drawLine(lineX, currentMeterTickY, getWidth() * 0.6, currentMeterTickY, 1.0f);
         
-        if (currentMeterTick < -30.0)
-            continue;
-        
         auto currentTickText = std::to_string(static_cast<int>(std::abs(currentMeterTick)));
         g.drawText(currentTickText, textX, currentMeterTickY - 6, textSize, 12, juce::Justification::centred);
     }
-}
-
-void Meter::resized()
-{
-    meter.setBounds(0, 0, getWidth() * 0.5, getHeight());
 }
 
 } // viator_gui

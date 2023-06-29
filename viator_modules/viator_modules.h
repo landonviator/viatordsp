@@ -48,6 +48,7 @@
 #include "viator_gui/LAF/DialLAF.h"
 #include "viator_gui/LAF/TextButtonLAF.h"
 #include "viator_gui/LAF/SettingsLAF.h"
+#include "viator_gui/LAF/MeterLAF.h"
 
 /** Viator Utils Headers*/
 #include "viator_utils/utils.h"
