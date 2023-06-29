@@ -28,6 +28,7 @@
 #include "viator_dsp/BrickWallLPF.h"
 #include "viator_dsp/Expander.h"
 #include "viator_dsp/Tube.h"
+#include "viator_dsp/Denoiser.h"
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/Dial.h"
