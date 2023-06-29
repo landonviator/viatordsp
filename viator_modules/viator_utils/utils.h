@@ -167,8 +167,6 @@ namespace viator_utils
 namespace gui_utils
 {
 
-
-
 struct Colors
 {
     static inline juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);

@@ -40,6 +40,7 @@
 #include "viator_gui/Widgets/Menu.h"
 #include "viator_gui/Widgets/TextButton.h"
 #include "viator_gui/Widgets/Tooltip.h"
+#include "viator_gui/Widgets/Meter.h"
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.h"
