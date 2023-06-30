@@ -18,6 +18,7 @@
 #include "viator_dsp/BrickWallLPF.cpp"
 #include "viator_dsp/Expander.cpp"
 #include "viator_dsp/Tube.cpp"
+#include "viator_dsp/Denoiser.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
@@ -29,6 +30,7 @@
 #include "viator_gui/Widgets/Menu.cpp"
 #include "viator_gui/Widgets/TextButton.cpp"
 #include "viator_gui/Widgets/Tooltip.cpp"
+#include "viator_gui/Widgets/Meter.cpp"
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.cpp"
@@ -36,3 +38,4 @@
 #include "viator_gui/LAF/DialLAF.cpp"
 #include "viator_gui/LAF/TextButtonLAF.cpp"
 #include "viator_gui/LAF/SettingsLAF.cpp"
+#include "viator_gui/LAF/MeterLAF.cpp"
