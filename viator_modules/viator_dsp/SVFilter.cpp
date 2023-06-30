@@ -42,27 +42,27 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
             mQType = (QType)parameterValue;
             
             //Calculate Zavalishin's damping parameter (Q)
-            switch (mQType)
-            {
-                case kParametric: mRCoeff = 1.0 - mQ; break;
-                    
-                case kProportional:
-                {
-                    if (mType == kBandShelf)
-                    {
-                        mRCoeff = 1.0 - getPeakQ(mRawGain);
-                        preWarp();
-                        break;
-                    }
-                    
-                    else
-                    {
-                        mRCoeff = 1.0 - getShelfQ(mRawGain);
-                        preWarp();
-                        break;
-                    }
-                }
-            }
+//            switch (mQType)
+//            {
+//                case kParametric: mRCoeff = 1.0 - mQ; break;
+//
+//                case kProportional:
+//                {
+//                    if (mType == kBandShelf)
+//                    {
+//                        mRCoeff = 1.0 - getPeakQ(mRawGain);
+//                        preWarp();
+//                        break;
+//                    }
+//
+//                    else
+//                    {
+//                        mRCoeff = 1.0 - getShelfQ(mRawGain);
+//                        preWarp();
+//                        break;
+//                    }
+//                }
+//            }
             
             break;
         }
@@ -80,29 +80,24 @@ void viator_dsp::SVFilter<SampleType>::setParameter(ParameterId parameter, Sampl
         {
             mQ = parameterValue;
             
-            //Calculate Zavalishin's damping parameter (Q)
             switch (mQType)
             {
                 case kParametric: mRCoeff = 1.0 - mQ; break;
-                    
                 case kProportional:
-                {
-                    if (mType == kBandShelf)
-                    {
-                        mRCoeff = 1.0 - getPeakQ(mRawGain);
-                        preWarp();
-                        break;
-                    }
                     
-                    else
-                    {
-                        mRCoeff = 1.0 - getShelfQ(mRawGain);
-                        preWarp();
-                        break;
-                    }
+                if (mType == kBandShelf)
+                {
+                    mRCoeff = 1.0 - getPeakQ(mRawGain); break;
+                }
+                    
+                else
+                {
+                    mRCoeff = 1.0 - getShelfQ(mRawGain); break;
                 }
             }
             
+            mRCoeff2 = mRCoeff * 2.0;
+            mInversion = 1.0 / (1.0 + mRCoeff2 * mGCoeff + mGCoeff * mGCoeff);
             break;
         }
             
