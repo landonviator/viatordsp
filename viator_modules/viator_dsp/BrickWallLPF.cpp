@@ -8,7 +8,7 @@ void viator_dsp::BrickWallLPF::prepare(const juce::dsp::ProcessSpec& spec) noexc
 {
     _sampleRate = spec.sampleRate;
     
-    _lpfCutoffFrequency = spec.sampleRate * _cutoffMult;
+    _lpfCutoffFrequency = spec.sampleRate * 0.4;
     _lpfSignalLeftCoefficientsArray = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _lpfCutoffFrequency);
     _lpfSignalRightCoefficientsArray = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _lpfCutoffFrequency);
     
@@ -37,3 +37,8 @@ void viator_dsp::BrickWallLPF::prepare(const juce::dsp::ProcessSpec& spec) noexc
     _lpfSignalRight3->prepare(monoSpec);
 }
 
+void viator_dsp::BrickWallLPF::updateCutoff(double newCutoff)
+{
+    //*_lpfSignalLeftCoefficientsArray = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, newCutoff);
+    //*_lpfSignalRightCoefficientsArray = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, newCutoff);
+}

@@ -51,15 +51,15 @@ SampleType Tube<SampleType>::processSample(SampleType input, SampleType channel)
     auto xn = input;
     auto yn = input * inputGain;
     
-    yn = getValeGridConduction(yn);
+    //yn = millerFilter.processSample(channel, yn);
     
-    yn = millerFilter.processSample(channel, yn);
+    yn = getValeGridConduction(yn);
     
     yn = getValeEmulation(yn);
 
     yn = dcFilter.processSample(channel, yn);
     
-    yn = lowShelfFilter.processSample(yn, channel);
+    //yn = lowShelfFilter.processSample(yn, channel);
     
     auto outputMix = (1.0 - mix) * xn + yn * mix;
     
