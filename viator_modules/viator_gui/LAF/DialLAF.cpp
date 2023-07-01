@@ -7,6 +7,7 @@ CustomDial::CustomDial()
 {
     
 }
+
 void CustomDial::drawRotarySlider
 (
  juce::Graphics &g,
@@ -31,7 +32,8 @@ void CustomDial::drawRotarySlider
 
     auto dialBounds = juce::Rectangle<int> (x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
-    auto fullRadius = juce::jmin (dialBounds.getWidth() / 2.0f, dialBounds.getHeight() / 2.0f);
+    float sizeScalar = 0.6f;
+    auto fullRadius = juce::jmin (dialBounds.getWidth() * sizeScalar, dialBounds.getHeight() * sizeScalar);
     
     /** Dot color*/
     g.setColour (juce::Colours::whitesmoke.withAlpha(0.5f));
@@ -153,7 +155,7 @@ void CustomDial::drawLabel (juce::Graphics& g, juce::Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const juce::Font font (juce::Font ("Helvetica", label.getHeight() * 0.75, juce::Font::FontStyleFlags::bold));
+        const juce::Font font (juce::Font ("Helvetica", label.getWidth() * 0.12, juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
@@ -209,4 +211,77 @@ void CustomDial::drawLabel (juce::Graphics& g, juce::Label& label)
 
     g.drawRect (label.getLocalBounds());
 }
+
+#pragma mark Dial Just Label
+CustomDialLabel::CustomDialLabel()
+{
+    
 }
+
+void CustomDialLabel::drawLabel (juce::Graphics& g, juce::Label& label)
+{
+    g.fillAll (label.findColour (Label::backgroundColourId));
+
+    label.setEditable(true);
+    
+    if (! label.isBeingEdited())
+    {
+        auto alpha = label.isEnabled() ? 1.0f : 0.5f;
+        const juce::Font font (juce::Font ("Helvetica", label.getWidth() * 0.12, juce::Font::FontStyleFlags::bold));
+
+        g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
+        g.setFont (font);
+
+        auto textArea = getLabelBorderSize (label).subtractedFrom (label.getLocalBounds());
+        
+        juce::String labelText;
+        if (auto* parentComponent = label.getParentComponent())
+        {
+            if (auto* slider = dynamic_cast<juce::Slider*>(parentComponent))
+            {
+                // Check if the mouse is over the slider
+                bool isMouseOver = slider->isMouseOver() || slider->isMouseButtonDown();
+                
+                // Get the slider value and suffix
+                float value;
+                
+                if (_dialValueType == ValueType::kInt)
+                {
+                    value = static_cast<int>(slider->getValue());
+                }
+                
+                else
+                {
+                    value = slider->getValue();
+                }
+                
+                juce::String suffix = slider->getTextValueSuffix();
+                
+                // Determine the text to display based on the mouse over state
+                if (isMouseOver)
+                {
+                    labelText = juce::String(value) + suffix;
+                }
+                else
+                {
+                    labelText = slider->getName();
+                }
+            }
+        }
+        
+        g.drawFittedText (labelText, textArea, label.getJustificationType(),
+                          juce::jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())),
+                          label.getMinimumHorizontalScale());
+
+        g.setColour (label.findColour (Label::outlineColourId).withMultipliedAlpha (alpha));
+    }
+    
+    else if (label.isEnabled())
+    {
+        g.setColour (label.findColour (Label::outlineColourId));
+    }
+
+    g.drawRect (label.getLocalBounds());
+}
+
+} // namespace

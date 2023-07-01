@@ -1,60 +1,92 @@
 #include "Dial.h"
-
-viator_gui::Dial::Dial(const juce::String& sliderName)
+namespace viator_gui
 {
-    dial.setName(sliderName);
-    
+
+Dial::Dial(const juce::String& sliderName)
+{
     // Slider props
-    dial.setRange(-15.0, 15.0, 0.1);
-    dial.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 64, 32);
-    dial.setTextValueSuffix(" dB");
-    dial.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
-    dial.setDoubleClickReturnValue(true, 0.0);
-    dial.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
-    dial.setColour(juce::Slider::ColourIds::backgroundColourId, _auxBackgroundColor.withAlpha(0.35f));
-    dial.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, _auxBackgroundColor.withAlpha(0.35f));
-    dial.setColour(juce::Slider::ColourIds::textBoxTextColourId, _mainTextColor);
-    dial.setColour(juce::Slider::ColourIds::trackColourId, _widgetFillColor.withAlpha(0.75f));
-    dial.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, _widgetFillColor.withAlpha(0.75f));
-    dial.setColour(juce::Slider::ColourIds::thumbColourId, _auxTextColor);
-    dial.setLookAndFeel(&_customDial);
-    addAndMakeVisible(dial);
+    setName(sliderName);
+    setTextBoxStyle(juce::Slider::TextBoxBelow, false, 64, 32);
+    setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    setDoubleClickReturnValue(true, 0.0);
+    setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
+    setColour(juce::Slider::ColourIds::backgroundColourId, _auxBackgroundColor.withAlpha(0.35f));
+    setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, _auxBackgroundColor.withAlpha(0.35f));
+    setColour(juce::Slider::ColourIds::textBoxTextColourId, _mainTextColor);
+    setColour(juce::Slider::ColourIds::trackColourId, _widgetFillColor.withAlpha(0.75f));
+    setColour(juce::Slider::ColourIds::rotarySliderFillColourId, _widgetFillColor.withAlpha(0.75f));
+    setColour(juce::Slider::ColourIds::thumbColourId, _auxTextColor);
+    setLookAndFeel(&_customDial);
 }
 
-viator_gui::Dial::~Dial()
+Dial::Dial (const juce::String& sliderName, const juce::Image& filmStrip)
+{
+    // Slider props
+    setName(sliderName);
+    
+    setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    setDoubleClickReturnValue(true, 0.0);
+    setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
+    setColour(juce::Slider::ColourIds::textBoxTextColourId, _mainTextColor);
+    setLookAndFeel(&customDialLabelLAF);
+    
+    // film strip
+    _filmStrip = filmStrip;
+    frameHeight = filmStrip.getHeight() / _numFrames;
+    frameWidth = filmStrip.getWidth();
+}
+
+Dial::~Dial()
 {
     setLookAndFeel(nullptr);
 }
 
-void viator_gui::Dial::paint (juce::Graphics& g)
+void Dial::paint (juce::Graphics& g)
 {
+    if (_filmStrip.isValid())
+    {
+        const float sliderPos = (float) valueToProportionOfLength(getValue());
+
+        int value = sliderPos * (_numFrames - 1);
+        auto dialWidth = getWidth() * 0.9;
+        int dialX = getWidth() * 0.05;
+        int dialY = 0;
+
+        g.drawImage(_filmStrip, dialX, dialY, dialWidth, dialWidth, 0, value * frameHeight, frameWidth, frameHeight);
+    }
+    
+    else
+    {
+        juce::Slider::paint(g);
+    }
 }
 
-void viator_gui::Dial::resized()
+void Dial::resized()
 {
-    dial.setBounds(getLocalBounds());
+    juce::Slider::resized();
 }
 
-void viator_gui::Dial::setDialTextBoxWidth(const float newWidth)
+void Dial::setDialTextBoxWidth(const float newWidth)
 {
-    dial.setTextBoxStyle(juce::Slider::TextBoxBelow, false, newWidth, 32);
+    setTextBoxStyle(juce::Slider::TextBoxBelow, false, newWidth, 16);
 }
 
-void viator_gui::Dial::setDialColors(juce::Colour mainText,
+void Dial::setDialColors(juce::Colour mainText,
                                      juce::Colour widgetFill,
                                      juce::Colour auxBG,
                                      juce::Colour auxText)
 {
-    dial.setColour(juce::Slider::ColourIds::backgroundColourId, auxBG);
-    dial.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, auxBG);
-    dial.setColour(juce::Slider::ColourIds::textBoxTextColourId, mainText);
-    dial.setColour(juce::Slider::ColourIds::trackColourId, widgetFill);
-    dial.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, widgetFill);
-    dial.setColour(juce::Slider::ColourIds::thumbColourId, auxText);
+    setColour(juce::Slider::ColourIds::backgroundColourId, auxBG);
+    setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, auxBG);
+    setColour(juce::Slider::ColourIds::textBoxTextColourId, mainText);
+    setColour(juce::Slider::ColourIds::trackColourId, widgetFill);
+    setColour(juce::Slider::ColourIds::rotarySliderFillColourId, widgetFill);
+    setColour(juce::Slider::ColourIds::thumbColourId, auxText);
 }
 
-void viator_gui::Dial::setDialValueType(viator_gui::CustomDial::ValueType newValueType)
+void Dial::setDialValueType(CustomDial::ValueType newValueType)
 {
     _customDial.setDialValueType(newValueType);
     repaint();
+}
 }
