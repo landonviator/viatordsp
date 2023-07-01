@@ -42,6 +42,7 @@
 #include "viator_gui/Widgets/Tooltip.h"
 #include "viator_gui/Widgets/Meter.h"
 #include "viator_gui/Widgets/Scope.h"
+#include "viator_gui/Widgets/VUMeter.h"
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.h"

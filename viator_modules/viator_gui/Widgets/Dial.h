@@ -51,7 +51,7 @@ private:
     juce::Colour _auxTextColor = juce::Colour::fromRGB(74, 81, 98).darker(0.5);
     juce::Colour _blackBackgroundColor = juce::Colour::fromRGB(33, 35, 37);
     
-    const int _numFrames = 128;
+    const int _numFrames = 129;
     int frameWidth;
     int frameHeight;
     juce::Image _filmStrip;
