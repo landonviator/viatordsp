@@ -19,6 +19,7 @@
 #include "viator_dsp/Expander.cpp"
 #include "viator_dsp/Tube.cpp"
 #include "viator_dsp/Denoiser.cpp"
+#include "viator_dsp/ModuleBase.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
