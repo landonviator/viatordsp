@@ -14,7 +14,7 @@ public:
     virtual ~ModuleBase() = default;
 
     void prepareModule (const juce::dsp::ProcessSpec& spec);
-
+    
     template <typename ProcessContext>
     void process (const ProcessContext& context) noexcept
     {
@@ -41,8 +41,8 @@ public:
                 
                 auto inputSignal = input[sample] * inputGain.getNextValue();
                 auto outputSignal = processSample(inputSignal) * outputGain.getNextValue();
-                auto blend = (1.0 - mix.getNextValue()) * input[sample] + mix.getNextValue() * outputSignal;
-                output[sample] = blend;
+//                auto blend = (1.0 - mix.getNextValue()) * input[sample] + mix.getNextValue() * outputSignal;
+                output[sample] = outputSignal;
             }
         }
     }
