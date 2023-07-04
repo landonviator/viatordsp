@@ -10,12 +10,15 @@ void Compressor<SampleType>::reset()
 }
 
 template <typename SampleType>
-void Compressor<SampleType>::setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease)
+void Compressor<SampleType>::setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee)
 {
     threshold = newThresh;
     ratio = newRatio;
     attack = newAttack;
     release = newRelease;
+    knee = newKnee;
+    kneeScaled = 2.0 / 3.14 * std::atan(knee);
+    thresholdWithKnee = threshold - juce::Decibels::gainToDecibels(kneeScaled);
     
     alphaAttack = std::exp(-std::log(9) / (samplerate * attack));
     alphaRelease = std::exp(-std::log(9) / (samplerate * release));

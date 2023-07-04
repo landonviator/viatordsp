@@ -25,10 +25,12 @@ public:
             xDB = -96.0;
         }
         
-
         if (xDB > threshold)
         {
-            gainChange = threshold + (xDB - threshold) / ratio;
+            if (xDB > thresholdWithKnee)
+            {
+                gainChange = threshold + (xDB - threshold) / ratio;
+            }
         }
 
         else
@@ -55,7 +57,7 @@ public:
         return input * juce::Decibels::decibelsToGain(gainSmooth);
     }
     
-    void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease);
+    void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee);
     
 private:
     float samplerate = 44100.0f;
@@ -63,6 +65,9 @@ private:
     float ratio = 2.0f;
     float attack = 5.0f;
     float release = 5.0f;
+    float knee = 0.0f;
+    float kneeScaled = 0.0f;
+    float thresholdWithKnee = 0.0f;
     
     float alphaAttack = 0.0f;
     float alphaRelease = 0.0f;
