@@ -1,21 +1,16 @@
-#include "Tube.h"
+#include "ModuleBase.h"
 
 namespace viator_dsp
 {
 
 template <typename SampleType>
-void ModuleBase<SampleType>::prepare (const juce::dsp::ProcessSpec& spec)
+void ModuleBase<SampleType>::prepareModule (const juce::dsp::ProcessSpec& spec)
 {
     sampleRate = spec.sampleRate;
     
     inputGain.reset(sampleRate, 0.02);
     outputGain.reset(sampleRate, 0.02);
     mix.reset(sampleRate, 0.02);
-}
-
-template <typename SampleType>
-void ModuleBase<SampleType>::reset()
-{
 }
 
 template <typename SampleType>

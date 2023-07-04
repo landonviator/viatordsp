@@ -10,14 +10,11 @@ template <typename SampleType>
 class ModuleBase
 {
 public:
-    ModuleBase(){};
-    virtual ~ModuleBase(){};
+    ModuleBase() = default;
+    virtual ~ModuleBase() = default;
 
-    void prepare (const juce::dsp::ProcessSpec& spec);
+    void prepareModule (const juce::dsp::ProcessSpec& spec);
 
-    void reset();
-
-    /** Processes the input and output samples supplied in the processing context. */
     template <typename ProcessContext>
     void process (const ProcessContext& context) noexcept
     {
@@ -42,7 +39,10 @@ public:
                 auto* input = inputBlock.getChannelPointer (channel);
                 auto* output = outputBlock.getChannelPointer (channel);
                 
-                output[sample] = processSample(input[sample], channel);
+                auto inputSignal = input[sample] * inputGain.getNextValue();
+                auto outputSignal = processSample(inputSignal) * outputGain.getNextValue();
+                auto blend = (1.0 - mix.getNextValue()) * input[sample] + mix.getNextValue() * outputSignal;
+                output[sample] = blend;
             }
         }
     }
@@ -52,6 +52,12 @@ public:
     void setInputGain(SampleType newGain);
     void setOutputGain(SampleType newGain);
     void setMix(SampleType newMix);
+    
+    float getSampleRate(){return sampleRate;};
+    
+    float getInputGain(){return inputGain.getNextValue();};
+    float getOutputGain(){return outputGain.getNextValue();};
+    float getMix(){return mix.getNextValue();};
 
 private:
     float sampleRate = 44100.0f;
@@ -62,4 +68,4 @@ private:
 
 } // namespace viator_dsp
 
-#endif /* Tube_h */
+#endif /* ModuleBase_h */

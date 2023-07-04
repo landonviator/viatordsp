@@ -20,6 +20,7 @@
 #include "viator_dsp/Tube.cpp"
 #include "viator_dsp/Denoiser.cpp"
 #include "viator_dsp/ModuleBase.cpp"
+#include "viator_dsp/Compressor.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"
