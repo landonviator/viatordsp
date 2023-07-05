@@ -15,8 +15,10 @@ public:
 
     void reset();
     
-    SampleType processSample(SampleType input) override
+    SampleType processSample(SampleType input, SampleType channel) override
     {
+        hpFilter.setCutoffFrequency(hpCutoff);
+        
         auto xUni = abs(input);
         auto xDB = juce::Decibels::gainToDecibels(xUni);
 
@@ -25,9 +27,12 @@ public:
             xDB = -96.0;
         }
         
-        if (xDB > threshold)
+        auto hpSignal = hpFilter.processSample(channel, xUni);
+        auto filteredXDB = juce::Decibels::gainToDecibels(std::abs(hpSignal));
+        
+        if (filteredXDB > threshold)
         {
-            if (xDB > thresholdWithKnee)
+            if (filteredXDB > thresholdWithKnee)
             {
                 gainChange = threshold + (xDB - threshold) / ratio;
             }
@@ -57,7 +62,7 @@ public:
         return input * juce::Decibels::decibelsToGain(gainSmooth);
     }
     
-    void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee);
+    void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee, SampleType hpf);
     
 private:
     float samplerate = 44100.0f;
@@ -76,6 +81,9 @@ private:
     float gainChangeDB = 0.0f;
     
     float gainChange, gainSmooth, currentSignal;
+    
+    juce::dsp::LinkwitzRileyFilter<SampleType> hpFilter;
+    float hpCutoff = 20.0f;
 };
 
 } // namespace viator_dsp

@@ -6,6 +6,7 @@ namespace viator_dsp
 template <typename SampleType>
 void ModuleBase<SampleType>::prepareModule (const juce::dsp::ProcessSpec& spec)
 {
+    _spec = spec;
     sampleRate = spec.sampleRate;
     
     inputGain.reset(sampleRate, 0.02);

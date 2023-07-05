@@ -40,20 +40,21 @@ public:
                 auto* output = outputBlock.getChannelPointer (channel);
                 
                 auto inputSignal = input[sample] * inputGain.getNextValue();
-                auto outputSignal = processSample(inputSignal) * outputGain.getNextValue();
+                auto outputSignal = processSample(inputSignal, channel) * outputGain.getNextValue();
                 auto blend = (1.0 - mix.getNextValue()) * input[sample] + mix.getNextValue() * outputSignal;
                 output[sample] = blend;
             }
         }
     }
     
-    virtual SampleType processSample(SampleType input) = 0;
+    virtual SampleType processSample(SampleType input, SampleType channel) = 0;
     
     void setInputGain(SampleType newGain);
     void setOutputGain(SampleType newGain);
     void setMix(SampleType newMix);
     
     float getSampleRate(){return sampleRate;};
+    juce::dsp::ProcessSpec& getProcessSpec(){return _spec;};
     
     float getInputGain(){return inputGain.getNextValue();};
     float getOutputGain(){return outputGain.getNextValue();};
@@ -64,6 +65,8 @@ private:
     juce::SmoothedValue<SampleType> inputGain = 1.0;
     juce::SmoothedValue<SampleType> outputGain = 1.0;
     juce::SmoothedValue<SampleType> mix = 0.0;
+    
+    juce::dsp::ProcessSpec _spec;
 };
 
 } // namespace viator_dsp
