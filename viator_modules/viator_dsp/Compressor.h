@@ -98,6 +98,8 @@ public:
     void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee, SampleType hpf);
     void setCompressorType(SampleType newCompressorType);
     
+    SampleType getGainReduction(){return currentSignal;};
+    
 private:
     float samplerate = 44100.0f;
     float threshold = 0.0f;

@@ -13,6 +13,8 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
+    juce::Slider& getVUMeter(){return vuMeter;};
+    
 private:
     
     juce::Image _filmStrip;
