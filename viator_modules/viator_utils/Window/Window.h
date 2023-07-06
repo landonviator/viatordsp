@@ -17,7 +17,7 @@ public:
      * @param editor A reference to the plugin editor so its static methods can be used.
      */
     template <typename T>
-    static inline void setPluginWindowSize(T pluginWidth, T pluginHeight, juce::AudioProcessorEditor& editor)
+    static inline void setPluginWindowSize(T pluginWidth, T pluginHeight, juce::AudioProcessorEditor& editor, double ratio)
     {
         // Grab the window instance and create a rectangle
         juce::Rectangle<float> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea.toFloat();
@@ -41,7 +41,7 @@ public:
         }
         
         // make height half of the width
-        const float height = width * 0.5;
+        const float height = width * (1.0 / ratio);
 
         // Set the size
         if (pluginWidth != 0.0)
@@ -55,18 +55,18 @@ public:
         }
         
         editor.setResizable(true, true);
-        editor.getConstrainer()->setFixedAspectRatio(2.0);
+        editor.getConstrainer()->setFixedAspectRatio(ratio);
         editor.setResizeLimits(width * 0.5, height * 0.5, width * 2.0, height * 2.0);
     }
     
 private:
     static inline std::vector<std::pair<float, float>> widthThresholds = {
-        {7680.0f, 0.1},
-        {5120.0f, 0.2},
-        {3840.0f, 0.3},
-        {2560.0f, 0.45},
-        {1920.0f, 0.6},
-        {1080.0f, 0.75}
+        {7680.0f, 0.3},
+        {5120.0f, 0.4},
+        {3840.0f, 0.5},
+        {2560.0f, 0.6},
+        {1920.0f, 0.7},
+        {1080.0f, 0.8}
     };
 };
 }
