@@ -18,8 +18,19 @@ void Compressor<SampleType>::setParameters(SampleType newThresh, SampleType newR
 {
     threshold = newThresh;
     ratio = newRatio;
-    attack = newAttack;
-    release = newRelease;
+    
+    if (compressorType == CompressorType::kVca)
+    {
+        attack = newAttack;
+        release = newRelease + 35.0;
+    }
+
+    else
+    {
+        attack = newAttack + 250.0;
+        release = newRelease + 250.0;
+    }
+    
     knee = newKnee;
     kneeScaled = std::tan(knee * (3.14 / 2.0));
     thresholdWithKnee = threshold - juce::Decibels::gainToDecibels(kneeScaled);
@@ -27,6 +38,12 @@ void Compressor<SampleType>::setParameters(SampleType newThresh, SampleType newR
     
     alphaAttack = std::exp(-std::log(9) / (samplerate * (attack / 1000.0f)));
     alphaRelease = std::exp(-std::log(9) / (samplerate * (release / 1000.0f)));
+}
+
+template <typename SampleType>
+void Compressor<SampleType>::setCompressorType(SampleType newCompressorType)
+{
+    compressorType = static_cast<CompressorType>(newCompressorType);
 }
 
 //==============================================================================

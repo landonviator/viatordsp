@@ -34,7 +34,34 @@ public:
         {
             if (filteredXDB > thresholdWithKnee)
             {
-                gainChange = threshold + (xDB - threshold) / ratio;
+                if (compressorType == CompressorType::kVca)
+                {
+                    gainChange = threshold + (xDB - threshold) / ratio;
+                }
+                
+                else
+                {
+                    // Apply a smoother gain reduction in the knee region
+                    auto linearGain = juce::Decibels::decibelsToGain(xDB);
+                    auto kneeRegion = (linearGain - threshold) / (knee - threshold);
+                    auto kneeRegionDB = juce::Decibels::gainToDecibels(kneeRegion);
+
+                    // Adjust the gain reduction curve by introducing a smoother response
+                    float ratioWithKnee;
+                    
+                    if (ratio >= 3.0)
+                    {
+                        ratioWithKnee = ratio * 0.5 - (ratio * 0.5 - 1.0) * kneeRegionDB;
+                    }
+                    
+                    else
+                    {
+                        ratioWithKnee = ratio - (ratio - 1.0) * kneeRegionDB;
+                    }
+
+                    // Apply the gain reduction
+                    gainChange = threshold + (xDB - threshold) / ratioWithKnee;
+                }
             }
         }
 
@@ -62,7 +89,14 @@ public:
         return input * juce::Decibels::decibelsToGain(gainSmooth);
     }
     
+    enum class CompressorType
+    {
+        kVca,
+        kOpto
+    };
+    
     void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee, SampleType hpf);
+    void setCompressorType(SampleType newCompressorType);
     
 private:
     float samplerate = 44100.0f;
@@ -84,6 +118,8 @@ private:
     
     juce::dsp::LinkwitzRileyFilter<SampleType> hpFilter;
     float hpCutoff = 20.0f;
+    
+    CompressorType compressorType = CompressorType::kVca;
 };
 
 } // namespace viator_dsp
