@@ -22,7 +22,7 @@ namespace viator_utils
         }
         
         /** Hard clip an audio block */
-        static void hardClipBlock(juce::dsp::AudioBlock<float> &block)
+        static void hardClipBlock(juce::dsp::AudioBlock<float> &block, float thresh)
         {
             for (int ch = 0; ch < block.getNumChannels(); ++ch)
             {
@@ -30,9 +30,9 @@ namespace viator_utils
                 
                 for (int sample = 0; sample < block.getNumSamples(); ++sample)
                 {
-                    if (std::abs(data[sample]) >= juce::Decibels::decibelsToGain(-0.1))
+                    if (std::abs(data[sample]) >= juce::Decibels::decibelsToGain(thresh))
                     {
-                        data[sample] = std::copysign(juce::Decibels::decibelsToGain(-0.1), data[sample]);
+                        data[sample] = std::copysign(juce::Decibels::decibelsToGain(thresh), data[sample]);
                     }
                 }
             }
