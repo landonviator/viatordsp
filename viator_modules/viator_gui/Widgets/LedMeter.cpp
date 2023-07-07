@@ -2,14 +2,14 @@
 namespace viator_gui
 {
 
-LedMeter::LedMeter (const juce::String& sliderName, const juce::Image& filmStrip)
+LedMeter::LedMeter (int numFrames, const juce::Image& filmStrip)
 
 {
     setInterceptsMouseClicks(false, false);
     
     vuMeter.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     vuMeter.setTextBoxStyle(juce::Slider::TextBoxLeft, true, 1, 1);
-    vuMeter.setRange(-60.0, 0.0, 0.1);
+    vuMeter.setRange(-60.0, 6.0, 0.1);
     //vuMeter.setSkewFactor(1.85);
     vuMeter.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
     vuMeter.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
@@ -21,6 +21,7 @@ LedMeter::LedMeter (const juce::String& sliderName, const juce::Image& filmStrip
     addAndMakeVisible(vuMeter);
     
     // film strip
+    _numFrames = numFrames;
     _filmStrip = filmStrip;
     frameHeight = filmStrip.getHeight() / _numFrames;
     frameWidth = filmStrip.getWidth();

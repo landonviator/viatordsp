@@ -3,12 +3,12 @@
 namespace viator_gui
 {
 
-class LedMeter  : public juce::Component
+class ImageFader  : public juce::Component
 {
 public:
     
-    LedMeter (int numFrames, const juce::Image& filmStrip);
-    ~LedMeter() override;
+    ImageFader (int numFrames, const juce::Image& filmStrip);
+    ~ImageFader() override;
     
     void paint (juce::Graphics&) override;
     void resized() override;
@@ -33,10 +33,5 @@ private:
     int frameWidth;
     int frameHeight;
     juce::Slider vuMeter;
-    
-    void mouseDown(const juce::MouseEvent&) override {}
-    void mouseDrag(const juce::MouseEvent&) override {}
-    void mouseUp(const juce::MouseEvent&) override {}
-    
 }; // class
 }// namespace viator_gui

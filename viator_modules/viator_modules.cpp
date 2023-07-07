@@ -36,6 +36,8 @@
 #include "viator_gui/Widgets/Scope.cpp"
 #include "viator_gui/Widgets/VUMeter.cpp"
 #include "viator_gui/Widgets/LedMeter.cpp"
+#include "viator_gui/Widgets/ImageFader.cpp"
+#include "viator_gui/Widgets/ImageButton.cpp"
 
 /** Viator LAF Headers*/
 #include "viator_gui/LAF/MenuLAF.cpp"
