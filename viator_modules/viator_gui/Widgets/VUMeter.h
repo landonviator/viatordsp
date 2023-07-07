@@ -23,5 +23,9 @@ private:
     int frameHeight;
     juce::Slider vuMeter;
     
+    void mouseDown(const juce::MouseEvent&) override {}
+    void mouseDrag(const juce::MouseEvent&) override {}
+    void mouseUp(const juce::MouseEvent&) override {}
+    
 }; // class
 }// namespace viator_gui

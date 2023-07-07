@@ -13,6 +13,8 @@ Meter::Meter()
     meter.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::black.withAlpha(0.5f));
     meter.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::black.withAlpha(0.8f));
     meter.setLookAndFeel(&meterLAF);
+    
+    setInterceptsMouseClicks(false, false);
 }
 
 Meter::~Meter()

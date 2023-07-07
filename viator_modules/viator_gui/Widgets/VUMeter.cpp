@@ -5,6 +5,8 @@ namespace viator_gui
 VUMeter::VUMeter (const juce::String& sliderName, const juce::Image& filmStrip)
 
 {
+    setInterceptsMouseClicks(false, false);
+    
     vuMeter.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     vuMeter.setTextBoxStyle(juce::Slider::TextBoxLeft, true, 1, 1);
     vuMeter.setRange(-20.0, 3.0, 0.1);
