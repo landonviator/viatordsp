@@ -16,6 +16,7 @@ ImageButton::ImageButton(const juce::Image& offImage,
     addAndMakeVisible(btnLabel);
     btnLabel.setJustificationType(juce::Justification::centred);
     btnLabel.setFont(juce::Font("Helvetica", 10.0f, juce::Font::FontStyleFlags::bold));
+    btnLabel.setColour(juce::Label::ColourIds::textColourId, viator_utils::gui_utils::Colors::_textColor);
     
     // button
     button.setClickingTogglesState(true);
@@ -43,6 +44,7 @@ void ImageButton::resized()
 {
     btnLabel.setBounds(0, 0, getWidth(), getHeight() * 0.5);
     button.setBounds(0, btnLabel.getBottom(), getWidth(), getHeight() * 0.5);
+    btnLabel.setFont(juce::Font("Helvetica", getWidth() * 0.1, juce::Font::FontStyleFlags::bold));
 }
 
 }
