@@ -96,7 +96,7 @@ public:
     };
     
     void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee, SampleType hpf);
-    void setCompressorType(SampleType newCompressorType);
+    void setCompressorType(CompressorType newCompressorType);
     
     SampleType getGainReduction(){return currentSignal;};
     

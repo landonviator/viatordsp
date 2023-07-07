@@ -41,9 +41,9 @@ void Compressor<SampleType>::setParameters(SampleType newThresh, SampleType newR
 }
 
 template <typename SampleType>
-void Compressor<SampleType>::setCompressorType(SampleType newCompressorType)
+void Compressor<SampleType>::setCompressorType(CompressorType newCompressorType)
 {
-    compressorType = static_cast<CompressorType>(newCompressorType);
+    compressorType = newCompressorType;
 }
 
 //==============================================================================
