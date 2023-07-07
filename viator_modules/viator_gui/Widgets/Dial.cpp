@@ -89,4 +89,11 @@ void Dial::setDialValueType(CustomDial::ValueType newValueType)
     _customDial.setDialValueType(newValueType);
     repaint();
 }
+
+void Dial::setDialValueType(CustomDialLabel::ValueType newValueType)
+{
+    customDialLabelLAF.setDialValueType(newValueType);
+    repaint();
+}
+
 }

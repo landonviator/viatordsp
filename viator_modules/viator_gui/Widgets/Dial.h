@@ -34,6 +34,7 @@ public:
     };
     
     void setDialValueType(viator_gui::CustomDial::ValueType newValueType);
+    void setDialValueType(viator_gui::CustomDialLabel::ValueType newValueType);
 
 private:
     viator_gui::CustomDial _customDial;
