@@ -15,7 +15,7 @@ namespace viator_gui
         
     private:
         const juce::Colour _noColor = juce::Colours::transparentBlack;
-        const juce::Colour _innerBgColor = juce::Colours::black.withAlpha(0.5f);
+        const juce::Colour _innerBgColor = juce::Colours::black.withAlpha(0.9f);
         viator_gui::CustomMenu _customLAF;
         
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Menu)
