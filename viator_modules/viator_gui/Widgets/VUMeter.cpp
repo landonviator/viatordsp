@@ -32,8 +32,8 @@ VUMeter::~VUMeter()
 
 void VUMeter::paint (juce::Graphics& g)
 {
-    auto vuGlow = juce::ImageCache::getFromMemory(BinaryData::back_vumeter_decore_png, BinaryData::back_vumeter_decore_pngSize);
-    auto vuGrid = juce::ImageCache::getFromMemory(BinaryData::scale_vumeter_png, BinaryData::scale_vumeter_pngSize);
+    auto vuGlow = juce::ImageCache::getFromMemory(BinaryData::back_vumeter_decore5_png, BinaryData::back_vumeter_decore5_pngSize);
+    auto vuGrid = juce::ImageCache::getFromMemory(BinaryData::scale_vumeterno_name_png, BinaryData::scale_vumeterno_name_pngSize);
 
     auto vuArea = getLocalBounds().toFloat();
     auto multGlow = 0.68;

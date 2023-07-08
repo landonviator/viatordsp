@@ -14,6 +14,8 @@ namespace viator_gui
         void paint (juce::Graphics&) override;
         void resized() override;
         
+        juce::ImageButton& getButton(){return button;};
+        
     private:
         juce::ImageButton button;
         juce::String btnOffText = "";
