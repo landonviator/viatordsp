@@ -46,3 +46,4 @@
 #include "viator_gui/LAF/TextButtonLAF.cpp"
 #include "viator_gui/LAF/SettingsLAF.cpp"
 #include "viator_gui/LAF/MeterLAF.cpp"
+#include "viator_gui/LAF/BorderLAF.cpp"

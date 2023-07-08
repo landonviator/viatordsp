@@ -56,7 +56,7 @@ public:
         
         editor.setResizable(true, true);
         editor.getConstrainer()->setFixedAspectRatio(ratio);
-        editor.setResizeLimits(width * 0.5, height * 0.5, width * 2.0, height * 2.0);
+        editor.setResizeLimits(width * 0.65, height * 0.65, width * 2.0, height * 2.0);
     }
     
 private:
