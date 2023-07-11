@@ -66,8 +66,9 @@ void CustomBorder::drawGroupComponentOutline (juce::Graphics& g, int width, int 
 
     auto alpha = group.isEnabled() ? 1.0f : 0.5f;
 
-    g.setColour (group.findColour (juce::GroupComponent::outlineColourId)
-                    .withMultipliedAlpha (alpha));
+    g.setGradientFill(juce::ColourGradient::vertical(juce::Colour::fromRGB(150, 96, 90), group.getHeight(), juce::Colour::fromRGB(130, 60, 130), group.getHeight() * 0.5));
+//    g.setColour (group.findColour (juce::GroupComponent::outlineColourId)
+//                    .withMultipliedAlpha (alpha));
 
     float strokeSize;
     if (group.getWidth() > group.getHeight())
