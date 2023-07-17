@@ -17,7 +17,7 @@ public:
      * @param editor A reference to the plugin editor so its static methods can be used.
      */
     template <typename T>
-    static inline void setPluginWindowSize(T pluginWidth, T pluginHeight, juce::AudioProcessorEditor& editor, double ratio)
+    static inline void setPluginWindowSize(T pluginWidth, T pluginHeight, juce::AudioProcessorEditor& editor, double ratio, double mult)
     {
         // Grab the window instance and create a rectangle
         juce::Rectangle<float> r = juce::Desktop::getInstance().getDisplays().getPrimaryDisplay()->userArea.toFloat();
@@ -29,7 +29,7 @@ public:
         {
             if (r.getWidth() >= entry.first)
             {
-                width = r.getWidth() * entry.second;
+                width = r.getWidth() * entry.second  * mult;
                 break;
             }
         }
@@ -37,7 +37,7 @@ public:
         // set size to 0.9 if less than 1080
         if (width == 0.0)
         {
-            width = r.getWidth() * 0.9;
+            width = r.getWidth() * 0.9 * mult;
         }
         
         // make height half of the width

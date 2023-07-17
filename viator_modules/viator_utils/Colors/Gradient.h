@@ -43,7 +43,7 @@ public:
         juce::ColourGradient gradient(gradientColor,
                                       center.x,
                                       center.y,
-                                      gradientColor.darker(0.4),
+                                      gradientColor.darker(0.2),
                                       rect.getRight(),
                                       rect.getBottom(),
                                       true);

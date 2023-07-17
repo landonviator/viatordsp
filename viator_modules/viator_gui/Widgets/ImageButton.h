@@ -15,6 +15,7 @@ namespace viator_gui
         void resized() override;
         
         juce::ImageButton& getButton(){return button;};
+        juce::Label& getLabel(){return btnLabel;};
         
     private:
         juce::ImageButton button;
