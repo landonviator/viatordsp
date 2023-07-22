@@ -23,6 +23,12 @@ ImageButton::ImageButton(const juce::Image& offImage,
     btnLabel.setFont(juce::Font("Helvetica", 10.0f, juce::Font::FontStyleFlags::bold));
     btnLabel.setColour(juce::Label::ColourIds::textColourId, viator_utils::gui_utils::Colors::_textColor);
     btnLabel.setInterceptsMouseClicks(false, false);
+    
+    btnLabel.setText(button.getToggleState() ? btnOnText : btnOffText, juce::dontSendNotification);
+    button.onClick = [this]()
+    {
+        btnLabel.setText(button.getToggleState() ? btnOnText : btnOffText, juce::dontSendNotification);
+    };
 }
 
 ImageButton::~ImageButton()
@@ -37,7 +43,7 @@ void ImageButton::resized()
 {
     button.setBounds(getLocalBounds());
     btnLabel.setBounds(getLocalBounds());
-    btnLabel.setFont(juce::Font("Helvetica", getWidth() * 0.25, juce::Font::FontStyleFlags::bold));
+    btnLabel.setFont(juce::Font("Helvetica", getWidth() * 0.12, juce::Font::FontStyleFlags::bold));
 }
 
 }
