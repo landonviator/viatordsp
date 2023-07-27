@@ -59,7 +59,7 @@ public:
     }
     
     /** Process an individual sample */
-    SampleType processSample(SampleType input, int ch, int sample) noexcept
+    SampleType processSample(SampleType input) noexcept
     {
         setResampleRate(_resample.getNextValue() + (_currentSampleRate - _resample.getNextValue()));
         
@@ -83,6 +83,7 @@ public:
     
     void setBitDepth(SampleType newBitDepth);
     void setResampledRate(SampleType newResampleRate);
+    void setResampleRate(SampleType newResampleRate);
     
 private:
     juce::SmoothedValue<float> _drive;
@@ -93,7 +94,6 @@ private:
     float _currentSampleRate;
     int _previousSample = 0;
     float _rateDivide;
-    void setResampleRate(SampleType newResampleRate);
     
     juce::NormalisableRange<float> _bitRateRange;
 };
