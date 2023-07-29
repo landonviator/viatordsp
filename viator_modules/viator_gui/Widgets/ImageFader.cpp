@@ -2,25 +2,18 @@
 namespace viator_gui
 {
 
-ImageFader::ImageFader (int numFrames, const juce::Image& filmStrip)
-
+ImageFader::ImageFader ()
 {
-    vuMeter.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-    vuMeter.setTextBoxStyle(juce::Slider::TextBoxLeft, true, 1, 1);
-    vuMeter.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
-    vuMeter.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
-    vuMeter.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::transparentBlack);
-    vuMeter.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::transparentBlack);
-    vuMeter.setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::transparentBlack);
-    vuMeter.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::transparentBlack);
-    vuMeter.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::transparentBlack);
-    addAndMakeVisible(vuMeter);
-    
-    // film strip
-    _numFrames = numFrames;
-    _filmStrip = filmStrip;
-    frameHeight = filmStrip.getHeight() / _numFrames;
-    frameWidth = filmStrip.getWidth();
+    _fader.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    _fader.setTextBoxStyle(juce::Slider::TextBoxLeft, true, 1, 1);
+    _fader.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
+    _fader.setColour(juce::Slider::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
+    _fader.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::transparentBlack);
+    _fader.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::transparentBlack);
+    _fader.setColour(juce::Slider::ColourIds::trackColourId, juce::Colours::transparentBlack);
+    _fader.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::transparentBlack);
+    _fader.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::transparentBlack);
+    addAndMakeVisible(_fader);
 }
 
 ImageFader::~ImageFader()
@@ -29,18 +22,36 @@ ImageFader::~ImageFader()
 
 void ImageFader::paint (juce::Graphics& g)
 {
-    if (_filmStrip.isValid())
+    if (!_mainImage.isValid() || _numFrames == 0)
     {
-        const float sliderPos = (float) vuMeter.valueToProportionOfLength(vuMeter.getValue());
+        g.setColour(juce::Colours::whitesmoke);
+        g.setFont(12.0f);
+        g.drawText("No image or num frames.", getLocalBounds(), juce::Justification::centred);
+    }
+    
+    else
+    {
+        const float sliderPos = (float) _fader.valueToProportionOfLength(_fader.getValue());
         int value = sliderPos * (_numFrames - 1);
 
-        g.drawImage(_filmStrip, 0, 0, getWidth(), getHeight(), 0, value * frameHeight, frameWidth, frameHeight);
+        g.drawImage(_mainImage, 0, 0, getWidth(), getHeight(), 0, value * _frameHeight, _frameWidth, _frameHeight);
     }
 }
 
 void ImageFader::resized()
 {
-    vuMeter.setBounds(getLocalBounds());
+    _fader.setBounds(getLocalBounds());
+}
+
+void ImageFader::setFaderImageAndNumFrames(const juce::Image main, const int numFrames)
+{
+    _mainImage = main;
+    _numFrames = numFrames;
+    
+    _frameHeight = _mainImage.getHeight() / _numFrames;
+    _frameWidth = _mainImage.getWidth();
+    
+    repaint();
 }
 
 }
