@@ -25,6 +25,8 @@ Dial::Dial (const juce::String& sliderName, const juce::Image& filmStrip)
     setName(sliderName);
     
     setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    setTextBoxStyle(juce::Slider::TextBoxBelow, false, 64, 32);
+    setTextBoxStyle(juce::Slider::TextBoxBelow, false, 64, 32);
     setDoubleClickReturnValue(true, 0.0);
     setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
     setColour(juce::Slider::ColourIds::textBoxTextColourId, _mainTextColor);
@@ -32,8 +34,6 @@ Dial::Dial (const juce::String& sliderName, const juce::Image& filmStrip)
     
     // film strip
     _filmStrip = filmStrip;
-    frameHeight = filmStrip.getHeight() / _numFrames;
-    frameWidth = filmStrip.getWidth();
 }
 
 Dial::~Dial()
@@ -43,7 +43,10 @@ Dial::~Dial()
 
 void Dial::paint (juce::Graphics& g)
 {
-    if (_filmStrip.isValid())
+    frameHeight = _filmStrip.getHeight() / _numFrames;
+    frameWidth = _filmStrip.getWidth();
+    
+    if (_filmStrip.isValid() && _numFrames > 0)
     {
         const float sliderPos = (float) valueToProportionOfLength(getValue());
 
@@ -93,6 +96,12 @@ void Dial::setDialValueType(CustomDial::ValueType newValueType)
 void Dial::setDialValueType(CustomDialLabel::ValueType newValueType)
 {
     customDialLabelLAF.setDialValueType(newValueType);
+    repaint();
+}
+
+void Dial::setNumFrames(const int newNumFrames)
+{
+    _numFrames = newNumFrames;
     repaint();
 }
 
