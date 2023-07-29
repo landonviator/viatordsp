@@ -7,17 +7,20 @@ class VUMeter  : public juce::Component
 {
 public:
     
-    VUMeter (const juce::String& sliderName, const juce::Image& filmStrip);
+    VUMeter ();
     ~VUMeter() override;
     
     void paint (juce::Graphics&) override;
     void resized() override;
     
     juce::Slider& getVUMeter(){return vuMeter;};
+    void setVUImages(const juce::Image& main, const juce::Image& grid, const juce::Image& bg);
     
 private:
     
-    juce::Image _filmStrip;
+    juce::Image _mainVUImage;
+    juce::Image _vuGridImage;
+    juce::Image _vuBGImage;
     const int _numFrames = 129;
     int frameWidth;
     int frameHeight;

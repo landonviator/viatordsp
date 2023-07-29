@@ -2,11 +2,10 @@
 namespace viator_gui
 {
 
-VUMeter::VUMeter (const juce::String& sliderName, const juce::Image& filmStrip)
+VUMeter::VUMeter ()
 
 {
     setInterceptsMouseClicks(false, false);
-    
     vuMeter.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     vuMeter.setTextBoxStyle(juce::Slider::TextBoxLeft, true, 1, 1);
     vuMeter.setRange(-20.0, 3.0, 0.1);
@@ -19,11 +18,6 @@ VUMeter::VUMeter (const juce::String& sliderName, const juce::Image& filmStrip)
     vuMeter.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::transparentBlack);
     vuMeter.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::transparentBlack);
     addAndMakeVisible(vuMeter);
-    
-    // film strip
-    _filmStrip = filmStrip;
-    frameHeight = filmStrip.getHeight() / _numFrames;
-    frameWidth = filmStrip.getWidth();
 }
 
 VUMeter::~VUMeter()
@@ -32,31 +26,47 @@ VUMeter::~VUMeter()
 
 void VUMeter::paint (juce::Graphics& g)
 {
-    auto vuGlow = juce::ImageCache::getFromMemory(BinaryData::back_vumeter_decore5_png, BinaryData::back_vumeter_decore5_pngSize);
-    auto vuGrid = juce::ImageCache::getFromMemory(BinaryData::scale_vumeterno_name_png, BinaryData::scale_vumeterno_name_pngSize);
-
+    if (!_mainVUImage.isValid() || !_vuGridImage.isValid() || !_vuBGImage.isValid())
+    {
+        g.setColour(juce::Colours::whitesmoke);
+        g.setFont(12.0f);
+        g.drawText("You didn't set the images.", getLocalBounds(), juce::Justification::centred);
+    }
+    
     auto vuArea = getLocalBounds().toFloat();
     auto multGlow = 0.68;
     auto backY = getHeight() * 0.093 + 10;
-    g.drawImage(vuGlow, vuArea.withSizeKeepingCentre(getWidth() * multGlow, getHeight() * multGlow).withY(backY));
+    g.drawImage(_vuBGImage, vuArea.withSizeKeepingCentre(getWidth() * multGlow, getHeight() * multGlow).withY(backY));
     
     auto multGridWidth = 0.6;
     auto multGridHeight = multGridWidth * 0.6;
     auto scaleY = getHeight() * 0.2 + 10;
-    g.drawImage(vuGrid, vuArea.withSizeKeepingCentre(getWidth() * multGridWidth, getHeight() * multGridHeight).withY(scaleY));
+    g.drawImage(_vuGridImage, vuArea.withSizeKeepingCentre(getWidth() * multGridWidth, getHeight() * multGridHeight).withY(scaleY));
     
-    if (_filmStrip.isValid())
-    {
-        const float sliderPos = (float) vuMeter.valueToProportionOfLength(vuMeter.getValue());
-        int value = sliderPos * (_numFrames - 1);
+    const float sliderPos = (float) vuMeter.valueToProportionOfLength(vuMeter.getValue());
+    int value = sliderPos * (_numFrames - 1);
 
-        g.drawImage(_filmStrip, 0, 10, getWidth(), getHeight(), 0, value * frameHeight, frameWidth, frameHeight);
-    }
+    g.drawImage(_mainVUImage, 0, 10, getWidth(), getHeight(), 0, value * frameHeight, frameWidth, frameHeight);
 }
 
 void VUMeter::resized()
 {
     vuMeter.setBounds(getLocalBounds());
+}
+
+void VUMeter::setVUImages(const juce::Image &main, const juce::Image &grid, const juce::Image &bg)
+{
+    // apply images
+    _mainVUImage = main;
+    _vuGridImage = grid;
+    _vuBGImage = bg;
+    
+    // update sizes
+    frameHeight = _mainVUImage.getHeight() / _numFrames;
+    frameWidth = _mainVUImage.getWidth();
+    
+    // update vu image draw
+    repaint();
 }
 
 }
