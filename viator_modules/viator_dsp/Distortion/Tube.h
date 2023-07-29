@@ -1,8 +1,6 @@
 #ifndef Tube_h
 #define Tube_h
 
-#include <JuceHeader.h>
-
 namespace viator_dsp
 {
 

@@ -1,8 +1,6 @@
 #ifndef BitCrusher_h
 #define BitCrusher_h
 
-#include "../../Common/Common.h"
-
 namespace viator_dsp
 {
 template <typename SampleType>

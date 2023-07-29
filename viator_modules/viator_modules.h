@@ -16,21 +16,31 @@
 #pragma once
 #define VIATOR_MODULES_H_INCLUDED
 
+#include <juce_audio_basics/juce_audio_basics.h>
+#include <juce_audio_devices/juce_audio_devices.h>
+#include <juce_audio_formats/juce_audio_formats.h>
+#include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_audio_utils/juce_audio_utils.h>
 #include <juce_core/juce_core.h>
+#include <juce_data_structures/juce_data_structures.h>
+#include <juce_dsp/juce_dsp.h>
 #include <juce_events/juce_events.h>
+#include <juce_graphics/juce_graphics.h>
+#include <juce_gui_basics/juce_gui_basics.h>
+#include <juce_gui_extra/juce_gui_extra.h>
+#include "viator_utils/utils.h"
 
 /** Viator DSP Headers*/
-#include "viator_dsp/Distortion.h"
-#include "viator_dsp/SVFilter.h"
-#include "viator_dsp/LFOGenerator.h"
-#include "viator_dsp/MultiBandProcessor.h"
-#include "viator_dsp/BitCrusher.h"
-#include "viator_dsp/BrickWallLPF.h"
-#include "viator_dsp/Expander.h"
-#include "viator_dsp/Tube.h"
-#include "viator_dsp/Denoiser.h"
+#include "viator_dsp/Distortion/Distortion.h"
+#include "viator_dsp/Filter/SVFilter.h"
+#include "viator_dsp/Filter/MultiBandProcessor.h"
+#include "viator_dsp/Distortion/BitCrusher.h"
+#include "viator_dsp/Filter/BrickWallLPF.h"
+#include "viator_dsp/Dynamics/Expander.h"
+#include "viator_dsp/Distortion/Tube.h"
+#include "viator_dsp/Dynamics/Denoiser.h"
 #include "viator_dsp/ModuleBase.h"
-#include "viator_dsp/Compressor.h"
+#include "viator_dsp/Dynamics/Compressor.h"
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/Dial.h"

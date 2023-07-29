@@ -1,5 +1,6 @@
 #ifndef utils_h
 #define utils_h
+#include "../viator_modules.h"
 
 namespace viator_utils
 {

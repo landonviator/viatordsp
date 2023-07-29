@@ -1,8 +1,6 @@
 #ifndef Expander_h
 #define Expander_h
 
-#include "../../Common/Common.h"
-
 namespace viator_dsp
 {
 

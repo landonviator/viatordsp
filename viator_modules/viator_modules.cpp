@@ -10,17 +10,16 @@
 #include "viator_modules.h"
 
 /** Viator DSP CPP Files*/
-#include "viator_dsp/Distortion.cpp"
-#include "viator_dsp/SVFilter.cpp"
-#include "viator_dsp/LFOGenerator.cpp"
-#include "viator_dsp/MultiBandProcessor.cpp"
-#include "viator_dsp/BitCrusher.cpp"
-#include "viator_dsp/BrickWallLPF.cpp"
-#include "viator_dsp/Expander.cpp"
-#include "viator_dsp/Tube.cpp"
-#include "viator_dsp/Denoiser.cpp"
+#include "viator_dsp/Distortion/Distortion.cpp"
+#include "viator_dsp/Filter/SVFilter.cpp"
+#include "viator_dsp/Filter/MultiBandProcessor.cpp"
+#include "viator_dsp/Distortion/BitCrusher.cpp"
+#include "viator_dsp/Filter/BrickWallLPF.cpp"
+#include "viator_dsp/Dynamics/Expander.cpp"
+#include "viator_dsp/Distortion/Tube.cpp"
+#include "viator_dsp/Dynamics/Denoiser.cpp"
 #include "viator_dsp/ModuleBase.cpp"
-#include "viator_dsp/Compressor.cpp"
+#include "viator_dsp/Dynamics/Compressor.cpp"
 
 /** Viator GUI CPP Files*/
 #include "viator_gui/Widgets/Dial.cpp"

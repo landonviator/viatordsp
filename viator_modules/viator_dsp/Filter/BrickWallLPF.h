@@ -1,8 +1,6 @@
 #ifndef BrickWallLPF_h
 #define BrickWallLPF_h
 
-#include "../../Common/Common.h"
-
 namespace viator_dsp
 {
 class BrickWallLPF

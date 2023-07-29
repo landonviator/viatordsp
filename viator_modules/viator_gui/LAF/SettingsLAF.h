@@ -1,5 +1,4 @@
 #pragma once
-#include <JuceHeader.h>
 namespace viator_gui
 {
     class SettingsButton : public juce::LookAndFeel_V4

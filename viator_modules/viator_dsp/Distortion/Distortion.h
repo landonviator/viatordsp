@@ -1,7 +1,6 @@
 #ifndef Distortion_h
 #define Distortion_h
 
-#include "../../Common/Common.h"
 #include "../Filter/SVFilter.h"
 
 namespace viator_dsp

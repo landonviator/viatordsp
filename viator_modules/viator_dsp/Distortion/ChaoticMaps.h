@@ -1,8 +1,6 @@
 #ifndef ChaoticMaps_h
 #define ChaoticMaps_h
 
-#include "../../Common/Common.h"
-
 namespace viator_dsp
 {
 template <typename SampleType>

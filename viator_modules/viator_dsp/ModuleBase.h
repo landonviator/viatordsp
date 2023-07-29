@@ -1,8 +1,6 @@
 #ifndef ModuleBase_h
 #define ModuleBase_h
 
-#include <JuceHeader.h>
-
 namespace viator_dsp
 {
 

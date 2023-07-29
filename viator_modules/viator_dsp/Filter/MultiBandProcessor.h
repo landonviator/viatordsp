@@ -1,6 +1,5 @@
 #ifndef MultiBandProcessor_h
 #define MultiBandProcessor_h
-#include "../../Common/Common.h"
 
 namespace viator_dsp
 {

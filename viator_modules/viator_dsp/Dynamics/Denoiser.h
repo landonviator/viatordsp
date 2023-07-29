@@ -1,8 +1,6 @@
 #ifndef Denoiser_h
 #define Denoiser_h
 
-#include <JuceHeader.h>
-
 namespace viator_dsp
 {
 

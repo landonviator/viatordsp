@@ -1,8 +1,6 @@
 #ifndef Compressor_h
 #define Compressor_h
 
-#include <JuceHeader.h>
-
 namespace viator_dsp
 {
 
