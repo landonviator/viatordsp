@@ -2,13 +2,13 @@ namespace viator_dsp
 {
 
 template <typename SampleType>
-FilterBank<SampleType>::FilterBank()
+FastFilter<SampleType>::FastFilter()
 {
     
 }
 
 template <typename SampleType>
-void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcept
+void FastFilter<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcept
 {
     _sampleRate = spec.sampleRate;
     _blockSize = spec.maximumBlockSize;
@@ -19,6 +19,7 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
     _interleaved = juce::dsp::AudioBlock<juce::dsp::SIMDRegister<float>> (_interleavedBlockData, 1, _blockSize);
     _zero        = juce::dsp::AudioBlock<float> (_zeroData, juce::dsp::SIMDRegister<float>::size(), _blockSize);
 
+    _interleaved.clear();
     _zero.clear();
     
     auto monoSpec = spec;
@@ -27,8 +28,14 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
     _filter->prepare (spec);
 }
 
-template class viator_dsp::FilterBank<float>;
-template class viator_dsp::FilterBank<double>;
+template <typename SampleType>
+void FastFilter<SampleType>::updateParameters(SampleType newCutoff, SampleType newQ, SampleType newGain)
+{
+    *_coefficient = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, newCutoff);
+}
+
+template class viator_dsp::FastFilter<float>;
+template class viator_dsp::FastFilter<double>;
 
 } // namespace
 

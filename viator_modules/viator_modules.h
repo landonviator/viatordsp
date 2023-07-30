@@ -41,7 +41,7 @@
 #include "viator_dsp/Dynamics/Denoiser.h"
 #include "viator_dsp/ModuleBase.h"
 #include "viator_dsp/Dynamics/Compressor.h"
-#include "viator_dsp/Filter/FilterBank.h"
+#include "viator_dsp/Filter/FastFilter.h"
 
 /** Viator GUI Headers*/
 #include "viator_gui/Widgets/Dial.h"

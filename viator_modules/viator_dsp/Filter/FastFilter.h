@@ -25,11 +25,11 @@ auto prepareChannelPointers (const juce::dsp::AudioBlock<SampleType>& block, juc
 }
 
 template <typename SampleType>
-class FilterBank
+class FastFilter
 {
 public:
     
-    FilterBank();
+    FastFilter();
     
     void prepare(const juce::dsp::ProcessSpec& spec) noexcept;
     
@@ -57,6 +57,8 @@ public:
                                               juce::AudioData::NonInterleavedDest<Format> { outChannels.data(),                                registerSize },
                                               numSamples); // [14]
     }
+    
+    void updateParameters(SampleType newCutoff, SampleType newQ, SampleType newGain);
     
 private:
     float _sampleRate {0.0f};
