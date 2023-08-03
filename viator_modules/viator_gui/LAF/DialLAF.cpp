@@ -262,6 +262,7 @@ void CustomDialLabel::drawLabel (juce::Graphics& g, juce::Label& label)
                 {
                     labelText = juce::String(value) + suffix;
                 }
+                
                 else
                 {
                     labelText = slider->getName();

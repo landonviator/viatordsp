@@ -21,13 +21,14 @@ ImageButton::ImageButton(const juce::Image& offImage,
     addAndMakeVisible(btnLabel);
     btnLabel.setJustificationType(juce::Justification::centred);
     btnLabel.setFont(juce::Font("Helvetica", 10.0f, juce::Font::FontStyleFlags::bold));
-    btnLabel.setColour(juce::Label::ColourIds::textColourId, viator_utils::gui_utils::Colors::_textColor);
+    btnLabel.setColour(juce::Label::ColourIds::textColourId, button.getToggleState() ? juce::Colours::black : juce::Colours::whitesmoke);
     btnLabel.setInterceptsMouseClicks(false, false);
     
     btnLabel.setText(button.getToggleState() ? btnOnText : btnOffText, juce::dontSendNotification);
     button.onClick = [this]()
     {
         btnLabel.setText(button.getToggleState() ? btnOnText : btnOffText, juce::dontSendNotification);
+        btnLabel.setColour(juce::Label::ColourIds::textColourId, button.getToggleState() ? juce::Colours::black : juce::Colours::whitesmoke);
     };
 }
 

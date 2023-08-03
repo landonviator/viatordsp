@@ -1,9 +1,10 @@
 #pragma once
+#include "../LAF/DialLAF.h"
 
 namespace viator_gui
 {
 
-class ImageFader  : public juce::Component
+class ImageFader  : public juce::Slider
 {
 public:
     
@@ -34,7 +35,14 @@ public:
         _fader.setValue(newMeterValue);
     }
     
+    void setSliderTextBoxWidth(const float newWidth)
+    {
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, newWidth, 16);
+    }
+    
 private:
+    
+    viator_gui::CustomDialLabel _customSliderLabel;
     
     juce::Image _mainImage;
     int _numFrames = 0;
