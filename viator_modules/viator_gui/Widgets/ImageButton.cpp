@@ -9,6 +9,8 @@ ImageButton::ImageButton(const juce::Image& offImage,
                          const juce::String& offText,
                          const juce::String& onText)
 {
+    setInterceptsMouseClicks(true, true);
+    
     btnOffText = offText;
     btnOnText = onText;
     
@@ -44,7 +46,7 @@ void ImageButton::resized()
 {
     button.setBounds(getLocalBounds());
     btnLabel.setBounds(getLocalBounds());
-    btnLabel.setFont(juce::Font("Helvetica", getWidth() * 0.12, juce::Font::FontStyleFlags::bold));
+    btnLabel.setFont(juce::Font("Helvetica", getWidth() * 0.17, juce::Font::FontStyleFlags::bold));
 }
 
 }
