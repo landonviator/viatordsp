@@ -27,12 +27,18 @@ namespace viator_gui
 
     void Menu::mouseEnter(const juce::MouseEvent &event)
     {
+        if (!_shouldHover)
+            return;
+        
         setColour(juce::ComboBox::ColourIds::backgroundColourId, juce::Colours::whitesmoke.withAlpha(0.05f));
         repaint();
     }
 
     void Menu::mouseExit(const juce::MouseEvent &event)
     {
+        if (!_shouldHover)
+            return;
+        
         setColour(juce::ComboBox::ColourIds::backgroundColourId, _noColor);
         repaint();
     }

@@ -28,4 +28,10 @@ namespace viator_gui
         g.setColour (box.findColour (juce::ComboBox::arrowColourId).withAlpha ((box.isEnabled() ? 0.9f : 0.2f)));
         g.strokePath (path, juce::PathStrokeType (2.0f));
     }
+
+    void CustomMenu::positionComboBoxText (juce::ComboBox& box, juce::Label& label)
+    {
+        label.setBounds (box.getLocalBounds().withX(box.getWidth() * 0.1).withY(1));
+        label.setFont (juce::Font("Helvetica", box.getHeight() * 0.6, juce::Font::FontStyleFlags::bold));
+    }
 }
