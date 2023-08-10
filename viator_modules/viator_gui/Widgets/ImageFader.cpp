@@ -17,6 +17,7 @@ ImageFader::ImageFader ()
 
 ImageFader::~ImageFader()
 {
+    setLookAndFeel(nullptr);
 }
 
 void ImageFader::paint (juce::Graphics& g)
