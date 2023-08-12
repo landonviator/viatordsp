@@ -32,7 +32,7 @@ void Compressor<SampleType>::setParameters(SampleType newThresh, SampleType newR
     }
     
     knee = newKnee;
-    kneeScaled = std::tan(knee * (3.14 / 2.0));
+    kneeScaled = std::tanh(knee * (3.14 / 2.0));
     thresholdWithKnee = threshold - juce::Decibels::gainToDecibels(kneeScaled);
     hpCutoff = hpf;
     
