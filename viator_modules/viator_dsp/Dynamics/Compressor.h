@@ -5,19 +5,20 @@ namespace viator_dsp
 {
 
 template <typename SampleType>
-class Compressor : public ModuleBase<SampleType>
+class Compressor
 {
 public:
     Compressor(){};
     ~Compressor(){};
 
     void reset();
+    void prepareModule (const juce::dsp::ProcessSpec& spec);
     
-    SampleType processSample(SampleType input, SampleType channel) override
+    SampleType processSample(SampleType input, SampleType channel)
     {
         hpFilter.setCutoffFrequency(hpCutoff);
         
-        auto xUni = abs(input);
+        auto xUni = abs(input * inputGain.getNextValue());
         auto xDB = juce::Decibels::gainToDecibels(xUni);
 
         if (xDB < -96.0)
@@ -28,38 +29,35 @@ public:
         auto hpSignal = hpFilter.processSample(channel, xUni);
         auto filteredXDB = juce::Decibels::gainToDecibels(std::abs(hpSignal));
         
-        if (filteredXDB > threshold)
+        if (filteredXDB > thresholdWithKnee)
         {
-            if (filteredXDB > thresholdWithKnee)
+            if (compressorType == CompressorType::kVca)
             {
-                if (compressorType == CompressorType::kVca)
+                gainChange = threshold + (xDB - threshold) / ratio;
+            }
+            
+            else
+            {
+                // Apply a smoother gain reduction in the knee region
+                auto linearGain = juce::Decibels::decibelsToGain(xDB);
+                auto kneeRegion = (linearGain - threshold) / (knee - threshold);
+                auto kneeRegionDB = juce::Decibels::gainToDecibels(kneeRegion);
+
+                // Adjust the gain reduction curve by introducing a smoother response
+                float ratioWithKnee;
+                
+                if (ratio >= 3.0)
                 {
-                    gainChange = threshold + (xDB - threshold) / ratio;
+                    ratioWithKnee = ratio * 0.5 - (ratio * 0.5 - 1.0) * kneeRegionDB;
                 }
                 
                 else
                 {
-                    // Apply a smoother gain reduction in the knee region
-                    auto linearGain = juce::Decibels::decibelsToGain(xDB);
-                    auto kneeRegion = (linearGain - threshold) / (knee - threshold);
-                    auto kneeRegionDB = juce::Decibels::gainToDecibels(kneeRegion);
-
-                    // Adjust the gain reduction curve by introducing a smoother response
-                    float ratioWithKnee;
-                    
-                    if (ratio >= 3.0)
-                    {
-                        ratioWithKnee = ratio * 0.5 - (ratio * 0.5 - 1.0) * kneeRegionDB;
-                    }
-                    
-                    else
-                    {
-                        ratioWithKnee = ratio - (ratio - 1.0) * kneeRegionDB;
-                    }
-
-                    // Apply the gain reduction
-                    gainChange = threshold + (xDB - threshold) / ratioWithKnee;
+                    ratioWithKnee = ratio - (ratio - 1.0) * kneeRegionDB;
                 }
+
+                // Apply the gain reduction
+                gainChange = threshold + (xDB - threshold) / ratioWithKnee;
             }
         }
 
@@ -83,8 +81,8 @@ public:
         }
         
         gainSmoothPrevious = gainSmooth;
-        
-        return input * juce::Decibels::decibelsToGain(gainSmooth);
+        auto blend = (1.0 - mix.getNextValue()) * input + mix.getNextValue() * (input * juce::Decibels::decibelsToGain(currentSignal));
+        return blend * outputGain.getNextValue();
     }
     
     enum class CompressorType
@@ -95,6 +93,9 @@ public:
     
     void setParameters(SampleType newThresh, SampleType newRatio, SampleType newAttack, SampleType newRelease, SampleType newKnee, SampleType hpf);
     void setCompressorType(CompressorType newCompressorType);
+    void setInputGain(SampleType newGain);
+    void setOutputGain(SampleType newGain);
+    void setMix(SampleType newMix);
     
     SampleType getGainReduction(){return currentSignal;};
     
@@ -115,6 +116,10 @@ private:
     float gainChangeDB = 0.0f;
     
     float gainChange, gainSmooth, currentSignal;
+    
+    juce::SmoothedValue<SampleType> inputGain = 1.0;
+    juce::SmoothedValue<SampleType> outputGain = 1.0;
+    juce::SmoothedValue<SampleType> mix = 0.0;
     
     juce::dsp::LinkwitzRileyFilter<SampleType> hpFilter;
     float hpCutoff = 20.0f;
