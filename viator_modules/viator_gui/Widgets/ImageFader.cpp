@@ -12,11 +12,11 @@ ImageFader::ImageFader ()
     setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::transparentBlack);
     setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::transparentBlack);
     setLookAndFeel(&_customSliderLabel);
-    //addAndMakeVisible(_fader);
 }
 
 ImageFader::~ImageFader()
 {
+    setLookAndFeel(nullptr);
 }
 
 void ImageFader::paint (juce::Graphics& g)
