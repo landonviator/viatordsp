@@ -72,6 +72,7 @@ class CustomDialLabel : public juce::LookAndFeel_V4
 private:
 
     float _sliderWidth;
+    bool sliderIsDial = true;
     juce::String _sliderName = "";
     
     ValueType _dialValueType = ValueType::kFloat;

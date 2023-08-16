@@ -39,6 +39,7 @@ void ImageFader::paint (juce::Graphics& g)
 
 void ImageFader::resized()
 {
+    setTextBoxStyle(TextBoxBelow, true, getWidth(), getHeight() * 0.15);
     juce::Slider::resized();
 }
 
@@ -50,6 +51,12 @@ void ImageFader::setFaderImageAndNumFrames(const juce::Image main, const int num
     _frameHeight = _mainImage.getHeight() / _numFrames;
     _frameWidth = _mainImage.getWidth();
     
+    repaint();
+}
+
+void ImageFader::setDialValueType(CustomDialLabel::ValueType newValueType)
+{
+    _customSliderLabel.setDialValueType(newValueType);
     repaint();
 }
 

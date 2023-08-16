@@ -9,6 +9,7 @@ namespace viator_gui
         
         void drawComboBox (juce::Graphics& g, int width, int height, bool,
                                            int, int, int, int, juce::ComboBox& box);
+        void positionComboBoxText (juce::ComboBox& box, juce::Label& label);
     private:
     };
 }

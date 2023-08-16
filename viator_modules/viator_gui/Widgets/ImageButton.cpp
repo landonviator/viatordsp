@@ -23,14 +23,13 @@ ImageButton::ImageButton(const juce::Image& offImage,
     addAndMakeVisible(btnLabel);
     btnLabel.setJustificationType(juce::Justification::centred);
     btnLabel.setFont(juce::Font("Helvetica", 10.0f, juce::Font::FontStyleFlags::bold));
-    btnLabel.setColour(juce::Label::ColourIds::textColourId, button.getToggleState() ? juce::Colours::black : juce::Colours::whitesmoke);
+    btnLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.5f));
     btnLabel.setInterceptsMouseClicks(false, false);
     
     btnLabel.setText(button.getToggleState() ? btnOnText : btnOffText, juce::dontSendNotification);
     button.onClick = [this]()
     {
         btnLabel.setText(button.getToggleState() ? btnOnText : btnOffText, juce::dontSendNotification);
-        btnLabel.setColour(juce::Label::ColourIds::textColourId, button.getToggleState() ? juce::Colours::black : juce::Colours::whitesmoke);
     };
 }
 

@@ -40,6 +40,8 @@ public:
         setTextBoxStyle(juce::Slider::TextBoxBelow, false, newWidth, 16);
     }
     
+    void setDialValueType(viator_gui::CustomDialLabel::ValueType newValueType);
+    
 private:
     
     viator_gui::CustomDialLabel _customSliderLabel;

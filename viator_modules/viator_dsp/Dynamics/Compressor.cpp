@@ -4,13 +4,23 @@ namespace viator_dsp
 {
 
 template <typename SampleType>
-void Compressor<SampleType>::reset()
+void Compressor<SampleType>::prepareModule (const juce::dsp::ProcessSpec& spec)
 {
-    samplerate = viator_dsp::ModuleBase<SampleType>::getProcessSpec().sampleRate;
+    samplerate = spec.sampleRate;
     
-    hpFilter.prepare(viator_dsp::ModuleBase<SampleType>::getProcessSpec());
+    hpFilter.prepare(spec);
     hpFilter.setType(juce::dsp::LinkwitzRileyFilter<SampleType>::Type::highpass);
     hpFilter.setCutoffFrequency(hpCutoff);
+    
+    inputGain.reset(samplerate, 0.02);
+    outputGain.reset(samplerate, 0.02);
+    mix.reset(samplerate, 0.02);
+}
+
+template <typename SampleType>
+void Compressor<SampleType>::reset()
+{
+
 }
 
 template <typename SampleType>
@@ -32,12 +42,31 @@ void Compressor<SampleType>::setParameters(SampleType newThresh, SampleType newR
     }
     
     knee = newKnee;
-    kneeScaled = std::tan(knee * (3.14 / 2.0));
+    kneeScaled = std::tanh(knee * (3.14 / 2.0));
     thresholdWithKnee = threshold - juce::Decibels::gainToDecibels(kneeScaled);
     hpCutoff = hpf;
     
     alphaAttack = std::exp(-std::log(9) / (samplerate * (attack / 1000.0f)));
     alphaRelease = std::exp(-std::log(9) / (samplerate * (release / 1000.0f)));
+}
+
+template <typename SampleType>
+void Compressor<SampleType>::setInputGain(SampleType newGain)
+{
+    inputGain.setTargetValue(juce::Decibels::decibelsToGain(newGain));
+}
+
+template <typename SampleType>
+void Compressor<SampleType>::setOutputGain(SampleType newGain)
+{
+    outputGain.setTargetValue(juce::Decibels::decibelsToGain(newGain));
+}
+
+template <typename SampleType>
+void Compressor<SampleType>::setMix(SampleType newMix)
+{
+    newMix *= 0.01;
+    mix.setTargetValue(newMix);
 }
 
 template <typename SampleType>
