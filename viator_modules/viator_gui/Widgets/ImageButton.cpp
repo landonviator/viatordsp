@@ -30,6 +30,12 @@ ImageButton::ImageButton(const juce::Image& offImage,
     button.onClick = [this]()
     {
         btnLabel.setText(button.getToggleState() ? btnOnText : btnOffText, juce::dontSendNotification);
+        
+        if (_btnType == ViatorButtonType::kLED)
+        {
+            auto state = button.getToggleState();
+            btnLabel.setColour(juce::Label::ColourIds::textColourId, state ? _textOn : _textOff);
+        }
     };
 }
 

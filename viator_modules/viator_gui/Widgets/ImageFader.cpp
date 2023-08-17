@@ -21,6 +21,7 @@ ImageFader::~ImageFader()
 
 void ImageFader::paint (juce::Graphics& g)
 {
+    // alert dev that they didn't set an image
     if (!_mainImage.isValid() || _numFrames == 0)
     {
         g.setColour(juce::Colours::whitesmoke);
@@ -28,6 +29,7 @@ void ImageFader::paint (juce::Graphics& g)
         g.drawText("No image or num frames.", getLocalBounds(), juce::Justification::centred);
     }
     
+    // do the film strip
     else
     {
         const float sliderPos = (float) valueToProportionOfLength(getValue());
@@ -39,7 +41,9 @@ void ImageFader::paint (juce::Graphics& g)
 
 void ImageFader::resized()
 {
-    setTextBoxStyle(TextBoxBelow, true, getWidth(), getHeight() * 0.15);
+    auto type = getSliderStyle() == LinearVertical;
+    auto mult = type ? 0.05 : 0.15;
+    setTextBoxStyle(TextBoxBelow, true, getWidth(), getHeight() * mult);
     juce::Slider::resized();
 }
 
