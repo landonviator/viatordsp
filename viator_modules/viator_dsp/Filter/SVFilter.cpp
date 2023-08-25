@@ -175,6 +175,12 @@ void viator_dsp::SVFilter<SampleType>::preWarp()
 template <typename SampleType>
 void viator_dsp::SVFilter<SampleType>::setType()
 {
+    lsLevel = 0.0;
+    bsLevel = 0.0;
+    hsLevel = 0.0;
+    lpLevel = 0.0;
+    hpLevel = 0.0;
+    
     switch (mType)
     {
         case kLowShelf: lsLevel = 1.0; break;
