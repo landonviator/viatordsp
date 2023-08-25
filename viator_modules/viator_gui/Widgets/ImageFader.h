@@ -37,7 +37,7 @@ public:
     
     void setSliderTextBoxWidth(const float newWidth)
     {
-        setTextBoxStyle(juce::Slider::TextBoxBelow, false, newWidth, 16);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, newWidth, newWidth);
     }
     
     void setDialValueType(viator_gui::CustomDialLabel::ValueType newValueType);

@@ -155,7 +155,7 @@ void CustomDial::drawLabel (juce::Graphics& g, juce::Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const juce::Font font (juce::Font ("Helvetica", label.getHeight() * 0.9, juce::Font::FontStyleFlags::bold));
+        const juce::Font font (juce::Font ("Helvetica", juce::jmax(label.getWidth() * 0.12, label.getHeight() * 0.25), juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
@@ -226,7 +226,7 @@ void CustomDialLabel::drawLabel (juce::Graphics& g, juce::Label& label)
     if (! label.isBeingEdited())
     {
         auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-        const juce::Font font (juce::Font ("Helvetica", juce::jmax(label.getWidth() * 0.12, label.getHeight() * 0.25), juce::Font::FontStyleFlags::bold));
+        const juce::Font font (juce::Font ("Helvetica", juce::jmax(label.getWidth() * 0.12, label.getHeight() * 0.75), juce::Font::FontStyleFlags::bold));
 
         g.setColour (label.findColour (Label::textColourId).withMultipliedAlpha (alpha));
         g.setFont (font);
