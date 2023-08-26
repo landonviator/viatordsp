@@ -28,7 +28,7 @@ void CustomBorder::drawGroupComponentOutline (juce::Graphics& g, int width, int 
         fontSize = group.getHeight() * 0.024f;
     }
     
-    juce::Font f (juce::Font("Helvetica", fontSize, juce::Font::FontStyleFlags::bold));
+    juce::Font f (juce::Font("Helvetica", fontSize * 1.3, juce::Font::FontStyleFlags::bold));
 
     juce::Path p;
     auto x = indent;
@@ -66,7 +66,7 @@ void CustomBorder::drawGroupComponentOutline (juce::Graphics& g, int width, int 
 
     auto alpha = group.isEnabled() ? 1.0f : 0.5f;
 
-    g.setGradientFill(juce::ColourGradient::vertical(juce::Colour::fromRGB(150, 96, 90), group.getHeight(), juce::Colour::fromRGB(130, 60, 130), group.getHeight() * 0.5));
+    g.setGradientFill(juce::ColourGradient::vertical(juce::Colour::fromRGB(50, 21, 139), group.getHeight(), juce::Colour::fromRGB(151, 64, 114), group.getHeight() * 0.1));
 //    g.setColour (group.findColour (juce::GroupComponent::outlineColourId)
 //                    .withMultipliedAlpha (alpha));
 
@@ -78,7 +78,7 @@ void CustomBorder::drawGroupComponentOutline (juce::Graphics& g, int width, int 
     
     else
     {
-        strokeSize = group.getHeight() * 0.0025f;
+        strokeSize = group.getHeight() * 0.005f;
     }
     
     g.strokePath (p, juce::PathStrokeType (strokeSize));
