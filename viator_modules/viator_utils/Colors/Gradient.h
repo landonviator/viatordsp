@@ -36,13 +36,14 @@ public:
     static inline void addRadialGradient (juce::Graphics& g,
                                           juce::Colour& gradientColor,
                                           juce::Rectangle<int>& rect,
-                                          RectShape shape)
+                                          RectShape shape,
+                                          double contrast)
     {
         juce::Point<float> center = rect.getCentre().toFloat();
-        juce::ColourGradient gradient(gradientColor,
+        juce::ColourGradient gradient(gradientColor.brighter(contrast),
                                       center.x,
                                       center.y,
-                                      gradientColor.darker(0.2),
+                                      gradientColor.darker(contrast),
                                       rect.getRight(),
                                       rect.getBottom(),
                                       true);
