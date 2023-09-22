@@ -47,6 +47,7 @@ private:
     viator_gui::CustomDialLabel _customSliderLabel;
     
     juce::Image _mainImage;
+    juce::Image _auxImage;
     int _numFrames = 0;
     int _frameWidth;
     int _frameHeight;

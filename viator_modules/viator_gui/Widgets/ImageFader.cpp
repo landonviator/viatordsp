@@ -28,7 +28,7 @@ void ImageFader::paint (juce::Graphics& g)
         g.setFont(12.0f);
         g.drawText("No image or num frames.", getLocalBounds(), juce::Justification::centred);
     }
-    
+
     // do the film strip
     else
     {
