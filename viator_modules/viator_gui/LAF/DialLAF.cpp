@@ -251,7 +251,7 @@ void CustomDialLabel::drawLabel (juce::Graphics& g, juce::Label& label)
                 
                 else
                 {
-                    value = static_cast<float>(static_cast<int>(slider->getValue() * 100.0)) / 100.0;
+                    value = static_cast<float>(static_cast<int>((slider->getValue() + 10.0 * isReversed) * 100.0)) / 100.0;
                 }
                 
                 juce::String suffix = slider->getTextValueSuffix();

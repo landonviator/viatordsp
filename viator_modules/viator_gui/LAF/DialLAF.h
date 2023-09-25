@@ -69,10 +69,13 @@ class CustomDialLabel : public juce::LookAndFeel_V4
         _dialValueType = newValueType;
     }
     
+    void setIsReversed(bool reverse){isReversed = reverse;};
+    
 private:
 
     float _sliderWidth;
     bool sliderIsDial = true;
+    bool isReversed = false;
     juce::String _sliderName = "";
     
     ValueType _dialValueType = ValueType::kFloat;

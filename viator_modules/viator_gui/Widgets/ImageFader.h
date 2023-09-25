@@ -45,6 +45,8 @@ public:
     void setViatorTooltip(const juce::String newTooltip) {_tooltip = newTooltip;};
     juce::String getViatorTooltip(){return _tooltip;};
     
+    void setIsReversed(bool reverse){_customSliderLabel.setIsReversed(reverse); repaint();};
+    
 private:
     
     viator_gui::CustomDialLabel _customSliderLabel;
