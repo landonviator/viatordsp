@@ -42,6 +42,9 @@ public:
     
     void setDialValueType(viator_gui::CustomDialLabel::ValueType newValueType);
     
+    void setViatorTooltip(const juce::String newTooltip) {_tooltip = newTooltip;};
+    juce::String getViatorTooltip(){return _tooltip;};
+    
 private:
     
     viator_gui::CustomDialLabel _customSliderLabel;
@@ -52,6 +55,8 @@ private:
     int _frameWidth;
     int _frameHeight;
     juce::Slider _fader;
+    
+    juce::String _tooltip {""};
     
 }; // class
 

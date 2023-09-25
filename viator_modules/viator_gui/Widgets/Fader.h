@@ -12,6 +12,11 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void setViatorTooltip(const juce::String newTooltip) {_tooltip = newTooltip;};
+    juce::String getViatorTooltip(){return _tooltip;};
+    
+    void setDialValueType(CustomFader::ValueType newValueType);
 
 private:
     
@@ -27,6 +32,7 @@ private:
     int frameWidth;
     int frameHeight;
     juce::Image _filmStrip;
+    juce::String _tooltip {""};
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fader)
 };

@@ -29,6 +29,12 @@ namespace viator_gui
         backgroundTrack.startNewSubPath (startPoint);
         backgroundTrack.lineTo (endPoint);
         g.setColour (slider.findColour (juce::Slider::backgroundColourId));
+        auto alpha = 0.5f;
+        auto clearGradient = juce::ColourGradient::vertical(juce::Colour(22, 191, 253).withAlpha(alpha),
+                                                            0,
+                                                            juce::Colour(188, 134, 252).withAlpha(alpha),
+                                                              slider.getHeight() * 0.5);
+        g.setFillType(clearGradient);
         g.strokePath (backgroundTrack, { trackWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
 
         juce::Path valueTrack;
@@ -42,7 +48,11 @@ namespace viator_gui
         
         valueTrack.startNewSubPath (minPoint);
         valueTrack.lineTo (isThreeVal ? thumbPoint : maxPoint);
-        g.setColour (slider.findColour (juce::Slider::trackColourId));
+        auto gradient = juce::ColourGradient::vertical(juce::Colour(22, 191, 253),
+                                                         0,
+                                                         juce::Colour(188, 134, 252),
+                                                         slider.getHeight() * 0.5);
+        g.setFillType(gradient);
         g.strokePath (valueTrack, { trackWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
 
         auto thumbWidth = width * 0.45f;
@@ -78,14 +88,49 @@ namespace viator_gui
         if (! label.isBeingEdited())
         {
             auto alpha = label.isEnabled() ? 1.0f : 0.5f;
-            const juce::Font font (juce::Font ("Helvetica", _sliderWidth * 0.1, juce::Font::FontStyleFlags::bold));
+            const juce::Font font (juce::Font ("Helvetica", _sliderWidth * 0.2, juce::Font::FontStyleFlags::bold));
 
             g.setColour (label.findColour (juce::Label::textColourId).withMultipliedAlpha (alpha));
             g.setFont (font);
 
             auto textArea = getLabelBorderSize (label).subtractedFrom (label.getLocalBounds());
+            
+            juce::String labelText;
+            if (auto* parentComponent = label.getParentComponent())
+            {
+                if (auto* slider = dynamic_cast<juce::Slider*>(parentComponent))
+                {
+                    // Check if the mouse is over the slider
+                    bool isMouseOver = slider->isMouseOver() || slider->isMouseButtonDown();
+                    
+                    // Get the slider value and suffix
+                    float value;
+                    
+                    if (_dialValueType == ValueType::kInt)
+                    {
+                        value = static_cast<int>(slider->getValue());
+                    }
+                    
+                    else
+                    {
+                        value = std::ceil(slider->getValue() * 100.0) / 100.0;
+                    }
+                    
+                    juce::String suffix = slider->getTextValueSuffix();
+                    
+                    // Determine the text to display based on the mouse over state
+                    if (isMouseOver)
+                    {
+                        labelText = juce::String(value) + suffix;
+                    }
+                    else
+                    {
+                        labelText = slider->getName();
+                    }
+                }
+            }
 
-            g.drawFittedText (label.getText(), textArea, label.getJustificationType(),
+            g.drawFittedText (labelText, textArea, label.getJustificationType(),
                               juce::jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())),
                               label.getMinimumHorizontalScale());
 

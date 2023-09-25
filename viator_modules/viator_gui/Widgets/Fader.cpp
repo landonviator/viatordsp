@@ -65,4 +65,11 @@ void Fader::resized()
 {
     juce::Slider::resized();
 }
+
+void Fader::setDialValueType(CustomFader::ValueType newValueType)
+{
+    _customFaderLAF.setDialValueType(newValueType);
+    repaint();
+}
+
 }
